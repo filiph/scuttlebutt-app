@@ -1,1 +1,4 @@
 *.pyc
+psw.txt
+deploy.sh
+
