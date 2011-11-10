@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
@@ -5,7 +8,7 @@ from google.appengine.ext.webapp import util
 class HelloWorldHandler(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('HelloWorld!!')
+    self.response.out.write(u'こんにちは、世界！')
 
 
 def main():
