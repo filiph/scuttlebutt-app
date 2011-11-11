@@ -1,6 +1,6 @@
 import sys
 import unittest
-
+from google_news_page import GoogleNewsPage
 class Test_Adder(unittest.TestCase):
 
   def test_add(self):
@@ -11,9 +11,23 @@ class Test_Adder(unittest.TestCase):
     actual_result = a.add(2, 3)
     self.assertEqual(expected_result, actual_result)
 
+class GetArticleNumber(unittest.TestCase):
+ 
+  def testScrapeArticleNumber(self):
+    file = open('../test_data/google_plus_test.html', 'r')
+    html = file.read()
+    page = GoogleNewsPage(html)
+    self.assertEqual(9120, page.articles)
+    
+  def testScrapeZeroResults(self):
+    file = open('../test_data/google_plus_zero_results_test.html', 'r')
+    html = file.read()
+    page = GoogleNewsPage(html)
+    self.assertEqual(0, page.articles)
 
-
-
+  def testScrapeInvalidFormat(self):
+    self.assertRaises(Exception, GoogleNewsPage, '')
+    
 """ When run without parameters like this:
       python tests.py
     all unit tests in this file are run.
