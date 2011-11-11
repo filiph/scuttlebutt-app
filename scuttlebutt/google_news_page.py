@@ -3,7 +3,7 @@ from BeautifulSoup import BeautifulSoup
 
 class GoogleNewsPage(object):
   def __init__(self, html):
-    self.articles = 0
+    self.article_count = 0
     soup = BeautifulSoup(html)
     element = soup.find(id="resultStats")
     if element: 
@@ -12,13 +12,13 @@ class GoogleNewsPage(object):
       if m:
         hits = m.group(1)
         hits = re.sub(',', '', hits)
-        self.articles = int(hits)
+        self.article_count = int(hits)
       else:
         raise Exception('Found "resultStats" but was not able to parse text!')
     else:
       m = re.search('did not match any documents', html)
       if m:
-        self.articles = 0
+        self.article_count = 0
       else:
         raise Exception('Was not able to parse page!')
 
