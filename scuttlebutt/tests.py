@@ -1,17 +1,9 @@
 import sys
 import unittest
 from google_news_page import GoogleNewsPage
-class Test_Adder(unittest.TestCase):
 
-  def test_add(self):
-    """ Tests that the Adder class adds correctly. """
-    from adder import Adder
-    a = Adder()
-    expected_result = 5
-    actual_result = a.add(2, 3)
-    self.assertEqual(expected_result, actual_result)
 
-class GetArticleNumber(unittest.TestCase):
+class GoogleNewsPageTests(unittest.TestCase):
  
   def testScrapeArticleNumber(self):
     file = open('../test_data/google_plus_test.html', 'r')
