@@ -123,12 +123,13 @@ class FetcherTests(pymock.PyMockTestCase):
     # Run test.
     self.replay()
     updater = NewsTopicStatsUpdater(page_getter=getter, today=JAN1)
-    updater.update()
+    topics_updated = updater.update()
     
     # Verify behavior.
     self.verify()
     
     # Verify data results.
+    self.assertEqual(2, topics_updated)
     self.assertEqual(2990, n1.getArticleCount(JAN1))
     self.assertEqual(9120, n2.getArticleCount(JAN1))
     

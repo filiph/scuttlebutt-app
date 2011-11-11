@@ -10,3 +10,7 @@ handlers:
 
 - url: /helloworld
   script: helloworld.py
+
+- url: /update_news_topics
+  script: update_news_topics_handler.py
+  login: admin
