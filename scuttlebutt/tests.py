@@ -34,16 +34,6 @@ def createDataModel():
   ''')
 
 
-
-class FetchPageTests(unittest.TestCase):
-  
-  def testSimpleFetch(self):
-    url = 'https://www.google.com/search?tbm=nws&tbs=qdr:h&q=google+plus'
-    html = urllib2.urlopen(url).read()
-    page = GoogleNewsPage(html)
-    self.assertTrue(page.article_count>0)
-
-
 class NewsTopicTests(unittest.TestCase):
 
   def setUp(self):
@@ -94,9 +84,9 @@ class PageGetterTests(unittest.TestCase):
   
   def testTopicGetsCorrectUrl(self):
     getter = PageGetter()
-    expected_url = 'https://www.google.com/search?tbm=nws&q=google+chrome'
+    exp_url = 'https://www.google.com/search?tbm=nws&tbs=qdr:h&q=google+chrome'
     url = getter.urlForTopic('google chrome')
-    self.assertEqual(expected_url, url)
+    self.assertEqual(exp_url, url)
 
   def testPageForTopic(self):
     getter = PageGetter()

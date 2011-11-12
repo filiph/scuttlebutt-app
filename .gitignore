@@ -1,4 +1,4 @@
 *.pyc
 psw.txt
 deploy.sh
-
+scuttlebutt.sublime*

@@ -16,7 +16,8 @@ class GoogleNewsPage(object):
         hits = re.sub(',', '', hits)
         self.article_count = int(hits)
       else:
-        raise Exception('Found "resultStats" but was not able to parse text!')
+        raise Exception('Found "resultStats" tag but was not able to parse the '
+                        'text in it: "%s"' % text)
     else:
       m = re.search('did not match any documents', html)
       if m:
