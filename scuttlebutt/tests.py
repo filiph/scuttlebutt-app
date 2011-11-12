@@ -7,6 +7,7 @@ import dbutil
 from google_news_page import GoogleNewsPage
 from news_topic import NewsTopic
 from news_topic_stats_updater import NewsTopicStatsUpdater
+from page_getter import PageGetter
 import settings
 
 settings.db='pymysql'
@@ -38,7 +39,7 @@ class FetchPageTests(unittest.TestCase):
   
   def testSimpleFetch(self):
     url = 'https://www.google.com/search?tbm=nws&q=google+plus'
-    html = urllib2.urlopen(url)
+    html = urllib2.urlopen(url).read()
     page = GoogleNewsPage(html)
     self.assertTrue(page.article_count>0)
 
@@ -88,6 +89,20 @@ class NewsTopicTests(unittest.TestCase):
     self.assertEqual(n2, topics[0])
     self.assertEqual(n1, topics[1])
 
+
+class PageGetterTests(unittest.TestCase):
+  
+  def testTopicGetsCorrectUrl(self):
+    getter = PageGetter()
+    expected_url = 'https://www.google.com/search?tbm=nws&q=google+chrome'
+    url = getter.urlForTopic('google chrome')
+    self.assertEqual(expected_url, url)
+
+  def testPageForTopic(self):
+    getter = PageGetter()
+    html = getter.getPage('google chrome')
+    page =  GoogleNewsPage(html)
+    self.assertTrue(page.article_count>0)
 
 class FetcherTests(pymock.PyMockTestCase):
 

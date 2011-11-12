@@ -1,12 +1,14 @@
+import datetime
 import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
-from import NewsTopicStatsUpdater
-
+from news_topic_stats_updater import NewsTopicStatsUpdater
+from page_getter import PageGetter
 
 class UpdateNewsTopicsHandler(webapp.RequestHandler):
   def get(self):
-    updater = NewsTopicStatsUpdater(page_getter=getter, today=JAN1)
+    updater = NewsTopicStatsUpdater(page_getter=PageGetter(), 
+                                    today=datetime.date.today())
     topics_updated = updater.update()
     logging.info('%d topics updated' % topics_updated)
     self.response.headers['Content-Type'] = 'text/plain;charset=utf-8'

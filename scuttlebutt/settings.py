@@ -1,7 +1,7 @@
 db='cloudsql'
 
-cloudsql_instance_name='googlecom:scuttlebutt'
-cloudsql_database_name='news_metrics'
+cloudsql_instance_name='google.com:devrelstats:scuttlebutt'
+cloudsql_database_name='scuttlebutt'
 
 pymysql_host='127.0.0.1'
 pymysql_port=3306

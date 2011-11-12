@@ -1,8 +1,10 @@
+import logging
 import re
 from BeautifulSoup import BeautifulSoup
 
 class GoogleNewsPage(object):
   def __init__(self, html):
+    logging.info(len(html))
     self.article_count = 0
     soup = BeautifulSoup(html)
     element = soup.find(id="resultStats")
