@@ -8,7 +8,7 @@ from page_getter import PageGetter
 class UpdateNewsTopicsHandler(webapp.RequestHandler):
   def get(self):
     updater = NewsTopicStatsUpdater(page_getter=PageGetter(), 
-                                    today=datetime.date.today())
+                                    now=datetime.datetime.now())
     topics_updated = updater.update()
     logging.info('%d topics updated' % topics_updated)
     self.response.headers['Content-Type'] = 'text/plain;charset=utf-8'

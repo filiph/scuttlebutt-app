@@ -58,37 +58,37 @@ class NewsTopic(object):
       data = (self.name, )
       self.id = dbutil.get_db().write(sql, data)
 
-  def getArticleCount(self, date):
+  def getArticleCount(self, datetime):
     sql = '''
       SELECT  article_count
       FROM    news_topic_stats
       WHERE   term_id=%s
-      AND     date=%s;
+      AND     datetime=%s;
     '''
-    data = (self.id, date)
+    data = (self.id, datetime)
     r = dbutil.get_db().read(sql, data)
     retval = None
     for row in r:
       retval = row[0]
     return retval
     
-  def saveArticleCount(self, count, date):
+  def saveArticleCount(self, count, datetime):
     if self.id is None:
       raise Exception('Call save() before saveArticleCount()')
-    if self.getArticleCount(date) is None:
+    if self.getArticleCount(datetime) is None:
       sql = '''
         INSERT INTO news_topic_stats
-                    (term_id, date, article_count)
+                    (term_id, datetime, article_count)
         VALUES      (%s, %s, %s);
       '''
-      data = (self.id, date, count)
+      data = (self.id, datetime, count)
       dbutil.get_db().write(sql, data)
     else:
       sql = '''
         UPDATE  news_topic_stats
         SET     article_count=%s
         WHERE   term_id=%s
-        AND     date=%s;
+        AND     datetime=%s;
       '''
-      data = (count, self.id, date)
+      data = (count, self.id, datetime)
       dbutil.get_db().write(sql, data)

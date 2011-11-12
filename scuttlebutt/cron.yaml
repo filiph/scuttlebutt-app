@@ -1,0 +1,6 @@
+cron:
+
+
+- description: Nightly topic update
+  url: /update_news_topics
+  schedule: every 1 hours

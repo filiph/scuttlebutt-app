@@ -5,7 +5,7 @@ import urllib2
 class PageGetter(object):
   
   def urlForTopic(self, topic):
-    url_template = 'https://www.google.com/search?tbm=nws&q=%s' 
+    url_template = 'https://www.google.com/search?tbm=nws&tbs=qdr:h&q=%s' 
     return url_template % urllib.quote_plus(topic)
     
   def getPage(self, topic):
