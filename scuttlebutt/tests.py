@@ -157,7 +157,7 @@ class GoogleNewsPageTests(unittest.TestCase):
     self.assertEqual(0, page.article_count)
 
   def testScrapeOneResult(self):
-    file = open('../test_data/one_result.html')
+    file = open('../test_data/google_plus_one_result.html')
     html = file.read()
     file.close()
     page = GoogleNewsPage(html)
