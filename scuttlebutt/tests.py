@@ -94,15 +94,16 @@ class PageGetterTests(unittest.TestCase):
     page =  GoogleNewsPage(html)
     self.assertTrue(page.article_count>0)
 
-class FetcherTests(pymock.PyMockTestCase):
+
+class NewsTopicStatsUpdaterTests(pymock.PyMockTestCase):
 
   def setUp(self):
-    super(FetcherTests, self).setUp()
+    super(NewsTopicStatsUpdaterTests, self).setUp()
     
   def tearDown(self):
-    super(FetcherTests, self).tearDown()
+    super(NewsTopicStatsUpdaterTests, self).tearDown()
     
-  def testInvokeFetches(self):
+  def testUpdate(self):
     createDataModel()
     NOW = datetime.datetime(2012,1,1,12,0)
     
@@ -154,6 +155,13 @@ class GoogleNewsPageTests(unittest.TestCase):
     file.close()
     page = GoogleNewsPage(html)
     self.assertEqual(0, page.article_count)
+
+  def testScrapeOneResult(self):
+    file = open('../test_data/one_result.html')
+    html = file.read()
+    file.close()
+    page = GoogleNewsPage(html)
+    self.assertEqual(1, page.article_count)
 
   def testScrapeInvalidFormat(self):
     self.assertRaises(Exception, GoogleNewsPage, '')

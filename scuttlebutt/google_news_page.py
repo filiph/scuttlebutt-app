@@ -10,7 +10,7 @@ class GoogleNewsPage(object):
     element = soup.find(id="resultStats")
     if element: 
       text = element.contents[0]
-      m = re.search('([\d\,]+) results', text)
+      m = re.search('([\d\,]+) results?', text)
       if m:
         hits = m.group(1)
         hits = re.sub(',', '', hits)
