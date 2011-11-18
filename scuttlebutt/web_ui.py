@@ -3,6 +3,8 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from news_topic import NewsTopic
 
+import logging
+
 simple_html_template = """
 <!doctype html>
 <html>
@@ -49,13 +51,9 @@ class AddTopic(webapp.RequestHandler):
 							'description' : "Oooh, a new topic? I wonder what it'll be about!",
 							'content' : content})
 	def post(self):
-		self.response.headers['Content-Type'] = 'text/plain'
-		self.response.out.write("Adding a new topic.\n")
 		new_name = self.request.get('topicName')
-		self.response.out.write("Topic name: %s\n" % new_name)
-		new_topic = NewsTopic(new_name)
+		new_topic = NewsTopic(name=new_name)
 		new_topic.save()
-		self.response.out.write("Success!!")
 		self.redirect("/admin/list_topics")
 
 class ListTopics(webapp.RequestHandler):

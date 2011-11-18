@@ -1,5 +1,5 @@
 import dbutil
-
+import logging
 
 class NewsTopic(object):
 
@@ -57,6 +57,7 @@ class NewsTopic(object):
       '''
       data = (self.name, )
       self.id = dbutil.get_db().write(sql, data)
+      logging.info("Created a new record in news_topic: '%s'." % self.name)
 
   def getArticleCount(self, datetime):
     sql = '''
