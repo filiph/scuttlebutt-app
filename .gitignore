@@ -1,4 +1,5 @@
 *.pyc
 psw.txt
 deploy.sh
+fdeploy.sh
 scuttlebutt.sublime*
