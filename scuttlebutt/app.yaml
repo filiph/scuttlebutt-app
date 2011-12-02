@@ -18,3 +18,11 @@ handlers:
 - url: /update_news_topics
   script: update_news_topics_handler.py
   login: admin
+  
+- url: /dispatch
+  script: task_handler.py
+  login: admin
+  
+- url: /download
+  script: task_handler.py
+  login: admin
