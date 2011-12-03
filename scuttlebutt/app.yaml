@@ -7,17 +7,6 @@ handlers:
 - url: /favicon\.ico
   static_files: static/favicon.ico
   upload: static/favicon\.ico
-
-- url: /admin/.*
-  script: web_ui.py
-  login: admin
-
-- url: /helloworld
-  script: helloworld.py
-
-- url: /update_news_topics
-  script: update_news_topics_handler.py
-  login: admin
   
 - url: /dispatch
   script: task_handler.py
@@ -26,3 +15,10 @@ handlers:
 - url: /download
   script: task_handler.py
   login: admin
+  
+- url: /report
+  script: report_handler.py
+
+- url: /create_feed
+  script: report_handler.py
+  

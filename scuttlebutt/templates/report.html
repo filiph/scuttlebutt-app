@@ -1,0 +1,36 @@
+<html>
+  <body>
+    <table border=1>  
+      <tr>
+        <td>Title</td>
+        <td>Summary</td>
+        <td>Date</td>       
+        <td>Feeds</td>        
+        <td>Topics</td>                
+      </tr>
+        {% for article in articles %}
+        <tr>
+          <td>
+          {{ article.title }}
+          </td>
+          <td>
+          {{ article.summary }}
+          </td>
+          <td>
+          {{ article.updated }}
+          </td>
+          <td>
+            {% for feed in article.feeds %}
+              {{ feed.name }}
+            {% endfor %}
+          </td>
+          <td>
+            {% for topic in article.topics %}
+              {{ topic.name }}
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+  </body>
+</html>

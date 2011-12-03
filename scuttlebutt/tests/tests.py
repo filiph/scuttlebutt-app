@@ -70,12 +70,35 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertFalse(t2.key() in articles[0].topics)
     self.assertTrue(f1.key() in articles[0].feeds)
     self.assertEqual(datetime.datetime(2011,12,1,14,6,7), articles[0].updated)
+    self.assertEqual('http://www.reuters.com/article/2011/12/01/us-germany-christawolf-idUSTRE7B00YS20111201?feedType=RSS&feedName=artsNews', articles[0].url)
     # Examine second article.
     self.assertEqual('Banana tycoon shakes up Russian ballet', articles[1].title)
     self.assertTrue(t2.key() in articles[1].topics)
     self.assertFalse(t1.key() in articles[1].topics)
     self.assertTrue(f1.key() in articles[1].feeds)
     self.assertEqual(datetime.datetime(2011,12,1,16,9,57), articles[1].updated)
+    self.assertEqual('http://www.reuters.com/article/2011/12/01/us-russia-mikhailovsky-interview-idUSTRE7B01OX20111201?feedType=RSS&feedName=artsNews', articles[1].url)
+
+
+  def testDownloadTwice(self):
+    f1 = Feed()
+    f1.name = 'Reuters'
+    f1.url = '../test_data/reuters_test_rss.xml'
+    f1.put()  
+    
+    t1 = Topic()
+    t1.name = 'christa Wolf'
+    t1.put()
+
+    t2 = Topic()
+    t2.name = 'Banana tycoon'
+    t2.put()
+    
+    s = RssService()
+    s.download(f1.key())
+    s.download(f1.key())
+    articles = Article.all().order('-title').fetch(limit=1000)
+    self.assertEqual(2, len(articles))
     
   
 # Handler

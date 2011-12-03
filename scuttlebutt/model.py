@@ -11,7 +11,7 @@ class Topic(db.Model):
   
   
 class Article(db.Model):
-  id = db.StringProperty()
+  url = db.StringProperty()
   title = db.StringProperty()
   summary = db.TextProperty()
   updated = db.DateTimeProperty()

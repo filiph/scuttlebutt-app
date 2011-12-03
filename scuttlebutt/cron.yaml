@@ -1,6 +1,6 @@
 cron:
 
 
-- description: Nightly topic update
-  url: /update_news_topics
+- description: Nightly feed fetch
+  url: /dispatch
   schedule: every 1 hours

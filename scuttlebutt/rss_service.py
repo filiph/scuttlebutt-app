@@ -24,7 +24,13 @@ class RssService(object):
       for entry in feed_content['entries']:
         if self._match(entry['title'], topic.name) or \
            self._match(entry['summary'], topic.name):
-          a = Article()
+          a = None
+          articles = Article.all().filter('url = ', entry['id']).fetch(1)
+          if articles:
+            a = articles[0]
+          else:
+            a = Article()
+          a.url = entry['id']
           a.feeds.append(feed.key())
           a.topics.append(topic.key())
           a.title = entry['title']
