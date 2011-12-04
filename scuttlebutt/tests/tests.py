@@ -1,10 +1,7 @@
-import sys
 import datetime
-import pprint
-import unittest
-import urllib2
 import pymock
 import feedparser
+from google.appengine.api import urlfetch
 from google.appengine.ext import db
 from google.appengine.ext import testbed
 from model import *
@@ -20,19 +17,28 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.testbed = testbed.Testbed()
     self.testbed.activate()
     self.testbed.init_datastore_v3_stub()
+    self.testbed.init_urlfetch_stub()
     
   def tearDown(self):
     super(RssServiceTests, self).tearDown()
     self.testbed.deactivate()
 
+  def testInvalidFeedUrlRaisesException(self):
+    f1 = Feed()
+    f1.name = 'Reuters'
+    f1.url = 'some_bad_url'
+    f1.put()
+    s = RssService()
+    self.assertRaises(Exception, s.download, f1.key())
+
   def testDispatch(self):
     f1 = Feed()
     f1.name = 'Reuters'
-    f1.url = db.Link('http://reuters.com/rss.xml')
+    f1.url = 'http://reuters.com/rss.xml'
     f1.put()
     f2 = Feed()
     f2.name = 'USA Today'
-    f2.url = db.Link('http://usatoday.com/rss.xml')
+    f2.url = 'http://usatoday.com/rss.xml'
     f2.put()
     taskqueue = self.mock()
     # Set expectations.
@@ -44,7 +50,6 @@ class RssServiceTests(pymock.PyMockTestCase):
     s.dispatch()
     # Validate.
     self.verify()
-    pass
 
   def testDownload(self):
     f1 = Feed()
@@ -59,7 +64,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2 = Topic()
     t2.name = 'Banana tycoon'
     t2.put()
-    
+
     s = RssService()
     s.download(f1.key())
     articles = Article.all().order('-title').fetch(limit=1000)
@@ -99,17 +104,4 @@ class RssServiceTests(pymock.PyMockTestCase):
     s.download(f1.key())
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
-    
-  
-# Handler
-#get(self):
-#  s = RssService(TaskQueueWrapper())
-#  s.dispatch()
 
-
-#class TaskQueueWrapper():
-#
-#  def download(self, feed_url):
-#    url = '/download?feed=%s' % urllib.quote(feed_url)
-#    taskqueue.add(url)
-  
