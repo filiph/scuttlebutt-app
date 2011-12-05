@@ -29,8 +29,8 @@ class RssService(object):
         fetched_feed = urlfetch.fetch(feed.url)
         if fetched_feed.status_code is 200:
           feed_content = feedparser.parse(StringIO(fetched_feed.content))
+          logging.info("Feed content %s" % feed_content['entries'])
         else:
-          msg = 'Could not fetch feed with name %s and url: %s' % (feed.name,                                                     feed.url)
           logging.info('Could not fetch feed with name %s and url: %s'
               % (feed.name, feed.url))
       except Exception:
@@ -44,6 +44,7 @@ class RssService(object):
     #pp.pprint(feed_content)
     for topic in Topic.all():
       for entry in feed_content['entries']:
+        logging.info('got entries')
         if (self._match(entry['title'], topic.name) or
             self._match(entry['summary'], topic.name)):
           a = None
@@ -53,8 +54,12 @@ class RssService(object):
           else:
             a = Article()
           a.url = entry['id']
-          a.feeds.append(feed.key())
-          a.topics.append(topic.key())
+          logging.info('have article %s', a)
+          if feed.key() not in a.feeds:
+            logging.info('adding feed')
+            a.feeds.append(feed.key())
+          if topic.key() not in a.topics:
+            a.topics.append(topic.key())
           a.title = entry['title']
           a.summary = entry['summary']
           a.updated = datetime.fromtimestamp(mktime(entry['updated_parsed']))
