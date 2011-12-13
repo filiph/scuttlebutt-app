@@ -51,12 +51,20 @@ class CreateFeedHandler(webapp.RequestHandler):
     t2.put()
 
 
+class DeleteArticlesHandler(webapp.RequestHandler):
+  def get(self):
+    articles = Article.all()
+    for article in articles:
+      article.delete()
+      
+
 def main():
   application = webapp.WSGIApplication([
-    ('/report', ReportHandler),
-    ('/create_feed', CreateFeedHandler),
-    ('/get_articles', GetArticlesHandler),
-    ('/get_topics', GetTopicsHandler)
+    ('/report/report', ReportHandler),
+    ('/report/create_feed', CreateFeedHandler),
+    ('/report/get_articles', GetArticlesHandler),
+    ('/report/get_topics', GetTopicsHandler),
+    ('/report/delete_articles', DeleteArticlesHandler)
   ], debug=True)
   util.run_wsgi_app(application)
 

@@ -16,14 +16,5 @@ handlers:
   script: task_handler.py
   login: admin
   
-- url: /report
-  script: report_handler.py
-
-- url: /create_feed
-  script: report_handler.py
-
-- url: /get_topics
-  script: report_handler.py
-
-- url: /get_articles
+- url: /report/.*
   script: report_handler.py
