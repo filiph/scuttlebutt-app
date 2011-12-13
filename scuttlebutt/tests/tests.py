@@ -1,4 +1,5 @@
 import datetime
+import unittest
 import pymock
 import feedparser
 from google.appengine.api import urlfetch
@@ -6,6 +7,8 @@ from google.appengine.ext import db
 from google.appengine.ext import testbed
 from model import *
 from rss_service import RssService
+from scuttlebutt_service import ScuttlebuttService
+#from scuttlebutt.model import Article, Topic, Feed
 
 
 class RssServiceTests(pymock.PyMockTestCase):
@@ -111,3 +114,108 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertEqual(1, len(articles[0].feeds))
     self.assertEqual(1, len(articles[1].feeds))
 
+  def testTurnTopicToJson(self):
+    topic = Topic()
+    topic.name = "Chrome"
+    topic.put()
+    self.assertEquals({'name': 'Chrome', 'id': 1}, topic.toDict())
+
+
+class ScuttlebuttServiceTests(unittest.TestCase):
+
+  def setUp(self):
+    # Create test bed and service stubs.
+    self.testbed = testbed.Testbed()
+    self.testbed.activate()
+    self.testbed.init_datastore_v3_stub()
+    self.testbed.init_urlfetch_stub()
+
+  def tearDown(self):
+    self.testbed.deactivate()
+
+  def testGetArticles(self):
+    JAN1 = datetime.datetime(2012, 1, 1)
+    JAN15 = datetime.datetime(2012, 1, 15)
+    JAN31 = datetime.datetime(2012, 1, 31)
+    t = Topic()
+    t.name = 'News'
+    t.put()
+    f = Feed()
+    f.name = 'Reuters'
+    f.url = 'http://reuters.com'
+    f.put()
+    a1 = Article()
+    a1.url = 'http://reuters.com/5'
+    a1.title = 'News!'
+    a1.summary = 'Something happened'
+    a1.updated = JAN15
+    a1.topics.append(t.key())
+    a1.feeds.append(f.key())
+    a1.put()
+    s = ScuttlebuttService()
+    expected_json = ('[{"url": "http://reuters.com/5", '
+                     '"updated": "2012-01-15T00:00:00", '
+                     '"summary": "Something happened", '
+                     '"id": 3, "title": "News!"}]')
+    actual_json = s.get_articles(
+        topic_id = t.key().id(),
+        min_date = JAN1,
+        max_date = JAN31
+    )
+    self.assertEqual(expected_json, actual_json)
+
+  def testMultipleArticles(self):
+    JAN1 = datetime.datetime(2012, 1, 1)
+    JAN15 = datetime.datetime(2012, 1, 15)
+    JAN31 = datetime.datetime(2012, 1, 31)
+    FEB1 = datetime.datetime(2012, 2, 1)
+    t = Topic()
+    t.name = 'News'
+    t.put()
+    f = Feed()
+    f.name = 'Reuters'
+    f.url = 'http://reuters.com'
+    f.put()
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN15
+    a1.topics.append(t.key())
+    a1.feeds.append(f.key())
+    a1.put()
+    a2 = Article()
+    a2.url = 'http://reuters.com/2'
+    a2.title = 'News 2!'
+    a2.summary = 'Something happened 2'
+    a2.updated = FEB1
+    a2.topics.append(t.key())
+    a2.feeds.append(f.key())
+    a2.put()
+    s = ScuttlebuttService()
+    # Specify start and end dates, get one article.
+    expected_json = ('[{"url": "http://reuters.com/1", '
+                     '"updated": "2012-01-15T00:00:00", '
+                     '"summary": "Something happened 1", '
+                     '"id": 3, "title": "News 1!"}]')
+    actual_json = s.get_articles(
+        topic_id = t.key().id(),
+        min_date = JAN1,
+        max_date = JAN31
+    )
+    self.assertEqual(expected_json, actual_json)
+    # Specify no dates, get all articles.
+    expected_json = (
+        '[{"url": "http://reuters.com/1", '
+        '"updated": "2012-01-15T00:00:00", '
+        '"summary": "Something happened 1", '
+        '"id": 3, "title": "News 1!"}, '
+        '{"url": "http://reuters.com/2", '
+        '"updated": "2012-02-01T00:00:00", '
+        '"summary": "Something happened 2", '
+        '"id": 4, "title": "News 2!"}]'
+    )
+    actual_json = s.get_articles(
+        topic_id = t.key().id()
+    )
+    self.assertEqual(expected_json, actual_json)

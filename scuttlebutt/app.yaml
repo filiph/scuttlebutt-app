@@ -21,4 +21,9 @@ handlers:
 
 - url: /create_feed
   script: report_handler.py
-  
+
+- url: /get_topics
+  script: report_handler.py
+
+- url: /get_articles
+  script: report_handler.py

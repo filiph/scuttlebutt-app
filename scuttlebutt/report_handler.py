@@ -1,11 +1,35 @@
-import logging
 import os
+import simplejson
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from model import *
+from scuttlebutt_service import ScuttlebuttService
 
 
+class GetTopicsHandler(webapp.RequestHandler):
+  def get(self):
+    topics = Topic.all().order('name')
+    topic_list = []
+    for topic in topics:
+      topic_list.append(topic.toDict())
+    json = simplejson.dumps(topic_list)
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(json)
+
+
+class GetArticlesHandler(webapp.RequestHandler):
+  def get(self):
+    s = ScuttlebuttService()
+    json = s.get_articles(
+      topic_id = int(self.request.get('topic_id')),
+      min_date = self.request.get('min_date'),
+      max_date = self.request.get('max_date')
+    )
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(json)
+
+    
 class ReportHandler(webapp.RequestHandler):
   def get(self):
     articles = Article.all().order('-updated')
@@ -30,7 +54,9 @@ class CreateFeedHandler(webapp.RequestHandler):
 def main():
   application = webapp.WSGIApplication([
     ('/report', ReportHandler),
-    ('/create_feed', CreateFeedHandler)
+    ('/create_feed', CreateFeedHandler),
+    ('/get_articles', GetArticlesHandler),
+    ('/get_topics', GetTopicsHandler)
   ], debug=True)
   util.run_wsgi_app(application)
 

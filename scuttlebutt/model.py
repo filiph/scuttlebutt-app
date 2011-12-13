@@ -8,7 +8,12 @@ class Feed(db.Model):
   
 class Topic(db.Model):
   name = db.StringProperty()
-  
+
+  def toDict(self):
+    d = {}
+    d['name'] = self.name
+    d['id'] = int(self.key().id())
+    return d
   
 class Article(db.Model):
   url = db.StringProperty()
@@ -18,3 +23,11 @@ class Article(db.Model):
   topics = db.ListProperty(db.Key)
   feeds = db.ListProperty(db.Key)
 
+  def toDict(self):
+    d = {}
+    d['url'] = self.url
+    d['title'] = self.title
+    d['summary'] = self.summary
+    d['updated'] = self.updated.isoformat()
+    d['id'] = int(self.key().id())
+    return d
