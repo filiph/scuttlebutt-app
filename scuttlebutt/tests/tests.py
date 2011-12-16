@@ -131,6 +131,16 @@ class RssServiceTests(pymock.PyMockTestCase):
 class ModelTests(unittest.TestCase):
   """Tests for model class methods."""
 
+  def setUp(self):
+    """Set up for App Engine service stubs."""
+    self.testbed = testbed.Testbed()
+    self.testbed.activate()
+    self.testbed.init_datastore_v3_stub()
+
+  def tearDown(self):
+    """Clean up testbed."""
+    self.testbed.deactivate()
+
   def testTurnTopicToJson(self):
     """Test that a topic can return its dict representation."""
     topic = Topic()
@@ -147,7 +157,6 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     self.testbed = testbed.Testbed()
     self.testbed.activate()
     self.testbed.init_datastore_v3_stub()
-    self.testbed.init_urlfetch_stub()
 
   def tearDown(self):
     """clean up test bed."""
