@@ -1,5 +1,10 @@
-import logging
-import urllib
+# Copyright 2011 Google Inc. All Rights Reserved.
+
+"""Defines handlers for dispatching download tasks and downloading feed."""
+
+__author__ = ('momander@google.com (Martin Omander)',
+              'shamjeff@google.com (Jeff Sham)')
+
 from google.appengine.api import taskqueue
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util

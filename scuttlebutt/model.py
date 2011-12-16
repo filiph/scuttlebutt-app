@@ -1,21 +1,35 @@
+# Copyright 2011 Google Inc. All Rights Reserved.
+
+"""Define classes for model objects in the Scuttlebutt application.
+"""
+
+__author__ = ('momander@google.com (Martin Omander)',
+              'shamjeff@google.com (Jeff Sham)')
+
 from google.appengine.ext import db
 
 
 class Feed(db.Model):
+  """Represents an RSS Feed."""
   name = db.StringProperty()
   url = db.StringProperty()
-  
-  
+
+
 class Topic(db.Model):
+  """Represents a topic of interest.
+  This can be the name of product that the application should pay attention
+  (i.e. Google Chrome)."""
   name = db.StringProperty()
 
   def toDict(self):
+    """Returns a dictionary representation of the object."""
     d = {}
     d['name'] = self.name
     d['id'] = int(self.key().id())
     return d
-  
+
 class Article(db.Model):
+  """Represents an article extracted from a feed."""
   url = db.StringProperty()
   title = db.StringProperty()
   summary = db.TextProperty()
@@ -23,7 +37,8 @@ class Article(db.Model):
   topics = db.ListProperty(db.Key)
   feeds = db.ListProperty(db.Key)
 
-  def toDict(self):
+  def ToDict(self):
+    """Returns a dictionary representation of the object."""
     d = {}
     d['url'] = self.url
     d['title'] = self.title

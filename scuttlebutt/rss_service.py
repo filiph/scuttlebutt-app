@@ -1,5 +1,15 @@
+# Copyright 2011 Google Inc. All Rights Reserved.
+
+"""Defines the RssService class used to fetch feeds.
+
+  Use the dispatch method to queue up a set of download tasks.
+  Use the download method to fetch and store articles from a feed.
+"""
+
+__author__ = ('momander@google.com (Martin Omander)',
+              'shamjeff@google.com (Jeff Sham)')
+
 from datetime import datetime
-import pprint
 import feedparser
 import logging
 import string
@@ -14,13 +24,19 @@ class RssService(object):
   """This class does download and dispatch of tasks for feed fetching."""
 
   def __init__(self, taskqueue=None):
+    """Initialize the service."""
     self.taskqueue = taskqueue
   
   def dispatch(self):
+    """Creates a download task for each feed in the datastore."""
     for feed in Feed.all():
       self.taskqueue.download(feed.key())
     
   def download(self, feed_id):
+    """Creates a download task for each feed in the datastore.
+    Args:
+      feed_id: str The key for the feed to fetch.
+    """
     feed = db.get(feed_id)
     feed_content = feedparser.parse(feed.url)
     # Fetch with urlfetch on App Engine and feed it through to feedparser.
@@ -40,11 +56,8 @@ class RssService(object):
         raise Exception(msg)
       
     # Create relationship with Feed.
-    pp = pprint.PrettyPrinter()
-    #pp.pprint(feed_content)
     for topic in Topic.all():
       for entry in feed_content['entries']:
-        logging.info('got entries')
         if (self._match(entry['title'], topic.name) or
             self._match(entry['summary'], topic.name)):
           a = None
@@ -54,9 +67,7 @@ class RssService(object):
           else:
             a = Article()
           a.url = entry['id']
-          logging.info('have article %s', a)
           if feed.key() not in a.feeds:
-            logging.info('adding feed')
             a.feeds.append(feed.key())
           if topic.key() not in a.topics:
             a.topics.append(topic.key())
@@ -64,6 +75,14 @@ class RssService(object):
           a.summary = entry['summary']
           a.updated = datetime.fromtimestamp(mktime(entry['updated_parsed']))
           a.put()
+          logging.info('Saved article with title %s.', a.title)
 
   def _match(self, text, search_term):
+    """Looks for match of search_term in text.
+    Args:
+      text str The text to find match in.
+      search_term str The string to match.
+    Returns:
+      True if a match is found.
+    """
     return (string.find(text.upper(), search_term.upper()) > -1)

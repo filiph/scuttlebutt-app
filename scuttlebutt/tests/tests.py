@@ -1,3 +1,10 @@
+# Copyright 2011 Google Inc. All Rights Reserved.
+
+"""Tests for the service classes."""
+
+__author__ = ('momander@google.com (Martin Omander)',
+              'shamjeff@google.com (Jeff Sham)')
+
 import datetime
 import unittest
 import pymock
@@ -8,25 +15,28 @@ from google.appengine.ext import testbed
 from model import *
 from rss_service import RssService
 from scuttlebutt_service import ScuttlebuttService
-#from scuttlebutt.model import Article, Topic, Feed
 
 
 class RssServiceTests(pymock.PyMockTestCase):
+  """Tests for RssService."""
 
   def setUp(self):
+    """Set up for App Engine service stubs and PyMock."""
     super(RssServiceTests, self).setUp()
-    
+
     # Create test bed and service stubs.
     self.testbed = testbed.Testbed()
     self.testbed.activate()
     self.testbed.init_datastore_v3_stub()
     self.testbed.init_urlfetch_stub()
-    
+
   def tearDown(self):
+    """Clean up testbed and pymock."""
     super(RssServiceTests, self).tearDown()
     self.testbed.deactivate()
 
   def testInvalidFeedUrlRaisesException(self):
+    """Test that the service raises an exception with an invalid feed URL."""
     f1 = Feed()
     f1.name = 'Reuters'
     f1.url = 'some_bad_url'
@@ -35,6 +45,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertRaises(Exception, s.download, f1.key())
 
   def testDispatch(self):
+    """Test that RssService dispatches tasks."""
     f1 = Feed()
     f1.name = 'Reuters'
     f1.url = 'http://reuters.com/rss.xml'
@@ -55,11 +66,12 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.verify()
 
   def testDownload(self):
+    """Test a feed download."""
     f1 = Feed()
     f1.name = 'Reuters'
     f1.url = '../test_data/reuters_test_rss.xml'
-    f1.put()  
-    
+    f1.put()
+
     t1 = Topic()
     t1.name = 'christa Wolf'
     t1.put()
@@ -82,7 +94,8 @@ class RssServiceTests(pymock.PyMockTestCase):
                       'us-germany-christawolf-idUSTRE7B00YS20111201?'
                       'feedType=RSS&feedName=artsNews'), articles[0].url)
     # Examine second article.
-    self.assertEqual('Banana tycoon shakes up Russian ballet', articles[1].title)
+    self.assertEqual('Banana tycoon shakes up Russian ballet',
+                     articles[1].title)
     self.assertTrue(t2.key() in articles[1].topics)
     self.assertFalse(t1.key() in articles[1].topics)
     self.assertTrue(f1.key() in articles[1].feeds)
@@ -91,13 +104,13 @@ class RssServiceTests(pymock.PyMockTestCase):
                       'us-russia-mikhailovsky-interview-idUSTRE7B01OX20111201?'
                       'feedType=RSS&feedName=artsNews'), articles[1].url)
 
-
   def testDownloadTwice(self):
+    """Test calling download twice does not create duplicate articles."""
     f1 = Feed()
     f1.name = 'Reuters'
     f1.url = '../test_data/reuters_test_rss.xml'
-    f1.put()  
-    
+    f1.put()
+
     t1 = Topic()
     t1.name = 'christa Wolf'
     t1.put()
@@ -105,7 +118,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2 = Topic()
     t2.name = 'Banana tycoon'
     t2.put()
-    
+
     s = RssService()
     s.download(f1.key())
     s.download(f1.key())
@@ -114,26 +127,34 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertEqual(1, len(articles[0].feeds))
     self.assertEqual(1, len(articles[1].feeds))
 
+
+class ModelTests(unittest.TestCase):
+  """Tests for model class methods."""
+
   def testTurnTopicToJson(self):
+    """Test that a topic can return its dict representation."""
     topic = Topic()
     topic.name = "Chrome"
     topic.put()
-    self.assertEquals({'name': 'Chrome', 'id': 1}, topic.toDict())
+    self.assertEquals({'name': 'Chrome', 'id': 1}, topic.ToDict())
 
 
 class ScuttlebuttServiceTests(unittest.TestCase):
+  """Test methods for ScuttlebuttService."""
 
   def setUp(self):
-    # Create test bed and service stubs.
+    """Initialize test bed and service stubs."""
     self.testbed = testbed.Testbed()
     self.testbed.activate()
     self.testbed.init_datastore_v3_stub()
     self.testbed.init_urlfetch_stub()
 
   def tearDown(self):
+    """clean up test bed."""
     self.testbed.deactivate()
 
   def testGetArticles(self):
+    """Test that the service returns a list of articles in JSON."""
     JAN1 = datetime.datetime(2012, 1, 1)
     JAN15 = datetime.datetime(2012, 1, 15)
     JAN31 = datetime.datetime(2012, 1, 31)
@@ -165,6 +186,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     self.assertEqual(expected_json, actual_json)
 
   def testMultipleArticles(self):
+    """Test that the service returns articles within date range."""
     JAN1 = datetime.datetime(2012, 1, 1)
     JAN15 = datetime.datetime(2012, 1, 15)
     JAN31 = datetime.datetime(2012, 1, 31)
