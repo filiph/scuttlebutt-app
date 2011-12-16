@@ -26,13 +26,13 @@ class RssService(object):
   def __init__(self, taskqueue=None):
     """Initialize the service."""
     self.taskqueue = taskqueue
-  
-  def dispatch(self):
+
+  def Dispatch(self):
     """Creates a download task for each feed in the datastore."""
     for feed in Feed.all():
-      self.taskqueue.download(feed.key())
-    
-  def download(self, feed_id):
+      self.taskqueue.Download(feed.key())
+
+  def Download(self, feed_id):
     """Creates a download task for each feed in the datastore.
     Args:
       feed_id: str The key for the feed to fetch.
@@ -54,12 +54,12 @@ class RssService(object):
                                                                 feed.url)
         logging.info(msg)
         raise Exception(msg)
-      
+
     # Create relationship with Feed.
     for topic in Topic.all():
       for entry in feed_content['entries']:
-        if (self._match(entry['title'], topic.name) or
-            self._match(entry['summary'], topic.name)):
+        if (self._Match(entry['title'], topic.name) or
+            self._Match(entry['summary'], topic.name)):
           a = None
           articles = Article.all().filter('url = ', entry['id']).fetch(1)
           if articles:
@@ -77,7 +77,7 @@ class RssService(object):
           a.put()
           logging.info('Saved article with title %s.', a.title)
 
-  def _match(self, text, search_term):
+  def _Match(self, text, search_term):
     """Looks for match of search_term in text.
     Args:
       text str The text to find match in.

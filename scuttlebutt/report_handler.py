@@ -39,7 +39,7 @@ class GetArticlesHandler(webapp.RequestHandler):
        date range if left out.
     """
     s = ScuttlebuttService()
-    json = s.get_articles(
+    json = s.GetArticles(
       topic_id = int(self.request.get('topic_id')),
       min_date = self.request.get('min_date'),
       max_date = self.request.get('max_date')

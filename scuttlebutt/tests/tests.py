@@ -42,7 +42,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     f1.url = 'some_bad_url'
     f1.put()
     s = RssService()
-    self.assertRaises(Exception, s.download, f1.key())
+    self.assertRaises(Exception, s.Download, f1.key())
 
   def testDispatch(self):
     """Test that RssService dispatches tasks."""
@@ -56,12 +56,12 @@ class RssServiceTests(pymock.PyMockTestCase):
     f2.put()
     taskqueue = self.mock()
     # Set expectations.
-    taskqueue.download(f1.key())
-    taskqueue.download(f2.key())
+    taskqueue.Download(f1.key())
+    taskqueue.Download(f2.key())
     # Run test.
     self.replay()
     s = RssService(taskqueue)
-    s.dispatch()
+    s.Dispatch()
     # Validate.
     self.verify()
 
@@ -81,7 +81,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2.put()
 
     s = RssService()
-    s.download(f1.key())
+    s.Download(f1.key())
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
     # Examine first article.
@@ -120,8 +120,8 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2.put()
 
     s = RssService()
-    s.download(f1.key())
-    s.download(f1.key())
+    s.Download(f1.key())
+    s.Download(f1.key())
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
     self.assertEqual(1, len(articles[0].feeds))
@@ -178,7 +178,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
                      '"updated": "2012-01-15T00:00:00", '
                      '"summary": "Something happened", '
                      '"id": 3, "title": "News!"}]')
-    actual_json = s.get_articles(
+    actual_json = s.GetArticles(
         topic_id = t.key().id(),
         min_date = JAN1,
         max_date = JAN31
@@ -220,7 +220,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
                      '"updated": "2012-01-15T00:00:00", '
                      '"summary": "Something happened 1", '
                      '"id": 3, "title": "News 1!"}]')
-    actual_json = s.get_articles(
+    actual_json = s.GetArticles(
         topic_id = t.key().id(),
         min_date = JAN1,
         max_date = JAN31
@@ -237,7 +237,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         '"summary": "Something happened 2", '
         '"id": 4, "title": "News 2!"}]'
     )
-    actual_json = s.get_articles(
+    actual_json = s.GetArticles(
         topic_id = t.key().id()
     )
     self.assertEqual(expected_json, actual_json)

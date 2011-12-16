@@ -13,7 +13,7 @@ from model import *
 class ScuttlebuttService(object):
   """Class that contains the service layer methods in the application."""
 
-  def get_articles(self, topic_id, min_date=None, max_date=None):
+  def GetArticles(self, topic_id, min_date=None, max_date=None):
     """Get a list of articles in JSON representation matching the topic.
 
     Articles returned from this method contains the given topic and has an
