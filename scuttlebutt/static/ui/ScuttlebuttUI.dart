@@ -28,7 +28,7 @@ class ScuttlebuttUI {
       this.addRow(["<strong>Name</strong>"]);
       List<Map<String,Object>> results = JSON.parse(request.responseText);
       results.forEach((result) {
-        String linkedName = "<a href='/report/get_articles?topic_id=${result['id']}'>${result['name']}</a>";
+        String linkedName = "${result['name']}";
         Element tr = this.addRow([linkedName]);
         tr.on.click.add((event) {
           this.listArticles(result['id']);
