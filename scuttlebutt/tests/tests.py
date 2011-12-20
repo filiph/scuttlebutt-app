@@ -7,13 +7,13 @@ __author__ = ('momander@google.com (Martin Omander)',
 
 import datetime
 import unittest
-import pymock
 import feedparser
-from google.appengine.api import urlfetch
-from google.appengine.ext import db
 from google.appengine.ext import testbed
-from model import *
+from model import Article
+from model import Feed
+from model import Topic
 from rss_service import RssService
+import pymock
 from scuttlebutt_service import ScuttlebuttService
 
 
@@ -144,7 +144,7 @@ class ModelTests(unittest.TestCase):
   def testTurnTopicToJson(self):
     """Test that a topic can return its dict representation."""
     topic = Topic()
-    topic.name = "Chrome"
+    topic.name = 'Chrome'
     topic.put()
     self.assertEquals({'name': 'Chrome', 'id': 1}, topic.ToDict())
 
@@ -188,9 +188,9 @@ class ScuttlebuttServiceTests(unittest.TestCase):
                      '"summary": "Something happened", '
                      '"id": 3, "title": "News!"}]')
     actual_json = s.GetArticles(
-        topic_id = t.key().id(),
-        min_date = JAN1,
-        max_date = JAN31
+        topic_id=t.key().id(),
+        min_date=JAN1,
+        max_date=JAN31
     )
     self.assertEqual(expected_json, actual_json)
 
@@ -230,9 +230,9 @@ class ScuttlebuttServiceTests(unittest.TestCase):
                      '"summary": "Something happened 1", '
                      '"id": 3, "title": "News 1!"}]')
     actual_json = s.GetArticles(
-        topic_id = t.key().id(),
-        min_date = JAN1,
-        max_date = JAN31
+        topic_id=t.key().id(),
+        min_date=JAN1,
+        max_date=JAN31
     )
     self.assertEqual(expected_json, actual_json)
     # Specify no dates, get all articles.
