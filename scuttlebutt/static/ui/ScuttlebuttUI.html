@@ -1,15 +1,28 @@
 <html>
   <head>
     <title>ScuttlebuttUI</title>
+    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='scuttlebuttui.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <h1>ScuttlebuttUI</h1>
-    <p id="status" style="background: yellow; font-size: 80%; padding: 1em">Dart is not running yet.</p>
-    <div id="output-div">
-    	<table id="output-table" style="cursor:pointer">
-    		<tr><td>Loading...</td></tr>
-    	</table>
-    </div>
+  	<div id="wrapper">
+	    <h1>ScuttlebuttUI</h1>
+	    <p id="status" >Dart is not running yet.</p>
+	    <div id="controls">
+	    	<button type="button" id="home-button"><strong>Home<strong></button>
+	    	<button type="button" id="donothing-button">Do Nothing</button>
+	    	<button type="button" id="feedback-button">Send Feedback</button>
+	    </div>
+	    <div id="output-div">
+	    	<table id="output-table">
+	    		<tr><td>Loading...</td></tr>
+	    	</table>
+	    </div>
+	    <div id="footer">
+	    	<p><small>Scuttlebutt. This is a footer that we put here just for the hell of it.</small></p>
+	    </div>
+	</div>
     <script type="text/javascript" src="ScuttlebuttUI.dart.app.js"></script>
   </body>
 </html>
