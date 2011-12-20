@@ -6,6 +6,8 @@ class ScuttlebuttUI {
   TableElement _outputTable = null;
   Element _statusMessage = null;
   
+  
+
   ScuttlebuttUI() {
   }
 
@@ -15,9 +17,29 @@ class ScuttlebuttUI {
     statusMessage("Dart is now running.");
     resetOutputTable();
     addRow(["Fetching JSON..."]);
+    
+    
+    // history magic (getting Back button to work properly)
+    Map state = {"url" : "#/report/get_topics"};
+    window.history.pushState(JSON.stringify(state), "Topics", "#/report/get_topics");
+    window.on.popState.add((var e) {
+      var stateStr = e.state;
+      if (stateStr === null) {
+        // TODO
+      } else {
+        Map state = JSON.parse(stateStr);
+        if (state["url"] == "#/report/get_topics") {
+          listTopics();
+        }
+      }
+    });
+    
     listTopics();
   }
   
+  /**
+    Lists all Topics in the _outputTable. 
+    */
   void listTopics() {
     String url = "/report/get_topics";
     XMLHttpRequest request = new XMLHttpRequest();
@@ -31,6 +53,8 @@ class ScuttlebuttUI {
         String linkedName = "${result['name']}";
         Element tr = this.addRow([linkedName]);
         tr.on.click.add((event) {
+          Map state = {"url" : "#/report/get_articles?topic_id=${result['id']}"};
+          window.history.pushState(JSON.stringify(state), "Articles", "#/report/get_articles?topic_id=${result['id']}");
           this.listArticles(result['id']);
         });
       });
@@ -39,6 +63,9 @@ class ScuttlebuttUI {
     request.send();
   }
   
+  /**
+    Lists all articles for given Topic id in the _outputTable. 
+   */
   void listArticles(int id) {
     String url = "/report/get_articles?topic_id=${id}";
     XMLHttpRequest request = new XMLHttpRequest();
@@ -57,11 +84,19 @@ class ScuttlebuttUI {
     request.send();
   }
   
+  /**
+    Changes the contents of the _statusMessage <p> element.
+    */ 
   void statusMessage(String message) {
-    // the HTML library defines a global "document" variable
     _statusMessage.innerHTML = message;
   }
   
+  /**
+    Adds a row to the table. A row is represented by a List of Strings. Each list element is
+    a <td>. It's HTML content will be the string. 
+    
+    E.g.: addRow(["blah"]); will create this row: "<tr><td>blah</td></tr>".
+    */
   Element addRow(List<String> row) {
     Element tr = new Element.tag('tr');
     for (var i = 0; i < row.length; i++) {
@@ -75,6 +110,9 @@ class ScuttlebuttUI {
     return tr;
   }
   
+  /**
+    Deletes all rows from the _outputTable element.
+    */
   void resetOutputTable() {
     _outputTable.nodes.clear();
   }
