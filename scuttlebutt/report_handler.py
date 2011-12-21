@@ -43,10 +43,14 @@ class GetArticlesHandler(webapp.RequestHandler):
     s = ScuttlebuttService()
     min_date = s.StringToDatetime(self.request.get('min_date'))
     max_date = s.StringToDatetime(self.request.get('max_date'))
+    limit = s.StringToInt(self.request.get('limit'))
+    offset = s.StringToInt(self.request.get('offset'))
     json = s.GetArticles(
         topic_id=int(self.request.get('topic_id')),
         min_date=min_date,
-        max_date=max_date
+        max_date=max_date,
+        limit=limit,
+        offset=offset
     )
     self.response.headers['Content-Type'] = 'application/json'
     self.response.out.write(json)

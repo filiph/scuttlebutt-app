@@ -237,17 +237,116 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     self.assertEqual(expected_json, actual_json)
     # Specify no dates, get all articles.
     expected_json = (
-        '[{"url": "http://reuters.com/1", '
+        '[{"url": "http://reuters.com/2", '
+        '"updated": "2012-02-01T00:00:00", '
+        '"summary": "Something happened 2", '
+        '"id": 4, "title": "News 2!"}, '
+        '{"url": "http://reuters.com/1", '
         '"updated": "2012-01-15T00:00:00", '
         '"summary": "Something happened 1", '
-        '"id": 3, "title": "News 1!"}, '
-        '{"url": "http://reuters.com/2", '
-        '"updated": "2012-02-01T00:00:00", '
+        '"id": 3, "title": "News 1!"}]'
+    )
+    actual_json = s.GetArticles(
+        topic_id=t.key().id()
+    )
+    self.assertEqual(expected_json, actual_json)
+
+  def testGetArticlesWithLimit(self):
+    """Test that the service limits results."""
+    JAN1 = datetime.datetime(2012, 1, 1)
+    JAN15 = datetime.datetime(2012, 1, 15)
+    JAN31 = datetime.datetime(2012, 1, 31)
+    t = Topic()
+    t.name = 'News'
+    t.put()
+    f = Feed()
+    f.name = 'Reuters'
+    f.url = 'http://reuters.com'
+    f.put()
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN1
+    a1.topics.append(t.key())
+    a1.feeds.append(f.key())
+    a1.put()
+    a2 = Article()
+    a2.url = 'http://reuters.com/2'
+    a2.title = 'News 2!'
+    a2.summary = 'Something happened 2'
+    a2.updated = JAN15
+    a2.topics.append(t.key())
+    a2.feeds.append(f.key())
+    a2.put()
+    s = ScuttlebuttService()
+
+    expected_json = (
+        '[{"url": "http://reuters.com/2", '
+        '"updated": "2012-01-15T00:00:00", '
         '"summary": "Something happened 2", '
         '"id": 4, "title": "News 2!"}]'
     )
+
+    # Specify limit of 1.
     actual_json = s.GetArticles(
-        topic_id = t.key().id()
+        topic_id=t.key().id(),
+        limit=1
+    )
+    self.assertEqual(expected_json, actual_json)
+
+  def testArticlesWithOffset(self):
+    """Test that the service returns articles shifted by offset."""
+    JAN1 = datetime.datetime(2012, 1, 1)
+    JAN15 = datetime.datetime(2012, 1, 15)
+    JAN31 = datetime.datetime(2012, 1, 31)
+    FEB1 = datetime.datetime(2012, 2, 1)
+    t = Topic()
+    t.name = 'News'
+    t.put()
+    f = Feed()
+    f.name = 'Reuters'
+    f.url = 'http://reuters.com'
+    f.put()
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN15
+    a1.topics.append(t.key())
+    a1.feeds.append(f.key())
+    a1.put()
+    a2 = Article()
+    a2.url = 'http://reuters.com/2'
+    a2.title = 'News 2!'
+    a2.summary = 'Something happened 2'
+    a2.updated = FEB1
+    a2.topics.append(t.key())
+    a2.feeds.append(f.key())
+    a2.put()
+    s = ScuttlebuttService()
+    # Specify start and end dates, get one article.
+    expected_json = ('[{"url": "http://reuters.com/1", '
+                     '"updated": "2012-01-15T00:00:00", '
+                     '"summary": "Something happened 1", '
+                     '"id": 3, "title": "News 1!"}]')
+    actual_json = s.GetArticles(
+        topic_id=t.key().id(),
+        min_date=JAN1,
+        max_date=JAN31
+    )
+    self.assertEqual(expected_json, actual_json)
+    # Specify no dates, get all articles.
+    expected_json = (
+        '[{"url": "http://reuters.com/1", '
+        '"updated": "2012-01-15T00:00:00", '
+        '"summary": "Something happened 1", '
+        '"id": 3, "title": "News 1!"}]'
+    )
+    actual_json = s.GetArticles(
+        topic_id=t.key().id(),
+        limit=1,
+        offset=1
     )
     self.assertEqual(expected_json, actual_json)
 
