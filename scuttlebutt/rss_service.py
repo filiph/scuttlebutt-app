@@ -10,14 +10,16 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 from datetime import datetime
-import feedparser
 import logging
 import string
 from StringIO import StringIO
+from time import mktime
+import feedparser
 from google.appengine.api import urlfetch
 from google.appengine.ext import db
-from model import *
-from time import mktime
+from model import Article
+from model import Feed
+from model import Topic
 
 
 class RssService(object):
@@ -26,14 +28,15 @@ class RssService(object):
   def __init__(self, taskqueue=None):
     """Initialize the service."""
     self.taskqueue = taskqueue
-  
-  def dispatch(self):
+
+  def Dispatch(self):
     """Creates a download task for each feed in the datastore."""
     for feed in Feed.all():
-      self.taskqueue.download(feed.key())
-    
-  def download(self, feed_id):
+      self.taskqueue.Download(feed.key())
+
+  def Download(self, feed_id):
     """Creates a download task for each feed in the datastore.
+
     Args:
       feed_id: str The key for the feed to fetch.
     """
@@ -45,21 +48,21 @@ class RssService(object):
         fetched_feed = urlfetch.fetch(feed.url)
         if fetched_feed.status_code is 200:
           feed_content = feedparser.parse(StringIO(fetched_feed.content))
-          logging.info("Feed content %s" % feed_content['entries'])
+          logging.info('Feed content %s' % feed_content['entries'])
         else:
           logging.info('Could not fetch feed with name %s and url: %s'
-              % (feed.name, feed.url))
+                       % (feed.name, feed.url))
       except Exception:
         msg = 'Error: Feed with name %s has invalid url: %s' % (feed.name,
                                                                 feed.url)
         logging.info(msg)
         raise Exception(msg)
-      
+
     # Create relationship with Feed.
     for topic in Topic.all():
       for entry in feed_content['entries']:
-        if (self._match(entry['title'], topic.name) or
-            self._match(entry['summary'], topic.name)):
+        if (self._Match(entry['title'], topic.name) or
+            self._Match(entry['summary'], topic.name)):
           a = None
           articles = Article.all().filter('url = ', entry['id']).fetch(1)
           if articles:
@@ -77,12 +80,14 @@ class RssService(object):
           a.put()
           logging.info('Saved article with title %s.', a.title)
 
-  def _match(self, text, search_term):
+  def _Match(self, text, search_term):
     """Looks for match of search_term in text.
+
     Args:
-      text str The text to find match in.
-      search_term str The string to match.
+      text: str The text to find match in.
+      search_term: str The string to match.
+
     Returns:
       True if a match is found.
     """
-    return (string.find(text.upper(), search_term.upper()) > -1)
+    return string.find(text.upper(), search_term.upper()) > -1

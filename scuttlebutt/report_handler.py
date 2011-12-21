@@ -6,12 +6,14 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 import os
-import simplejson
-from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
-from model import *
+from model import Article
+from model import Feed
+from model import Topic
 from scuttlebutt_service import ScuttlebuttService
+import simplejson
 
 
 class GetTopicsHandler(webapp.RequestHandler):
@@ -39,10 +41,10 @@ class GetArticlesHandler(webapp.RequestHandler):
        date range if left out.
     """
     s = ScuttlebuttService()
-    json = s.get_articles(
-      topic_id = int(self.request.get('topic_id')),
-      min_date = self.request.get('min_date'),
-      max_date = self.request.get('max_date')
+    json = s.GetArticles(
+        topic_id=int(self.request.get('topic_id')),
+        min_date=self.request.get('min_date'),
+        max_date=self.request.get('max_date')
     )
     self.response.headers['Content-Type'] = 'application/json'
     self.response.out.write(json)
@@ -55,7 +57,7 @@ class ReportHandler(webapp.RequestHandler):
     """Handles the HTTP Get for a article report view."""
     articles = Article.all().order('-updated')
     template_values = {
-      'articles': articles
+        'articles': articles
     }
     path = os.path.join(os.path.dirname(__file__), 'templates/report.html')
     self.response.out.write(template.render(path, template_values))
@@ -79,7 +81,7 @@ class DeleteArticlesHandler(webapp.RequestHandler):
   """Handler class to delete all articles."""
 
   def get(self):
-    """Handler HTTP Get to delete articles."""
+    """Handle HTTP Get to delete articles."""
     articles = Article.all()
     for article in articles:
       article.delete()
@@ -88,11 +90,11 @@ class DeleteArticlesHandler(webapp.RequestHandler):
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
-    ('/report/report', ReportHandler),
-    ('/report/create_feed', CreateFeedHandler),
-    ('/report/get_articles', GetArticlesHandler),
-    ('/report/get_topics', GetTopicsHandler),
-    ('/report/delete_articles', DeleteArticlesHandler)
+      ('/report/report', ReportHandler),
+      ('/report/create_feed', CreateFeedHandler),
+      ('/report/get_articles', GetArticlesHandler),
+      ('/report/get_topics', GetTopicsHandler),
+      ('/report/delete_articles', DeleteArticlesHandler)
   ], debug=True)
   util.run_wsgi_app(application)
 

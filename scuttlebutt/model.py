@@ -1,7 +1,6 @@
 # Copyright 2011 Google Inc. All Rights Reserved.
 
-"""Define classes for model objects in the Scuttlebutt application.
-"""
+"""Define classes for model objects in the Scuttlebutt application."""
 
 __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
@@ -17,8 +16,10 @@ class Feed(db.Model):
 
 class Topic(db.Model):
   """Represents a topic of interest.
+
   This can be the name of product that the application should pay attention
-  (i.e. Google Chrome)."""
+  (i.e. Google Chrome).
+  """
   name = db.StringProperty()
 
   def ToDict(self):
@@ -27,6 +28,7 @@ class Topic(db.Model):
     d['name'] = self.name
     d['id'] = int(self.key().id())
     return d
+
 
 class Article(db.Model):
   """Represents an article extracted from a feed."""
