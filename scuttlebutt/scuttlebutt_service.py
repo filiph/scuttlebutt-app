@@ -45,3 +45,18 @@ class ScuttlebuttService(object):
     for article in articles:
       articles_list.append(article.ToDict())
     return simplejson.dumps(articles_list)
+
+  def StringToDatetime(self, str):
+    """Converts a string in the format yyyy-mm-ddTHH:MM:SS to datetime.
+
+    Args:
+      str: str The datetime in the format yyyy-mm-ddTHH:MM:SS.
+
+    Returns:
+      A datetime object.
+    """
+    try:
+      result = datetime.datetime.strptime(str, '%Y-%m-%dT%H:%M:%S')
+    except ValueError:
+      result = None
+    return result

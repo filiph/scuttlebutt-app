@@ -250,3 +250,23 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         topic_id = t.key().id()
     )
     self.assertEqual(expected_json, actual_json)
+
+  def testStringToDate(self):
+    """Test that the string to date function works for simple case."""
+    s = ScuttlebuttService()
+    expected_date = datetime.datetime(2012, 1, 1, 23, 59, 59)
+    actual_date = s.StringToDatetime('2012-01-01T23:59:59')
+    self.assertEqual(expected_date, actual_date)
+
+  def testStringToDateWithInvalidFormat(self):
+    """Test that invalid date formats returns None."""
+    s = ScuttlebuttService()
+    actual_date = s.StringToDatetime('2012 01 01')
+    self.assertEqual(None, actual_date)
+
+
+  def testStringToDateWithInvalidDate(self):
+    """Test invalid dates return None."""
+    s = ScuttlebuttService()
+    actual_date = s.StringToDatetime('2012-22-01T00:00:00')
+    self.assertEqual(None, actual_date)
