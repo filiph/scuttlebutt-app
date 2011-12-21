@@ -21,7 +21,7 @@ class Topic(db.Model):
   (i.e. Google Chrome)."""
   name = db.StringProperty()
 
-  def toDict(self):
+  def ToDict(self):
     """Returns a dictionary representation of the object."""
     d = {}
     d['name'] = self.name
