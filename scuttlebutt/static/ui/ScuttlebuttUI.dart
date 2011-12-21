@@ -5,8 +5,7 @@ class ScuttlebuttUI {
 
   TableElement _outputTable = null;
   Element _statusMessage = null;
-  
-  
+  ButtonElement _homeButton = null;
 
   ScuttlebuttUI() {
   }
@@ -14,10 +13,15 @@ class ScuttlebuttUI {
   void run() {
     _statusMessage = document.query("#status");
     _outputTable = document.query("#output-table");
+    _homeButton = document.query("#home-button");
     statusMessage("Dart is now running.");
+    
+    _homeButton.on.click.add((Event event) {
+      listTopics();
+    });
+    
     resetOutputTable();
     addRow(["Fetching JSON..."]);
-    
     
     // history magic (getting Back button to work properly)
     Map state = {"url" : "#/report/get_topics"};
@@ -28,8 +32,13 @@ class ScuttlebuttUI {
         // TODO
       } else {
         Map state = JSON.parse(stateStr);
-        if (state["url"] == "#/report/get_topics") {
+        String url = state["url"];
+        if (url == "#/report/get_topics") {
           listTopics();
+        } else if (url.startsWith("#/report/get_articles?topic_id=")) {
+          // TODO: make using RegExp
+          int id = Math.parseInt(url.substring("#/report/get_articles?topic_id=".length, url.length));
+          listArticles(id);
         }
       }
     });
@@ -48,6 +57,7 @@ class ScuttlebuttUI {
     request.on.load.add((event) {
       this.resetOutputTable();
       this.addRow(["<strong>Name</strong>"]);
+      print(request.responseText);
       List<Map<String,Object>> results = JSON.parse(request.responseText);
       results.forEach((result) {
         String linkedName = "${result['name']}";

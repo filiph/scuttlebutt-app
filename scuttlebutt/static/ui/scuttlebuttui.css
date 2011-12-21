@@ -1,0 +1,111 @@
+/* @override http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css */
+
+body {
+	margin: 2em 4em;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+	font-weight: bolder;
+	color: #666;
+	width: 40%;
+	height: 2em;
+	line-height: 2em;
+	float:left;
+	margin: 0;
+}
+
+p#status {
+	margin-left: 45%;
+	height: 3em;
+	vertical-align: middle;
+	background-color: #fefbab !important;
+	border-radius: 10px;
+	box-shadow: 0 0 6px #999;
+	font-size: 80%; 
+	padding: 1em;
+}
+
+div#controls {
+	clear: both;
+	margin: 0 0 1em 0;
+	/*border-bottom: 2px solid #999;*/
+	padding-bottom: 10px;
+}
+
+div#controls button {
+	/* source: http://css3button.net/14433 */
+	cursor: pointer;
+	color: #050505;
+	padding: 7px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#ffffff 0%,
+		#bdbdbd);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#ffffff),
+		to(#bdbdbd));
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #949494;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,1);
+	text-transform: uppercase;
+}
+
+table#output-table {
+	margin: 0;
+	width: 100%;
+}
+
+table#output-table tr:first-child td {
+	color: #999;
+	border-bottom: 2px solid #ccc;
+	font-size: 1.5em;
+}
+
+table#output-table tr:first-child td:first-child {
+	min-width: 10em;
+}
+
+table#output-table tr:hover:not(:first-child) {
+	background: #fefbab;
+	cursor: pointer;
+}
+
+/*table#output-table tr:hover:not(:first-child) td:first-child:before {
+	content: " >> ";
+}*/
+
+table#output-table tr td {
+	padding: 5px 10px;
+	border-bottom: 1px dotted #ccc;
+}
+
+table#output-table tr td:first-child {
+	padding-left: 0;
+	font-size: 1.5em;
+}
+
+table#output-table tr td:last-child {
+	padding-right: 0;
+}
+
+table#output-table tr:last-child td {
+	border-bottom: none;
+}
+
+div#footer {
+	margin-top: 5em;
+	color: #999;
+}
+
