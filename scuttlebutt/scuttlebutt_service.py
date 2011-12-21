@@ -31,6 +31,7 @@ class ScuttlebuttService(object):
       max_date: datetime The latest article updated time to include in the list.
       limit: int The number of results to return.
       offset: int Results returned are shifted by offset.
+
     Returns:
       A JSON string for the list of articles that has the given topic.
     """

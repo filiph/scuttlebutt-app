@@ -255,7 +255,6 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     """Test that the service limits results."""
     JAN1 = datetime.datetime(2012, 1, 1)
     JAN15 = datetime.datetime(2012, 1, 15)
-    JAN31 = datetime.datetime(2012, 1, 31)
     t = Topic()
     t.name = 'News'
     t.put()
@@ -369,3 +368,4 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     s = ScuttlebuttService()
     actual_date = s.StringToDatetime('2012-22-01T00:00:00')
     self.assertEqual(None, actual_date)
+
