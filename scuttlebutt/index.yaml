@@ -14,3 +14,9 @@ indexes:
   properties:
   - name: topics
   - name: updated
+
+- kind: Article
+  properties:
+  - name: topics
+  - name: updated
+    direction: desc
