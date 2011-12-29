@@ -80,7 +80,7 @@ class BarChart {
     if (DEBUG) {
       return "/report/get_topic_stats_mock.json";
     } else {
-      return "/report/get_topic_stats_mock?topic_id=$id";
+      return "/report/get_topic_stats?topic_id=$id";
     }
   }
   
@@ -146,13 +146,18 @@ class BarChart {
    request.open("GET", url, true);
    
    request.on.load.add((event) {
-     data[id] = JSON.parse(request.responseText);
-     
-     print("${data[id].length} new stats loaded for the bar chart.");
-     
-     if (thenCall !== null) {
-       thenCall();
+     if (request.status == 404) {
+       window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
+     } else {
+       data[id] = JSON.parse(request.responseText);
+       
+       print("${data[id].length} new stats loaded for the bar chart.");
+       
+       if (thenCall !== null) {
+         thenCall();
+       }
      }
+
    });
    request.send();
  }
