@@ -1,11 +1,20 @@
 /* @override 
 	http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css
 	http://0.0.0.0:8000/scuttlebuttui.css
+	https://scuttlebutt.googleplex.com/ui/scuttlebuttui.css
 */
 
 body {
 	margin: 2em 4em;
 	font-family: 'Open Sans', sans-serif;
+}
+
+.red {
+	color: darkred;
+}
+
+.green {
+	color: green;
 }
 
 /* @group H1 */
@@ -77,6 +86,32 @@ button {
 }
 
 /* @end */
+
+/* @group BarChart */
+
+table#articles-stats {
+	width: 100%;
+	height: 110px;
+	padding: 0 10px;
+	margin-bottom: 20px;
+}
+
+table#articles-stats td {
+	vertical-align: bottom;
+	padding-right: 1px;
+}
+
+table#articles-stats td div.blue-bar {
+	background-color: blue;
+}
+
+table#articles-stats td div.gray-bar {
+	background-color: lightgrey;
+}
+
+/* @end */
+
+
 
 /* @group Output Table */
 

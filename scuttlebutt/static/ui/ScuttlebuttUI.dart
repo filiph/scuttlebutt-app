@@ -62,9 +62,112 @@ class Table {
 }
 
 /**
+  * BarChart.
+  */
+class BarChart {
+  TableElement tableElement = null;
+  Map<int,List<Map<String,Dynamic>>> data = null;
+  int currentId = null;
+  
+  final int MAX_WEEKS = 102;  // two years
+  
+  BarChart(String domQuery) {
+    data = new Map();
+    this.tableElement = document.query(domQuery);
+  }
+  
+  String getURL(int id) {
+    if (DEBUG) {
+      return "/report/get_topic_stats_mock.json";
+    } else {
+      return "/report/get_topic_stats_mock?topic_id=$id";
+    }
+  }
+  
+  /**
+    Shows articles for given [Topic] id. Run this the first time you want
+    to show the articles.
+    */
+  void show(int id) {
+    this.currentId = id;
+    
+    if (data.containsKey(id)) {
+      populateChart(id);
+    } else {
+      fetchData(id, thenCall:populateChart);
+    }
+  }
+  
+  /**
+   * Populates the article Table with data. If resetTable is false,
+   * it will add to the current table.
+   */
+ void populateChart([int id_, bool resetTable=true]) {
+   int id = (id_ != null) ? id_ : this.currentId;
+   
+   if (resetTable) this.reset();
+   
+   int maxCount = 0;
+   int absoluteCount = 0;
+   for (Map<String,Dynamic> record in data[id]) {
+     maxCount = Math.max(record["count"], maxCount);
+     absoluteCount += record["count"];
+   }
+   int averageCount = (absoluteCount / data[id].length).toInt();     
+   
+   Element tr = new Element.tag('tr');
+   for (var i = MAX_WEEKS - 1; i >= 0; i--) {
+     Element td = new Element.tag('td');
+     Element div = new Element.tag('div');
+     
+     int percentage;
+     if (i < data[id].length) {
+       percentage = (data[id][i]["count"] / maxCount * 100).toInt();  
+       div.classes.add("blue-bar");
+     } else {
+       percentage = (Math.random() * averageCount / maxCount * 75).toInt();  // 75 instead of 100 for esthetic purposes only
+       div.classes.add("gray-bar");
+     }
+     div.style.height = "$percentage%";
+     
+     td.elements.add(div);
+     tr.elements.add(td);
+   }
+   
+   this.tableElement.elements.add(tr);
+ }
+ 
+ /**
+   * Creates XMLHttpRequest
+   */
+ void fetchData(int id, [Function thenCall=null]) {
+   String url = getURL(id);
+   XMLHttpRequest request = new XMLHttpRequest();
+   request.open("GET", url, true);
+   
+   request.on.load.add((event) {
+     data[id] = JSON.parse(request.responseText);
+     
+     print("${data[id].length} new stats loaded for the bar chart.");
+     
+     if (thenCall !== null) {
+       thenCall();
+     }
+   });
+   request.send();
+ }
+  
+  void reset() {
+    tableElement.nodes.clear();
+  }
+}
+
+
+/**
   * Articles.
   */
 class Articles {
+  BarChart barChart = null;
   Table outputTable = null;
   ButtonElement _loadMoreButton = null;
   Map<int,List> data = null;
@@ -77,6 +180,7 @@ class Articles {
   
   Articles() {
     data = new Map();
+    barChart = new BarChart("table#articles-stats");
     _loadMoreButton = document.query("button#load-more-button");
     _waitingToBeShown = 0;
     
@@ -114,6 +218,8 @@ class Articles {
     } else {
       fetchData(id, thenCall:populateTable);
     }
+    
+    this.barChart.show(id);
   }
   
   /**
@@ -138,9 +244,11 @@ class Articles {
    if (value == true) {
      this.outputTable.tableElement.style.display = "block";
      this._loadMoreButton.style.display = "block";
+     this.barChart.tableElement.style.display = "block";
    } else {
      this.outputTable.tableElement.style.display = "none";
      this._loadMoreButton.style.display = "none";
+     this.barChart.tableElement.style.display = "none";
    }
  }
  
@@ -188,7 +296,11 @@ class Topics {
   }
   
   String getURL() {
-    return "/report/get_topics";
+    if (DEBUG) {
+      return "/report/get_topics_mock.json";
+    } else {
+      return "/report/get_topics";
+    }
   }
 
   void show() {
@@ -204,13 +316,36 @@ class Topics {
     */
   void populateTable() {
     this.outputTable.reset();
-    data.forEach((result) {
-      String linkedName = "${result['name']}";
-      Element tr = this.outputTable.addRow([linkedName, "N/A", "N/A", "N/A"]);
+    for (Map<String,Dynamic> record in data) {
+      String wowChangeHtml;
+      if (record.containsKey("weekOnWeekChange")) {
+        double change = record["weekOnWeekChange"];
+        String changeStr;
+        String changeSign;
+        if (change == null) {
+          changeStr = "&#8734;";  // infinity symbol
+          changeSign = "+";
+        } else {
+          changeStr = ((change - 1.0)*100.0).abs().round().toString();
+          changeSign = (change >= 1.0) ? "+" : "-";
+        }
+        wowChangeHtml = "<span class='${(changeSign==="+"?"green":"red")}'>"+changeSign+changeStr+"%</span>"; 
+      } else {
+        wowChangeHtml = "N/A";
+      }
+      
+      Element tr = this.outputTable.addRow(
+        [
+         record["name"], 
+         record.containsKey("countPastTwentyFourHours") ? record["countPastTwentyFourHours"] : "N/A", 
+         record.containsKey("countPastSevenDays") ? record["countPastSevenDays"] : "N/A", 
+         wowChangeHtml 
+        ]
+        );
       tr.on.click.add((event) {
-        this.scuttlebuttUi.listArticles(result['id']);
+        this.scuttlebuttUi.listArticles(record['id']);
       });
-    });
+    };
     this.visibility = true;
   }
   
@@ -430,7 +565,7 @@ class ScuttlebuttUI {
   static String prettifyDate(String rawDate) {
     final weekdayStrings = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     final monthStrings = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    Date date = new Date.fromString(rawDate);
+    Date date = new Date.fromString(rawDate+"Z");  // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.
     Duration diff = (new Date.now()).difference(date);
     String dateStr = "${weekdayStrings[date.weekday]}, ${monthStrings[date.month-1]} ${date.day}";
     String diffStr = null;
