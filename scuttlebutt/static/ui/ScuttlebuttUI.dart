@@ -10,7 +10,7 @@ class Table {
   TableElement tableElement = null;
   
   Table(String domQuery) {
-    this.tableElement= document.query(domQuery);
+    this.tableElement = document.query(domQuery);
   }
   
   /**
@@ -25,12 +25,26 @@ class Table {
       Element td = new Element.tag('td');
       td.innerHTML = row[i];
       tr.elements.add(td);
-  }
+    }
 
-  tableElement.elements.add(tr);
+    tableElement.elements.add(tr);
+    
+    return tr;
+  }
   
-  return tr;
-}
+  void addData(List<Map<String,String>> data) {
+    for (Map<String,String> record in data) {
+      this.addRow(
+        [
+         record['title'], 
+         ScuttlebuttUI.prettifyUrl(record['url']), 
+         ScuttlebuttUI.prettifyDate(record['updated']), 
+         "N/A", 
+         "N/A"
+        ]
+        );
+    }
+  }
   
   /**
   Deletes all rows from the table element.
@@ -52,32 +66,50 @@ class Table {
   */
 class Articles {
   Table outputTable = null;
-  Map<int,List> data;
+  ButtonElement _loadMoreButton = null;
+  Map<int,List> data = null;
   ScuttlebuttUI scuttlebuttUi = null;
   int currentId = null;
+  int currentOffset = null;
+  int _waitingToBeShown = null;
+  
+  final int ARTICLES_LIMIT = 20;  // articles per page/request
   
   Articles() {
     data = new Map();
+    _loadMoreButton = document.query("button#load-more-button");
+    _waitingToBeShown = 0;
+    
+    _loadMoreButton.on.click.add((Event event) {
+      this.currentOffset += ARTICLES_LIMIT;
+      this.fetchData(
+        this.currentId, 
+        thenCall:() {
+          populateTable(this.currentId, resetTable:false);
+        }, 
+        offset:this.currentOffset);
+    });
   }
   
-  String getURL(int id) {
+  String getURL(int id, [int limit=null, int offset=0]) {
+    if (limit === null) limit = ARTICLES_LIMIT;
     if (DEBUG) {
       return "/report/get_articles_mock.json";
     } else {
-      return "/report/get_articles?topic_id=${id}";
+      return "/report/get_articles?topic_id=$id&limit=$limit&offset=$offset";
     }
   }
   
   /**
-    * Adds articles data to the client memory.
+    Shows articles for given [Topic] id. Run this the first time you want
+    to show the articles.
     */
-  void addData(int id, List<Map<String,Object>> inData) {
-    data[id] = inData;
-  }
-  
   void show(int id) {
     this.currentId = id;
+    this.currentOffset = 0;
+    
     if (data.containsKey(id)) {
+      _waitingToBeShown = data[id].length;
       populateTable(id);
     } else {
       fetchData(id, thenCall:populateTable);
@@ -85,45 +117,51 @@ class Articles {
   }
   
   /**
-   * Populates the article Table with data.
+   * Populates the article Table with data. If resetTable is false,
+   * it will add to the current table.
    */
- void populateTable([int id_]) {
+ void populateTable([int id_, bool resetTable=true]) {
    int id = (id_ != null) ? id_ : this.currentId;
    
-   this.outputTable.reset();
-   data[id].forEach((result) {
-     this.outputTable.addRow(
-       [
-        result['title'], 
-        ScuttlebuttUI.prettifyUrl(result['url']), 
-        ScuttlebuttUI.prettifyDate(result['updated']), 
-        "N/A", 
-        "N/A"
-       ]
-       );
-   });
+   if (resetTable) this.outputTable.reset();
+   
+   if (_waitingToBeShown > 0) {
+     print("${data[id].length - _waitingToBeShown}, ${data[id].length - 1}");
+     this.outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
+     _waitingToBeShown = 0;
+   }
+
    this.visibility = true;
  }
  
  void set visibility(bool value) {
    if (value == true) {
      this.outputTable.tableElement.style.display = "block";
+     this._loadMoreButton.style.display = "block";
    } else {
      this.outputTable.tableElement.style.display = "none";
+     this._loadMoreButton.style.display = "none";
    }
  }
  
  /**
    * Creates XMLHttpRequest
    */
- void fetchData(int id, [Function thenCall=null]) {
-   String url = getURL(id);
+ void fetchData(int id, [Function thenCall=null, int limit=null, int offset=0]) {
+   String url = getURL(id, limit:limit, offset:offset);
    XMLHttpRequest request = new XMLHttpRequest();
    request.open("GET", url, true);
    
    request.on.load.add((event) {
-     data[id] = JSON.parse(request.responseText);
-     print("Articles loaded successfully.");
+     if (offset == 0) data[id] = new List(); // get rid of all data if starting from beginning
+     List responseJson = JSON.parse(request.responseText);
+     _waitingToBeShown = responseJson.length; 
+     
+     if (_waitingToBeShown > 0) {
+       data[id].addAll(responseJson);
+       print("${responseJson.length} new articles loaded.");
+     }
+     
      if (thenCall !== null) {
        thenCall();
      }
@@ -144,7 +182,7 @@ class Topics {
   Table outputTable = null;
   List<Map<String,Object>> data = null;
   ScuttlebuttUI scuttlebuttUi = null;
-  XMLHttpRequest _request = null;
+  //XMLHttpRequest _request = null;
   
   Topics() {
   }
@@ -189,17 +227,17 @@ class Topics {
     */
   void fetchData([Function thenCall=null]) {
     String url = getURL();
-    _request = new XMLHttpRequest();
-    _request.open("GET", url, true);
+    XMLHttpRequest request = new XMLHttpRequest();
+    request.open("GET", url, true);
     
-    _request.on.load.add((event) {
-      data = JSON.parse(_request.responseText);
+    request.on.load.add((event) {
+      data = JSON.parse(request.responseText);
       print("Topics loaded successfully.");
       if (thenCall !== null) {
         thenCall();
       }
     });
-    _request.send();
+    request.send();
   }
   
   void refresh() {
@@ -240,8 +278,8 @@ class ScuttlebuttUI {
     topics = new Topics();
     articles.scuttlebuttUi = topics.scuttlebuttUi = this; // give context
     
-    articles.outputTable = new Table("div#articles-div table.output-table");
-    topics.outputTable = new Table("div#topics-div table.output-table");
+    articles.outputTable = new Table("table#articles-table");
+    topics.outputTable = new Table("table#topics-table");
     
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
@@ -284,7 +322,6 @@ class ScuttlebuttUI {
     } else if (url.contains("/report/get_articles")) {
       RegExp exp = const RegExp(@"topic_id=([0-9]+)");
       Match match = exp.firstMatch(url);
-      print("Searched for topic_id in '$url' and found '${match.group(1)}'.");
       int id = Math.parseInt(match.group(1));
       this.listArticles(id, pushState:false);
       return;
@@ -351,9 +388,6 @@ class ScuttlebuttUI {
     } else {
       throw new Exception("Unknown type of page displayed.");
     }
-    
-    
-
   }
   
   

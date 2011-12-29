@@ -47,7 +47,7 @@ div#controls {
 	padding-bottom: 10px;
 }
 
-div#controls button {
+button {
 	/* source: http://css3button.net/14433 */
 	cursor: pointer;
 	color: #050505;
@@ -127,6 +127,10 @@ table.output-table tr:last-child td {
 div#articles-div table.output-table td:first-child {
 	font-size: 1.3em;
 	padding: 15px 10px;
+}
+
+div#articles-div p#articles-load-more {
+	padding: 0 10px;
 }
 
 /* @end */

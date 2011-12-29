@@ -62379,6 +62379,24 @@ unnamed24740d$Table$Dart.prototype.addRow$named = function($n, $o, row){
   return unnamed24740d$Table$Dart.prototype.addRow$member.call(this, row);
 }
 ;
+unnamed24740d$Table$Dart.prototype.addData$member = function(data){
+  {
+    var $0 = data.iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var record = $0.next$named(0, $noargs);
+      {
+        this.addRow$named(1, $noargs, RTT.setTypeInfo([record.INDEX$operator('title'), unnamed24740d$ScuttlebuttUI$Dart.prettifyUrl$member(record.INDEX$operator('url')), unnamed24740d$ScuttlebuttUI$Dart.prettifyDate$member(record.INDEX$operator('updated')), 'N/A', 'N/A'], Array.$lookupRTT()));
+      }
+    }
+  }
+}
+;
+unnamed24740d$Table$Dart.prototype.addData$named = function($n, $o, data){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed24740d$Table$Dart.prototype.addData$member.call(this, data);
+}
+;
 unnamed24740d$Table$Dart.prototype.reset$member = function(resetAllNodes){
   if (resetAllNodes) {
     this.tableElement$getter().nodes$getter().clear$named(0, $noargs);
@@ -62422,15 +62440,47 @@ unnamed24740d$Articles$Dart.$lookupRTT = function(){
   return RTT.create($cls('unnamed24740d$Articles$Dart'));
 }
 ;
+function unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor(){
+  this.populateTable$member(this.currentId$getter(), false);
+}
+function unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor$named($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor.call(this);
+}
+function unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction(null, RTT.dynamicType);
+}
+function unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor(event_0){
+  var tmp$1, tmp$0;
+  tmp$0 = this , (tmp$0.currentOffset$setter(tmp$1 = ADD$operator(tmp$0.currentOffset$getter(), this.ARTICLES_LIMIT$getter())) , tmp$1);
+  this.fetchData$named(1, {$p_thenCall:$bind(unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor$named, unnamed24740d$Articles$Dart$$c0$27_27$HoistedConstructor$named$named_$lookupRTT, this), $p_offset:this.currentOffset$getter(), count:2}, this.currentId$getter());
+}
+function unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named($n, $o, event_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor.call(this, event_0);
+}
+function unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType);
+}
 unnamed24740d$Articles$Dart.$Constructor = function(){
-  var tmp$0;
+  var tmp$1, tmp$2, tmp$0;
   this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
+  this._loadMoreButton$unnamed24740d$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, 'button#load-more-button')) , tmp$1;
+  this._waitingToBeShown$unnamed24740d$$setter_(tmp$2 = 0) , tmp$2;
+  this._loadMoreButton$unnamed24740d$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named, unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT, this));
 }
 ;
 unnamed24740d$Articles$Dart.$Initializer = function(){
   this.outputTable$field = $Dart$Null;
+  this._loadMoreButton$unnamed24740d$$field_ = $Dart$Null;
+  this.data$field = $Dart$Null;
   this.scuttlebuttUi$field = $Dart$Null;
   this.currentId$field = $Dart$Null;
+  this.currentOffset$field = $Dart$Null;
+  this._waitingToBeShown$unnamed24740d$$field_ = $Dart$Null;
+  this.ARTICLES_LIMIT$field = 20;
 }
 ;
 unnamed24740d$Articles$Dart.Articles$$Factory = function(){
@@ -62458,8 +62508,34 @@ unnamed24740d$Articles$Dart.prototype.outputTable$setter = function(tmp$0){
   this.outputTable$field = tmp$0;
 }
 ;
+unnamed24740d$Articles$Dart.prototype._loadMoreButton$unnamed24740d$$getter_ = function(){
+  var tmp$0 = this._loadMoreButton$unnamed24740d$$field_;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this._loadMoreButton$unnamed24740d$$field_ = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this._loadMoreButton$unnamed24740d$$field_ = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype._loadMoreButton$unnamed24740d$$setter_ = function(tmp$0){
+  this._loadMoreButton$unnamed24740d$$field_ = tmp$0;
+}
+;
 unnamed24740d$Articles$Dart.prototype.data$getter = function(){
-  return this.data$field;
+  var tmp$0 = this.data$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.data$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.data$field = tmp$2;
+  return tmp$2;
 }
 ;
 unnamed24740d$Articles$Dart.prototype.data$setter = function(tmp$0){
@@ -62500,23 +62576,66 @@ unnamed24740d$Articles$Dart.prototype.currentId$setter = function(tmp$0){
   this.currentId$field = tmp$0;
 }
 ;
-unnamed24740d$Articles$Dart.prototype.getURL$member = function(id){
+unnamed24740d$Articles$Dart.prototype.currentOffset$getter = function(){
+  var tmp$0 = this.currentOffset$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.currentOffset$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.currentOffset$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype.currentOffset$setter = function(tmp$0){
+  this.currentOffset$field = tmp$0;
+}
+;
+unnamed24740d$Articles$Dart.prototype._waitingToBeShown$unnamed24740d$$getter_ = function(){
+  var tmp$0 = this._waitingToBeShown$unnamed24740d$$field_;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this._waitingToBeShown$unnamed24740d$$field_ = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this._waitingToBeShown$unnamed24740d$$field_ = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype._waitingToBeShown$unnamed24740d$$setter_ = function(tmp$0){
+  this._waitingToBeShown$unnamed24740d$$field_ = tmp$0;
+}
+;
+unnamed24740d$Articles$Dart.prototype.ARTICLES_LIMIT$getter = function(){
+  return 20;
+}
+;
+unnamed24740d$Articles$Dart.prototype.getURL$member = function(id, limit, offset){
+  if (limit == null) {
+    limit = this.ARTICLES_LIMIT$getter();
+  }
   if (unnamed24740d$DEBUG$getter()) {
     return '/report/get_articles_mock.json';
   }
    else {
-    return '/report/get_articles?topic_id=' + $toString(id) + '';
+    return '/report/get_articles?topic_id=' + $toString(id) + '&limit=' + $toString(limit) + '&offset=' + $toString(offset) + '';
   }
 }
 ;
 unnamed24740d$Articles$Dart.prototype.show$member = function(id){
-  var tmp$0;
+  var tmp$1, tmp$2, tmp$0;
   this.currentId$setter(tmp$0 = id) , tmp$0;
+  this.currentOffset$setter(tmp$1 = 0) , tmp$1;
   if (this.data$getter().containsKey$named(1, $noargs, id)) {
-    this.populateTable$member(id);
+    this._waitingToBeShown$unnamed24740d$$setter_(tmp$2 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$2;
+    this.populateTable$member(id, true);
   }
    else {
-    this.fetchData$member(id, $bind(unnamed24740d$Articles$Dart.prototype.populateTable$named, unnamed24740d$Articles$Dart.prototype.populateTable$named_$lookupRTT, this));
+    this.fetchData$member(id, $bind(unnamed24740d$Articles$Dart.prototype.populateTable$named, unnamed24740d$Articles$Dart.prototype.populateTable$named_$lookupRTT, this), $Dart$Null, 0);
   }
 }
 ;
@@ -62526,39 +62645,36 @@ unnamed24740d$Articles$Dart.prototype.show$named = function($n, $o, id){
   return unnamed24740d$Articles$Dart.prototype.show$member.call(this, id);
 }
 ;
-function unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted(result){
-  this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([result.INDEX$operator('title'), unnamed24740d$ScuttlebuttUI$Dart.prettifyUrl$member(result.INDEX$operator('url')), unnamed24740d$ScuttlebuttUI$Dart.prettifyDate$member(result.INDEX$operator('updated')), 'N/A', 'N/A'], Array.$lookupRTT()));
-}
-function unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted$named($n, $o, result){
-  if ($o.count || $n != 1)
-    $nsme();
-  return unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted.call(this, result);
-}
-function unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction([RTT.dynamicType], RTT.dynamicType);
-}
-unnamed24740d$Articles$Dart.prototype.populateTable$member = function(id_){
-  var tmp$0;
+unnamed24740d$Articles$Dart.prototype.populateTable$member = function(id_, resetTable){
+  var tmp$1, tmp$0;
   var id = NE$operator(id_, $Dart$Null)?id_:this.currentId$getter();
-  this.outputTable$getter().reset$named(0, $noargs);
-  this.data$getter().INDEX$operator(id).forEach$named(1, $noargs, $bind(unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted$named, unnamed24740d$Articles$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT, this));
-  this.visibility$setter(tmp$0 = true) , tmp$0;
+  if (resetTable) {
+    this.outputTable$getter().reset$named(0, $noargs);
+  }
+  if (GT$operator(this._waitingToBeShown$unnamed24740d$$getter_(), 0)) {
+    print$getter()(1, $noargs, '' + $toString(SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed24740d$$getter_())) + ', ' + $toString(SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), 1)) + '');
+    this.outputTable$getter().addData$named(1, $noargs, this.data$getter().INDEX$operator(id).getRange$named(2, $noargs, SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed24740d$$getter_()), this._waitingToBeShown$unnamed24740d$$getter_()));
+    this._waitingToBeShown$unnamed24740d$$setter_(tmp$0 = 0) , tmp$0;
+  }
+  this.visibility$setter(tmp$1 = true) , tmp$1;
 }
 ;
-unnamed24740d$Articles$Dart.prototype.populateTable$named = function($n, $o, id_){
+unnamed24740d$Articles$Dart.prototype.populateTable$named = function($n, $o, id_, resetTable){
   var seen = 0;
   var def = 0;
   switch ($n) {
     case 0:
       id_ = '$p_id_' in $o?(++seen , $o.$p_id_):(++def , $Dart$Null);
+    case 1:
+      resetTable = '$p_resetTable' in $o?(++seen , $o.$p_resetTable):(++def , true);
   }
-  if (seen != $o.count || seen + def + $n != 1)
+  if (seen != $o.count || seen + def + $n != 2)
     $nsme();
-  return unnamed24740d$Articles$Dart.prototype.populateTable$member.call(this, id_);
+  return unnamed24740d$Articles$Dart.prototype.populateTable$member.call(this, id_, resetTable);
 }
 ;
 unnamed24740d$Articles$Dart.prototype.populateTable$named_$lookupRTT = function(){
-  return RTT.createFunction([int$Dart.$lookupRTT()], null);
+  return RTT.createFunction([int$Dart.$lookupRTT(), bool$Dart.$lookupRTT()], null);
 }
 ;
 unnamed24740d$Articles$Dart.prototype.populateTable$getter = function(){
@@ -62566,19 +62682,28 @@ unnamed24740d$Articles$Dart.prototype.populateTable$getter = function(){
 }
 ;
 unnamed24740d$Articles$Dart.prototype.visibility$setter = function(value){
-  var tmp$1, tmp$0;
+  var tmp$1, tmp$2, tmp$3, tmp$0;
   if (EQ$operator(value, true)) {
     this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
+    this._loadMoreButton$unnamed24740d$$getter_().style$getter().display$setter(tmp$1 = 'block') , tmp$1;
   }
    else {
-    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
+    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$2 = 'none') , tmp$2;
+    this._loadMoreButton$unnamed24740d$$getter_().style$getter().display$setter(tmp$3 = 'none') , tmp$3;
   }
 }
 ;
 function unnamed24740d$Articles$Dart$fetchData$c0$27_27$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
-  var tmp$0;
-  this.data$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter())) , tmp$0;
-  print$getter()(1, $noargs, 'Articles loaded successfully.');
+  var tmp$1, tmp$0;
+  if (EQ$operator(dartc_scp$0.offset, 0)) {
+    this.data$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = ListFactory$Dart.List$$Factory(null, $Dart$Null)) , tmp$0;
+  }
+  var responseJson = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter());
+  this._waitingToBeShown$unnamed24740d$$setter_(tmp$1 = responseJson.length$getter()) , tmp$1;
+  if (GT$operator(this._waitingToBeShown$unnamed24740d$$getter_(), 0)) {
+    this.data$getter().INDEX$operator(dartc_scp$0.id).addAll$named(1, $noargs, responseJson);
+    print$getter()(1, $noargs, '' + $toString(responseJson.length$getter()) + ' new articles loaded.');
+  }
   if (dartc_scp$0.thenCall != null) {
     dartc_scp$0.thenCall(0, $noargs);
   }
@@ -62591,11 +62716,11 @@ function unnamed24740d$Articles$Dart$fetchData$c0$27_27$Hoisted$named($s0, $s1, 
 function unnamed24740d$Articles$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType], RTT.dynamicType);
 }
-unnamed24740d$Articles$Dart.prototype.fetchData$member = function(id, thenCall){
-  var dartc_scp$0 = {id:id, thenCall:thenCall};
+unnamed24740d$Articles$Dart.prototype.fetchData$member = function(id, thenCall, limit, offset){
+  var dartc_scp$0 = {id:id, thenCall:thenCall, offset:offset};
   var dartc_scp$1;
   dartc_scp$1 = {};
-  var url = this.getURL$member(dartc_scp$0.id);
+  var url = this.getURL$member(dartc_scp$0.id, limit, dartc_scp$0.offset);
   dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
   dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
   dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed24740d$Articles$Dart$fetchData$c0$27_27$Hoisted$named, unnamed24740d$Articles$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
@@ -62603,16 +62728,20 @@ unnamed24740d$Articles$Dart.prototype.fetchData$member = function(id, thenCall){
   dartc_scp$1 = $Dart$Null;
 }
 ;
-unnamed24740d$Articles$Dart.prototype.fetchData$named = function($n, $o, id, thenCall){
+unnamed24740d$Articles$Dart.prototype.fetchData$named = function($n, $o, id, thenCall, limit, offset){
   var seen = 0;
   var def = 0;
   switch ($n) {
     case 1:
       thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
+    case 2:
+      limit = '$p_limit' in $o?(++seen , $o.$p_limit):(++def , $Dart$Null);
+    case 3:
+      offset = '$p_offset' in $o?(++seen , $o.$p_offset):(++def , 0);
   }
-  if (seen != $o.count || seen + def + $n != 2)
+  if (seen != $o.count || seen + def + $n != 4)
     $nsme();
-  return unnamed24740d$Articles$Dart.prototype.fetchData$member.call(this, id, thenCall);
+  return unnamed24740d$Articles$Dart.prototype.fetchData$member.call(this, id, thenCall, limit, offset);
 }
 ;
 unnamed24740d$Articles$Dart.prototype.refresh$member = function(){
@@ -62639,7 +62768,6 @@ unnamed24740d$Topics$Dart.$Initializer = function(){
   this.outputTable$field = $Dart$Null;
   this.data$field = $Dart$Null;
   this.scuttlebuttUi$field = $Dart$Null;
-  this._request$unnamed24740d$$field_ = $Dart$Null;
 }
 ;
 unnamed24740d$Topics$Dart.Topics$$Factory = function(){
@@ -62699,23 +62827,6 @@ unnamed24740d$Topics$Dart.prototype.scuttlebuttUi$getter = function(){
 ;
 unnamed24740d$Topics$Dart.prototype.scuttlebuttUi$setter = function(tmp$0){
   this.scuttlebuttUi$field = tmp$0;
-}
-;
-unnamed24740d$Topics$Dart.prototype._request$unnamed24740d$$getter_ = function(){
-  var tmp$0 = this._request$unnamed24740d$$field_;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this._request$unnamed24740d$$field_ = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this._request$unnamed24740d$$field_ = tmp$2;
-  return tmp$2;
-}
-;
-unnamed24740d$Topics$Dart.prototype._request$unnamed24740d$$setter_ = function(tmp$0){
-  this._request$unnamed24740d$$field_ = tmp$0;
 }
 ;
 unnamed24740d$Topics$Dart.prototype.getURL$member = function(){
@@ -62793,30 +62904,32 @@ unnamed24740d$Topics$Dart.prototype.visibility$setter = function(value){
   }
 }
 ;
-function unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted(dartc_scp$0, event_0){
+function unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
   var tmp$0;
-  this.data$setter(tmp$0 = jsonc5ef24$JSON$Dart.parse$member(this._request$unnamed24740d$$getter_().responseText$getter())) , tmp$0;
+  this.data$setter(tmp$0 = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter())) , tmp$0;
   print$getter()(1, $noargs, 'Topics loaded successfully.');
   if (dartc_scp$0.thenCall != null) {
     dartc_scp$0.thenCall(0, $noargs);
   }
 }
-function unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named($s0, $n, $o, event_0){
+function unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named($s0, $s1, $n, $o, event_0){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted.call(this, $s0, event_0);
+  return unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted.call(this, $s0, $s1, event_0);
 }
 function unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType], RTT.dynamicType);
 }
 unnamed24740d$Topics$Dart.prototype.fetchData$member = function(thenCall){
   var dartc_scp$0 = {thenCall:thenCall};
-  var tmp$0;
+  var dartc_scp$1;
+  dartc_scp$1 = {};
   var url = this.getURL$member();
-  this._request$unnamed24740d$$setter_(tmp$0 = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory()) , tmp$0;
-  this._request$unnamed24740d$$getter_().open$named(3, $noargs, 'GET', url, true);
-  this._request$unnamed24740d$$getter_().on$getter().load$getter().add$named(1, $noargs, $bind(unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named, unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
-  this._request$unnamed24740d$$getter_().send$named(0, $noargs);
+  dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
+  dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
+  dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named, unnamed24740d$Topics$Dart$fetchData$c0$25_25$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
+  dartc_scp$1.request.send$named(0, $noargs);
+  dartc_scp$1 = $Dart$Null;
 }
 ;
 unnamed24740d$Topics$Dart.prototype.fetchData$named = function($n, $o, thenCall){
@@ -63053,8 +63166,8 @@ unnamed24740d$ScuttlebuttUI$Dart.prototype.run$member = function(){
   this.articles$setter(tmp$0 = unnamed24740d$Articles$Dart.Articles$$Factory()) , tmp$0;
   this.topics$setter(tmp$1 = unnamed24740d$Topics$Dart.Topics$$Factory()) , tmp$1;
   this.articles$getter().scuttlebuttUi$setter(tmp$3 = (this.topics$getter().scuttlebuttUi$setter(tmp$2 = this) , tmp$2)) , tmp$3;
-  this.articles$getter().outputTable$setter(tmp$4 = unnamed24740d$Table$Dart.Table$$Factory('div#articles-div table.output-table')) , tmp$4;
-  this.topics$getter().outputTable$setter(tmp$5 = unnamed24740d$Table$Dart.Table$$Factory('div#topics-div table.output-table')) , tmp$5;
+  this.articles$getter().outputTable$setter(tmp$4 = unnamed24740d$Table$Dart.Table$$Factory('table#articles-table')) , tmp$4;
+  this.topics$getter().outputTable$setter(tmp$5 = unnamed24740d$Table$Dart.Table$$Factory('table#topics-table')) , tmp$5;
   this._statusMessage$unnamed24740d$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$6;
   this._subtitle$unnamed24740d$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$7;
   this._homeButton$unnamed24740d$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#home-button')) , tmp$8;
@@ -63085,7 +63198,6 @@ unnamed24740d$ScuttlebuttUI$Dart.prototype.parseUrl$member = function(url){
     if (url.contains$named(1, $noargs, '/report/get_articles')) {
       var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('topic_id=([0-9]+)', false, false));
       var match = exp.firstMatch$named(1, $noargs, url);
-      print$getter()(1, $noargs, "Searched for topic_id in '" + $toString(url) + "' and found '" + $toString(match.group$named(1, $noargs, 1)) + "'.");
       var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
       this.listArticles$named(1, {$p_pushState:false, count:1}, id);
       return;
@@ -63358,15 +63470,18 @@ isolate$inits.push(function(){
 );
 isolate$inits.push(function(){
   this.outputTable$field = static$uninitialized;
+  this._loadMoreButton$unnamed24740d$$field_ = static$uninitialized;
+  this.data$field = static$uninitialized;
   this.scuttlebuttUi$field = static$uninitialized;
   this.currentId$field = static$uninitialized;
+  this.currentOffset$field = static$uninitialized;
+  this._waitingToBeShown$unnamed24740d$$field_ = static$uninitialized;
 }
 );
 isolate$inits.push(function(){
   this.outputTable$field = static$uninitialized;
   this.data$field = static$uninitialized;
   this.scuttlebuttUi$field = static$uninitialized;
-  this._request$unnamed24740d$$field_ = static$uninitialized;
 }
 );
 isolate$inits.push(function(){
