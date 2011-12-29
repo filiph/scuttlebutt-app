@@ -1,20 +1,31 @@
-/* @override http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css */
+/* @override 
+	http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css
+	http://0.0.0.0:8000/scuttlebuttui.css
+*/
 
 body {
 	margin: 2em 4em;
 	font-family: 'Open Sans', sans-serif;
 }
 
+/* @group H1 */
+
 h1 {
-	font-weight: bolder;
+	font-weight: normal;
 	color: #666;
-	width: 40%;
 	height: 2em;
 	line-height: 2em;
-	float:left;
 	margin: 0;
+	padding: 0 10px;
 }
 
+h1 span#subtitle {
+	font-weight: bolder;
+}
+
+/* @end */
+
+/*
 p#status {
 	margin-left: 45%;
 	height: 3em;
@@ -25,11 +36,14 @@ p#status {
 	font-size: 80%; 
 	padding: 1em;
 }
+*/
+
+/* @group Controls */
 
 div#controls {
-	clear: both;
 	margin: 0 0 1em 0;
 	/*border-bottom: 2px solid #999;*/
+	padding: 0 10px;
 	padding-bottom: 10px;
 }
 
@@ -62,50 +76,65 @@ div#controls button {
 	text-transform: uppercase;
 }
 
-table#output-table {
+/* @end */
+
+/* @group Output Table */
+
+/* @group Header */
+
+table.output-table {
 	margin: 0;
 	width: 100%;
 }
 
-table#output-table tr:first-child td {
+table.output-table th {
+	text-align: left;
+	vertical-align: bottom;
 	color: #999;
 	border-bottom: 2px solid #ccc;
-	font-size: 1.5em;
+	padding: 5px 10px;
+	font-size: 1.2em;
 }
 
-table#output-table tr:first-child td:first-child {
-	min-width: 10em;
+table.output-table th small {
+	font-size: 0.7em;
 }
 
-table#output-table tr:hover:not(:first-child) {
+table.output-table th:not(:first-child) {
+	width: 15%;
+}
+
+/* @end */
+
+div#topics-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
 	cursor: pointer;
 }
 
-/*table#output-table tr:hover:not(:first-child) td:first-child:before {
-	content: " >> ";
-}*/
-
-table#output-table tr td {
+table.output-table tr td {
 	padding: 5px 10px;
 	border-bottom: 1px dotted #ccc;
 }
 
-table#output-table tr td:first-child {
-	padding-left: 0;
-	font-size: 1.5em;
+table.output-table td:first-child {
+	font-weight: bold;
 }
 
-table#output-table tr td:last-child {
-	padding-right: 0;
-}
-
-table#output-table tr:last-child td {
+table.output-table tr:last-child td {
 	border-bottom: none;
 }
 
+div#articles-div table.output-table td:first-child {
+	font-size: 1.3em;
+	padding: 15px 10px;
+}
+
+/* @end */
+
 div#footer {
+	font-weight: normal;
 	margin-top: 5em;
+	padding: 0 10px;
 	color: #999;
 }
 
