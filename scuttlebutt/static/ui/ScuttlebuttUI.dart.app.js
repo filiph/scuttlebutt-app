@@ -68061,7 +68061,6 @@ unnamed24740d$Articles$Dart.prototype.populateTable$member = function(id_, reset
     this.outputTable$getter().reset$named(0, $noargs);
   }
   if (GT$operator(this._waitingToBeShown$unnamed24740d$$getter_(), 0)) {
-    print$getter()(1, $noargs, '' + $toString(SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed24740d$$getter_())) + ', ' + $toString(SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), 1)) + '');
     this.outputTable$getter().addData$named(1, $noargs, this.data$getter().INDEX$operator(id).getRange$named(2, $noargs, SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed24740d$$getter_()), this._waitingToBeShown$unnamed24740d$$getter_()));
     this._waitingToBeShown$unnamed24740d$$setter_(tmp$0 = 0) , tmp$0;
   }

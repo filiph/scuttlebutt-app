@@ -354,7 +354,6 @@ class Articles {
    if (resetTable) this.outputTable.reset();
    
    if (_waitingToBeShown > 0) {
-     print("${data[id].length - _waitingToBeShown}, ${data[id].length - 1}");
      this.outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
      _waitingToBeShown = 0;
    }
