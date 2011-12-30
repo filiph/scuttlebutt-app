@@ -98,7 +98,24 @@ table#articles-stats {
 
 table#articles-stats td {
 	vertical-align: bottom;
-	padding-right: 1px;
+	padding-bottom: 2px;
+	border-bottom: 2px solid white;
+}
+
+table#articles-stats td.data-available { 
+	cursor: hand;
+}
+
+table#articles-stats td div {
+	margin: 0 1px;
+}
+
+table#articles-stats td:hover {
+	border-bottom: 2px solid blue;
+}
+
+table#articles-stats td.selected {
+	border-bottom: 2px solid blue;
 }
 
 table#articles-stats td div.blue-bar {
@@ -111,6 +128,24 @@ table#articles-stats td div.gray-bar {
 
 /* @end */
 
+/* @group Contextual */
+
+table#articles-contextual {
+	width: 100%;
+	padding: 0 10px;
+	margin-bottom: 20px;
+	color: #999;
+}
+
+table#articles-contextual span {
+	color: black;
+}
+
+table#articles-contextual td:last-child {
+	text-align: right;
+}
+
+/* @end */
 
 
 /* @group Output Table */

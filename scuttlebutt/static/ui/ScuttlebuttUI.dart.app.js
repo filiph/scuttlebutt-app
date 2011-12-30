@@ -1005,6 +1005,10 @@ function native_StringImplementation__indexOperator(index) {
   "use strict";
   return this[index];
 }
+function native_StringImplementation__charCodeAt(index) {
+  "use strict";
+  return this.charCodeAt(index);
+}
 function native_StringImplementation_get$length() {
   "use strict";
   return this.length;
@@ -3399,6 +3403,41 @@ String.prototype.EQ$operator = function(other){
   return native_StringImplementation_EQ.call(this, other);
 }
 ;
+String.prototype.substringMatches$member = function(start, other){
+  var tmp$0;
+  var len = this.length$getter();
+  var otherLen = other.length$getter();
+  if (EQ$operator(otherLen, 0)) {
+    return true;
+  }
+  if (LT$operator(start, 0) || GTE$operator(start, len)) {
+    return false;
+  }
+  if (GT$operator(ADD$operator(start, otherLen), len)) {
+    return false;
+  }
+  var otherImpl = other;
+  {
+    var i = 0;
+    for (; LT$operator(i, otherLen); tmp$0 = i , (i = ADD$operator(tmp$0, 1) , tmp$0)) {
+      if (NE$operator(this._charCodeAt$$member_(ADD$operator(start, i)), otherImpl._charCodeAt$$named_(1, $noargs, i))) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+;
+String.prototype.startsWith$member = function(other){
+  return this.substringMatches$member(0, other);
+}
+;
+String.prototype.startsWith$named = function($n, $o, other){
+  if ($o.count || $n != 1)
+    $nsme();
+  return String.prototype.startsWith$member.call(this, other);
+}
+;
 String.prototype.indexOf$member = function(other, start){
   return this._nativeIndexOf$$member_(other, start);
 }
@@ -3595,6 +3634,16 @@ String.prototype.compareTo$named = function($n, $o, other){
 ;
 String.prototype._indexOperator$$member_ = function(index){
   return native_StringImplementation__indexOperator.call(this, index);
+}
+;
+String.prototype._charCodeAt$$member_ = function(index){
+  return native_StringImplementation__charCodeAt.call(this, index);
+}
+;
+String.prototype._charCodeAt$$named_ = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return String.prototype._charCodeAt$$member_.call(this, index);
 }
 ;
 String.prototype._substringUnchecked$$member_ = function(startIndex, endIndex){
@@ -3855,6 +3904,21 @@ TimeZoneImplementation$Dart.$addTo = function(target){
 }
 ;
 TimeZoneImplementation$Dart.prototype.$implements$TimeZoneImplementation$Dart = 1;
+TimeZoneImplementation$Dart.utc$Constructor = function(){
+}
+;
+TimeZoneImplementation$Dart.utc$Initializer = function(){
+  this.isUtc$field = true;
+}
+;
+TimeZoneImplementation$Dart.TimeZoneImplementation$utc$22$Factory = function(){
+  var tmp$0 = new TimeZoneImplementation$Dart;
+  tmp$0.$typeInfo = TimeZoneImplementation$Dart.$lookupRTT();
+  TimeZoneImplementation$Dart.utc$Initializer.call(tmp$0);
+  TimeZoneImplementation$Dart.utc$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
 TimeZoneImplementation$Dart.local$Constructor = function(){
 }
 ;
@@ -6539,6 +6603,13 @@ function native__AbstractWorkerWrappingImplementation__removeEventListener_Abstr
     throw __dom_wrap_exception(e);
   }
 }
+function native__AttrWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__AttrWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -6556,6 +6627,13 @@ function native__AttrWrappingImplementation__set_value(_this, value) {
 function native__AudioBufferWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__AudioParamWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -6777,9 +6855,30 @@ function native__DOMApplicationCacheWrappingImplementation__removeEventListener_
     throw __dom_wrap_exception(e);
   }
 }
+function native__DOMExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__DOMExceptionWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__DOMFileSystemWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__DOMFileSystemSyncWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -6801,6 +6900,13 @@ function native__DOMMimeTypeArrayWrappingImplementation__item(_this, index) {
 function native__DOMPluginWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__DOMPluginWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -6934,6 +7040,13 @@ function native__DOMWindowWrappingImplementation__set_length(_this, value) {
 function native__DOMWindowWrappingImplementation__get_location(_this) {
   try {
     return __dom_wrap(_this.$dom.location);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__DOMWindowWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7106,6 +7219,13 @@ function native__DocumentFragmentWrappingImplementation__querySelectorAll(_this,
     throw __dom_wrap_exception(e);
   }
 }
+function native__DocumentTypeWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__ElementWrappingImplementation__get_firstElementChild(_this) {
   try {
     return __dom_wrap(_this.$dom.firstElementChild);
@@ -7127,6 +7247,20 @@ function native__ElementWrappingImplementation__get_style(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__ElementWrappingImplementation__getAttribute(_this, name) {
+  try {
+    return __dom_wrap(_this.$dom.getAttribute(__dom_unwrap(name)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__ElementWrappingImplementation__hasAttribute(_this, name) {
+  try {
+    return __dom_wrap(_this.$dom.hasAttribute(__dom_unwrap(name)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__ElementWrappingImplementation__querySelector(_this, selectors) {
   try {
     return __dom_wrap(_this.$dom.querySelector(__dom_unwrap(selectors)));
@@ -7141,6 +7275,20 @@ function native__ElementWrappingImplementation__querySelectorAll(_this, selector
     throw __dom_wrap_exception(e);
   }
 }
+function native__ElementWrappingImplementation__removeAttribute(_this, name) {
+  try {
+    return __dom_wrap(_this.$dom.removeAttribute(__dom_unwrap(name)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__ElementWrappingImplementation__setAttribute(_this, name, value) {
+  try {
+    return __dom_wrap(_this.$dom.setAttribute(__dom_unwrap(name), __dom_unwrap(value)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__ElementTraversalWrappingImplementation__get_firstElementChild(_this) {
   try {
     return __dom_wrap(_this.$dom.firstElementChild);
@@ -7151,6 +7299,13 @@ function native__ElementTraversalWrappingImplementation__get_firstElementChild(_
 function native__ElementTraversalWrappingImplementation__get_lastElementChild(_this) {
   try {
     return __dom_wrap(_this.$dom.lastElementChild);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__EntryWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7204,9 +7359,30 @@ function native__EntryArraySyncWrappingImplementation__item(_this, index) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__EntrySyncWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__EntrySyncWrappingImplementation__remove(_this) {
   try {
     return __dom_wrap(_this.$dom.remove());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__EventWrappingImplementation__get_currentTarget(_this) {
+  try {
+    return __dom_wrap(_this.$dom.currentTarget);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__EventExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7270,6 +7446,20 @@ function native__EventTargetWrappingImplementation__removeEventListener(_this, t
 function native__EventTargetWrappingImplementation__removeEventListener_2(_this, type, listener, useCapture) {
   try {
     return __dom_wrap(_this.$dom.removeEventListener(__dom_unwrap(type), __dom_unwrap(listener), __dom_unwrap(useCapture)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__FileWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__FileExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7400,6 +7590,13 @@ function native__HTMLAnchorElementWrappingImplementation__get_href(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLAnchorElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLAnchorElementWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
@@ -7410,6 +7607,13 @@ function native__HTMLAnchorElementWrappingImplementation__toString(_this) {
 function native__HTMLAppletElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLAppletElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7431,6 +7635,13 @@ function native__HTMLBRElementWrappingImplementation__get_clear(_this) {
 function native__HTMLBaseElementWrappingImplementation__get_href(_this) {
   try {
     return __dom_wrap(_this.$dom.href);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLButtonElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7547,6 +7758,13 @@ function native__HTMLEmbedElementWrappingImplementation__set_height(_this, value
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLEmbedElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLFormElementWrappingImplementation__get_elements(_this) {
   try {
     return __dom_wrap(_this.$dom.elements);
@@ -7557,6 +7775,13 @@ function native__HTMLFormElementWrappingImplementation__get_elements(_this) {
 function native__HTMLFormElementWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLFormElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7575,6 +7800,13 @@ function native__HTMLFrameElementWrappingImplementation__get_location(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLFrameElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLIFrameElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
@@ -7582,9 +7814,30 @@ function native__HTMLIFrameElementWrappingImplementation__set_height(_this, valu
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLIFrameElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLImageElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLImageElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLInputElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7617,6 +7870,13 @@ function native__HTMLInputElementWrappingImplementation__click(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLKeygenElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLLIElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -7638,6 +7898,13 @@ function native__HTMLLinkElementWrappingImplementation__get_href(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLMapElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLMarqueeElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
@@ -7655,6 +7922,13 @@ function native__HTMLMediaElementWrappingImplementation__get_error(_this) {
 function native__HTMLMediaElementWrappingImplementation__load(_this) {
   try {
     return __dom_wrap(_this.$dom.load());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLMetaElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7694,6 +7968,13 @@ function native__HTMLObjectElementWrappingImplementation__set_height(_this, valu
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLObjectElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLOptionElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -7729,6 +8010,13 @@ function native__HTMLOptionsCollectionWrappingImplementation__remove(_this, inde
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLOutputElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLOutputElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -7739,6 +8027,13 @@ function native__HTMLOutputElementWrappingImplementation__get_value(_this) {
 function native__HTMLOutputElementWrappingImplementation__set_value(_this, value) {
   try {
     _this.$dom.value = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLParamElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7781,6 +8076,13 @@ function native__HTMLSelectElementWrappingImplementation__get_length(_this) {
 function native__HTMLSelectElementWrappingImplementation__set_length(_this, value) {
   try {
     _this.$dom.length = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLSelectElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7830,6 +8132,13 @@ function native__HTMLSelectElementWrappingImplementation__remove_2(_this, index_
 function native__HTMLTableCellElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTextAreaElementWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7890,6 +8199,13 @@ function native__IDBCursorWithValueWrappingImplementation__get_value(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__IDBDatabaseWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__IDBDatabaseWrappingImplementation__addEventListener(_this, type, listener) {
   try {
     return __dom_wrap(_this.$dom.addEventListener(__dom_unwrap(type), __dom_unwrap(listener)));
@@ -7918,6 +8234,13 @@ function native__IDBDatabaseWrappingImplementation__removeEventListener_2(_this,
     throw __dom_wrap_exception(e);
   }
 }
+function native__IDBDatabaseExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__IDBDatabaseExceptionWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
@@ -7928,6 +8251,20 @@ function native__IDBDatabaseExceptionWrappingImplementation__toString(_this) {
 function native__IDBFactoryWrappingImplementation__open(_this, name) {
   try {
     return __dom_wrap(_this.$dom.open(__dom_unwrap(name)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__IDBIndexWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__IDBObjectStoreWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8156,6 +8493,13 @@ function native__MessagePortWrappingImplementation__removeEventListener_MessageP
     throw __dom_wrap_exception(e);
   }
 }
+function native__MouseEventWrappingImplementation__get_toElement(_this) {
+  try {
+    return __dom_wrap(_this.$dom.toElement);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__NamedNodeMapWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
@@ -8180,6 +8524,13 @@ function native__NamedNodeMapWrappingImplementation__item(_this, index) {
 function native__NavigatorWrappingImplementation__get_userAgent(_this) {
   try {
     return __dom_wrap(_this.$dom.userAgent);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__NodeWrappingImplementation__get_attributes(_this) {
+  try {
+    return __dom_wrap(_this.$dom.attributes);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8250,6 +8601,13 @@ function native__NodeWrappingImplementation__appendChild(_this, newChild) {
 function native__NodeWrappingImplementation__contains(_this, other) {
   try {
     return __dom_wrap(_this.$dom.contains(__dom_unwrap(other)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__NodeWrappingImplementation__hasAttributes(_this) {
+  try {
+    return __dom_wrap(_this.$dom.hasAttributes());
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8366,6 +8724,13 @@ function native__NotificationWrappingImplementation__show(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__OperationNotAllowedExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__OperationNotAllowedExceptionWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
@@ -8390,6 +8755,13 @@ function native__ProcessingInstructionWrappingImplementation__set_data(_this, va
 function native__RangeWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__RangeExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8607,6 +8979,13 @@ function native__SVGEllipseElementWrappingImplementation__get_className(_this) {
 function native__SVGEllipseElementWrappingImplementation__get_style_SVGEllipseElement(_this) {
   try {
     return __dom_wrap(_this.$dom.style);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__SVGExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -9339,6 +9718,13 @@ function native__ScriptProfileNodeWrappingImplementation__get_children(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__SharedWorkercontextWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__SpeechInputResultListWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
@@ -9549,9 +9935,23 @@ function native__Uint8ArrayWrappingImplementation__set_index(_this, index, value
     throw __dom_wrap_exception(e);
   }
 }
+function native__WebGLActiveInfoWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__WebGLRenderingContextWrappingImplementation__clear(_this, mask) {
   try {
     return __dom_wrap(_this.$dom.clear(__dom_unwrap(mask)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__WebKitAnimationWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -9573,6 +9973,13 @@ function native__WebKitAnimationListWrappingImplementation__item(_this, index) {
 function native__WebKitCSSKeyframeRuleWrappingImplementation__get_style(_this) {
   try {
     return __dom_wrap(_this.$dom.style);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__WebKitCSSKeyframesRuleWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -9794,6 +10201,13 @@ function native__XMLHttpRequestWrappingImplementation__send_6(_this, data) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__XMLHttpRequestExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__XMLHttpRequestExceptionWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
@@ -9825,6 +10239,13 @@ function native__XMLHttpRequestUploadWrappingImplementation__removeEventListener
 function native__XMLHttpRequestUploadWrappingImplementation__removeEventListener_XMLHttpRequestUpload_2(_this, type, listener, useCapture) {
   try {
     return __dom_wrap(_this.$dom.removeEventListener(__dom_unwrap(type), __dom_unwrap(listener), __dom_unwrap(useCapture)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__XPathExceptionWrappingImplementation__get_name(_this) {
+  try {
+    return __dom_wrap(_this.$dom.name);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -20145,6 +20566,14 @@ _AudioParamWrappingImplementation$Dart.create__AudioParamWrappingImplementation$
 function native__AudioParamWrappingImplementation_create__AudioParamWrappingImplementation(){
   return _AudioParamWrappingImplementation$Dart.create__AudioParamWrappingImplementation$member();
 }
+_AudioParamWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _AudioParamWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_AudioParamWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__AudioParamWrappingImplementation__get_name(_this);
+}
+;
 _AudioParamWrappingImplementation$Dart.prototype.value$getter = function(){
   return _AudioParamWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -22148,6 +22577,14 @@ _DOMExceptionWrappingImplementation$Dart.create__DOMExceptionWrappingImplementat
 function native__DOMExceptionWrappingImplementation_create__DOMExceptionWrappingImplementation(){
   return _DOMExceptionWrappingImplementation$Dart.create__DOMExceptionWrappingImplementation$member();
 }
+_DOMExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DOMExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DOMExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DOMExceptionWrappingImplementation__get_name(_this);
+}
+;
 _DOMExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _DOMExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -22207,6 +22644,14 @@ _DOMFileSystemSyncWrappingImplementation$Dart.create__DOMFileSystemSyncWrappingI
 function native__DOMFileSystemSyncWrappingImplementation_create__DOMFileSystemSyncWrappingImplementation(){
   return _DOMFileSystemSyncWrappingImplementation$Dart.create__DOMFileSystemSyncWrappingImplementation$member();
 }
+_DOMFileSystemSyncWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DOMFileSystemSyncWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DOMFileSystemSyncWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DOMFileSystemSyncWrappingImplementation__get_name(_this);
+}
+;
 _DOMFileSystemSyncWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'DOMFileSystemSync';
 }
@@ -22252,6 +22697,14 @@ _DOMFileSystemWrappingImplementation$Dart.create__DOMFileSystemWrappingImplement
 function native__DOMFileSystemWrappingImplementation_create__DOMFileSystemWrappingImplementation(){
   return _DOMFileSystemWrappingImplementation$Dart.create__DOMFileSystemWrappingImplementation$member();
 }
+_DOMFileSystemWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DOMFileSystemWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DOMFileSystemWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DOMFileSystemWrappingImplementation__get_name(_this);
+}
+;
 _DOMFileSystemWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'DOMFileSystem';
 }
@@ -22633,6 +23086,14 @@ _DOMPluginWrappingImplementation$Dart.prototype.length$getter = function(){
 ;
 _DOMPluginWrappingImplementation$Dart._get_length$$member_ = function(_this){
   return native__DOMPluginWrappingImplementation__get_length(_this);
+}
+;
+_DOMPluginWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DOMPluginWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DOMPluginWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DOMPluginWrappingImplementation__get_name(_this);
 }
 ;
 _DOMPluginWrappingImplementation$Dart.prototype.item$member = function(index){
@@ -23030,6 +23491,14 @@ _DOMWindowWrappingImplementation$Dart.prototype.location$getter = function(){
 ;
 _DOMWindowWrappingImplementation$Dart._get_location$$member_ = function(_this){
   return native__DOMWindowWrappingImplementation__get_location(_this);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DOMWindowWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DOMWindowWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DOMWindowWrappingImplementation__get_name(_this);
 }
 ;
 _DOMWindowWrappingImplementation$Dart.prototype.navigator$getter = function(){
@@ -23936,6 +24405,14 @@ _EntrySyncWrappingImplementation$Dart.create__EntrySyncWrappingImplementation$me
 function native__EntrySyncWrappingImplementation_create__EntrySyncWrappingImplementation(){
   return _EntrySyncWrappingImplementation$Dart.create__EntrySyncWrappingImplementation$member();
 }
+_EntrySyncWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _EntrySyncWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_EntrySyncWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__EntrySyncWrappingImplementation__get_name(_this);
+}
+;
 _EntrySyncWrappingImplementation$Dart.prototype.remove$member = function(){
   _EntrySyncWrappingImplementation$Dart._remove$$member_(this);
   return;
@@ -24041,6 +24518,14 @@ _EntryWrappingImplementation$Dart.create__EntryWrappingImplementation$member = f
 function native__EntryWrappingImplementation_create__EntryWrappingImplementation(){
   return _EntryWrappingImplementation$Dart.create__EntryWrappingImplementation$member();
 }
+_EntryWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _EntryWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_EntryWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__EntryWrappingImplementation__get_name(_this);
+}
+;
 _EntryWrappingImplementation$Dart.prototype.remove$member = function(successCallback, errorCallback){
   if (successCallback == null) {
     if (errorCallback == null) {
@@ -24177,6 +24662,14 @@ _EventExceptionWrappingImplementation$Dart.create__EventExceptionWrappingImpleme
 function native__EventExceptionWrappingImplementation_create__EventExceptionWrappingImplementation(){
   return _EventExceptionWrappingImplementation$Dart.create__EventExceptionWrappingImplementation$member();
 }
+_EventExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _EventExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_EventExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__EventExceptionWrappingImplementation__get_name(_this);
+}
+;
 _EventExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _EventExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -24450,6 +24943,14 @@ _EventWrappingImplementation$Dart.create__EventWrappingImplementation$member = f
 function native__EventWrappingImplementation_create__EventWrappingImplementation(){
   return _EventWrappingImplementation$Dart.create__EventWrappingImplementation$member();
 }
+_EventWrappingImplementation$Dart.prototype.currentTarget$getter = function(){
+  return _EventWrappingImplementation$Dart._get_currentTarget$$member_(this);
+}
+;
+_EventWrappingImplementation$Dart._get_currentTarget$$member_ = function(_this){
+  return native__EventWrappingImplementation__get_currentTarget(_this);
+}
+;
 _EventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'Event';
 }
@@ -24945,6 +25446,14 @@ _FileExceptionWrappingImplementation$Dart.create__FileExceptionWrappingImplement
 function native__FileExceptionWrappingImplementation_create__FileExceptionWrappingImplementation(){
   return _FileExceptionWrappingImplementation$Dart.create__FileExceptionWrappingImplementation$member();
 }
+_FileExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _FileExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_FileExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__FileExceptionWrappingImplementation__get_name(_this);
+}
+;
 _FileExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _FileExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -25174,6 +25683,14 @@ _FileWrappingImplementation$Dart.create__FileWrappingImplementation$member = fun
 function native__FileWrappingImplementation_create__FileWrappingImplementation(){
   return _FileWrappingImplementation$Dart.create__FileWrappingImplementation$member();
 }
+_FileWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _FileWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_FileWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__FileWrappingImplementation__get_name(_this);
+}
+;
 _FileWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'File';
 }
@@ -26653,6 +27170,14 @@ _IDBDatabaseExceptionWrappingImplementation$Dart.create__IDBDatabaseExceptionWra
 function native__IDBDatabaseExceptionWrappingImplementation_create__IDBDatabaseExceptionWrappingImplementation(){
   return _IDBDatabaseExceptionWrappingImplementation$Dart.create__IDBDatabaseExceptionWrappingImplementation$member();
 }
+_IDBDatabaseExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _IDBDatabaseExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_IDBDatabaseExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__IDBDatabaseExceptionWrappingImplementation__get_name(_this);
+}
+;
 _IDBDatabaseExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _IDBDatabaseExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -26712,6 +27237,14 @@ _IDBDatabaseWrappingImplementation$Dart.create__IDBDatabaseWrappingImplementatio
 function native__IDBDatabaseWrappingImplementation_create__IDBDatabaseWrappingImplementation(){
   return _IDBDatabaseWrappingImplementation$Dart.create__IDBDatabaseWrappingImplementation$member();
 }
+_IDBDatabaseWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _IDBDatabaseWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_IDBDatabaseWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__IDBDatabaseWrappingImplementation__get_name(_this);
+}
+;
 _IDBDatabaseWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _IDBDatabaseWrappingImplementation$Dart._addEventListener$$member_(this, type, listener);
@@ -26886,6 +27419,14 @@ _IDBIndexWrappingImplementation$Dart.create__IDBIndexWrappingImplementation$memb
 function native__IDBIndexWrappingImplementation_create__IDBIndexWrappingImplementation(){
   return _IDBIndexWrappingImplementation$Dart.create__IDBIndexWrappingImplementation$member();
 }
+_IDBIndexWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _IDBIndexWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_IDBIndexWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__IDBIndexWrappingImplementation__get_name(_this);
+}
+;
 _IDBIndexWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'IDBIndex';
 }
@@ -27021,6 +27562,14 @@ _IDBObjectStoreWrappingImplementation$Dart.create__IDBObjectStoreWrappingImpleme
 function native__IDBObjectStoreWrappingImplementation_create__IDBObjectStoreWrappingImplementation(){
   return _IDBObjectStoreWrappingImplementation$Dart.create__IDBObjectStoreWrappingImplementation$member();
 }
+_IDBObjectStoreWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _IDBObjectStoreWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_IDBObjectStoreWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__IDBObjectStoreWrappingImplementation__get_name(_this);
+}
+;
 _IDBObjectStoreWrappingImplementation$Dart.prototype.add$member = function(value, key){
   if (key == null) {
     return _IDBObjectStoreWrappingImplementation$Dart._add$$member_(this, value);
@@ -30108,6 +30657,14 @@ _NodeWrappingImplementation$Dart.create__NodeWrappingImplementation$member = fun
 function native__NodeWrappingImplementation_create__NodeWrappingImplementation(){
   return _NodeWrappingImplementation$Dart.create__NodeWrappingImplementation$member();
 }
+_NodeWrappingImplementation$Dart.prototype.attributes$getter = function(){
+  return _NodeWrappingImplementation$Dart._get_attributes$$member_(this);
+}
+;
+_NodeWrappingImplementation$Dart._get_attributes$$member_ = function(_this){
+  return native__NodeWrappingImplementation__get_attributes(_this);
+}
+;
 _NodeWrappingImplementation$Dart.prototype.childNodes$getter = function(){
   return _NodeWrappingImplementation$Dart._get_childNodes$$member_(this);
 }
@@ -30213,6 +30770,20 @@ _NodeWrappingImplementation$Dart.prototype.contains$named = function($n, $o, oth
 ;
 _NodeWrappingImplementation$Dart._contains$$member_ = function(receiver, other){
   return native__NodeWrappingImplementation__contains(receiver, other);
+}
+;
+_NodeWrappingImplementation$Dart.prototype.hasAttributes$member = function(){
+  return _NodeWrappingImplementation$Dart._hasAttributes$$member_(this);
+}
+;
+_NodeWrappingImplementation$Dart.prototype.hasAttributes$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _NodeWrappingImplementation$Dart.prototype.hasAttributes$member.call(this);
+}
+;
+_NodeWrappingImplementation$Dart._hasAttributes$$member_ = function(receiver){
+  return native__NodeWrappingImplementation__hasAttributes(receiver);
 }
 ;
 _NodeWrappingImplementation$Dart.prototype.hasChildNodes$member = function(){
@@ -30333,6 +30904,14 @@ _AttrWrappingImplementation$Dart.create__AttrWrappingImplementation$member = fun
 function native__AttrWrappingImplementation_create__AttrWrappingImplementation(){
   return _AttrWrappingImplementation$Dart.create__AttrWrappingImplementation$member();
 }
+_AttrWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _AttrWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_AttrWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__AttrWrappingImplementation__get_name(_this);
+}
+;
 _AttrWrappingImplementation$Dart.prototype.value$getter = function(){
   return _AttrWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -30581,6 +31160,14 @@ _DocumentTypeWrappingImplementation$Dart.create__DocumentTypeWrappingImplementat
 function native__DocumentTypeWrappingImplementation_create__DocumentTypeWrappingImplementation(){
   return _DocumentTypeWrappingImplementation$Dart.create__DocumentTypeWrappingImplementation$member();
 }
+_DocumentTypeWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _DocumentTypeWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_DocumentTypeWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__DocumentTypeWrappingImplementation__get_name(_this);
+}
+;
 _DocumentTypeWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'DocumentType';
 }
@@ -30770,6 +31357,34 @@ _ElementWrappingImplementation$Dart._get_style$$member_ = function(_this){
   return native__ElementWrappingImplementation__get_style(_this);
 }
 ;
+_ElementWrappingImplementation$Dart.prototype.getAttribute$member = function(name_0){
+  return _ElementWrappingImplementation$Dart._getAttribute$$member_(this, name_0);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.getAttribute$named = function($n, $o, name_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.getAttribute$member.call(this, name_0);
+}
+;
+_ElementWrappingImplementation$Dart._getAttribute$$member_ = function(receiver, name_0){
+  return native__ElementWrappingImplementation__getAttribute(receiver, name_0);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.hasAttribute$member = function(name_0){
+  return _ElementWrappingImplementation$Dart._hasAttribute$$member_(this, name_0);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.hasAttribute$named = function($n, $o, name_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.hasAttribute$member.call(this, name_0);
+}
+;
+_ElementWrappingImplementation$Dart._hasAttribute$$member_ = function(receiver, name_0){
+  return native__ElementWrappingImplementation__hasAttribute(receiver, name_0);
+}
+;
 _ElementWrappingImplementation$Dart.prototype.querySelector$member = function(selectors){
   return _ElementWrappingImplementation$Dart._querySelector$$member_(this, selectors);
 }
@@ -30796,6 +31411,36 @@ _ElementWrappingImplementation$Dart.prototype.querySelectorAll$named = function(
 ;
 _ElementWrappingImplementation$Dart._querySelectorAll$$member_ = function(receiver, selectors){
   return native__ElementWrappingImplementation__querySelectorAll(receiver, selectors);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.removeAttribute$member = function(name_0){
+  _ElementWrappingImplementation$Dart._removeAttribute$$member_(this, name_0);
+  return;
+}
+;
+_ElementWrappingImplementation$Dart.prototype.removeAttribute$named = function($n, $o, name_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.removeAttribute$member.call(this, name_0);
+}
+;
+_ElementWrappingImplementation$Dart._removeAttribute$$member_ = function(receiver, name_0){
+  return native__ElementWrappingImplementation__removeAttribute(receiver, name_0);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.setAttribute$member = function(name_0, value){
+  _ElementWrappingImplementation$Dart._setAttribute$$member_(this, name_0, value);
+  return;
+}
+;
+_ElementWrappingImplementation$Dart.prototype.setAttribute$named = function($n, $o, name_0, value){
+  if ($o.count || $n != 2)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.setAttribute$member.call(this, name_0, value);
+}
+;
+_ElementWrappingImplementation$Dart._setAttribute$$member_ = function(receiver, name_0, value){
+  return native__ElementWrappingImplementation__setAttribute(receiver, name_0, value);
 }
 ;
 _ElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -31118,6 +31763,14 @@ _HTMLAnchorElementWrappingImplementation$Dart._get_href$$member_ = function(_thi
   return native__HTMLAnchorElementWrappingImplementation__get_href(_this);
 }
 ;
+_HTMLAnchorElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLAnchorElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLAnchorElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLAnchorElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLAnchorElementWrappingImplementation$Dart.prototype.toString$member = function(){
   return _HTMLAnchorElementWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -31183,6 +31836,14 @@ _HTMLAppletElementWrappingImplementation$Dart.prototype.height$setter = function
 ;
 _HTMLAppletElementWrappingImplementation$Dart._set_height$$member_ = function(_this, value){
   return native__HTMLAppletElementWrappingImplementation__set_height(_this, value);
+}
+;
+_HTMLAppletElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLAppletElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLAppletElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLAppletElementWrappingImplementation__get_name(_this);
 }
 ;
 _HTMLAppletElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -31483,6 +32144,14 @@ _HTMLButtonElementWrappingImplementation$Dart.create__HTMLButtonElementWrappingI
 function native__HTMLButtonElementWrappingImplementation_create__HTMLButtonElementWrappingImplementation(){
   return _HTMLButtonElementWrappingImplementation$Dart.create__HTMLButtonElementWrappingImplementation$member();
 }
+_HTMLButtonElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLButtonElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLButtonElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLButtonElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLButtonElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLButtonElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -31865,6 +32534,14 @@ _HTMLEmbedElementWrappingImplementation$Dart._set_height$$member_ = function(_th
   return native__HTMLEmbedElementWrappingImplementation__set_height(_this, value);
 }
 ;
+_HTMLEmbedElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLEmbedElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLEmbedElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLEmbedElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLEmbedElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLEmbedElement';
 }
@@ -32016,6 +32693,14 @@ _HTMLFormElementWrappingImplementation$Dart._get_length$$member_ = function(_thi
   return native__HTMLFormElementWrappingImplementation__get_length(_this);
 }
 ;
+_HTMLFormElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLFormElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLFormElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLFormElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLFormElementWrappingImplementation$Dart.prototype.reset$member = function(){
   _HTMLFormElementWrappingImplementation$Dart._reset$$member_(this);
   return;
@@ -32090,6 +32775,14 @@ _HTMLFrameElementWrappingImplementation$Dart.prototype.location$getter = functio
 ;
 _HTMLFrameElementWrappingImplementation$Dart._get_location$$member_ = function(_this){
   return native__HTMLFrameElementWrappingImplementation__get_location(_this);
+}
+;
+_HTMLFrameElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLFrameElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLFrameElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLFrameElementWrappingImplementation__get_name(_this);
 }
 ;
 _HTMLFrameElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -32370,6 +33063,14 @@ _HTMLIFrameElementWrappingImplementation$Dart._set_height$$member_ = function(_t
   return native__HTMLIFrameElementWrappingImplementation__set_height(_this, value);
 }
 ;
+_HTMLIFrameElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLIFrameElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLIFrameElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLIFrameElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLIFrameElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLIFrameElement';
 }
@@ -32423,6 +33124,14 @@ _HTMLImageElementWrappingImplementation$Dart._set_height$$member_ = function(_th
   return native__HTMLImageElementWrappingImplementation__set_height(_this, value);
 }
 ;
+_HTMLImageElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLImageElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLImageElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLImageElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLImageElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLImageElement';
 }
@@ -32468,6 +33177,14 @@ _HTMLInputElementWrappingImplementation$Dart.create__HTMLInputElementWrappingImp
 function native__HTMLInputElementWrappingImplementation_create__HTMLInputElementWrappingImplementation(){
   return _HTMLInputElementWrappingImplementation$Dart.create__HTMLInputElementWrappingImplementation$member();
 }
+_HTMLInputElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLInputElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLInputElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLInputElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLInputElementWrappingImplementation$Dart.prototype.pattern$getter = function(){
   return _HTMLInputElementWrappingImplementation$Dart._get_pattern$$member_(this);
 }
@@ -32605,6 +33322,14 @@ _HTMLKeygenElementWrappingImplementation$Dart.create__HTMLKeygenElementWrappingI
 function native__HTMLKeygenElementWrappingImplementation_create__HTMLKeygenElementWrappingImplementation(){
   return _HTMLKeygenElementWrappingImplementation$Dart.create__HTMLKeygenElementWrappingImplementation$member();
 }
+_HTMLKeygenElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLKeygenElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLKeygenElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLKeygenElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLKeygenElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLKeygenElement';
 }
@@ -32854,6 +33579,14 @@ _HTMLMapElementWrappingImplementation$Dart.create__HTMLMapElementWrappingImpleme
 function native__HTMLMapElementWrappingImplementation_create__HTMLMapElementWrappingImplementation(){
   return _HTMLMapElementWrappingImplementation$Dart.create__HTMLMapElementWrappingImplementation$member();
 }
+_HTMLMapElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLMapElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLMapElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLMapElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLMapElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLMapElement';
 }
@@ -33122,6 +33855,14 @@ _HTMLMetaElementWrappingImplementation$Dart.create__HTMLMetaElementWrappingImple
 function native__HTMLMetaElementWrappingImplementation_create__HTMLMetaElementWrappingImplementation(){
   return _HTMLMetaElementWrappingImplementation$Dart.create__HTMLMetaElementWrappingImplementation$member();
 }
+_HTMLMetaElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLMetaElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLMetaElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLMetaElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLMetaElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLMetaElement';
 }
@@ -33342,6 +34083,14 @@ _HTMLObjectElementWrappingImplementation$Dart._set_height$$member_ = function(_t
   return native__HTMLObjectElementWrappingImplementation__set_height(_this, value);
 }
 ;
+_HTMLObjectElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLObjectElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLObjectElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLObjectElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLObjectElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLObjectElement';
 }
@@ -33494,6 +34243,14 @@ _HTMLOutputElementWrappingImplementation$Dart.create__HTMLOutputElementWrappingI
 function native__HTMLOutputElementWrappingImplementation_create__HTMLOutputElementWrappingImplementation(){
   return _HTMLOutputElementWrappingImplementation$Dart.create__HTMLOutputElementWrappingImplementation$member();
 }
+_HTMLOutputElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLOutputElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLOutputElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLOutputElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLOutputElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLOutputElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -33600,6 +34357,14 @@ _HTMLParamElementWrappingImplementation$Dart.create__HTMLParamElementWrappingImp
 function native__HTMLParamElementWrappingImplementation_create__HTMLParamElementWrappingImplementation(){
   return _HTMLParamElementWrappingImplementation$Dart.create__HTMLParamElementWrappingImplementation$member();
 }
+_HTMLParamElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLParamElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLParamElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLParamElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLParamElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLParamElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -33871,6 +34636,14 @@ _HTMLSelectElementWrappingImplementation$Dart._get_length$$member_ = function(_t
 ;
 _HTMLSelectElementWrappingImplementation$Dart._set_length$$member_ = function(_this, value){
   return native__HTMLSelectElementWrappingImplementation__set_length(_this, value);
+}
+;
+_HTMLSelectElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLSelectElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLSelectElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLSelectElementWrappingImplementation__get_name(_this);
 }
 ;
 _HTMLSelectElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -34405,6 +35178,14 @@ _HTMLTextAreaElementWrappingImplementation$Dart.create__HTMLTextAreaElementWrapp
 function native__HTMLTextAreaElementWrappingImplementation_create__HTMLTextAreaElementWrappingImplementation(){
   return _HTMLTextAreaElementWrappingImplementation$Dart.create__HTMLTextAreaElementWrappingImplementation$member();
 }
+_HTMLTextAreaElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _HTMLTextAreaElementWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_HTMLTextAreaElementWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__HTMLTextAreaElementWrappingImplementation__get_name(_this);
+}
+;
 _HTMLTextAreaElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLTextAreaElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -35091,6 +35872,14 @@ _OperationNotAllowedExceptionWrappingImplementation$Dart.create__OperationNotAll
 function native__OperationNotAllowedExceptionWrappingImplementation_create__OperationNotAllowedExceptionWrappingImplementation(){
   return _OperationNotAllowedExceptionWrappingImplementation$Dart.create__OperationNotAllowedExceptionWrappingImplementation$member();
 }
+_OperationNotAllowedExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _OperationNotAllowedExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_OperationNotAllowedExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__OperationNotAllowedExceptionWrappingImplementation__get_name(_this);
+}
+;
 _OperationNotAllowedExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _OperationNotAllowedExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -35616,6 +36405,14 @@ _RangeExceptionWrappingImplementation$Dart.create__RangeExceptionWrappingImpleme
 function native__RangeExceptionWrappingImplementation_create__RangeExceptionWrappingImplementation(){
   return _RangeExceptionWrappingImplementation$Dart.create__RangeExceptionWrappingImplementation$member();
 }
+_RangeExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _RangeExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_RangeExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__RangeExceptionWrappingImplementation__get_name(_this);
+}
+;
 _RangeExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _RangeExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -37854,6 +38651,14 @@ _SVGExceptionWrappingImplementation$Dart.create__SVGExceptionWrappingImplementat
 function native__SVGExceptionWrappingImplementation_create__SVGExceptionWrappingImplementation(){
   return _SVGExceptionWrappingImplementation$Dart.create__SVGExceptionWrappingImplementation$member();
 }
+_SVGExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _SVGExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_SVGExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__SVGExceptionWrappingImplementation__get_name(_this);
+}
+;
 _SVGExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _SVGExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -45908,6 +46713,14 @@ _MouseEventWrappingImplementation$Dart.create__MouseEventWrappingImplementation$
 function native__MouseEventWrappingImplementation_create__MouseEventWrappingImplementation(){
   return _MouseEventWrappingImplementation$Dart.create__MouseEventWrappingImplementation$member();
 }
+_MouseEventWrappingImplementation$Dart.prototype.toElement$getter = function(){
+  return _MouseEventWrappingImplementation$Dart._get_toElement$$member_(this);
+}
+;
+_MouseEventWrappingImplementation$Dart._get_toElement$$member_ = function(_this){
+  return native__MouseEventWrappingImplementation__get_toElement(_this);
+}
+;
 _MouseEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'MouseEvent';
 }
@@ -46870,6 +47683,14 @@ _WebGLActiveInfoWrappingImplementation$Dart.create__WebGLActiveInfoWrappingImple
 function native__WebGLActiveInfoWrappingImplementation_create__WebGLActiveInfoWrappingImplementation(){
   return _WebGLActiveInfoWrappingImplementation$Dart.create__WebGLActiveInfoWrappingImplementation$member();
 }
+_WebGLActiveInfoWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _WebGLActiveInfoWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_WebGLActiveInfoWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__WebGLActiveInfoWrappingImplementation__get_name(_this);
+}
+;
 _WebGLActiveInfoWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WebGLActiveInfo';
 }
@@ -47635,6 +48456,14 @@ _WebKitAnimationWrappingImplementation$Dart.create__WebKitAnimationWrappingImple
 function native__WebKitAnimationWrappingImplementation_create__WebKitAnimationWrappingImplementation(){
   return _WebKitAnimationWrappingImplementation$Dart.create__WebKitAnimationWrappingImplementation$member();
 }
+_WebKitAnimationWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _WebKitAnimationWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_WebKitAnimationWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__WebKitAnimationWrappingImplementation__get_name(_this);
+}
+;
 _WebKitAnimationWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WebKitAnimation';
 }
@@ -47823,6 +48652,14 @@ _WebKitCSSKeyframesRuleWrappingImplementation$Dart.create__WebKitCSSKeyframesRul
 function native__WebKitCSSKeyframesRuleWrappingImplementation_create__WebKitCSSKeyframesRuleWrappingImplementation(){
   return _WebKitCSSKeyframesRuleWrappingImplementation$Dart.create__WebKitCSSKeyframesRuleWrappingImplementation$member();
 }
+_WebKitCSSKeyframesRuleWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _WebKitCSSKeyframesRuleWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_WebKitCSSKeyframesRuleWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__WebKitCSSKeyframesRuleWrappingImplementation__get_name(_this);
+}
+;
 _WebKitCSSKeyframesRuleWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WebKitCSSKeyframesRule';
 }
@@ -48531,6 +49368,14 @@ _SharedWorkercontextWrappingImplementation$Dart.create__SharedWorkercontextWrapp
 function native__SharedWorkercontextWrappingImplementation_create__SharedWorkercontextWrappingImplementation(){
   return _SharedWorkercontextWrappingImplementation$Dart.create__SharedWorkercontextWrappingImplementation$member();
 }
+_SharedWorkercontextWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _SharedWorkercontextWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_SharedWorkercontextWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__SharedWorkercontextWrappingImplementation__get_name(_this);
+}
+;
 _SharedWorkercontextWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'SharedWorkercontext';
 }
@@ -48741,6 +49586,14 @@ _XMLHttpRequestExceptionWrappingImplementation$Dart.create__XMLHttpRequestExcept
 function native__XMLHttpRequestExceptionWrappingImplementation_create__XMLHttpRequestExceptionWrappingImplementation(){
   return _XMLHttpRequestExceptionWrappingImplementation$Dart.create__XMLHttpRequestExceptionWrappingImplementation$member();
 }
+_XMLHttpRequestExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _XMLHttpRequestExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_XMLHttpRequestExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__XMLHttpRequestExceptionWrappingImplementation__get_name(_this);
+}
+;
 _XMLHttpRequestExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _XMLHttpRequestExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -49310,6 +50163,14 @@ _XPathExceptionWrappingImplementation$Dart.create__XPathExceptionWrappingImpleme
 function native__XPathExceptionWrappingImplementation_create__XPathExceptionWrappingImplementation(){
   return _XPathExceptionWrappingImplementation$Dart.create__XPathExceptionWrappingImplementation$member();
 }
+_XPathExceptionWrappingImplementation$Dart.prototype.name$getter = function(){
+  return _XPathExceptionWrappingImplementation$Dart._get_name$$member_(this);
+}
+;
+_XPathExceptionWrappingImplementation$Dart._get_name$$member_ = function(_this){
+  return native__XPathExceptionWrappingImplementation__get_name(_this);
+}
+;
 _XPathExceptionWrappingImplementation$Dart.prototype.toString$member = function(){
   return _XPathExceptionWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -50136,6 +50997,363 @@ htmlimpl0a8e4b$LevelDom$Dart.wrapEvent$member = function(raw){
   }
 }
 ;
+htmlimpl0a8e4b$LevelDom$Dart.wrapEventTarget$member = function(raw){
+  if (raw == null) {
+    return $Dart$Null;
+  }
+  if (raw.dartObjectLocalStorage$getter() != null) {
+    return raw.dartObjectLocalStorage$getter();
+  }
+  switch (raw.typeName$getter()) {
+    case 'HTMLAnchorElement':
+      return htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.AnchorElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLAreaElement':
+      return htmlimpl0a8e4b$AreaElementWrappingImplementation$Dart.AreaElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLAudioElement':
+      return htmlimpl0a8e4b$AudioElementWrappingImplementation$Dart.AudioElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLBRElement':
+      return htmlimpl0a8e4b$BRElementWrappingImplementation$Dart.BRElementWrappingImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLBaseElement':
+      return htmlimpl0a8e4b$BaseElementWrappingImplementation$Dart.BaseElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLBodyElement':
+      return htmlimpl0a8e4b$BodyElementWrappingImplementation$Dart.BodyElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLButtonElement':
+      return htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.ButtonElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'CDATASection':
+      return htmlimpl0a8e4b$CDATASectionWrappingImplementation$Dart.CDATASectionWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLCanvasElement':
+      return htmlimpl0a8e4b$CanvasElementWrappingImplementation$Dart.CanvasElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'CharacterData':
+      return htmlimpl0a8e4b$CharacterDataWrappingImplementation$Dart.CharacterDataWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Comment':
+      return htmlimpl0a8e4b$CommentWrappingImplementation$Dart.CommentWrappingImplementation$_wrap$29$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLDListElement':
+      return htmlimpl0a8e4b$DListElementWrappingImplementation$Dart.DListElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'DOMApplicationCache':
+      return htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.DOMApplicationCacheWrappingImplementation$_wrap$41$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLDataListElement':
+      return htmlimpl0a8e4b$DataListElementWrappingImplementation$Dart.DataListElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLDetailsElement':
+      return htmlimpl0a8e4b$DetailsElementWrappingImplementation$Dart.DetailsElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLDivElement':
+      return htmlimpl0a8e4b$DivElementWrappingImplementation$Dart.DivElementWrappingImplementation$_wrap$32$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLDocument':
+      return htmlimpl0a8e4b$DocumentWrappingImplementation$Dart.DocumentWrappingImplementation$_wrap$30$htmlimpl0a8e4b$$Factory_(raw, raw.documentElement$getter());
+    case 'DocumentFragment':
+      return htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.DocumentFragmentWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLElement':
+      return htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$_wrap$29$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLEmbedElement':
+      return htmlimpl0a8e4b$EmbedElementWrappingImplementation$Dart.EmbedElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Entity':
+      return htmlimpl0a8e4b$EntityWrappingImplementation$Dart.EntityWrappingImplementation$_wrap$28$htmlimpl0a8e4b$$Factory_(raw);
+    case 'EntityReference':
+      return htmlimpl0a8e4b$EntityReferenceWrappingImplementation$Dart.EntityReferenceWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'EventSource':
+      return htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.EventSourceWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'EventTarget':
+      return htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.EventTargetWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLFieldSetElement':
+      return htmlimpl0a8e4b$FieldSetElementWrappingImplementation$Dart.FieldSetElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLFontElement':
+      return htmlimpl0a8e4b$FontElementWrappingImplementation$Dart.FontElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLFormElement':
+      return htmlimpl0a8e4b$FormElementWrappingImplementation$Dart.FormElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLHRElement':
+      return htmlimpl0a8e4b$HRElementWrappingImplementation$Dart.HRElementWrappingImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLHeadElement':
+      return htmlimpl0a8e4b$HeadElementWrappingImplementation$Dart.HeadElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLHeadingElement':
+      return htmlimpl0a8e4b$HeadingElementWrappingImplementation$Dart.HeadingElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLHtmlElement':
+      return htmlimpl0a8e4b$DocumentWrappingImplementation$Dart.DocumentWrappingImplementation$_wrap$30$htmlimpl0a8e4b$$Factory_(raw.parentNode$getter(), raw);
+    case 'HTMLIFrameElement':
+      return htmlimpl0a8e4b$IFrameElementWrappingImplementation$Dart.IFrameElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLImageElement':
+      return htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.ImageElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLInputElement':
+      return htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.InputElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLKeygenElement':
+      return htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.KeygenElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLLIElement':
+      return htmlimpl0a8e4b$LIElementWrappingImplementation$Dart.LIElementWrappingImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLLabelElement':
+      return htmlimpl0a8e4b$LabelElementWrappingImplementation$Dart.LabelElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLLegendElement':
+      return htmlimpl0a8e4b$LegendElementWrappingImplementation$Dart.LegendElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLLinkElement':
+      return htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.LinkElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMapElement':
+      return htmlimpl0a8e4b$MapElementWrappingImplementation$Dart.MapElementWrappingImplementation$_wrap$32$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMarqueeElement':
+      return htmlimpl0a8e4b$MarqueeElementWrappingImplementation$Dart.MarqueeElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMediaElement':
+      return htmlimpl0a8e4b$MediaElementWrappingImplementation$Dart.MediaElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMenuElement':
+      return htmlimpl0a8e4b$MenuElementWrappingImplementation$Dart.MenuElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'MessagePort':
+      return htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.MessagePortWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMetaElement':
+      return htmlimpl0a8e4b$MetaElementWrappingImplementation$Dart.MetaElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLMeterElement':
+      return htmlimpl0a8e4b$MeterElementWrappingImplementation$Dart.MeterElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLModElement':
+      return htmlimpl0a8e4b$ModElementWrappingImplementation$Dart.ModElementWrappingImplementation$_wrap$32$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Node':
+      return htmlimpl0a8e4b$NodeWrappingImplementation$Dart.NodeWrappingImplementation$_wrap$26$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Notation':
+      return htmlimpl0a8e4b$NotationWrappingImplementation$Dart.NotationWrappingImplementation$_wrap$30$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Notification':
+      return htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.NotificationWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLOListElement':
+      return htmlimpl0a8e4b$OListElementWrappingImplementation$Dart.OListElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLObjectElement':
+      return htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.ObjectElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLOptGroupElement':
+      return htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart.OptGroupElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLOptionElement':
+      return htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.OptionElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLOutputElement':
+      return htmlimpl0a8e4b$OutputElementWrappingImplementation$Dart.OutputElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLParagraphElement':
+      return htmlimpl0a8e4b$ParagraphElementWrappingImplementation$Dart.ParagraphElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLParamElement':
+      return htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.ParamElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLPreElement':
+      return htmlimpl0a8e4b$PreElementWrappingImplementation$Dart.PreElementWrappingImplementation$_wrap$32$htmlimpl0a8e4b$$Factory_(raw);
+    case 'ProcessingInstruction':
+      return htmlimpl0a8e4b$ProcessingInstructionWrappingImplementation$Dart.ProcessingInstructionWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLProgressElement':
+      return htmlimpl0a8e4b$ProgressElementWrappingImplementation$Dart.ProgressElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLQuoteElement':
+      return htmlimpl0a8e4b$QuoteElementWrappingImplementation$Dart.QuoteElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAElement':
+      return htmlimpl0a8e4b$SVGAElementWrappingImplementation$Dart.SVGAElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAltGlyphDefElement':
+      return htmlimpl0a8e4b$SVGAltGlyphDefElementWrappingImplementation$Dart.SVGAltGlyphDefElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAltGlyphElement':
+      return htmlimpl0a8e4b$SVGAltGlyphElementWrappingImplementation$Dart.SVGAltGlyphElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAltGlyphItemElement':
+      return htmlimpl0a8e4b$SVGAltGlyphItemElementWrappingImplementation$Dart.SVGAltGlyphItemElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAnimateColorElement':
+      return htmlimpl0a8e4b$SVGAnimateColorElementWrappingImplementation$Dart.SVGAnimateColorElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAnimateElement':
+      return htmlimpl0a8e4b$SVGAnimateElementWrappingImplementation$Dart.SVGAnimateElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAnimateMotionElement':
+      return htmlimpl0a8e4b$SVGAnimateMotionElementWrappingImplementation$Dart.SVGAnimateMotionElementWrappingImplementation$_wrap$45$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAnimateTransformElement':
+      return htmlimpl0a8e4b$SVGAnimateTransformElementWrappingImplementation$Dart.SVGAnimateTransformElementWrappingImplementation$_wrap$48$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGAnimationElement':
+      return htmlimpl0a8e4b$SVGAnimationElementWrappingImplementation$Dart.SVGAnimationElementWrappingImplementation$_wrap$41$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGCircleElement':
+      return htmlimpl0a8e4b$SVGCircleElementWrappingImplementation$Dart.SVGCircleElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGClipPathElement':
+      return htmlimpl0a8e4b$SVGClipPathElementWrappingImplementation$Dart.SVGClipPathElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGComponentTransferFunctionElement':
+      return htmlimpl0a8e4b$SVGComponentTransferFunctionElementWrappingImplementation$Dart.SVGComponentTransferFunctionElementWrappingImplementation$_wrap$57$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGCursorElement':
+      return htmlimpl0a8e4b$SVGCursorElementWrappingImplementation$Dart.SVGCursorElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGDefsElement':
+      return htmlimpl0a8e4b$SVGDefsElementWrappingImplementation$Dart.SVGDefsElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGDescElement':
+      return htmlimpl0a8e4b$SVGDescElementWrappingImplementation$Dart.SVGDescElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGDocument':
+      return htmlimpl0a8e4b$SVGDocumentWrappingImplementation$Dart.SVGDocumentWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGElement':
+      return htmlimpl0a8e4b$SVGElementWrappingImplementation$Dart.SVGElementWrappingImplementation$_wrap$32$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGElementInstance':
+      return htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.SVGElementInstanceWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGEllipseElement':
+      return htmlimpl0a8e4b$SVGEllipseElementWrappingImplementation$Dart.SVGEllipseElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEBlendElement':
+      return htmlimpl0a8e4b$SVGFEBlendElementWrappingImplementation$Dart.SVGFEBlendElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEColorMatrixElement':
+      return htmlimpl0a8e4b$SVGFEColorMatrixElementWrappingImplementation$Dart.SVGFEColorMatrixElementWrappingImplementation$_wrap$45$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEComponentTransferElement':
+      return htmlimpl0a8e4b$SVGFEComponentTransferElementWrappingImplementation$Dart.SVGFEComponentTransferElementWrappingImplementation$_wrap$51$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEConvolveMatrixElement':
+      return htmlimpl0a8e4b$SVGFEConvolveMatrixElementWrappingImplementation$Dart.SVGFEConvolveMatrixElementWrappingImplementation$_wrap$48$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEDiffuseLightingElement':
+      return htmlimpl0a8e4b$SVGFEDiffuseLightingElementWrappingImplementation$Dart.SVGFEDiffuseLightingElementWrappingImplementation$_wrap$49$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEDisplacementMapElement':
+      return htmlimpl0a8e4b$SVGFEDisplacementMapElementWrappingImplementation$Dart.SVGFEDisplacementMapElementWrappingImplementation$_wrap$49$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEDistantLightElement':
+      return htmlimpl0a8e4b$SVGFEDistantLightElementWrappingImplementation$Dart.SVGFEDistantLightElementWrappingImplementation$_wrap$46$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEDropShadowElement':
+      return htmlimpl0a8e4b$SVGFEDropShadowElementWrappingImplementation$Dart.SVGFEDropShadowElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEFloodElement':
+      return htmlimpl0a8e4b$SVGFEFloodElementWrappingImplementation$Dart.SVGFEFloodElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEFuncAElement':
+      return htmlimpl0a8e4b$SVGFEFuncAElementWrappingImplementation$Dart.SVGFEFuncAElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEFuncBElement':
+      return htmlimpl0a8e4b$SVGFEFuncBElementWrappingImplementation$Dart.SVGFEFuncBElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEFuncGElement':
+      return htmlimpl0a8e4b$SVGFEFuncGElementWrappingImplementation$Dart.SVGFEFuncGElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEFuncRElement':
+      return htmlimpl0a8e4b$SVGFEFuncRElementWrappingImplementation$Dart.SVGFEFuncRElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEGaussianBlurElement':
+      return htmlimpl0a8e4b$SVGFEGaussianBlurElementWrappingImplementation$Dart.SVGFEGaussianBlurElementWrappingImplementation$_wrap$46$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEImageElement':
+      return htmlimpl0a8e4b$SVGFEImageElementWrappingImplementation$Dart.SVGFEImageElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEMergeElement':
+      return htmlimpl0a8e4b$SVGFEMergeElementWrappingImplementation$Dart.SVGFEMergeElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEMergeNodeElement':
+      return htmlimpl0a8e4b$SVGFEMergeNodeElementWrappingImplementation$Dart.SVGFEMergeNodeElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEOffsetElement':
+      return htmlimpl0a8e4b$SVGFEOffsetElementWrappingImplementation$Dart.SVGFEOffsetElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFEPointLightElement':
+      return htmlimpl0a8e4b$SVGFEPointLightElementWrappingImplementation$Dart.SVGFEPointLightElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFESpecularLightingElement':
+      return htmlimpl0a8e4b$SVGFESpecularLightingElementWrappingImplementation$Dart.SVGFESpecularLightingElementWrappingImplementation$_wrap$50$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFESpotLightElement':
+      return htmlimpl0a8e4b$SVGFESpotLightElementWrappingImplementation$Dart.SVGFESpotLightElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFETileElement':
+      return htmlimpl0a8e4b$SVGFETileElementWrappingImplementation$Dart.SVGFETileElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFETurbulenceElement':
+      return htmlimpl0a8e4b$SVGFETurbulenceElementWrappingImplementation$Dart.SVGFETurbulenceElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFilterElement':
+      return htmlimpl0a8e4b$SVGFilterElementWrappingImplementation$Dart.SVGFilterElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontElement':
+      return htmlimpl0a8e4b$SVGFontElementWrappingImplementation$Dart.SVGFontElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontFaceElement':
+      return htmlimpl0a8e4b$SVGFontFaceElementWrappingImplementation$Dart.SVGFontFaceElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontFaceFormatElement':
+      return htmlimpl0a8e4b$SVGFontFaceFormatElementWrappingImplementation$Dart.SVGFontFaceFormatElementWrappingImplementation$_wrap$46$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontFaceNameElement':
+      return htmlimpl0a8e4b$SVGFontFaceNameElementWrappingImplementation$Dart.SVGFontFaceNameElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontFaceSrcElement':
+      return htmlimpl0a8e4b$SVGFontFaceSrcElementWrappingImplementation$Dart.SVGFontFaceSrcElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGFontFaceUriElement':
+      return htmlimpl0a8e4b$SVGFontFaceUriElementWrappingImplementation$Dart.SVGFontFaceUriElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGForeignObjectElement':
+      return htmlimpl0a8e4b$SVGForeignObjectElementWrappingImplementation$Dart.SVGForeignObjectElementWrappingImplementation$_wrap$45$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGGElement':
+      return htmlimpl0a8e4b$SVGGElementWrappingImplementation$Dart.SVGGElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGGlyphElement':
+      return htmlimpl0a8e4b$SVGGlyphElementWrappingImplementation$Dart.SVGGlyphElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGGlyphRefElement':
+      return htmlimpl0a8e4b$SVGGlyphRefElementWrappingImplementation$Dart.SVGGlyphRefElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGGradientElement':
+      return htmlimpl0a8e4b$SVGGradientElementWrappingImplementation$Dart.SVGGradientElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGHKernElement':
+      return htmlimpl0a8e4b$SVGHKernElementWrappingImplementation$Dart.SVGHKernElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGImageElement':
+      return htmlimpl0a8e4b$SVGImageElementWrappingImplementation$Dart.SVGImageElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGLineElement':
+      return htmlimpl0a8e4b$SVGLineElementWrappingImplementation$Dart.SVGLineElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGLinearGradientElement':
+      return htmlimpl0a8e4b$SVGLinearGradientElementWrappingImplementation$Dart.SVGLinearGradientElementWrappingImplementation$_wrap$46$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGMPathElement':
+      return htmlimpl0a8e4b$SVGMPathElementWrappingImplementation$Dart.SVGMPathElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGMarkerElement':
+      return htmlimpl0a8e4b$SVGMarkerElementWrappingImplementation$Dart.SVGMarkerElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGMaskElement':
+      return htmlimpl0a8e4b$SVGMaskElementWrappingImplementation$Dart.SVGMaskElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGMetadataElement':
+      return htmlimpl0a8e4b$SVGMetadataElementWrappingImplementation$Dart.SVGMetadataElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGMissingGlyphElement':
+      return htmlimpl0a8e4b$SVGMissingGlyphElementWrappingImplementation$Dart.SVGMissingGlyphElementWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGPathElement':
+      return htmlimpl0a8e4b$SVGPathElementWrappingImplementation$Dart.SVGPathElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGPatternElement':
+      return htmlimpl0a8e4b$SVGPatternElementWrappingImplementation$Dart.SVGPatternElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGPolygonElement':
+      return htmlimpl0a8e4b$SVGPolygonElementWrappingImplementation$Dart.SVGPolygonElementWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGPolylineElement':
+      return htmlimpl0a8e4b$SVGPolylineElementWrappingImplementation$Dart.SVGPolylineElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGRadialGradientElement':
+      return htmlimpl0a8e4b$SVGRadialGradientElementWrappingImplementation$Dart.SVGRadialGradientElementWrappingImplementation$_wrap$46$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGRectElement':
+      return htmlimpl0a8e4b$SVGRectElementWrappingImplementation$Dart.SVGRectElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGSVGElement':
+      return htmlimpl0a8e4b$SVGSVGElementWrappingImplementation$Dart.SVGSVGElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGScriptElement':
+      return htmlimpl0a8e4b$SVGScriptElementWrappingImplementation$Dart.SVGScriptElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGSetElement':
+      return htmlimpl0a8e4b$SVGSetElementWrappingImplementation$Dart.SVGSetElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGStopElement':
+      return htmlimpl0a8e4b$SVGStopElementWrappingImplementation$Dart.SVGStopElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGStyleElement':
+      return htmlimpl0a8e4b$SVGStyleElementWrappingImplementation$Dart.SVGStyleElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGSwitchElement':
+      return htmlimpl0a8e4b$SVGSwitchElementWrappingImplementation$Dart.SVGSwitchElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGSymbolElement':
+      return htmlimpl0a8e4b$SVGSymbolElementWrappingImplementation$Dart.SVGSymbolElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTRefElement':
+      return htmlimpl0a8e4b$SVGTRefElementWrappingImplementation$Dart.SVGTRefElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTSpanElement':
+      return htmlimpl0a8e4b$SVGTSpanElementWrappingImplementation$Dart.SVGTSpanElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTextContentElement':
+      return htmlimpl0a8e4b$SVGTextContentElementWrappingImplementation$Dart.SVGTextContentElementWrappingImplementation$_wrap$43$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTextElement':
+      return htmlimpl0a8e4b$SVGTextElementWrappingImplementation$Dart.SVGTextElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTextPathElement':
+      return htmlimpl0a8e4b$SVGTextPathElementWrappingImplementation$Dart.SVGTextPathElementWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTextPositioningElement':
+      return htmlimpl0a8e4b$SVGTextPositioningElementWrappingImplementation$Dart.SVGTextPositioningElementWrappingImplementation$_wrap$47$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGTitleElement':
+      return htmlimpl0a8e4b$SVGTitleElementWrappingImplementation$Dart.SVGTitleElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGUseElement':
+      return htmlimpl0a8e4b$SVGUseElementWrappingImplementation$Dart.SVGUseElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGVKernElement':
+      return htmlimpl0a8e4b$SVGVKernElementWrappingImplementation$Dart.SVGVKernElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SVGViewElement':
+      return htmlimpl0a8e4b$SVGViewElementWrappingImplementation$Dart.SVGViewElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLScriptElement':
+      return htmlimpl0a8e4b$ScriptElementWrappingImplementation$Dart.ScriptElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLSelectElement':
+      return htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.SelectElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'SharedWorker':
+      return htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.SharedWorkerWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLSourceElement':
+      return htmlimpl0a8e4b$SourceElementWrappingImplementation$Dart.SourceElementWrappingImplementation$_wrap$35$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLSpanElement':
+      return htmlimpl0a8e4b$SpanElementWrappingImplementation$Dart.SpanElementWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLStyleElement':
+      return htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.StyleElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableCaptionElement':
+      return htmlimpl0a8e4b$TableCaptionElementWrappingImplementation$Dart.TableCaptionElementWrappingImplementation$_wrap$41$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableCellElement':
+      return htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart.TableCellElementWrappingImplementation$_wrap$38$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableColElement':
+      return htmlimpl0a8e4b$TableColElementWrappingImplementation$Dart.TableColElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableElement':
+      return htmlimpl0a8e4b$TableElementWrappingImplementation$Dart.TableElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableRowElement':
+      return htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart.TableRowElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTableSectionElement':
+      return htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart.TableSectionElementWrappingImplementation$_wrap$41$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Text':
+      return htmlimpl0a8e4b$TextWrappingImplementation$Dart.TextWrappingImplementation$_wrap$26$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTextAreaElement':
+      return htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.TextAreaElementWrappingImplementation$_wrap$37$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTitleElement':
+      return htmlimpl0a8e4b$TitleElementWrappingImplementation$Dart.TitleElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLTrackElement':
+      return htmlimpl0a8e4b$TrackElementWrappingImplementation$Dart.TrackElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLUListElement':
+      return htmlimpl0a8e4b$UListElementWrappingImplementation$Dart.UListElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLUnknownElement':
+      return htmlimpl0a8e4b$UnknownElementWrappingImplementation$Dart.UnknownElementWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'HTMLVideoElement':
+      return htmlimpl0a8e4b$VideoElementWrappingImplementation$Dart.VideoElementWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(raw);
+    case 'WebSocket':
+      return htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.WebSocketWrappingImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Window':
+      return htmlimpl0a8e4b$WindowWrappingImplementation$Dart.WindowWrappingImplementation$_wrap$28$htmlimpl0a8e4b$$Factory_(raw);
+    case 'Worker':
+      return htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.WorkerWrappingImplementation$_wrap$28$htmlimpl0a8e4b$$Factory_(raw);
+    case 'XMLHttpRequest':
+      return htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$_wrap$36$htmlimpl0a8e4b$$Factory_(raw);
+    case 'XMLHttpRequestUpload':
+      return htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.XMLHttpRequestUploadWrappingImplementation$_wrap$42$htmlimpl0a8e4b$$Factory_(raw);
+    default:{
+        $Dart$ThrowException(UnsupportedOperationException$Dart.UnsupportedOperationException$$Factory(ADD$operator('Unknown type:', raw.toString$named(0, $noargs))));
+      }
+
+  }
+}
+;
 htmlimpl0a8e4b$LevelDom$Dart.wrapHistory$member = function(raw){
   return raw == null?$Dart$Null:raw.dartObjectLocalStorage$getter() != null?raw.dartObjectLocalStorage$getter():htmlimpl0a8e4b$HistoryWrappingImplementation$Dart.HistoryWrappingImplementation$_wrap$29$htmlimpl0a8e4b$$Factory_(raw);
 }
@@ -50487,6 +51705,14 @@ htmlimpl0a8e4b$LevelDom$Dart.wrapNode$member = function(raw){
 ;
 htmlimpl0a8e4b$LevelDom$Dart.wrapSVGAnimatedString$member = function(raw){
   return raw == null?$Dart$Null:raw.dartObjectLocalStorage$getter() != null?raw.dartObjectLocalStorage$getter():htmlimpl0a8e4b$SVGAnimatedStringWrappingImplementation$Dart.SVGAnimatedStringWrappingImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(raw);
+}
+;
+htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstance$member = function(raw){
+  return raw == null?$Dart$Null:raw.dartObjectLocalStorage$getter() != null?raw.dartObjectLocalStorage$getter():htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.SVGElementInstanceWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(raw);
+}
+;
+htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstanceList$member = function(raw){
+  return raw == null?$Dart$Null:raw.dartObjectLocalStorage$getter() != null?raw.dartObjectLocalStorage$getter():htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.SVGElementInstanceListWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_(raw);
 }
 ;
 htmlimpl0a8e4b$LevelDom$Dart.wrapWindow$member = function(raw){
@@ -51038,6 +52264,54 @@ htmlimpl0a8e4b$SVGAnimatedStringWrappingImplementation$Dart.SVGAnimatedStringWra
   return tmp$0;
 }
 ;
+function htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart, htmlimpl0a8e4b$DOMWrapperBase$Dart);
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart'), htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$DOMWrapperBase$Dart.$addTo(target);
+  htmld071c1$SVGElementInstanceList$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$DOMWrapperBase$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$DOMWrapperBase$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.SVGElementInstanceListWrappingImplementation$_wrap$44$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.prototype.length$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().length$getter();
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.prototype.item$member = function(index){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstance$member(this._ptr$htmlimpl0a8e4b$$getter_().item$named(1, $noargs, index));
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.prototype.item$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$SVGElementInstanceListWrappingImplementation$Dart.prototype.item$member.call(this, index);
+}
+;
 function htmlimpl0a8e4b$CSSStyleDeclarationWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$CSSStyleDeclarationWrappingImplementation$Dart, htmlimpl0a8e4b$DOMWrapperBase$Dart);
@@ -51163,6 +52437,217 @@ htmlimpl0a8e4b$CSSStyleDeclarationWrappingImplementation$Dart.prototype.height$s
 ;
 htmlimpl0a8e4b$CSSStyleDeclarationWrappingImplementation$Dart.prototype.visibility$setter = function(value){
   this.setProperty$member('visibility', value, '');
+}
+;
+function htmlimpl0a8e4b$_DataAttributeMap$Dart(){
+}
+htmlimpl0a8e4b$_DataAttributeMap$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$_DataAttributeMap$Dart'), htmlimpl0a8e4b$_DataAttributeMap$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$_DataAttributeMap$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$_DataAttributeMap$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  Map$Dart.$addTo(target, [String$Dart.$lookupRTT(), String$Dart.$lookupRTT()]);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.$implements$Map$Dart = 1;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.$Constructor = function(_attributes){
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.$Initializer = function(_attributes){
+  this._attributes$htmlimpl0a8e4b$$field_ = _attributes;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart._DataAttributeMap$$Factory = function(_attributes){
+  var tmp$0 = new htmlimpl0a8e4b$_DataAttributeMap$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$_DataAttributeMap$Dart.$lookupRTT();
+  htmlimpl0a8e4b$_DataAttributeMap$Dart.$Initializer.call(tmp$0, _attributes);
+  htmlimpl0a8e4b$_DataAttributeMap$Dart.$Constructor.call(tmp$0, _attributes);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype._attributes$htmlimpl0a8e4b$$getter_ = function(){
+  return this._attributes$htmlimpl0a8e4b$$field_;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.containsKey$member = function(key){
+  return this._attributes$htmlimpl0a8e4b$$getter_().containsKey$named(1, $noargs, this._attr$htmlimpl0a8e4b$$member_(key));
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.containsKey$named = function($n, $o, key){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.containsKey$member.call(this, key);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.INDEX$operator = function(key){
+  return this._attributes$htmlimpl0a8e4b$$getter_().INDEX$operator(this._attr$htmlimpl0a8e4b$$member_(key));
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.ASSIGN_INDEX$operator = function(key, value){
+  var tmp$0;
+  this._attributes$htmlimpl0a8e4b$$getter_().ASSIGN_INDEX$operator(this._attr$htmlimpl0a8e4b$$member_(key), tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.putIfAbsent$member = function(key, ifAbsent){
+  var tmp$0;
+  if (!this.containsKey$member(key)) {
+    return this.ASSIGN_INDEX$operator(key, tmp$0 = ifAbsent(0, $noargs)) , tmp$0;
+  }
+  return this.INDEX$operator(key);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.putIfAbsent$named = function($n, $o, key, ifAbsent){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.putIfAbsent$member.call(this, key, ifAbsent);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.remove$member = function(key){
+  return this._attributes$htmlimpl0a8e4b$$getter_().remove$named(1, $noargs, this._attr$htmlimpl0a8e4b$$member_(key));
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.remove$named = function($n, $o, key){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.remove$member.call(this, key);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$member = function(){
+  {
+    var $0 = this.getKeys$member().iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var key = $0.next$named(0, $noargs);
+      {
+        this.remove$member(key);
+      }
+    }
+  }
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$member.call(this);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$named_$lookupRTT = function(){
+  return RTT.createFunction(null, null);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$getter = function(){
+  return $bind(htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$named, htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.clear$named_$lookupRTT, this);
+}
+;
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted(dartc_scp$0, key_0, value_0){
+  if (this._matches$htmlimpl0a8e4b$$member_(key_0)) {
+    dartc_scp$0.f(2, $noargs, this._strip$htmlimpl0a8e4b$$member_(key_0), value_0);
+  }
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted$named($s0, $n, $o, key, value){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted.call(this, $s0, key, value);
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT(), String$Dart.$lookupRTT()], RTT.dynamicType);
+}
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.forEach$member = function(f){
+  var dartc_scp$0 = {f:f};
+  this._attributes$htmlimpl0a8e4b$$getter_().forEach$named(1, $noargs, $bind(htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted$named, htmlimpl0a8e4b$_DataAttributeMap$Dart$forEach$c0$37_37$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.forEach$named = function($n, $o, f){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.forEach$member.call(this, f);
+}
+;
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted(dartc_scp$1, key, value){
+  if (this._matches$htmlimpl0a8e4b$$member_(key)) {
+    dartc_scp$1.keys.add$named(1, $noargs, this._strip$htmlimpl0a8e4b$$member_(key));
+  }
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted$named($s0, $n, $o, key, value){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted.call(this, $s0, key, value);
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT(), String$Dart.$lookupRTT()], RTT.dynamicType);
+}
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getKeys$member = function(){
+  var dartc_scp$1;
+  dartc_scp$1 = {};
+  dartc_scp$1.keys = ListFactory$Dart.List$$Factory([String$Dart.$lookupRTT()], $Dart$Null);
+  this._attributes$htmlimpl0a8e4b$$getter_().forEach$named(1, $noargs, $bind(htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted$named, htmlimpl0a8e4b$_DataAttributeMap$Dart$getKeys$c0$37_37$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+  return dartc_scp$1.keys;
+  dartc_scp$1 = $Dart$Null;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getKeys$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getKeys$member.call(this);
+}
+;
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted(dartc_scp$1, key, value){
+  if (this._matches$htmlimpl0a8e4b$$member_(key)) {
+    dartc_scp$1.values.add$named(1, $noargs, value);
+  }
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted$named($s0, $n, $o, key, value){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted.call(this, $s0, key, value);
+}
+function htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT(), String$Dart.$lookupRTT()], RTT.dynamicType);
+}
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getValues$member = function(){
+  var dartc_scp$1;
+  dartc_scp$1 = {};
+  dartc_scp$1.values = ListFactory$Dart.List$$Factory([String$Dart.$lookupRTT()], $Dart$Null);
+  this._attributes$htmlimpl0a8e4b$$getter_().forEach$named(1, $noargs, $bind(htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted$named, htmlimpl0a8e4b$_DataAttributeMap$Dart$getValues$c0$37_37$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+  return dartc_scp$1.values;
+  dartc_scp$1 = $Dart$Null;
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getValues$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.getValues$member.call(this);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.length$getter = function(){
+  return this.getKeys$member().length$getter();
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.isEmpty$member = function(){
+  return EQ$operator(this.length$getter(), 0);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.isEmpty$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype.isEmpty$member.call(this);
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype._attr$htmlimpl0a8e4b$$member_ = function(key){
+  return 'data-' + $toString(key) + '';
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype._matches$htmlimpl0a8e4b$$member_ = function(key){
+  return key.startsWith$named(1, $noargs, 'data-');
+}
+;
+htmlimpl0a8e4b$_DataAttributeMap$Dart.prototype._strip$htmlimpl0a8e4b$$member_ = function(key){
+  return key.substring$named(1, $noargs, 5);
 }
 ;
 function htmlimpl0a8e4b$_Device$Dart(){
@@ -52038,6 +53523,181 @@ htmlimpl0a8e4b$FrozenElementListIterator$Dart.prototype.hasNext$named = function
   return htmlimpl0a8e4b$FrozenElementListIterator$Dart.prototype.hasNext$member.call(this);
 }
 ;
+function htmlimpl0a8e4b$ElementAttributeMap$Dart(){
+}
+htmlimpl0a8e4b$ElementAttributeMap$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$ElementAttributeMap$Dart'), htmlimpl0a8e4b$ElementAttributeMap$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$ElementAttributeMap$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$ElementAttributeMap$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  Map$Dart.$addTo(target, [String$Dart.$lookupRTT(), String$Dart.$lookupRTT()]);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.$implements$Map$Dart = 1;
+htmlimpl0a8e4b$ElementAttributeMap$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(_element){
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(_element){
+  this._element$htmlimpl0a8e4b$$field_ = _element;
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.ElementAttributeMap$_wrap$19$htmlimpl0a8e4b$$Factory_ = function(_element){
+  var tmp$0 = new htmlimpl0a8e4b$ElementAttributeMap$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$ElementAttributeMap$Dart.$lookupRTT();
+  htmlimpl0a8e4b$ElementAttributeMap$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _element);
+  htmlimpl0a8e4b$ElementAttributeMap$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _element);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype._element$htmlimpl0a8e4b$$getter_ = function(){
+  return this._element$htmlimpl0a8e4b$$field_;
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.containsKey$member = function(key){
+  return this._element$htmlimpl0a8e4b$$getter_().hasAttribute$named(1, $noargs, key);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.containsKey$named = function($n, $o, key){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.containsKey$member.call(this, key);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.INDEX$operator = function(key){
+  return this._element$htmlimpl0a8e4b$$getter_().getAttribute$named(1, $noargs, key);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.ASSIGN_INDEX$operator = function(key, value){
+  this._element$htmlimpl0a8e4b$$getter_().setAttribute$named(2, $noargs, key, value);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.putIfAbsent$member = function(key, ifAbsent){
+  var tmp$0;
+  if (!this.containsKey$member(key)) {
+    this.ASSIGN_INDEX$operator(key, tmp$0 = ifAbsent(0, $noargs)) , tmp$0;
+  }
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.putIfAbsent$named = function($n, $o, key, ifAbsent){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.putIfAbsent$member.call(this, key, ifAbsent);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.remove$member = function(key){
+  this._element$htmlimpl0a8e4b$$getter_().removeAttribute$named(1, $noargs, key);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.remove$named = function($n, $o, key){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.remove$member.call(this, key);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$member = function(){
+  var tmp$0;
+  var attributes = this._element$htmlimpl0a8e4b$$getter_().attributes$getter();
+  {
+    var i = SUB$operator(attributes.length$getter(), 1);
+    for (; GTE$operator(i, 0); tmp$0 = i , (i = SUB$operator(tmp$0, 1) , tmp$0)) {
+      this._element$htmlimpl0a8e4b$$getter_().removeAttribute$named(1, $noargs, attributes.item$named(1, $noargs, i).name$getter());
+    }
+  }
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$member.call(this);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$named_$lookupRTT = function(){
+  return RTT.createFunction(null, null);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$getter = function(){
+  return $bind(htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$named, htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.clear$named_$lookupRTT, this);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.forEach$member = function(f){
+  var tmp$0;
+  var attributes = this._element$htmlimpl0a8e4b$$getter_().attributes$getter();
+  {
+    var i = 0;
+    var len = attributes.length$getter();
+    for (; LT$operator(i, len); tmp$0 = i , (i = ADD$operator(tmp$0, 1) , tmp$0)) {
+      var item = attributes.item$named(1, $noargs, i);
+      f(2, $noargs, item.name$getter(), item.value$getter());
+    }
+  }
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.forEach$named = function($n, $o, f){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.forEach$member.call(this, f);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getKeys$member = function(){
+  var tmp$1, tmp$0;
+  var attributes = this._element$htmlimpl0a8e4b$$getter_().attributes$getter();
+  var keys = ListFactory$Dart.List$$Factory([String$Dart.$lookupRTT()], attributes.length$getter());
+  {
+    var i = 0;
+    var len = attributes.length$getter();
+    for (; LT$operator(i, len); tmp$0 = i , (i = ADD$operator(tmp$0, 1) , tmp$0)) {
+      keys.ASSIGN_INDEX$operator(i, tmp$1 = attributes.item$named(1, $noargs, i).name$getter()) , tmp$1;
+    }
+  }
+  return keys;
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getKeys$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getKeys$member.call(this);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getValues$member = function(){
+  var tmp$1, tmp$0;
+  var attributes = this._element$htmlimpl0a8e4b$$getter_().attributes$getter();
+  var values = ListFactory$Dart.List$$Factory([String$Dart.$lookupRTT()], attributes.length$getter());
+  {
+    var i = 0;
+    var len = attributes.length$getter();
+    for (; LT$operator(i, len); tmp$0 = i , (i = ADD$operator(tmp$0, 1) , tmp$0)) {
+      values.ASSIGN_INDEX$operator(i, tmp$1 = attributes.item$named(1, $noargs, i).value$getter()) , tmp$1;
+    }
+  }
+  return values;
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getValues$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.getValues$member.call(this);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.length$getter = function(){
+  return this._element$htmlimpl0a8e4b$$getter_().attributes$getter().length$getter();
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.isEmpty$member = function(){
+  return !this._element$htmlimpl0a8e4b$$getter_().hasAttributes$named(0, $noargs);
+}
+;
+htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.isEmpty$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementAttributeMap$Dart.prototype.isEmpty$member.call(this);
+}
+;
 function htmlimpl0a8e4b$EventsImplementation$Dart(){
 }
 htmlimpl0a8e4b$EventsImplementation$Dart.$lookupRTT = function(){
@@ -52103,6 +53763,90 @@ htmlimpl0a8e4b$EventsImplementation$Dart.prototype._get$htmlimpl0a8e4b$$member_ 
   return this._listenerMap$htmlimpl0a8e4b$$getter_().putIfAbsent$named(2, $noargs, dartc_scp$0.type, $bind(htmlimpl0a8e4b$EventsImplementation$Dart$_get$c0$40_40$Hoisted$named, htmlimpl0a8e4b$EventsImplementation$Dart$_get$c0$40_40$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
 }
 ;
+function htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart, htmlimpl0a8e4b$EventsImplementation$Dart);
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart'), htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventsImplementation$Dart.$addTo(target);
+  htmld071c1$AbstractWorkerEvents$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.AbstractWorkerEventsImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_ = function(_ptr){
+  var tmp$0 = new htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _ptr);
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.prototype.error$named = function(){
+  return this.error$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.prototype.error$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('error');
+}
+;
+function htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart, htmlimpl0a8e4b$EventsImplementation$Dart);
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart'), htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventsImplementation$Dart.$addTo(target);
+  htmld071c1$DOMApplicationCacheEvents$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.DOMApplicationCacheEventsImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.prototype.error$named = function(){
+  return this.error$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.prototype.error$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('error');
+}
+;
 function htmlimpl0a8e4b$ElementEventsImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$ElementEventsImplementation$Dart, htmlimpl0a8e4b$EventsImplementation$Dart);
@@ -52159,6 +53903,14 @@ htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.load$named = function(
 ;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.load$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('load');
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseOut$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseout');
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseOver$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseover');
 }
 ;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.reset$named = function(){
@@ -52239,6 +53991,56 @@ htmlimpl0a8e4b$DocumentEventsImplementation$Dart.DocumentEventsImplementation$_w
   htmlimpl0a8e4b$DocumentEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _ptr);
   htmlimpl0a8e4b$DocumentEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _ptr);
   return tmp$0;
+}
+;
+function htmlimpl0a8e4b$EventSourceEventsImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$EventSourceEventsImplementation$Dart, htmlimpl0a8e4b$EventsImplementation$Dart);
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$EventSourceEventsImplementation$Dart'), htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventsImplementation$Dart.$addTo(target);
+  htmld071c1$EventSourceEvents$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.EventSourceEventsImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_ = function(_ptr){
+  var tmp$0 = new htmlimpl0a8e4b$EventSourceEventsImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$EventSourceEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _ptr);
+  htmlimpl0a8e4b$EventSourceEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.prototype.error$named = function(){
+  return this.error$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.prototype.error$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('error');
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.prototype.open$named = function(){
+  return this.open$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.prototype.open$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('open');
 }
 ;
 function htmlimpl0a8e4b$_EventListenerWrapper$Dart(){
@@ -52454,6 +54256,14 @@ htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Init
   htmlimpl0a8e4b$DOMWrapperBase$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
 }
 ;
+htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.EventTargetWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
 htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.prototype._on$htmlimpl0a8e4b$$getter_ = function(){
   return this._on$htmlimpl0a8e4b$$field_;
 }
@@ -52466,6 +54276,128 @@ htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.prototype.on$getter = func
   var tmp$0;
   if (this._on$htmlimpl0a8e4b$$getter_() == null) {
     this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$EventsImplementation$Dart.EventsImplementation$_wrap$20$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._on$htmlimpl0a8e4b$$getter_();
+}
+;
+function htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart'), htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$AbstractWorker$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.prototype.on$getter = function(){
+  var tmp$0;
+  if (this._on$htmlimpl0a8e4b$$getter_() == null) {
+    this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.AbstractWorkerEventsImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._on$htmlimpl0a8e4b$$getter_();
+}
+;
+function htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart'), htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$DOMApplicationCache$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.DOMApplicationCacheWrappingImplementation$_wrap$41$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.prototype.status$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().status$getter();
+}
+;
+htmlimpl0a8e4b$DOMApplicationCacheWrappingImplementation$Dart.prototype.on$getter = function(){
+  var tmp$0;
+  if (this._on$htmlimpl0a8e4b$$getter_() == null) {
+    this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$DOMApplicationCacheEventsImplementation$Dart.DOMApplicationCacheEventsImplementation$_wrap$39$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._on$htmlimpl0a8e4b$$getter_();
+}
+;
+function htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart'), htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$EventSource$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.EventSourceWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$EventSourceWrappingImplementation$Dart.prototype.on$getter = function(){
+  var tmp$0;
+  if (this._on$htmlimpl0a8e4b$$getter_() == null) {
+    this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$EventSourceEventsImplementation$Dart.EventSourceEventsImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
   }
   return this._on$htmlimpl0a8e4b$$getter_();
 }
@@ -52502,6 +54434,10 @@ htmlimpl0a8e4b$EventWrappingImplementation$Dart.EventWrappingImplementation$_wra
   htmlimpl0a8e4b$EventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$EventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.currentTarget$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapEventTarget$member(this._ptr$htmlimpl0a8e4b$$getter_().currentTarget$getter());
 }
 ;
 function htmlimpl0a8e4b$AudioProcessingEventWrappingImplementation$Dart(){
@@ -52982,6 +54918,40 @@ htmlimpl0a8e4b$MessageEventWrappingImplementation$Dart.MessageEventWrappingImple
 ;
 htmlimpl0a8e4b$MessageEventWrappingImplementation$Dart.prototype.data$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().data$getter();
+}
+;
+function htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart'), htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$MessagePort$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.MessagePortWrappingImplementation$_wrap$33$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$MessagePortWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
 }
 ;
 function htmlimpl0a8e4b$MutationEventWrappingImplementation$Dart(){
@@ -53719,8 +55689,22 @@ htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.parent$gett
   return $Dart$Null;
 }
 ;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.attributes$getter = function(){
+  var tmp$0;
+  return $intern((tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0), ['', '']);
+}
+;
 htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.classes$getter = function(){
   return HashSetImplementation$Dart.HashSetImplementation$$Factory(HashSetImplementation$Dart.$lookupRTT([String$Dart.$lookupRTT()]));
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.dataAttributes$getter = function(){
+  var tmp$0;
+  return $intern((tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0), ['', '']);
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.dataAttributes$setter = function(value){
+  $Dart$ThrowException(UnsupportedOperationException$Dart.UnsupportedOperationException$$Factory("Data attributes can't be set for document fragments."));
 }
 ;
 htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.style$getter = function(){
@@ -53766,6 +55750,14 @@ htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._elementAttributeMap$htmlimpl0a8e4b$$getter_ = function(){
+  return this._elementAttributeMap$htmlimpl0a8e4b$$field_;
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._elementAttributeMap$htmlimpl0a8e4b$$setter_ = function(tmp$0){
+  this._elementAttributeMap$htmlimpl0a8e4b$$field_ = tmp$0;
+}
+;
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._elements$htmlimpl0a8e4b$$getter_ = function(){
   return this._elements$htmlimpl0a8e4b$$field_;
 }
@@ -53782,6 +55774,22 @@ htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._cssClassSet$htmlimp
   this._cssClassSet$htmlimpl0a8e4b$$field_ = tmp$0;
 }
 ;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._dataAttributes$htmlimpl0a8e4b$$getter_ = function(){
+  return this._dataAttributes$htmlimpl0a8e4b$$field_;
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype._dataAttributes$htmlimpl0a8e4b$$setter_ = function(tmp$0){
+  this._dataAttributes$htmlimpl0a8e4b$$field_ = tmp$0;
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.attributes$getter = function(){
+  var tmp$0;
+  if (this._elementAttributeMap$htmlimpl0a8e4b$$getter_() == null) {
+    this._elementAttributeMap$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$ElementAttributeMap$Dart.ElementAttributeMap$_wrap$19$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._elementAttributeMap$htmlimpl0a8e4b$$getter_();
+}
+;
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.elements$getter = function(){
   var tmp$0;
   if (EQ$operator(this._elements$htmlimpl0a8e4b$$getter_(), $Dart$Null)) {
@@ -53796,6 +55804,29 @@ htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.classes$getter = fun
     this._cssClassSet$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$_CssClassSet$Dart._CssClassSet$$Factory(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
   }
   return this._cssClassSet$htmlimpl0a8e4b$$getter_();
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.dataAttributes$getter = function(){
+  var tmp$0;
+  if (this._dataAttributes$htmlimpl0a8e4b$$getter_() == null) {
+    this._dataAttributes$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$_DataAttributeMap$Dart._DataAttributeMap$$Factory(this.attributes$getter())) , tmp$0;
+  }
+  return this._dataAttributes$htmlimpl0a8e4b$$getter_();
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.dataAttributes$setter = function(value){
+  var tmp$0;
+  var dataAttributes = this.dataAttributes$getter();
+  dataAttributes.clear$named(0, $noargs);
+  {
+    var $0 = value.getKeys$named(0, $noargs).iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var key = $0.next$named(0, $noargs);
+      {
+        dataAttributes.ASSIGN_INDEX$operator(key, tmp$0 = value.INDEX$operator(key)) , tmp$0;
+      }
+    }
+  }
 }
 ;
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.firstElementChild$getter = function(){
@@ -53895,6 +55926,10 @@ htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.AnchorElementWrappingImp
 ;
 htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.href$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().href$getter();
+}
+;
+htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.toString$member = function(){
@@ -54061,6 +56096,10 @@ htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.ButtonElementWrappingImp
   htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -54319,6 +56358,10 @@ htmlimpl0a8e4b$EmbedElementWrappingImplementation$Dart.prototype.height$setter =
   this._ptr$htmlimpl0a8e4b$$getter_().height$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$EmbedElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 function htmlimpl0a8e4b$FieldSetElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$FieldSetElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -54426,6 +56469,10 @@ htmlimpl0a8e4b$FormElementWrappingImplementation$Dart.FormElementWrappingImpleme
 ;
 htmlimpl0a8e4b$FormElementWrappingImplementation$Dart.prototype.length$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().length$getter();
+}
+;
+htmlimpl0a8e4b$FormElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 htmlimpl0a8e4b$FormElementWrappingImplementation$Dart.prototype.reset$member = function(){
@@ -54592,6 +56639,10 @@ htmlimpl0a8e4b$IFrameElementWrappingImplementation$Dart.prototype.height$setter 
   this._ptr$htmlimpl0a8e4b$$getter_().height$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$IFrameElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 function htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -54632,6 +56683,10 @@ htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.prototype.height$setter =
   this._ptr$htmlimpl0a8e4b$$getter_().height$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 function htmlimpl0a8e4b$InputElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$InputElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -54665,6 +56720,10 @@ htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.InputElementWrappingImple
   htmlimpl0a8e4b$InputElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$InputElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.pattern$getter = function(){
@@ -54732,6 +56791,10 @@ htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.KeygenElementWrappingImp
   htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 function htmlimpl0a8e4b$LIElementWrappingImplementation$Dart(){
@@ -54920,6 +56983,10 @@ htmlimpl0a8e4b$MapElementWrappingImplementation$Dart.MapElementWrappingImplement
   htmlimpl0a8e4b$MapElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$MapElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$MapElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 function htmlimpl0a8e4b$MarqueeElementWrappingImplementation$Dart(){
@@ -55129,6 +57196,10 @@ htmlimpl0a8e4b$MetaElementWrappingImplementation$Dart.MetaElementWrappingImpleme
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$MetaElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 function htmlimpl0a8e4b$MeterElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$MeterElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -55292,6 +57363,10 @@ htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.prototype.height$setter 
   this._ptr$htmlimpl0a8e4b$$getter_().height$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 function htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -55406,6 +57481,10 @@ htmlimpl0a8e4b$OutputElementWrappingImplementation$Dart.OutputElementWrappingImp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$OutputElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 htmlimpl0a8e4b$OutputElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().value$getter();
 }
@@ -55483,6 +57562,10 @@ htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.ParamElementWrappingImple
   htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
 ;
 htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -59024,6 +61107,10 @@ htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.prototype.length$setter 
   this._ptr$htmlimpl0a8e4b$$getter_().length$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().value$getter();
 }
@@ -59409,6 +61496,10 @@ htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.TextAreaElementWrappin
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().value$getter();
 }
@@ -59705,6 +61796,55 @@ htmlimpl0a8e4b$DocumentWrappingImplementation$Dart.prototype.on$getter = functio
   return this._on$htmlimpl0a8e4b$$getter_();
 }
 ;
+function htmlimpl0a8e4b$NotificationWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$NotificationWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$NotificationWrappingImplementation$Dart'), htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$Notification$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.NotificationWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$NotificationWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$NotificationWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$NotificationWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.prototype.show$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().show$named(0, $noargs);
+  return;
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.prototype.show$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.prototype.show$member.call(this);
+}
+;
+htmlimpl0a8e4b$NotificationWrappingImplementation$Dart.prototype.typeName$getter = function(){
+  return 'Notification';
+}
+;
 function htmlimpl0a8e4b$OverflowEventWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$OverflowEventWrappingImplementation$Dart, htmlimpl0a8e4b$EventWrappingImplementation$Dart);
@@ -59874,6 +62014,90 @@ htmlimpl0a8e4b$SVGDocumentWrappingImplementation$Dart.SVGDocumentWrappingImpleme
   tmp$0.$typeInfo = htmlimpl0a8e4b$SVGDocumentWrappingImplementation$Dart.$lookupRTT();
   htmlimpl0a8e4b$SVGDocumentWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$SVGDocumentWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+function htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart'), htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$SVGElementInstance$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.SVGElementInstanceWrappingImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.prototype.childNodes$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstanceList$member(this._ptr$htmlimpl0a8e4b$$getter_().childNodes$getter());
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.prototype.firstChild$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstance$member(this._ptr$htmlimpl0a8e4b$$getter_().firstChild$getter());
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.prototype.lastChild$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstance$member(this._ptr$htmlimpl0a8e4b$$getter_().lastChild$getter());
+}
+;
+htmlimpl0a8e4b$SVGElementInstanceWrappingImplementation$Dart.prototype.parentNode$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGElementInstance$member(this._ptr$htmlimpl0a8e4b$$getter_().parentNode$getter());
+}
+;
+function htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart, htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart);
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart'), htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$SharedWorker$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$AbstractWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.SharedWorkerWrappingImplementation$_wrap$34$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$SharedWorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
 }
 ;
@@ -60191,6 +62415,10 @@ htmlimpl0a8e4b$MouseEventWrappingImplementation$Dart.MouseEventWrappingImplement
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$MouseEventWrappingImplementation$Dart.prototype.toElement$getter = function(){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapNode$member(this._ptr$htmlimpl0a8e4b$$getter_().toElement$getter());
+}
+;
 function htmlimpl0a8e4b$TextEventWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TextEventWrappingImplementation$Dart, htmlimpl0a8e4b$UIEventWrappingImplementation$Dart);
@@ -60261,6 +62489,54 @@ htmlimpl0a8e4b$TouchEventWrappingImplementation$Dart.TouchEventWrappingImplement
   htmlimpl0a8e4b$TouchEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$TouchEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+function htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart'), htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$WebSocket$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.WebSocketWrappingImplementation$_wrap$31$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.prototype.send$member = function(data){
+  return this._ptr$htmlimpl0a8e4b$$getter_().send$named(1, $noargs, data);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.prototype.send$named = function($n, $o, data){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.prototype.send$member.call(this, data);
+}
+;
+htmlimpl0a8e4b$WebSocketWrappingImplementation$Dart.prototype.typeName$getter = function(){
+  return 'WebSocket';
 }
 ;
 function htmlimpl0a8e4b$WheelEventWrappingImplementation$Dart(){
@@ -60355,6 +62631,14 @@ htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.load$getter = function(
   return this._get$htmlimpl0a8e4b$$member_('load');
 }
 ;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseOut$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseout');
+}
+;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseOver$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseover');
+}
+;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.popState$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('popstate');
 }
@@ -60426,6 +62710,10 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.location$getter = fun
   return htmlimpl0a8e4b$LevelDom$Dart.wrapLocation$member(this._ptr$htmlimpl0a8e4b$$getter_().location$getter());
 }
 ;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.name$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
+}
+;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.navigator$getter = function(){
   return htmlimpl0a8e4b$LevelDom$Dart.wrapNavigator$member(this._ptr$htmlimpl0a8e4b$$getter_().navigator$getter());
 }
@@ -60493,6 +62781,82 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.on$getter = function(
   return this._on$htmlimpl0a8e4b$$getter_();
 }
 ;
+function htmlimpl0a8e4b$WorkerEventsImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$WorkerEventsImplementation$Dart, htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart);
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$WorkerEventsImplementation$Dart'), htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart.$addTo(target);
+  htmld071c1$WorkerEvents$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(_ptr){
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(_ptr){
+  htmlimpl0a8e4b$AbstractWorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$WorkerEventsImplementation$Dart.WorkerEventsImplementation$_wrap$26$htmlimpl0a8e4b$$Factory_ = function(_ptr){
+  var tmp$0 = new htmlimpl0a8e4b$WorkerEventsImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$WorkerEventsImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$WorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _ptr);
+  htmlimpl0a8e4b$WorkerEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _ptr);
+  return tmp$0;
+}
+;
+function htmlimpl0a8e4b$WorkerWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$WorkerWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$WorkerWrappingImplementation$Dart'), htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$Worker$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.WorkerWrappingImplementation$_wrap$28$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$WorkerWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$WorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$WorkerWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$WorkerWrappingImplementation$Dart.prototype.on$getter = function(){
+  var tmp$0;
+  if (this._on$htmlimpl0a8e4b$$getter_() == null) {
+    this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$WorkerEventsImplementation$Dart.WorkerEventsImplementation$_wrap$26$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._on$htmlimpl0a8e4b$$getter_();
+}
+;
 function htmlimpl0a8e4b$XMLHttpRequestProgressEventWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$XMLHttpRequestProgressEventWrappingImplementation$Dart, htmlimpl0a8e4b$ProgressEventWrappingImplementation$Dart);
@@ -60525,6 +62889,98 @@ htmlimpl0a8e4b$XMLHttpRequestProgressEventWrappingImplementation$Dart.XMLHttpReq
   htmlimpl0a8e4b$XMLHttpRequestProgressEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$XMLHttpRequestProgressEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+function htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart, htmlimpl0a8e4b$EventsImplementation$Dart);
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart'), htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventsImplementation$Dart.$addTo(target);
+  htmld071c1$XMLHttpRequestUploadEvents$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(_ptr){
+  htmlimpl0a8e4b$EventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, _ptr);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.XMLHttpRequestUploadEventsImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_ = function(_ptr){
+  var tmp$0 = new htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, _ptr);
+  htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, _ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.prototype.error$named = function(){
+  return this.error$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.prototype.error$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('error');
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.prototype.load$named = function(){
+  return this.load$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.prototype.load$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('load');
+}
+;
+function htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart(){
+}
+$inherits(htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart, htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart);
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart'), htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$RTTimplements);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$RTTimplements = function(rtt){
+  htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$addTo(rtt);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$addTo = function(target){
+  var rtt = htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart.$addTo(target);
+  htmld071c1$XMLHttpRequestUpload$Dart.$addTo(target);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_ = function(ptr){
+  htmlimpl0a8e4b$EventTargetWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(this, ptr);
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.XMLHttpRequestUploadWrappingImplementation$_wrap$42$htmlimpl0a8e4b$$Factory_ = function(ptr){
+  var tmp$0 = new htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart;
+  tmp$0.$typeInfo = htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.$lookupRTT();
+  htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
+  htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
+  return tmp$0;
+}
+;
+htmlimpl0a8e4b$XMLHttpRequestUploadWrappingImplementation$Dart.prototype.on$getter = function(){
+  var tmp$0;
+  if (this._on$htmlimpl0a8e4b$$getter_() == null) {
+    this._on$htmlimpl0a8e4b$$setter_(tmp$0 = htmlimpl0a8e4b$XMLHttpRequestUploadEventsImplementation$Dart.XMLHttpRequestUploadEventsImplementation$_wrap$40$htmlimpl0a8e4b$$Factory_(this._ptr$htmlimpl0a8e4b$$getter_())) , tmp$0;
+  }
+  return this._on$htmlimpl0a8e4b$$getter_();
 }
 ;
 function htmlimpl0a8e4b$XMLHttpRequestEventsImplementation$Dart(){
@@ -61936,6 +64392,17 @@ htmld071c1$SVGElement$Dart.$addTo = function(target){
   var rtt = htmld071c1$SVGElement$Dart.$lookupRTT();
   target.implementedTypes[rtt.classKey] = rtt;
   htmld071c1$Element$Dart.$addTo(target);
+}
+;
+function htmld071c1$SVGElementInstanceList$Dart(){
+}
+htmld071c1$SVGElementInstanceList$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$SVGElementInstanceList$Dart'));
+}
+;
+htmld071c1$SVGElementInstanceList$Dart.$addTo = function(target){
+  var rtt = htmld071c1$SVGElementInstanceList$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
 }
 ;
 function htmld071c1$SVGEllipseElement$Dart(){
@@ -63593,6 +66060,38 @@ htmld071c1$WebGLContextEvent$Dart.$addTo = function(target){
   htmld071c1$Event$Dart.$addTo(target);
 }
 ;
+function htmld071c1$AbstractWorkerEvents$Dart(){
+}
+htmld071c1$AbstractWorkerEvents$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$AbstractWorkerEvents$Dart'), htmld071c1$AbstractWorkerEvents$Dart.$RTTimplements);
+}
+;
+htmld071c1$AbstractWorkerEvents$Dart.$RTTimplements = function(rtt){
+  htmld071c1$AbstractWorkerEvents$Dart.$addTo(rtt);
+}
+;
+htmld071c1$AbstractWorkerEvents$Dart.$addTo = function(target){
+  var rtt = htmld071c1$AbstractWorkerEvents$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$Events$Dart.$addTo(target);
+}
+;
+function htmld071c1$AbstractWorker$Dart(){
+}
+htmld071c1$AbstractWorker$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$AbstractWorker$Dart'), htmld071c1$AbstractWorker$Dart.$RTTimplements);
+}
+;
+htmld071c1$AbstractWorker$Dart.$RTTimplements = function(rtt){
+  htmld071c1$AbstractWorker$Dart.$addTo(rtt);
+}
+;
+htmld071c1$AbstractWorker$Dart.$addTo = function(target){
+  var rtt = htmld071c1$AbstractWorker$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
+}
+;
 function htmld071c1$AnimationEvent$Dart(){
 }
 htmld071c1$AnimationEvent$Dart.$lookupRTT = function(){
@@ -63714,6 +66213,38 @@ htmld071c1$CustomEvent$Dart.$addTo = function(target){
   var rtt = htmld071c1$CustomEvent$Dart.$lookupRTT();
   target.implementedTypes[rtt.classKey] = rtt;
   htmld071c1$Event$Dart.$addTo(target);
+}
+;
+function htmld071c1$DOMApplicationCacheEvents$Dart(){
+}
+htmld071c1$DOMApplicationCacheEvents$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$DOMApplicationCacheEvents$Dart'), htmld071c1$DOMApplicationCacheEvents$Dart.$RTTimplements);
+}
+;
+htmld071c1$DOMApplicationCacheEvents$Dart.$RTTimplements = function(rtt){
+  htmld071c1$DOMApplicationCacheEvents$Dart.$addTo(rtt);
+}
+;
+htmld071c1$DOMApplicationCacheEvents$Dart.$addTo = function(target){
+  var rtt = htmld071c1$DOMApplicationCacheEvents$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$Events$Dart.$addTo(target);
+}
+;
+function htmld071c1$DOMApplicationCache$Dart(){
+}
+htmld071c1$DOMApplicationCache$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$DOMApplicationCache$Dart'), htmld071c1$DOMApplicationCache$Dart.$RTTimplements);
+}
+;
+htmld071c1$DOMApplicationCache$Dart.$RTTimplements = function(rtt){
+  htmld071c1$DOMApplicationCache$Dart.$addTo(rtt);
+}
+;
+htmld071c1$DOMApplicationCache$Dart.$addTo = function(target){
+  var rtt = htmld071c1$DOMApplicationCache$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
 }
 ;
 function htmld071c1$DeviceMotionEvent$Dart(){
@@ -63871,6 +66402,38 @@ htmld071c1$Event$Dart.$addTo = function(target){
   target.implementedTypes[rtt.classKey] = rtt;
 }
 ;
+function htmld071c1$EventSourceEvents$Dart(){
+}
+htmld071c1$EventSourceEvents$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$EventSourceEvents$Dart'), htmld071c1$EventSourceEvents$Dart.$RTTimplements);
+}
+;
+htmld071c1$EventSourceEvents$Dart.$RTTimplements = function(rtt){
+  htmld071c1$EventSourceEvents$Dart.$addTo(rtt);
+}
+;
+htmld071c1$EventSourceEvents$Dart.$addTo = function(target){
+  var rtt = htmld071c1$EventSourceEvents$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$Events$Dart.$addTo(target);
+}
+;
+function htmld071c1$EventSource$Dart(){
+}
+htmld071c1$EventSource$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$EventSource$Dart'), htmld071c1$EventSource$Dart.$RTTimplements);
+}
+;
+htmld071c1$EventSource$Dart.$RTTimplements = function(rtt){
+  htmld071c1$EventSource$Dart.$addTo(rtt);
+}
+;
+htmld071c1$EventSource$Dart.$addTo = function(target){
+  var rtt = htmld071c1$EventSource$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
+}
+;
 function htmld071c1$EventListenerList$Dart(){
 }
 htmld071c1$EventListenerList$Dart.$lookupRTT = function(){
@@ -63976,6 +66539,22 @@ htmld071c1$MessageEvent$Dart.$addTo = function(target){
   htmld071c1$Event$Dart.$addTo(target);
 }
 ;
+function htmld071c1$MessagePort$Dart(){
+}
+htmld071c1$MessagePort$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$MessagePort$Dart'), htmld071c1$MessagePort$Dart.$RTTimplements);
+}
+;
+htmld071c1$MessagePort$Dart.$RTTimplements = function(rtt){
+  htmld071c1$MessagePort$Dart.$addTo(rtt);
+}
+;
+htmld071c1$MessagePort$Dart.$addTo = function(target){
+  var rtt = htmld071c1$MessagePort$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
+}
+;
 function htmld071c1$MouseEvent$Dart(){
 }
 htmld071c1$MouseEvent$Dart.$lookupRTT = function(){
@@ -64038,6 +66617,22 @@ htmld071c1$NodeList$Dart.$addTo = function(target){
   var rtt = htmld071c1$NodeList$Dart.$lookupRTT();
   target.implementedTypes[rtt.classKey] = rtt;
   List$Dart.$addTo(target, [htmld071c1$Node$Dart.$lookupRTT()]);
+}
+;
+function htmld071c1$Notification$Dart(){
+}
+htmld071c1$Notification$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$Notification$Dart'), htmld071c1$Notification$Dart.$RTTimplements);
+}
+;
+htmld071c1$Notification$Dart.$RTTimplements = function(rtt){
+  htmld071c1$Notification$Dart.$addTo(rtt);
+}
+;
+htmld071c1$Notification$Dart.$addTo = function(target){
+  var rtt = htmld071c1$Notification$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
 }
 ;
 function htmld071c1$OverflowEvent$Dart(){
@@ -64118,6 +66713,38 @@ htmld071c1$SVGDocument$Dart.$addTo = function(target){
   var rtt = htmld071c1$SVGDocument$Dart.$lookupRTT();
   target.implementedTypes[rtt.classKey] = rtt;
   htmld071c1$Document$Dart.$addTo(target);
+}
+;
+function htmld071c1$SVGElementInstance$Dart(){
+}
+htmld071c1$SVGElementInstance$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$SVGElementInstance$Dart'), htmld071c1$SVGElementInstance$Dart.$RTTimplements);
+}
+;
+htmld071c1$SVGElementInstance$Dart.$RTTimplements = function(rtt){
+  htmld071c1$SVGElementInstance$Dart.$addTo(rtt);
+}
+;
+htmld071c1$SVGElementInstance$Dart.$addTo = function(target){
+  var rtt = htmld071c1$SVGElementInstance$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
+}
+;
+function htmld071c1$SharedWorker$Dart(){
+}
+htmld071c1$SharedWorker$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$SharedWorker$Dart'), htmld071c1$SharedWorker$Dart.$RTTimplements);
+}
+;
+htmld071c1$SharedWorker$Dart.$RTTimplements = function(rtt){
+  htmld071c1$SharedWorker$Dart.$addTo(rtt);
+}
+;
+htmld071c1$SharedWorker$Dart.$addTo = function(target){
+  var rtt = htmld071c1$SharedWorker$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$AbstractWorker$Dart.$addTo(target);
 }
 ;
 function htmld071c1$StorageEvent$Dart(){
@@ -64216,6 +66843,22 @@ htmld071c1$UIEvent$Dart.$addTo = function(target){
   htmld071c1$Event$Dart.$addTo(target);
 }
 ;
+function htmld071c1$WebSocket$Dart(){
+}
+htmld071c1$WebSocket$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$WebSocket$Dart'), htmld071c1$WebSocket$Dart.$RTTimplements);
+}
+;
+htmld071c1$WebSocket$Dart.$RTTimplements = function(rtt){
+  htmld071c1$WebSocket$Dart.$addTo(rtt);
+}
+;
+htmld071c1$WebSocket$Dart.$addTo = function(target){
+  var rtt = htmld071c1$WebSocket$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
+}
+;
 function htmld071c1$WheelEvent$Dart(){
 }
 htmld071c1$WheelEvent$Dart.$lookupRTT = function(){
@@ -64264,6 +66907,38 @@ htmld071c1$Window$Dart.$addTo = function(target){
   htmld071c1$EventTarget$Dart.$addTo(target);
 }
 ;
+function htmld071c1$WorkerEvents$Dart(){
+}
+htmld071c1$WorkerEvents$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$WorkerEvents$Dart'), htmld071c1$WorkerEvents$Dart.$RTTimplements);
+}
+;
+htmld071c1$WorkerEvents$Dart.$RTTimplements = function(rtt){
+  htmld071c1$WorkerEvents$Dart.$addTo(rtt);
+}
+;
+htmld071c1$WorkerEvents$Dart.$addTo = function(target){
+  var rtt = htmld071c1$WorkerEvents$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$AbstractWorkerEvents$Dart.$addTo(target);
+}
+;
+function htmld071c1$Worker$Dart(){
+}
+htmld071c1$Worker$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$Worker$Dart'), htmld071c1$Worker$Dart.$RTTimplements);
+}
+;
+htmld071c1$Worker$Dart.$RTTimplements = function(rtt){
+  htmld071c1$Worker$Dart.$addTo(rtt);
+}
+;
+htmld071c1$Worker$Dart.$addTo = function(target){
+  var rtt = htmld071c1$Worker$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$AbstractWorker$Dart.$addTo(target);
+}
+;
 function htmld071c1$XMLHttpRequestEvents$Dart(){
 }
 htmld071c1$XMLHttpRequestEvents$Dart.$lookupRTT = function(){
@@ -64310,6 +66985,38 @@ htmld071c1$XMLHttpRequestProgressEvent$Dart.$addTo = function(target){
   var rtt = htmld071c1$XMLHttpRequestProgressEvent$Dart.$lookupRTT();
   target.implementedTypes[rtt.classKey] = rtt;
   htmld071c1$ProgressEvent$Dart.$addTo(target);
+}
+;
+function htmld071c1$XMLHttpRequestUploadEvents$Dart(){
+}
+htmld071c1$XMLHttpRequestUploadEvents$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$XMLHttpRequestUploadEvents$Dart'), htmld071c1$XMLHttpRequestUploadEvents$Dart.$RTTimplements);
+}
+;
+htmld071c1$XMLHttpRequestUploadEvents$Dart.$RTTimplements = function(rtt){
+  htmld071c1$XMLHttpRequestUploadEvents$Dart.$addTo(rtt);
+}
+;
+htmld071c1$XMLHttpRequestUploadEvents$Dart.$addTo = function(target){
+  var rtt = htmld071c1$XMLHttpRequestUploadEvents$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$Events$Dart.$addTo(target);
+}
+;
+function htmld071c1$XMLHttpRequestUpload$Dart(){
+}
+htmld071c1$XMLHttpRequestUpload$Dart.$lookupRTT = function(){
+  return RTT.create($cls('htmld071c1$XMLHttpRequestUpload$Dart'), htmld071c1$XMLHttpRequestUpload$Dart.$RTTimplements);
+}
+;
+htmld071c1$XMLHttpRequestUpload$Dart.$RTTimplements = function(rtt){
+  htmld071c1$XMLHttpRequestUpload$Dart.$addTo(rtt);
+}
+;
+htmld071c1$XMLHttpRequestUpload$Dart.$addTo = function(target){
+  var rtt = htmld071c1$XMLHttpRequestUpload$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  htmld071c1$EventTarget$Dart.$addTo(target);
 }
 ;
 function native_JSON_parse(jsonString) {
@@ -64588,25 +67295,57 @@ unnamed24740d$BarChart$Dart.$lookupRTT = function(){
   return RTT.create($cls('unnamed24740d$BarChart$Dart'));
 }
 ;
-unnamed24740d$BarChart$Dart.$Constructor = function(domQuery){
-  var tmp$1, tmp$0;
+unnamed24740d$BarChart$Dart.$Constructor = function(domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
+  var tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
   this.tableElement$setter(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, domQuery)) , tmp$1;
+  this.articles$setter(tmp$2 = articles_) , tmp$2;
+  this._articlesCountElement$unnamed24740d$$setter_(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, countEl)) , tmp$3;
+  this._articlesCountWowElement$unnamed24740d$$setter_(tmp$4 = htmld071c1$document$getter().query$named(1, $noargs, countWowEl)) , tmp$4;
+  this._articlesSentimentElement$unnamed24740d$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, sentimentEl)) , tmp$5;
+  this._articlesSentimentWowElement$unnamed24740d$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, sentimentWowEl)) , tmp$6;
+  this.articlesFromElement$setter(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, fromEl)) , tmp$7;
+  this.articlesToElement$setter(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, toEl)) , tmp$8;
 }
 ;
-unnamed24740d$BarChart$Dart.$Initializer = function(domQuery){
+unnamed24740d$BarChart$Dart.$Initializer = function(domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
+  this.articles$field = $Dart$Null;
   this.tableElement$field = $Dart$Null;
+  this._articlesCountElement$unnamed24740d$$field_ = $Dart$Null;
+  this._articlesCountWowElement$unnamed24740d$$field_ = $Dart$Null;
+  this._articlesSentimentElement$unnamed24740d$$field_ = $Dart$Null;
+  this._articlesSentimentWowElement$unnamed24740d$$field_ = $Dart$Null;
+  this.articlesFromElement$field = $Dart$Null;
+  this.articlesToElement$field = $Dart$Null;
   this.data$field = $Dart$Null;
   this.currentId$field = $Dart$Null;
+  this.selectedDateRange$field = $Dart$Null;
   this.MAX_WEEKS$field = 102;
 }
 ;
-unnamed24740d$BarChart$Dart.BarChart$$Factory = function(domQuery){
+unnamed24740d$BarChart$Dart.BarChart$$Factory = function(domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   var tmp$0 = new unnamed24740d$BarChart$Dart;
   tmp$0.$typeInfo = unnamed24740d$BarChart$Dart.$lookupRTT();
-  unnamed24740d$BarChart$Dart.$Initializer.call(tmp$0, domQuery);
-  unnamed24740d$BarChart$Dart.$Constructor.call(tmp$0, domQuery);
+  unnamed24740d$BarChart$Dart.$Initializer.call(tmp$0, domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
+  unnamed24740d$BarChart$Dart.$Constructor.call(tmp$0, domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
   return tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articles$getter = function(){
+  var tmp$0 = this.articles$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.articles$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.articles$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articles$setter = function(tmp$0){
+  this.articles$field = tmp$0;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.tableElement$getter = function(){
@@ -64624,6 +67363,82 @@ unnamed24740d$BarChart$Dart.prototype.tableElement$getter = function(){
 ;
 unnamed24740d$BarChart$Dart.prototype.tableElement$setter = function(tmp$0){
   this.tableElement$field = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesCountElement$unnamed24740d$$getter_ = function(){
+  var tmp$0 = this._articlesCountElement$unnamed24740d$$field_;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this._articlesCountElement$unnamed24740d$$field_ = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this._articlesCountElement$unnamed24740d$$field_ = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesCountElement$unnamed24740d$$setter_ = function(tmp$0){
+  this._articlesCountElement$unnamed24740d$$field_ = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesCountWowElement$unnamed24740d$$getter_ = function(){
+  var tmp$0 = this._articlesCountWowElement$unnamed24740d$$field_;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this._articlesCountWowElement$unnamed24740d$$field_ = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this._articlesCountWowElement$unnamed24740d$$field_ = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesCountWowElement$unnamed24740d$$setter_ = function(tmp$0){
+  this._articlesCountWowElement$unnamed24740d$$field_ = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesSentimentElement$unnamed24740d$$setter_ = function(tmp$0){
+  this._articlesSentimentElement$unnamed24740d$$field_ = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype._articlesSentimentWowElement$unnamed24740d$$setter_ = function(tmp$0){
+  this._articlesSentimentWowElement$unnamed24740d$$field_ = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articlesFromElement$getter = function(){
+  var tmp$0 = this.articlesFromElement$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.articlesFromElement$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.articlesFromElement$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articlesFromElement$setter = function(tmp$0){
+  this.articlesFromElement$field = tmp$0;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articlesToElement$getter = function(){
+  var tmp$0 = this.articlesToElement$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.articlesToElement$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.articlesToElement$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.articlesToElement$setter = function(tmp$0){
+  this.articlesToElement$field = tmp$0;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.data$getter = function(){
@@ -64660,6 +67475,10 @@ unnamed24740d$BarChart$Dart.prototype.currentId$setter = function(tmp$0){
   this.currentId$field = tmp$0;
 }
 ;
+unnamed24740d$BarChart$Dart.prototype.selectedDateRange$setter = function(tmp$0){
+  this.selectedDateRange$field = tmp$0;
+}
+;
 unnamed24740d$BarChart$Dart.prototype.MAX_WEEKS$getter = function(){
   return 102;
 }
@@ -64680,7 +67499,7 @@ unnamed24740d$BarChart$Dart.prototype.show$member = function(id){
     this.populateChart$member(id, true);
   }
    else {
-    this.fetchData$member(id, $bind(unnamed24740d$BarChart$Dart.prototype.populateChart$named, unnamed24740d$BarChart$Dart.prototype.populateChart$named_$lookupRTT, this));
+    this.fetchData$member(id, $bind(unnamed24740d$BarChart$Dart.prototype.populateChart$named, unnamed24740d$BarChart$Dart.prototype.populateChart$named_$lookupRTT, this), $Dart$Null);
   }
 }
 ;
@@ -64690,16 +67509,88 @@ unnamed24740d$BarChart$Dart.prototype.show$named = function($n, $o, id){
   return unnamed24740d$BarChart$Dart.prototype.show$member.call(this, id);
 }
 ;
+function unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1, e){
+  var el = e.currentTarget$getter();
+  if (el.dataAttributes$getter().containsKey$named(1, $noargs, 'i')) {
+    var i_0 = Math$Dart.parseInt$member(el.dataAttributes$getter().INDEX$operator('i'));
+    if (GT$operator(i_0, SUB$operator(this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter(), 1))) {
+      this.updateContextual$named(0, {$p_count:'no data', count:1});
+    }
+     else {
+      var countWowStr = $Dart$Null;
+      if (LT$operator(i_0, SUB$operator(this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter(), 1))) {
+        var prevCount = Math$Dart.parseInt$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(ADD$operator(i_0, 1)).INDEX$operator('count'));
+        var nowCount = Math$Dart.parseInt$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('count'));
+        if (EQ$operator(prevCount, 0)) {
+          countWowStr = GT$operator(nowCount, 0)?'+&#8734;%':'+0%';
+        }
+         else {
+          var percentage_0 = MUL$operator(SUB$operator(DIV$operator(nowCount, prevCount), 1), 100).toInt$named(0, $noargs);
+          countWowStr = ADD$operator(ADD$operator(GTE$operator(percentage_0, 0)?'+':'-', percentage_0.abs$named(0, $noargs).toString$named(0, $noargs)), '%');
+        }
+      }
+       else {
+        countWowStr = 'n/a';
+      }
+      this.updateContextual$named(0, {$p_count:this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('count'), $p_countWow:countWowStr, count:2});
+    }
+  }
+}
+function unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted$named($s0, $n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted.call(this, $s0, e);
+}
+function unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType);
+}
+function unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted(dartc_scp$1, e){
+  var tmp$1, tmp$2, tmp$0;
+  var el = e.currentTarget$getter();
+  if (el.dataAttributes$getter().containsKey$named(1, $noargs, 'i')) {
+    var i_0 = Math$Dart.parseInt$member(el.dataAttributes$getter().INDEX$operator('i'));
+    if (LT$operator(i_0, this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter())) {
+      this.selectedDateRange$setter(tmp$0 = i_0) , tmp$0;
+      this.articles$getter().fromDate$setter(tmp$1 = unnamed24740d$ScuttlebuttUI$Dart.dateFromString$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('from'))) , tmp$1;
+      this.articles$getter().toDate$setter(tmp$2 = unnamed24740d$ScuttlebuttUI$Dart.dateFromString$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('to'))) , tmp$2;
+      this.articles$getter().fetchData$named(0, {$p_thenCall:this.articles$getter().populateTable$getter(), count:1});
+      this.updateDateRange$member();
+    }
+  }
+}
+function unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted$named($s0, $n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted.call(this, $s0, e);
+}
+function unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType);
+}
+function unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted(e){
+  var el = e.toElement$getter();
+  if (!this.tableElement$getter().contains$named(1, $noargs, el)) {
+    this.updateContextual$named(0, $noargs);
+  }
+}
+function unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted$named($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted.call(this, e);
+}
+function unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType);
+}
 unnamed24740d$BarChart$Dart.prototype.populateChart$member = function(id_, resetTable){
-  var tmp$1, tmp$0;
-  var id = NE$operator(id_, $Dart$Null)?id_:this.currentId$getter();
+  var dartc_scp$1, tmp$1, tmp$2, tmp$3, tmp$0;
+  dartc_scp$1 = {};
+  dartc_scp$1.id = NE$operator(id_, $Dart$Null)?id_:this.currentId$getter();
   if (resetTable) {
     this.reset$named(0, $noargs);
   }
   var maxCount = 0;
   var absoluteCount = 0;
   {
-    var $0 = this.data$getter().INDEX$operator(id).iterator$named(0, $noargs);
+    var $0 = this.data$getter().INDEX$operator(dartc_scp$1.id).iterator$named(0, $noargs);
     while ($0.hasNext$named(0, $noargs)) {
       var record = $0.next$named(0, $noargs);
       {
@@ -64708,7 +67599,7 @@ unnamed24740d$BarChart$Dart.prototype.populateChart$member = function(id_, reset
       }
     }
   }
-  var averageCount = DIV$operator(absoluteCount, this.data$getter().INDEX$operator(id).length$getter()).toInt$named(0, $noargs);
+  var averageCount = DIV$operator(absoluteCount, this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter()).toInt$named(0, $noargs);
   var tr = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('tr');
   {
     var i = SUB$operator(this.MAX_WEEKS$getter(), 1);
@@ -64716,9 +67607,10 @@ unnamed24740d$BarChart$Dart.prototype.populateChart$member = function(id_, reset
       var td = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('td');
       var div = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('div');
       var percentage = $Dart$Null;
-      if (LT$operator(i, this.data$getter().INDEX$operator(id).length$getter())) {
-        percentage = MUL$operator(DIV$operator(this.data$getter().INDEX$operator(id).INDEX$operator(i).INDEX$operator('count'), maxCount), 100).toInt$named(0, $noargs);
+      if (LT$operator(i, this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter())) {
+        percentage = MUL$operator(DIV$operator(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i).INDEX$operator('count'), maxCount), 100).toInt$named(0, $noargs);
         div.classes$getter().add$named(1, $noargs, 'blue-bar');
+        td.classes$getter().add$named(1, $noargs, 'data-available');
       }
        else {
         percentage = MUL$operator(DIV$operator(MUL$operator(Math$Dart.random$member(), averageCount), maxCount), 75).toInt$named(0, $noargs);
@@ -64727,9 +67619,14 @@ unnamed24740d$BarChart$Dart.prototype.populateChart$member = function(id_, reset
       div.style$getter().height$setter(tmp$1 = '' + $toString(percentage) + '%') , tmp$1;
       td.elements$getter().add$named(1, $noargs, div);
       tr.elements$getter().add$named(1, $noargs, td);
+      td.dataAttributes$setter(tmp$3 = (tmp$2 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$2.ASSIGN_INDEX$operator('i', i) , tmp$2)) , tmp$3;
+      td.on$getter().mouseOver$getter().add$named(1, $noargs, $bind(unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted$named, unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+      td.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted$named, unnamed24740d$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
     }
   }
   this.tableElement$getter().elements$getter().add$named(1, $noargs, tr);
+  this.tableElement$getter().on$getter().mouseOut$getter().add$named(1, $noargs, $bind(unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted$named, unnamed24740d$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT, this));
+  dartc_scp$1 = $Dart$Null;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.populateChart$named = function($n, $o, id_, resetTable){
@@ -64750,10 +67647,46 @@ unnamed24740d$BarChart$Dart.prototype.populateChart$named_$lookupRTT = function(
   return RTT.createFunction([int$Dart.$lookupRTT(), bool$Dart.$lookupRTT()], null);
 }
 ;
+unnamed24740d$BarChart$Dart.prototype.populateChart$getter = function(){
+  return $bind(unnamed24740d$BarChart$Dart.prototype.populateChart$named, unnamed24740d$BarChart$Dart.prototype.populateChart$named_$lookupRTT, this);
+}
+;
+unnamed24740d$BarChart$Dart.prototype.updateContextual$member = function(count, countWow, sentiment, sentimentWow){
+  var tmp$1, tmp$0;
+  this._articlesCountElement$unnamed24740d$$getter_().innerHTML$setter(tmp$0 = count) , tmp$0;
+  this._articlesCountWowElement$unnamed24740d$$getter_().innerHTML$setter(tmp$1 = countWow) , tmp$1;
+}
+;
+unnamed24740d$BarChart$Dart.prototype.updateContextual$named = function($n, $o, count, countWow, sentiment, sentimentWow){
+  var seen = 0;
+  var def = 0;
+  switch ($n) {
+    case 0:
+      count = '$p_count' in $o?(++seen , $o.$p_count):(++def , 'n/a');
+    case 1:
+      countWow = '$p_countWow' in $o?(++seen , $o.$p_countWow):(++def , 'n/a');
+    case 2:
+      sentiment = '$p_sentiment' in $o?(++seen , $o.$p_sentiment):(++def , 'n/a');
+    case 3:
+      sentimentWow = '$p_sentimentWow' in $o?(++seen , $o.$p_sentimentWow):(++def , 'n/a');
+  }
+  if (seen != $o.count || seen + def + $n != 4)
+    $nsme();
+  return unnamed24740d$BarChart$Dart.prototype.updateContextual$member.call(this, count, countWow, sentiment, sentimentWow);
+}
+;
+unnamed24740d$BarChart$Dart.prototype.updateDateRange$member = function(){
+  var tmp$1, tmp$0;
+  this.articlesFromElement$getter().value$setter(tmp$0 = this.articles$getter().fromDateShort$getter()) , tmp$0;
+  this.articlesToElement$getter().value$setter(tmp$1 = this.articles$getter().toDateShort$getter()) , tmp$1;
+}
+;
 function unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
   var tmp$0;
   if (EQ$operator(dartc_scp$1.request.status$getter(), 404)) {
     htmld071c1$window$getter().console$getter().error$named(1, $noargs, 'TOFIX: Could not retrieve ' + $toString(dartc_scp$1.url) + '. Maybe stats are not implemented yet?');
+    print$getter()(1, $noargs, 'Trying to load mock data.');
+    this.fetchData$member(dartc_scp$0.id, this.populateChart$getter(), 'https://scuttlebutt.googleplex.com/ui/report/get_topic_stats_mock.json');
   }
    else {
     this.data$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter())) , tmp$0;
@@ -64771,11 +67704,11 @@ function unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted$named($s0, $s1, 
 function unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType], RTT.dynamicType);
 }
-unnamed24740d$BarChart$Dart.prototype.fetchData$member = function(id, thenCall){
+unnamed24740d$BarChart$Dart.prototype.fetchData$member = function(id, thenCall, url_){
   var dartc_scp$0 = {id:id, thenCall:thenCall};
   var dartc_scp$1;
   dartc_scp$1 = {};
-  dartc_scp$1.url = this.getURL$member(dartc_scp$0.id);
+  dartc_scp$1.url = url_ == null?this.getURL$member(dartc_scp$0.id):url_;
   dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
   dartc_scp$1.request.open$named(3, $noargs, 'GET', dartc_scp$1.url, true);
   dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted$named, unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
@@ -64783,16 +67716,18 @@ unnamed24740d$BarChart$Dart.prototype.fetchData$member = function(id, thenCall){
   dartc_scp$1 = $Dart$Null;
 }
 ;
-unnamed24740d$BarChart$Dart.prototype.fetchData$named = function($n, $o, id, thenCall){
+unnamed24740d$BarChart$Dart.prototype.fetchData$named = function($n, $o, id, thenCall, url_){
   var seen = 0;
   var def = 0;
   switch ($n) {
     case 1:
       thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
+    case 2:
+      url_ = '$p_url_' in $o?(++seen , $o.$p_url_):(++def , $Dart$Null);
   }
-  if (seen != $o.count || seen + def + $n != 2)
+  if (seen != $o.count || seen + def + $n != 3)
     $nsme();
-  return unnamed24740d$BarChart$Dart.prototype.fetchData$member.call(this, id, thenCall);
+  return unnamed24740d$BarChart$Dart.prototype.fetchData$member.call(this, id, thenCall, url_);
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.reset$member = function(){
@@ -64844,22 +67779,26 @@ function unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named$named_$l
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType);
 }
 unnamed24740d$Articles$Dart.$Constructor = function(){
-  var tmp$1, tmp$2, tmp$3, tmp$0;
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
-  this.barChart$setter(tmp$1 = unnamed24740d$BarChart$Dart.BarChart$$Factory('table#articles-stats')) , tmp$1;
-  this._loadMoreButton$unnamed24740d$$setter_(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'button#load-more-button')) , tmp$2;
-  this._waitingToBeShown$unnamed24740d$$setter_(tmp$3 = 0) , tmp$3;
+  this.barChart$setter(tmp$1 = unnamed24740d$BarChart$Dart.BarChart$$Factory('table#articles-stats', this, '#articles-count', '#articles-count-wow', '#articles-sentiment', '#articles-sentiment-wow', '#articles-from', '#articles-to')) , tmp$1;
+  this._articlesDivElement$unnamed24740d$$setter_(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'div#articles-div')) , tmp$2;
+  this._loadMoreButton$unnamed24740d$$setter_(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'button#load-more-button')) , tmp$3;
+  this._waitingToBeShown$unnamed24740d$$setter_(tmp$4 = 0) , tmp$4;
   this._loadMoreButton$unnamed24740d$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named, unnamed24740d$Articles$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT, this));
 }
 ;
 unnamed24740d$Articles$Dart.$Initializer = function(){
   this.barChart$field = $Dart$Null;
   this.outputTable$field = $Dart$Null;
+  this._articlesDivElement$unnamed24740d$$field_ = $Dart$Null;
   this._loadMoreButton$unnamed24740d$$field_ = $Dart$Null;
   this.data$field = $Dart$Null;
   this.scuttlebuttUi$field = $Dart$Null;
   this.currentId$field = $Dart$Null;
   this.currentOffset$field = $Dart$Null;
+  this.fromDate$field = $Dart$Null;
+  this.toDate$field = $Dart$Null;
   this._waitingToBeShown$unnamed24740d$$field_ = $Dart$Null;
   this.ARTICLES_LIMIT$field = 20;
 }
@@ -64904,6 +67843,23 @@ unnamed24740d$Articles$Dart.prototype.outputTable$getter = function(){
 ;
 unnamed24740d$Articles$Dart.prototype.outputTable$setter = function(tmp$0){
   this.outputTable$field = tmp$0;
+}
+;
+unnamed24740d$Articles$Dart.prototype._articlesDivElement$unnamed24740d$$getter_ = function(){
+  var tmp$0 = this._articlesDivElement$unnamed24740d$$field_;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this._articlesDivElement$unnamed24740d$$field_ = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this._articlesDivElement$unnamed24740d$$field_ = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype._articlesDivElement$unnamed24740d$$setter_ = function(tmp$0){
+  this._articlesDivElement$unnamed24740d$$field_ = tmp$0;
 }
 ;
 unnamed24740d$Articles$Dart.prototype._loadMoreButton$unnamed24740d$$getter_ = function(){
@@ -64991,6 +67947,40 @@ unnamed24740d$Articles$Dart.prototype.currentOffset$setter = function(tmp$0){
   this.currentOffset$field = tmp$0;
 }
 ;
+unnamed24740d$Articles$Dart.prototype.fromDate$getter = function(){
+  var tmp$0 = this.fromDate$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.fromDate$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.fromDate$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype.fromDate$setter = function(tmp$0){
+  this.fromDate$field = tmp$0;
+}
+;
+unnamed24740d$Articles$Dart.prototype.toDate$getter = function(){
+  var tmp$0 = this.toDate$field;
+  var tmp$1 = static$initializing;
+  if (tmp$0 === tmp$1)
+    throw 'circular initialization';
+  if (tmp$0 !== static$uninitialized)
+    return tmp$0;
+  this.toDate$field = tmp$1;
+  var tmp$2 = $Dart$Null;
+  this.toDate$field = tmp$2;
+  return tmp$2;
+}
+;
+unnamed24740d$Articles$Dart.prototype.toDate$setter = function(tmp$0){
+  this.toDate$field = tmp$0;
+}
+;
 unnamed24740d$Articles$Dart.prototype._waitingToBeShown$unnamed24740d$$getter_ = function(){
   var tmp$0 = this._waitingToBeShown$unnamed24740d$$field_;
   var tmp$1 = static$initializing;
@@ -65012,6 +68002,22 @@ unnamed24740d$Articles$Dart.prototype.ARTICLES_LIMIT$getter = function(){
   return 20;
 }
 ;
+unnamed24740d$Articles$Dart.prototype.fromDateIso$getter = function(){
+  return ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(this.fromDate$getter().year$getter().toString$named(0, $noargs), '-'), LT$operator(this.fromDate$getter().month$getter(), 10)?'0':''), this.fromDate$getter().month$getter().toString$named(0, $noargs)), '-'), LT$operator(this.fromDate$getter().day$getter(), 10)?'0':''), this.fromDate$getter().day$getter().toString$named(0, $noargs)), 'T'), LT$operator(this.fromDate$getter().hours$getter(), 10)?'0':''), this.fromDate$getter().hours$getter().toString$named(0, $noargs)), ':'), LT$operator(this.fromDate$getter().minutes$getter(), 10)?'0':''), this.fromDate$getter().minutes$getter().toString$named(0, $noargs)), ':'), LT$operator(this.fromDate$getter().seconds$getter(), 10)?'0':''), this.fromDate$getter().seconds$getter().toString$named(0, $noargs));
+}
+;
+unnamed24740d$Articles$Dart.prototype.toDateIso$getter = function(){
+  return ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(ADD$operator(this.toDate$getter().year$getter().toString$named(0, $noargs), '-'), LT$operator(this.toDate$getter().month$getter(), 10)?'0':''), this.toDate$getter().month$getter().toString$named(0, $noargs)), '-'), LT$operator(this.toDate$getter().day$getter(), 10)?'0':''), this.toDate$getter().day$getter().toString$named(0, $noargs)), 'T'), LT$operator(this.toDate$getter().hours$getter(), 10)?'0':''), this.toDate$getter().hours$getter().toString$named(0, $noargs)), ':'), LT$operator(this.toDate$getter().minutes$getter(), 10)?'0':''), this.toDate$getter().minutes$getter().toString$named(0, $noargs)), ':'), LT$operator(this.toDate$getter().seconds$getter(), 10)?'0':''), this.toDate$getter().seconds$getter().toString$named(0, $noargs));
+}
+;
+unnamed24740d$Articles$Dart.prototype.fromDateShort$getter = function(){
+  return this.fromDateIso$getter().substring$named(2, $noargs, 0, 10);
+}
+;
+unnamed24740d$Articles$Dart.prototype.toDateShort$getter = function(){
+  return this.toDateIso$getter().substring$named(2, $noargs, 0, 10);
+}
+;
 unnamed24740d$Articles$Dart.prototype.getURL$member = function(id, limit, offset){
   if (limit == null) {
     limit = this.ARTICLES_LIMIT$getter();
@@ -65020,16 +68026,20 @@ unnamed24740d$Articles$Dart.prototype.getURL$member = function(id, limit, offset
     return '/report/get_articles_mock.json';
   }
    else {
-    return '/report/get_articles?topic_id=' + $toString(id) + '&limit=' + $toString(limit) + '&offset=' + $toString(offset) + '';
+    return '/report/get_articles?topic_id=' + $toString(id) + '&limit=' + $toString(limit) + '&offset=' + $toString(offset) + '&min_date=' + $toString(this.fromDateIso$getter()) + '&max_date=' + $toString(this.toDateIso$getter()) + '';
   }
 }
 ;
 unnamed24740d$Articles$Dart.prototype.show$member = function(id){
-  var tmp$1, tmp$2, tmp$0;
+  var tmp$5, tmp$6, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.currentId$setter(tmp$0 = id) , tmp$0;
   this.currentOffset$setter(tmp$1 = 0) , tmp$1;
+  this.fromDate$setter(tmp$2 = DateImplementation$Dart.DateImplementation$fromEpoch$18$Factory(0, TimeZoneImplementation$Dart.TimeZoneImplementation$utc$22$Factory())) , tmp$2;
+  this.toDate$setter(tmp$3 = DateImplementation$Dart.DateImplementation$now$18$Factory()) , tmp$3;
+  this.barChart$getter().articlesFromElement$getter().value$setter(tmp$4 = this.fromDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$4;
+  this.barChart$getter().articlesToElement$getter().value$setter(tmp$5 = this.toDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$5;
   if (this.data$getter().containsKey$named(1, $noargs, id)) {
-    this._waitingToBeShown$unnamed24740d$$setter_(tmp$2 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$2;
+    this._waitingToBeShown$unnamed24740d$$setter_(tmp$6 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$6;
     this.populateTable$member(id, true);
   }
    else {
@@ -65081,16 +68091,12 @@ unnamed24740d$Articles$Dart.prototype.populateTable$getter = function(){
 }
 ;
 unnamed24740d$Articles$Dart.prototype.visibility$setter = function(value){
-  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$1, tmp$0;
   if (EQ$operator(value, true)) {
-    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
-    this._loadMoreButton$unnamed24740d$$getter_().style$getter().display$setter(tmp$1 = 'block') , tmp$1;
-    this.barChart$getter().tableElement$getter().style$getter().display$setter(tmp$2 = 'block') , tmp$2;
+    this._articlesDivElement$unnamed24740d$$getter_().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
   }
    else {
-    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$3 = 'none') , tmp$3;
-    this._loadMoreButton$unnamed24740d$$getter_().style$getter().display$setter(tmp$4 = 'none') , tmp$4;
-    this.barChart$getter().tableElement$getter().style$getter().display$setter(tmp$5 = 'none') , tmp$5;
+    this._articlesDivElement$unnamed24740d$$getter_().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
   }
 }
 ;
@@ -65121,6 +68127,9 @@ unnamed24740d$Articles$Dart.prototype.fetchData$member = function(id, thenCall, 
   var dartc_scp$0 = {id:id, thenCall:thenCall, offset:offset};
   var dartc_scp$1;
   dartc_scp$1 = {};
+  if (EQ$operator(dartc_scp$0.id, $Dart$Null)) {
+    dartc_scp$0.id = this.currentId$getter();
+  }
   var url = this.getURL$member(dartc_scp$0.id, limit, dartc_scp$0.offset);
   dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
   dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
@@ -65133,6 +68142,8 @@ unnamed24740d$Articles$Dart.prototype.fetchData$named = function($n, $o, id, the
   var seen = 0;
   var def = 0;
   switch ($n) {
+    case 0:
+      id = '$p_id' in $o?(++seen , $o.$p_id):(++def , $Dart$Null);
     case 1:
       thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
     case 2:
@@ -65769,10 +68780,14 @@ unnamed24740d$ScuttlebuttUI$Dart.prettifyUrl$member = function(rawUrl){
   }
 }
 ;
+unnamed24740d$ScuttlebuttUI$Dart.dateFromString$member = function(str){
+  return DateImplementation$Dart.DateImplementation$fromString$18$Factory(ADD$operator(str, 'Z'));
+}
+;
 unnamed24740d$ScuttlebuttUI$Dart.prettifyDate$member = function(rawDate){
   var weekdayStrings = $intern(RTT.setTypeInfo(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], Array.$lookupRTT()), ['']);
   var monthStrings = $intern(RTT.setTypeInfo(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], Array.$lookupRTT()), ['']);
-  var date = DateImplementation$Dart.DateImplementation$fromString$18$Factory(ADD$operator(rawDate, 'Z'));
+  var date = unnamed24740d$ScuttlebuttUI$Dart.dateFromString$member(rawDate);
   var diff = DateImplementation$Dart.DateImplementation$now$18$Factory().difference$named(1, $noargs, date);
   var dateStr = '' + $toString(weekdayStrings.INDEX$operator(date.weekday$getter())) + ', ' + $toString(monthStrings.INDEX$operator(SUB$operator(date.month$getter(), 1))) + ' ' + $toString(date.day$getter()) + '';
   var diffStr = $Dart$Null;
@@ -65891,19 +68906,30 @@ isolate$inits.push(function(){
 }
 );
 isolate$inits.push(function(){
+  this.articles$field = static$uninitialized;
   this.tableElement$field = static$uninitialized;
+  this._articlesCountElement$unnamed24740d$$field_ = static$uninitialized;
+  this._articlesCountWowElement$unnamed24740d$$field_ = static$uninitialized;
+  this._articlesSentimentElement$unnamed24740d$$field_ = static$uninitialized;
+  this._articlesSentimentWowElement$unnamed24740d$$field_ = static$uninitialized;
+  this.articlesFromElement$field = static$uninitialized;
+  this.articlesToElement$field = static$uninitialized;
   this.data$field = static$uninitialized;
   this.currentId$field = static$uninitialized;
+  this.selectedDateRange$field = static$uninitialized;
 }
 );
 isolate$inits.push(function(){
   this.barChart$field = static$uninitialized;
   this.outputTable$field = static$uninitialized;
+  this._articlesDivElement$unnamed24740d$$field_ = static$uninitialized;
   this._loadMoreButton$unnamed24740d$$field_ = static$uninitialized;
   this.data$field = static$uninitialized;
   this.scuttlebuttUi$field = static$uninitialized;
   this.currentId$field = static$uninitialized;
   this.currentOffset$field = static$uninitialized;
+  this.fromDate$field = static$uninitialized;
+  this.toDate$field = static$uninitialized;
   this._waitingToBeShown$unnamed24740d$$field_ = static$uninitialized;
 }
 );
