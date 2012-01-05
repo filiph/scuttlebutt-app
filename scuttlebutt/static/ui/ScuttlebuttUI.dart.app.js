@@ -67240,7 +67240,7 @@ unnamed24740d$Table$Dart.prototype.addData$member = function(data){
     while ($0.hasNext$named(0, $noargs)) {
       var record = $0.next$named(0, $noargs);
       {
-        this.addRow$named(1, $noargs, RTT.setTypeInfo([record.INDEX$operator('title'), unnamed24740d$ScuttlebuttUI$Dart.prettifyUrl$member(record.INDEX$operator('url')), unnamed24740d$ScuttlebuttUI$Dart.prettifyDate$member(record.INDEX$operator('updated')), 'N/A', 'N/A'], Array.$lookupRTT()));
+        this.addRow$named(1, $noargs, RTT.setTypeInfo([record.INDEX$operator('title'), unnamed24740d$ScuttlebuttUI$Dart.prettifyUrl$member(record.INDEX$operator('url')), unnamed24740d$ScuttlebuttUI$Dart.prettifyDate$member(record.INDEX$operator('updated')), record.containsKey$named(1, $noargs, 'readership')?record.INDEX$operator('readership'):'N/A', record.containsKey$named(1, $noargs, 'sentiment')?record.INDEX$operator('sentiment'):'N/A'], Array.$lookupRTT()));
       }
     }
   }

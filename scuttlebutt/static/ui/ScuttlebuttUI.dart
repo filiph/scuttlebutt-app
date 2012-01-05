@@ -39,8 +39,8 @@ class Table {
          record['title'], 
          ScuttlebuttUI.prettifyUrl(record['url']), 
          ScuttlebuttUI.prettifyDate(record['updated']), 
-         "N/A", 
-         "N/A"
+         record.containsKey("readership") ? record["readership"] : "N/A",  
+         record.containsKey("sentiment") ? record["sentiment"] : "N/A"
         ]
         );
     }
