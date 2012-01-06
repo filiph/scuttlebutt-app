@@ -6,6 +6,7 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 import os
+import datetime
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
@@ -83,6 +84,19 @@ class CreateFeedHandler(webapp.RequestHandler):
     t2.put()
 
 
+class GetTopicStatsHandler(webapp.RequestHandler):
+  """Handler class to return aggregated topic stats per week."""
+
+  def get(self):
+    s = ScuttlebuttService()
+    result = s.GetTopicStats(
+        topic_id=int(self.request.get('topic_id')),
+        now=datetime.datetime.now()
+    )
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(simplejson.dumps(result))
+
+
 class DeleteArticlesHandler(webapp.RequestHandler):
   """Handler class to delete all articles."""
 
@@ -100,6 +114,7 @@ def main():
       ('/report/create_feed', CreateFeedHandler),
       ('/report/get_articles', GetArticlesHandler),
       ('/report/get_topics', GetTopicsHandler),
+      ('/report/get_topic_stats', GetTopicStatsHandler),
       ('/report/delete_articles', DeleteArticlesHandler)
   ], debug=True)
   util.run_wsgi_app(application)

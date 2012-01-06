@@ -21,11 +21,17 @@ class Topic(db.Model):
   (i.e. Google Chrome).
   """
   name = db.StringProperty()
+  countPastSevenDays = db.IntegerProperty()
+  countPastTwentyFourHours = db.IntegerProperty()
+  weekOnWeekChange = db.FloatProperty()
 
   def ToDict(self):
     """Returns a dictionary representation of the object."""
     d = {}
     d['name'] = self.name
+    d['countPastSevenDays'] = self.countPastSevenDays
+    d['countPastTwentyFourHours'] = self.countPastTwentyFourHours
+    d['weekOnWeekChange'] = self.weekOnWeekChange
     d['id'] = int(self.key().id())
     return d
 

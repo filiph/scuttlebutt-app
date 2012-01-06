@@ -10,6 +10,7 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 from datetime import datetime
+from datetime import timedelta
 import logging
 import string
 from StringIO import StringIO
@@ -79,6 +80,26 @@ class RssService(object):
           a.updated = datetime.fromtimestamp(mktime(entry['updated_parsed']))
           a.put()
           logging.info('Saved article with title %s.', a.title)
+
+  def ComputeTopicStats(self, now):
+    a_week_ago = now - timedelta(days=7)
+    twenty_four_hours_ago = now - timedelta(days=1)
+    two_weeks_ago = now - timedelta(days=14)
+    for topic in Topic.all():
+      filter_statement = 'WHERE topics = :1 AND updated >= :2 AND updated <= :3'
+
+      topic.countPastSevenDays = Article.gql(
+          filter_statement, topic.key(), a_week_ago, now).count()
+      topic.countPastTwentyFourHours = Article.gql(
+          filter_statement, topic.key(), twenty_four_hours_ago, now).count()
+      last_weeks_count = Article.gql(
+          filter_statement, topic.key(), two_weeks_ago, a_week_ago).count()
+      if last_weeks_count is 0:
+        topic.weekOnWeekChange = None
+      else:
+        topic.weekOnWeekChange = (1.0 * (topic.countPastSevenDays - last_weeks_count)) / last_weeks_count
+
+      topic.put()
 
   def _Match(self, text, search_term):
     """Looks for match of search_term in text.

@@ -7,17 +7,13 @@ handlers:
 - url: /favicon\.ico
   static_files: static/favicon.ico
   upload: static/favicon\.ico
-  
-- url: /dispatch
+
+- url: /task/.*
   script: task_handler.py
   login: admin
-  
-- url: /download
-  script: task_handler.py
-  login: admin
-  
+
 - url: /report/.*
   script: report_handler.py
-  
+
 - url: /ui
   static_dir: static/ui

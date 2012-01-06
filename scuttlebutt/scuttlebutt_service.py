@@ -85,3 +85,62 @@ class ScuttlebuttService(object):
     except ValueError:
       result = None
     return result
+
+  def GetTopicStats(self, topic_id, now):
+    s = TopicStatsAggregator(now)
+    topic = Topic.get_by_id(topic_id)
+    filter_statement = 'WHERE topics = :1'
+    articles = Article.gql(filter_statement, topic.key())
+    for article in articles:
+      s.AddArticle(article)
+    return s.ToDict()
+
+
+
+class TopicStatsAggregator(object):
+
+  def __init__(self, now):
+    self.now = now
+    # The week's Monday is the key. The data is a dict of article count, sentiment, etc.
+    self.weeks = {}
+    self.oldest_monday = None
+
+  def AddArticle(self, article):
+    monday = self._GetMonday(article.updated)
+    if self.oldest_monday is None or monday < self.oldest_monday:
+      self.oldest_monday = monday
+    if monday in self.weeks:
+      self.weeks[monday]['count'] += 1
+    else:
+      self.weeks[monday] = {'count': 1,
+                            'from': monday.strftime('%Y-%m-%dT%H:%M:%S'),
+                            'to': self._EndOfWeek(monday).strftime('%Y-%m-%dT%H:%M:%S')}
+
+  def _EndOfWeek(self, monday):
+    return monday + datetime.timedelta(days=7) - datetime.timedelta(seconds=1)
+
+  def _GetMonday(self, search_date):
+    result = search_date - datetime.timedelta(days=search_date.weekday())
+    d = result.date()
+    return datetime.datetime(d.year, d.month, d.day)
+
+  def ToDict(self):
+    result = []
+    current_monday = self.oldest_monday
+    while True:
+      if current_monday in self.weeks:
+        result.append(self.weeks[current_monday])
+      else:
+        result.append({'count': 0,
+                       'from': current_monday.strftime('%Y-%m-%dT%H:%M:%S'),
+                       'to': self._EndOfWeek(current_monday).strftime('%Y-%m-%dT%H:%M:%S')})
+      current_monday = current_monday + datetime.timedelta(days=7)
+      if current_monday > self.now:
+        break
+    sorted_result = sorted(result, key=lambda week:week['to'], reverse=True)
+    return sorted_result
+
+
+
+
+

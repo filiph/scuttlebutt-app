@@ -15,7 +15,7 @@ from model import Topic
 from rss_service import RssService
 import pymock
 from scuttlebutt_service import ScuttlebuttService
-
+from scuttlebutt_service import TopicStatsAggregator
 
 class RssServiceTests(pymock.PyMockTestCase):
   """Tests for RssService."""
@@ -127,6 +127,95 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertEqual(1, len(articles[0].feeds))
     self.assertEqual(1, len(articles[1].feeds))
 
+  def testComputeTopicStatsSimple(self):
+    JAN15_NOON = datetime.datetime(2012, 1, 15, 12)
+    JAN15_1PM = datetime.datetime(2012, 1, 15, 13)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN15_NOON
+    a1.topics.append(t.key())
+    a1.put()
+
+    s = RssService()
+    s.ComputeTopicStats(JAN15_1PM)
+
+    topics = Topic.all().filter('name =', t.name)
+    t = topics[0]
+    self.assertEquals(1, t.countPastSevenDays)
+    self.assertEquals(1, t.countPastTwentyFourHours)
+    self.assertEquals(None, t.weekOnWeekChange)
+
+  def testComputeTopicStatsWithZeroWeeklyChange(self):
+    JAN15_NOON = datetime.datetime(2012, 1, 15, 12)
+    JAN8_NOON = datetime.datetime(2012, 1, 8, 12)
+    JAN15_1PM = datetime.datetime(2012, 1, 15, 13)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN15_NOON
+    a1.topics.append(t.key())
+    a1.put()
+    a2 = Article()
+    a2.url = 'http://reuters.com/2'
+    a2.title = 'News 2!'
+    a2.summary = 'Something happened 2'
+    a2.updated = JAN8_NOON
+    a2.topics.append(t.key())
+    a2.put()
+
+    s = RssService()
+    s.ComputeTopicStats(JAN15_1PM)
+
+    topics = Topic.all().filter('name =', t.name)
+    t = topics[0]
+    self.assertEquals(1, t.countPastSevenDays)
+    self.assertEquals(1, t.countPastTwentyFourHours)
+    self.assertEquals(0, t.weekOnWeekChange)
+
+  def testComputeTopicStatsWithWeeklyChange(self):
+    JAN15_NOON = datetime.datetime(2012, 1, 15, 12)
+    JAN8_NOON = datetime.datetime(2012, 1, 8, 12)
+    JAN15_1PM = datetime.datetime(2012, 1, 15, 13)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+
+    a1 = Article()
+    a1.url = 'http://reuters.com/1'
+    a1.title = 'News 1!'
+    a1.summary = 'Something happened 1'
+    a1.updated = JAN15_NOON
+    a1.topics.append(t.key())
+    a1.put()
+    for x in xrange(3):
+      a2 = Article()
+      a2.url = 'http://reuters.com/%s' % x
+      a2.title = 'News!'
+      a2.summary = 'Something happened'
+      a2.updated = JAN8_NOON
+      a2.topics.append(t.key())
+      a2.put()
+
+    s = RssService()
+    s.ComputeTopicStats(JAN15_1PM)
+
+    topics = Topic.all().filter('name =', t.name)
+    t = topics[0]
+    self.assertEquals(1, t.countPastSevenDays)
+    self.assertEquals(1, t.countPastTwentyFourHours)
+    self.assertAlmostEqual(-0.666, t.weekOnWeekChange, 0.001)
+
 
 class ModelTests(unittest.TestCase):
   """Tests for model class methods."""
@@ -145,8 +234,16 @@ class ModelTests(unittest.TestCase):
     """Test that a topic can return its dict representation."""
     topic = Topic()
     topic.name = 'Chrome'
+    topic.countPastTwentyFourHours = 2
+    topic.weekOnWeekChange = 0.3333
+    topic.countPastSevenDays = 12
     topic.put()
-    self.assertEquals({'name': 'Chrome', 'id': 1}, topic.ToDict())
+    expected_dict = {'id': 1,
+                     'countPastTwentyFourHours': 2,
+                     'name': 'Chrome',
+                     'weekOnWeekChange': 0.3333,
+                     'countPastSevenDays': 12}
+    self.assertEquals(expected_dict, topic.ToDict())
 
 
 class ScuttlebuttServiceTests(unittest.TestCase):
@@ -335,7 +432,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         max_date=JAN31
     )
     self.assertEqual(expected_json, actual_json)
-    # Specify no dates, get all articles.
+    # Expect 1 result because of offset.
     expected_json = (
         '[{"url": "http://reuters.com/1", '
         '"updated": "2012-01-15T00:00:00", '
@@ -362,10 +459,57 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     actual_date = s.StringToDatetime('2012 01 01')
     self.assertEqual(None, actual_date)
 
-
   def testStringToDateWithInvalidDate(self):
     """Test invalid dates return None."""
     s = ScuttlebuttService()
     actual_date = s.StringToDatetime('2012-22-01T00:00:00')
     self.assertEqual(None, actual_date)
+
+  def testGetTopicStats(self):
+    DEC1_NOON = datetime.datetime(2011, 12, 1, 12)
+    DEC10_NOON = datetime.datetime(2011, 12, 10, 12)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+    a1 = Article()
+    a1.updated = DEC1_NOON
+    a1.topics.append(t.key())
+    a1.put()
+    a2 = Article()
+    a2.updated = DEC1_NOON
+    a2.topics.append(t.key())
+    a2.put()
+    s = ScuttlebuttService()
+    result = s.GetTopicStats(topic_id=t.key().id(), now=DEC10_NOON)
+    expected = [
+        {
+          "from" : "2011-12-05T00:00:00",
+          "to" : "2011-12-11T23:59:59",
+          "count" : 0,
+        },
+        {
+          "from" : "2011-11-28T00:00:00",
+          "to" : "2011-12-04T23:59:59",
+          "count" : 2,
+        }
+    ]
+    self.assertEqual(expected, result)
+
+  def testGetMonday(self):
+    # Simple case.
+    JAN5_NOON = datetime.datetime(2012, 1, 5, 12)
+    JAN2 = datetime.datetime(2012, 1, 2)
+    s = TopicStatsAggregator(datetime.datetime.now())
+    self.assertEquals(JAN2, s._GetMonday(JAN5_NOON))
+    # Get first Monday in the week for a Monday.
+    JAN2_NOON = datetime.datetime(2012, 1, 2, 12)
+    JAN2 = datetime.datetime(2012, 1, 2)
+    s = TopicStatsAggregator(datetime.datetime.now())
+    self.assertEquals(JAN2, s._GetMonday(JAN2_NOON))
+    # Crossing year and month boundaries.
+    JAN1_NOON = datetime.datetime(2012, 1, 1, 12)
+    DEC26 = datetime.datetime(2011, 12, 26)
+    s = TopicStatsAggregator(datetime.datetime.now())
+    self.assertEquals(DEC26, s._GetMonday(JAN1_NOON))
+
 
