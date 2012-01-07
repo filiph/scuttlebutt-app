@@ -12,6 +12,7 @@ class Feed(db.Model):
   """Represents an RSS Feed."""
   name = db.StringProperty()
   url = db.StringProperty()
+  monthly_visitors = db.IntegerProperty()
 
 
 class Topic(db.Model):
@@ -40,6 +41,7 @@ class Article(db.Model):
   """Represents an article extracted from a feed."""
   url = db.StringProperty()
   title = db.StringProperty()
+  potential_readers = db.IntegerProperty()
   summary = db.TextProperty()
   updated = db.DateTimeProperty()
   topics = db.ListProperty(db.Key)

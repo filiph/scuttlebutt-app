@@ -58,25 +58,28 @@ class RssService(object):
                                                                 feed.url)
         logging.info(msg)
         raise Exception(msg)
-
-    # Create relationship with Feed.
+    # For each topic in database, find if any of the downloaded articles match.
     for topic in Topic.all():
       for entry in feed_content['entries']:
         if (self._Match(entry['title'], topic.name) or
             self._Match(entry['summary'], topic.name)):
+          # Create a new Article, or update existing one.
           a = None
           articles = Article.all().filter('url = ', entry['id']).fetch(1)
           if articles:
             a = articles[0]
           else:
             a = Article()
-          a.url = entry['id']
+          # Tie the article to the feed it was downloaded from.
           if feed.key() not in a.feeds:
             a.feeds.append(feed.key())
           if topic.key() not in a.topics:
             a.topics.append(topic.key())
+          # Set other article properties, and save it.
+          a.url = entry['id']
           a.title = entry['title']
           a.summary = entry['summary']
+          a.potential_readers = feed.monthly_visitors
           a.updated = datetime.fromtimestamp(mktime(entry['updated_parsed']))
           a.put()
           logging.info('Saved article with title %s.', a.title)

@@ -69,6 +69,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     """Test a feed download."""
     f1 = Feed()
     f1.name = 'Reuters'
+    f1.monthly_visitors = 35000000
     f1.url = '../test_data/reuters_test_rss.xml'
     f1.put()
 
@@ -86,6 +87,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     self.assertEqual(2, len(articles))
     # Examine first article.
     self.assertEqual('German author Christa Wolf dies at 82', articles[0].title)
+    self.assertEqual(35000000, articles[0].potential_readers)
     self.assertTrue(t1.key() in articles[0].topics)
     self.assertFalse(t2.key() in articles[0].topics)
     self.assertTrue(f1.key() in articles[0].feeds)
@@ -96,6 +98,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     # Examine second article.
     self.assertEqual('Banana tycoon shakes up Russian ballet',
                      articles[1].title)
+    self.assertEqual(35000000, articles[1].potential_readers)
     self.assertTrue(t2.key() in articles[1].topics)
     self.assertFalse(t1.key() in articles[1].topics)
     self.assertTrue(f1.key() in articles[1].feeds)
