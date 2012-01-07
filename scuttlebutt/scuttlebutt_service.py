@@ -86,8 +86,35 @@ class ScuttlebuttService(object):
       result = None
     return result
 
-  def GetTopicStats(self, topic_id, now):
-    s = TopicStatsAggregator(now)
+  def GetWeeklyTopicStats(self, topic_id, now):
+    """Gets the weekly aggregated article count.
+
+    Args:
+      topic_id: str The id of the topic to report on.
+      now: datetime The present datetime (end of report)
+
+    Returns:
+      A dictionary where keys are weeks and values is the article count.
+    """
+    s = WeeklyTopicStatsAggregator(now)
+    topic = Topic.get_by_id(topic_id)
+    filter_statement = 'WHERE topics = :1'
+    articles = Article.gql(filter_statement, topic.key())
+    for article in articles:
+      s.AddArticle(article)
+    return s.ToDict()
+
+  def GetDailyTopicStats(self, topic_id, now):
+    """Gets the daily aggregated article count.
+
+    Args:
+      topic_id: str The id of the topic to report on.
+      now: datetime The present datetime (end of report)
+
+    Returns:
+      A dictionary where keys are weeks and values is the article count.
+    """
+    s = DailyTopicStatsAggregator(now)
     topic = Topic.get_by_id(topic_id)
     filter_statement = 'WHERE topics = :1'
     articles = Article.gql(filter_statement, topic.key())
@@ -96,16 +123,24 @@ class ScuttlebuttService(object):
     return s.ToDict()
 
 
-
-class TopicStatsAggregator(object):
-
+class WeeklyTopicStatsAggregator(object):
+  """Class get the aggregated article counts per week."""
   def __init__(self, now):
     self.now = now
-    # The week's Monday is the key. The data is a dict of article count, sentiment, etc.
+    # The week's Monday is the key. The data is a dict of article count,
+    # sentiment, etc.
     self.weeks = {}
     self.oldest_monday = None
 
   def AddArticle(self, article):
+    """Add an article to the stats.
+
+    Articles are counted into weeks where the monday of the week is the key and
+    the count of articles is the value.
+
+    Args:
+      article: Article The article model object to add.
+    """
     monday = self._GetMonday(article.updated)
     if self.oldest_monday is None or monday < self.oldest_monday:
       self.oldest_monday = monday
@@ -114,17 +149,25 @@ class TopicStatsAggregator(object):
     else:
       self.weeks[monday] = {'count': 1,
                             'from': monday.strftime('%Y-%m-%dT%H:%M:%S'),
-                            'to': self._EndOfWeek(monday).strftime('%Y-%m-%dT%H:%M:%S')}
+                            'to': self._EndOfWeek(monday).strftime(
+                                '%Y-%m-%dT%H:%M:%S')}
 
   def _EndOfWeek(self, monday):
+    """Returns the datetime for the end of the week for the given monday."""
     return monday + datetime.timedelta(days=7) - datetime.timedelta(seconds=1)
 
   def _GetMonday(self, search_date):
+    """Returns the monday for the given date."""
     result = search_date - datetime.timedelta(days=search_date.weekday())
     d = result.date()
     return datetime.datetime(d.year, d.month, d.day)
 
   def ToDict(self):
+    """Gives a dictionary of weeks and their article counts.
+
+    The dictionary starts with the week of the earliest article and ends at the
+    now datetime given at init. There are no gaps in the weeks (a value of 0
+    is assigned)."""
     result = []
     current_monday = self.oldest_monday
     while True:
@@ -133,7 +176,8 @@ class TopicStatsAggregator(object):
       else:
         result.append({'count': 0,
                        'from': current_monday.strftime('%Y-%m-%dT%H:%M:%S'),
-                       'to': self._EndOfWeek(current_monday).strftime('%Y-%m-%dT%H:%M:%S')})
+                       'to': self._EndOfWeek(current_monday).strftime(
+                           '%Y-%m-%dT%H:%M:%S')})
       current_monday = current_monday + datetime.timedelta(days=7)
       if current_monday > self.now:
         break
@@ -141,6 +185,60 @@ class TopicStatsAggregator(object):
     return sorted_result
 
 
+class DailyTopicStatsAggregator(object):
+  """Class get the aggregated article counts per week."""
+  def __init__(self, now):
+    self.now = now
+    self.days = {}
+    self.oldest_day = None
 
+  def AddArticle(self, article):
+    """Add an article to the stats.
 
+    Articles are counted into days where the day (in datetime normalized to the
+    midnight on that day) is the key and the count of articles is the value.
 
+    Args:
+      article: Article The article model object to add.
+    """
+    day = self._BeginningOfDay(article.updated)
+    if self.oldest_day is None or day < self.oldest_day:
+      self.oldest_day = day
+    if day in self.days:
+      self.days[day]['count'] += 1
+    else:
+      self.days[day] = {'count': 1,
+                        'from': self._BeginningOfDay(day).strftime(
+                            '%Y-%m-%dT%H:%M:%S'),
+                        'to': self._EndOfDay(day).strftime('%Y-%m-%dT%H:%M:%S')}
+
+  def _EndOfDay(self, day):
+    """Returns the datetime for the end of the day."""
+    return self._BeginningOfDay(day) + datetime.timedelta(days=1) - datetime.timedelta(seconds=1)
+
+  def _BeginningOfDay(self, day):
+    """Returns the datetime for the beginning of the day."""
+    return datetime.datetime(day.year, day.month, day.day)
+
+  def ToDict(self):
+    """Gives a dictionary of days and their article counts.
+
+    The dictionary starts with the day of the earliest article and ends at the
+    now datetime given at init. There are no gaps in the days (a value of 0
+    is assigned)."""
+    result = []
+    current_day = self.oldest_day
+    while True:
+      if current_day in self.days:
+        result.append(self.days[current_day])
+      else:
+        result.append({'count': 0,
+                       'from': self._BeginningOfDay(current_day).strftime(
+                           '%Y-%m-%dT%H:%M:%S'),
+                       'to': self._EndOfDay(current_day).strftime(
+                           '%Y-%m-%dT%H:%M:%S')})
+      current_day = current_day + datetime.timedelta(days=1)
+      if current_day > self.now:
+        break
+    sorted_result = sorted(result, key=lambda day:day['to'], reverse=True)
+    return sorted_result
