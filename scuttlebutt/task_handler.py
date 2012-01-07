@@ -21,7 +21,7 @@ class TaskQueueWrapper(object):
     Args:
       feed_id: str The id of the feed to fetch.
     """
-    url = '/download?feedId=%s' % feed_id
+    url = '/task/download?feedId=%s' % feed_id
     # Use the default queue.
     taskqueue.add(url=url, method='GET')
 
