@@ -15,7 +15,7 @@ from model import Topic
 from rss_service import RssService
 import pymock
 from scuttlebutt_service import ScuttlebuttService
-from scuttlebutt_service import TopicStatsAggregator
+from scuttlebutt_service import WeeklyTopicStatsAggregator
 
 class RssServiceTests(pymock.PyMockTestCase):
   """Tests for RssService."""
@@ -465,7 +465,8 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     actual_date = s.StringToDatetime('2012-22-01T00:00:00')
     self.assertEqual(None, actual_date)
 
-  def testGetTopicStats(self):
+  def testGetWeeklyTopicStats(self):
+    """Test that we can get weekly aggregated article counts."""
     DEC1_NOON = datetime.datetime(2011, 12, 1, 12)
     DEC10_NOON = datetime.datetime(2011, 12, 10, 12)
     t = Topic()
@@ -480,7 +481,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.topics.append(t.key())
     a2.put()
     s = ScuttlebuttService()
-    result = s.GetTopicStats(topic_id=t.key().id(), now=DEC10_NOON)
+    result = s.GetWeeklyTopicStats(topic_id=t.key().id(), now=DEC10_NOON)
     expected = [
         {
           "from" : "2011-12-05T00:00:00",
@@ -495,21 +496,61 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     ]
     self.assertEqual(expected, result)
 
+  def testGetDailyTopicStats(self):
+    """Test that we can get daily aggregated article counts."""
+    DEC1_NOON = datetime.datetime(2011, 12, 1, 12)
+    DEC2_NOON = datetime.datetime(2011, 12, 2, 12)
+    DEC2_3PM = datetime.datetime(2011, 12, 2, 15)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+    a1 = Article()
+    a1.updated = DEC1_NOON
+    a1.topics.append(t.key())
+    a1.put()
+    a2 = Article()
+    a2.updated = DEC1_NOON
+    a2.topics.append(t.key())
+    a2.put()
+    a3 = Article()
+    a3.updated = DEC2_NOON
+    a3.topics.append(t.key())
+    a3.put()
+    a4 = Article()
+    a4.updated = DEC2_NOON
+    a4.topics.append(t.key())
+    a4.put()
+    s = ScuttlebuttService()
+    result = s.GetDailyTopicStats(topic_id=t.key().id(), now=DEC2_NOON)
+    expected = [
+        {
+          "from" : "2011-12-02T00:00:00",
+          "to" : "2011-12-02T23:59:59",
+          "count" : 2,
+        },
+        {
+          "from" : "2011-12-01T00:00:00",
+          "to" : "2011-12-01T23:59:59",
+          "count" : 2,
+        }
+    ]
+    self.assertEqual(expected, result)
+
   def testGetMonday(self):
-    # Simple case.
+    # Test the simple cases of getting a Monday of a give week.
     JAN5_NOON = datetime.datetime(2012, 1, 5, 12)
     JAN2 = datetime.datetime(2012, 1, 2)
-    s = TopicStatsAggregator(datetime.datetime.now())
+    s = WeeklyTopicStatsAggregator(datetime.datetime.now())
     self.assertEquals(JAN2, s._GetMonday(JAN5_NOON))
     # Get first Monday in the week for a Monday.
     JAN2_NOON = datetime.datetime(2012, 1, 2, 12)
     JAN2 = datetime.datetime(2012, 1, 2)
-    s = TopicStatsAggregator(datetime.datetime.now())
+    s = WeeklyTopicStatsAggregator(datetime.datetime.now())
     self.assertEquals(JAN2, s._GetMonday(JAN2_NOON))
     # Crossing year and month boundaries.
     JAN1_NOON = datetime.datetime(2012, 1, 1, 12)
     DEC26 = datetime.datetime(2011, 12, 26)
-    s = TopicStatsAggregator(datetime.datetime.now())
+    s = WeeklyTopicStatsAggregator(datetime.datetime.now())
     self.assertEquals(DEC26, s._GetMonday(JAN1_NOON))
 
 
