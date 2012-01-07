@@ -89,7 +89,7 @@ class GetTopicStatsHandler(webapp.RequestHandler):
 
   def get(self):
     s = ScuttlebuttService()
-    result = s.GetTopicStats(
+    result = s.GetDailyTopicStats(
         topic_id=int(self.request.get('topic_id')),
         now=datetime.datetime.now()
     )
