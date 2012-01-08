@@ -8,7 +8,6 @@ __author__ = ('momander@google.com (Martin Omander)',
 import datetime
 from model import Article
 from model import Topic
-import simplejson
 
 
 class ScuttlebuttService(object):
@@ -42,19 +41,20 @@ class ScuttlebuttService(object):
     if not my_max_date:
       my_max_date = datetime.datetime.max
     topic = Topic.get_by_id(topic_id)
-    filter_statement = ('WHERE topics = :1 AND updated >= :2 AND updated <= :3 '
-                        'ORDER BY updated DESC')
-    if limit:
-      filter_statement += ' LIMIT %s' % limit
-    if offset:
-      filter_statement += ' OFFSET %s' % offset
-
+    filter_statement = ('WHERE topics = :1 AND updated >= :2 AND updated <= :3')
     articles = Article.gql(filter_statement, topic.key(), my_min_date,
                            my_max_date)
     articles_list = []
     for article in articles:
       articles_list.append(article.ToDict())
-    return simplejson.dumps(articles_list)
+    articles_list = sorted(articles_list, key=lambda a: a['readership'], reverse=True)
+    my_offset = 0
+    if offset:
+      my_offset= offset
+    my_limit = len(articles_list)
+    if limit:
+      my_limit = my_offset + limit
+    return articles_list[my_offset : my_limit]
 
   def StringToDatetime(self, str):
     """Converts a string in the format yyyy-mm-ddTHH:MM:SS to datetime.

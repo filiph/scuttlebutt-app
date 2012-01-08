@@ -46,7 +46,7 @@ class GetArticlesHandler(webapp.RequestHandler):
     max_date = s.StringToDatetime(self.request.get('max_date'))
     limit = s.StringToInt(self.request.get('limit'))
     offset = s.StringToInt(self.request.get('offset'))
-    json = s.GetArticles(
+    article_list = s.GetArticles(
         topic_id=int(self.request.get('topic_id')),
         min_date=min_date,
         max_date=max_date,
@@ -54,7 +54,7 @@ class GetArticlesHandler(webapp.RequestHandler):
         offset=offset
     )
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(json)
+    self.response.out.write(simplejson.dumps(article_list))
 
 
 class ReportHandler(webapp.RequestHandler):
@@ -107,6 +107,27 @@ class DeleteArticlesHandler(webapp.RequestHandler):
       article.delete()
 
 
+class SetArticleReadershipHandler(webapp.RequestHandler):
+
+  def get(self):
+    from google.appengine.ext import db
+    for article in Article.gql('ORDER BY potential_readers LIMIT 100'):
+      for feed_key in article.feeds:
+        try:
+          feed = db.get(feed_key)
+          article.potential_readers = feed.monthly_visitors
+        except:
+          article.potential_readers = 0
+        article.put()
+    zero_count = Article.gql('WHERE potential_readers = 0').count()
+    valid_count = Article.gql('WHERE potential_readers > 0').count()
+    null_count = Article.gql('WHERE potential_readers = null').count()
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.out.write('Articles with potential_readers=0: %d\n' % zero_count)
+    self.response.out.write('Articles with potential_readers=null: %d\n' % null_count)
+    self.response.out.write('Articles with potential_readers>0: %d\n' % valid_count)
+
+
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
@@ -115,7 +136,8 @@ def main():
       ('/report/get_articles', GetArticlesHandler),
       ('/report/get_topics', GetTopicsHandler),
       ('/report/get_topic_stats', GetTopicStatsHandler),
-      ('/report/delete_articles', DeleteArticlesHandler)
+      ('/report/delete_articles', DeleteArticlesHandler),
+      ('/report/set_article_readerhip', SetArticleReadershipHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 

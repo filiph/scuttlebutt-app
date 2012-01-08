@@ -14,6 +14,10 @@ class Feed(db.Model):
   url = db.StringProperty()
   monthly_visitors = db.IntegerProperty()
 
+  @property
+  def articles(self):
+    return Article.gql("WHERE feeds = :1", self.key())
+
 
 class Topic(db.Model):
   """Represents a topic of interest.
@@ -55,4 +59,5 @@ class Article(db.Model):
     d['summary'] = self.summary
     d['updated'] = self.updated.isoformat()
     d['id'] = int(self.key().id())
+    d['readership'] = self.potential_readers
     return d
