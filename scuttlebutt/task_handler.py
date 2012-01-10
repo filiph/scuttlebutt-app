@@ -56,12 +56,60 @@ class ComputeStatsHandler(webapp.RequestHandler):
     self.response.out.write('OK.')
 
 
+class DeleteArticlesHandler(webapp.RequestHandler):
+  """Handler class to delete all articles."""
+
+  def get(self):
+    """Handle HTTP Get to delete articles."""
+    articles = Article.all()
+    for article in articles:
+      article.delete()
+
+
+class SetReadershipForAllArticlesHandler(webapp.RequestHandler):
+
+  def get(self):
+    from google.appengine.ext import db
+    from model import Article
+    jobs_dispatched = 0
+    for article in Article.all():
+      url = '/task/set_article_readerhip?article_id=%s' % article.key().id()
+      taskqueue.add(url=url, method='GET')
+      jobs_dispatched += 1
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.out.write('Dispatched updates for %d articles' % jobs_dispatched)
+
+
+class SetArticleReadershipHandler(webapp.RequestHandler):
+
+  def get(self):
+    from google.appengine.ext import db
+    from model import Article
+    article_id = int(self.request.get('article_id'))
+    article = Article.get_by_id(article_id)
+    max_visitors = 0
+    for feed_key in article.feeds:
+      try:
+        feed = db.get(feed_key)
+        if feed.monthly_visitors > max_visitors:
+          max_visitors = feed.monthly_visitors
+      except:
+        pass
+    article.potential_readers = max_visitors
+    article.put()
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.out.write('Set potential_readers=%s for article %s' % (max_visitors, article_id))
+
+
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
       ('/task/dispatch', DispatchHandler),
       ('/task/download', DownloadHandler),
       ('/task/compute_stats', ComputeStatsHandler),
+      ('/task/delete_articles', DeleteArticlesHandler),
+      ('/task/set_readerhip_for_all_articles', SetReadershipForAllArticlesHandler),
+      ('/task/set_article_readerhip', SetArticleReadershipHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 

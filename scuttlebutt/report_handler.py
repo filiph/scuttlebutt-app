@@ -97,37 +97,6 @@ class GetTopicStatsHandler(webapp.RequestHandler):
     self.response.out.write(simplejson.dumps(result))
 
 
-class DeleteArticlesHandler(webapp.RequestHandler):
-  """Handler class to delete all articles."""
-
-  def get(self):
-    """Handle HTTP Get to delete articles."""
-    articles = Article.all()
-    for article in articles:
-      article.delete()
-
-
-class SetArticleReadershipHandler(webapp.RequestHandler):
-
-  def get(self):
-    from google.appengine.ext import db
-    for article in Article.gql('ORDER BY potential_readers LIMIT 100'):
-      for feed_key in article.feeds:
-        try:
-          feed = db.get(feed_key)
-          article.potential_readers = feed.monthly_visitors
-        except:
-          article.potential_readers = 0
-        article.put()
-    zero_count = Article.gql('WHERE potential_readers = 0').count()
-    valid_count = Article.gql('WHERE potential_readers > 0').count()
-    null_count = Article.gql('WHERE potential_readers = null').count()
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('Articles with potential_readers=0: %d\n' % zero_count)
-    self.response.out.write('Articles with potential_readers=null: %d\n' % null_count)
-    self.response.out.write('Articles with potential_readers>0: %d\n' % valid_count)
-
-
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
@@ -136,8 +105,6 @@ def main():
       ('/report/get_articles', GetArticlesHandler),
       ('/report/get_topics', GetTopicsHandler),
       ('/report/get_topic_stats', GetTopicStatsHandler),
-      ('/report/delete_articles', DeleteArticlesHandler),
-      ('/report/set_article_readerhip', SetArticleReadershipHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 
