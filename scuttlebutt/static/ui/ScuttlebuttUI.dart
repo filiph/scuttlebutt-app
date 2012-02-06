@@ -65,17 +65,17 @@ class Table {
   * BarChart.
   */
 class BarChart {
-  Articles articles = null;
-  TableElement tableElement = null;
-  SpanElement _articlesCountElement = null;
-  SpanElement _articlesCountWowElement = null;
-  SpanElement _articlesSentimentElement = null;
-  SpanElement _articlesSentimentWowElement = null;
-  InputElement articlesFromElement = null;
-  InputElement articlesToElement = null;
-  Map<int,List<Map<String,Dynamic>>> data = null;
-  int currentId = null;
-  int selectedDateRange = null;
+  Articles articles;
+  TableElement tableElement;
+  SpanElement _articlesCountElement;
+  SpanElement _articlesCountWowElement;
+  SpanElement _articlesSentimentElement;
+  SpanElement _articlesSentimentWowElement;
+  InputElement articlesFromElement;
+  InputElement articlesToElement;
+  Map<int,List<Map<String,Dynamic>>> data;
+  int currentId;
+  int selectedDateRange;
   
   final int MAX_WEEKS = 102;  // two years
   
@@ -90,7 +90,7 @@ class BarChart {
         String fromEl="#articles-from",
         String toEl="#articles-to"
       ]) {
-    data = new Map();
+    data = new Map<int,List<Map<String,Dynamic>>>();
     this.tableElement = document.query(domQuery);
     this.articles = articles_;
     
@@ -115,7 +115,7 @@ class BarChart {
     to show the articles.
     */
   void show(int id) {
-    this.currentId = id;
+    currentId = id;
     
     if (data.containsKey(id)) {
       populateChart(id);
@@ -170,23 +170,23 @@ class BarChart {
          if (i > data[id].length - 1) {
            this.updateContextual(count:"no data");
          } else {
-           String countWowStr;
+           String countWow;
            if (i < data[id].length - 1) {
              int prevCount = Math.parseInt(data[id][i+1]["count"]);
              int nowCount = Math.parseInt(data[id][i]["count"]);
              if (prevCount == 0) {
-               countWowStr = nowCount > 0 ? "+&#8734;%" : "+0%";
+               countWow = nowCount > 0 ? "+&#8734;%" : "+0%";
              } else {
                int percentage = (((nowCount / prevCount) - 1) * 100).toInt();
-               countWowStr = (percentage >= 0 ? "+" : "-") + percentage.abs().toString() + "%";
+               countWow = (percentage >= 0 ? "+" : "-") + percentage.abs().toString() + "%";
              }
            } else {
-             countWowStr = "n/a";
+             countWow = "n/a";
            }
            
            this.updateContextual(
                count:data[id][i]["count"],
-               countWow:countWowStr
+               countWow:countWow
                );
          }
        }
@@ -251,7 +251,7 @@ class BarChart {
        
        print("${data[id].length} new stats loaded for the bar chart.");
        
-       if (thenCall !== null) {
+       if (thenCall != null) {
          thenCall();
        }
      }
@@ -325,7 +325,7 @@ class Articles {
     to show the articles.
     */
   void show(int id) {
-    this.currentId = id;
+    currentId = id;
     this.currentOffset = 0;
     
     this.fromDate = new Date.fromEpoch(0, new TimeZone.utc()); 
@@ -450,14 +450,16 @@ class Topics {
           changeStr = "&#8734;";  // infinity symbol
           changeSign = "+";
         } else {
-          changeStr = ((change - 1.0)*100.0).abs().round().toString();
-          changeSign = (change >= 1.0) ? "+" : "-";
+          changeStr = ((change)*100.0).abs().round().toString();
+          changeSign = (change >= 0.0) ? "+" : "-";
         }
-        wowChangeHtml = "<span class='${(changeSign==="+"?"green":"red")}'>"+changeSign+changeStr+"%</span>"; 
+        wowChangeHtml = "<span class=\"${(changeSign==='+'?'green':'red')}\">"+changeSign+changeStr+"%</span>"; 
       } else {
         wowChangeHtml = "N/A";
       }
       
+      // adds a row with 4 cells: name, count for past 24h, count for past 7d,
+      // and week on week change
       Element tr = this.outputTable.addRow(
         [
          record["name"], 

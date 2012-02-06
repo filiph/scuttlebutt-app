@@ -67297,7 +67297,7 @@ unnamed24740d$BarChart$Dart.$lookupRTT = function(){
 ;
 unnamed24740d$BarChart$Dart.$Constructor = function(domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   var tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
-  this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
+  this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT([int$Dart.$lookupRTT(), List$Dart.$lookupRTT([Map$Dart.$lookupRTT()])]))) , tmp$0;
   this.tableElement$setter(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, domQuery)) , tmp$1;
   this.articles$setter(tmp$2 = articles_) , tmp$2;
   this._articlesCountElement$unnamed24740d$$setter_(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, countEl)) , tmp$3;
@@ -67309,17 +67309,6 @@ unnamed24740d$BarChart$Dart.$Constructor = function(domQuery, articles_, countEl
 }
 ;
 unnamed24740d$BarChart$Dart.$Initializer = function(domQuery, articles_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
-  this.articles$field = $Dart$Null;
-  this.tableElement$field = $Dart$Null;
-  this._articlesCountElement$unnamed24740d$$field_ = $Dart$Null;
-  this._articlesCountWowElement$unnamed24740d$$field_ = $Dart$Null;
-  this._articlesSentimentElement$unnamed24740d$$field_ = $Dart$Null;
-  this._articlesSentimentWowElement$unnamed24740d$$field_ = $Dart$Null;
-  this.articlesFromElement$field = $Dart$Null;
-  this.articlesToElement$field = $Dart$Null;
-  this.data$field = $Dart$Null;
-  this.currentId$field = $Dart$Null;
-  this.selectedDateRange$field = $Dart$Null;
   this.MAX_WEEKS$field = 102;
 }
 ;
@@ -67332,16 +67321,7 @@ unnamed24740d$BarChart$Dart.BarChart$$Factory = function(domQuery, articles_, co
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articles$getter = function(){
-  var tmp$0 = this.articles$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.articles$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.articles$field = tmp$2;
-  return tmp$2;
+  return this.articles$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articles$setter = function(tmp$0){
@@ -67349,16 +67329,7 @@ unnamed24740d$BarChart$Dart.prototype.articles$setter = function(tmp$0){
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.tableElement$getter = function(){
-  var tmp$0 = this.tableElement$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.tableElement$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.tableElement$field = tmp$2;
-  return tmp$2;
+  return this.tableElement$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.tableElement$setter = function(tmp$0){
@@ -67366,16 +67337,7 @@ unnamed24740d$BarChart$Dart.prototype.tableElement$setter = function(tmp$0){
 }
 ;
 unnamed24740d$BarChart$Dart.prototype._articlesCountElement$unnamed24740d$$getter_ = function(){
-  var tmp$0 = this._articlesCountElement$unnamed24740d$$field_;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this._articlesCountElement$unnamed24740d$$field_ = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this._articlesCountElement$unnamed24740d$$field_ = tmp$2;
-  return tmp$2;
+  return this._articlesCountElement$unnamed24740d$$field_;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype._articlesCountElement$unnamed24740d$$setter_ = function(tmp$0){
@@ -67383,16 +67345,7 @@ unnamed24740d$BarChart$Dart.prototype._articlesCountElement$unnamed24740d$$sette
 }
 ;
 unnamed24740d$BarChart$Dart.prototype._articlesCountWowElement$unnamed24740d$$getter_ = function(){
-  var tmp$0 = this._articlesCountWowElement$unnamed24740d$$field_;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this._articlesCountWowElement$unnamed24740d$$field_ = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this._articlesCountWowElement$unnamed24740d$$field_ = tmp$2;
-  return tmp$2;
+  return this._articlesCountWowElement$unnamed24740d$$field_;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype._articlesCountWowElement$unnamed24740d$$setter_ = function(tmp$0){
@@ -67408,16 +67361,7 @@ unnamed24740d$BarChart$Dart.prototype._articlesSentimentWowElement$unnamed24740d
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articlesFromElement$getter = function(){
-  var tmp$0 = this.articlesFromElement$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.articlesFromElement$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.articlesFromElement$field = tmp$2;
-  return tmp$2;
+  return this.articlesFromElement$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articlesFromElement$setter = function(tmp$0){
@@ -67425,16 +67369,7 @@ unnamed24740d$BarChart$Dart.prototype.articlesFromElement$setter = function(tmp$
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articlesToElement$getter = function(){
-  var tmp$0 = this.articlesToElement$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.articlesToElement$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.articlesToElement$field = tmp$2;
-  return tmp$2;
+  return this.articlesToElement$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.articlesToElement$setter = function(tmp$0){
@@ -67442,16 +67377,7 @@ unnamed24740d$BarChart$Dart.prototype.articlesToElement$setter = function(tmp$0)
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.data$getter = function(){
-  var tmp$0 = this.data$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.data$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.data$field = tmp$2;
-  return tmp$2;
+  return this.data$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.data$setter = function(tmp$0){
@@ -67459,16 +67385,7 @@ unnamed24740d$BarChart$Dart.prototype.data$setter = function(tmp$0){
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.currentId$getter = function(){
-  var tmp$0 = this.currentId$field;
-  var tmp$1 = static$initializing;
-  if (tmp$0 === tmp$1)
-    throw 'circular initialization';
-  if (tmp$0 !== static$uninitialized)
-    return tmp$0;
-  this.currentId$field = tmp$1;
-  var tmp$2 = $Dart$Null;
-  this.currentId$field = tmp$2;
-  return tmp$2;
+  return this.currentId$field;
 }
 ;
 unnamed24740d$BarChart$Dart.prototype.currentId$setter = function(tmp$0){
@@ -67517,22 +67434,22 @@ function unnamed24740d$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1,
       this.updateContextual$named(0, {$p_count:'no data', count:1});
     }
      else {
-      var countWowStr = $Dart$Null;
+      var countWow = $Dart$Null;
       if (LT$operator(i_0, SUB$operator(this.data$getter().INDEX$operator(dartc_scp$1.id).length$getter(), 1))) {
         var prevCount = Math$Dart.parseInt$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(ADD$operator(i_0, 1)).INDEX$operator('count'));
         var nowCount = Math$Dart.parseInt$member(this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('count'));
         if (EQ$operator(prevCount, 0)) {
-          countWowStr = GT$operator(nowCount, 0)?'+&#8734;%':'+0%';
+          countWow = GT$operator(nowCount, 0)?'+&#8734;%':'+0%';
         }
          else {
           var percentage_0 = MUL$operator(SUB$operator(DIV$operator(nowCount, prevCount), 1), 100).toInt$named(0, $noargs);
-          countWowStr = ADD$operator(ADD$operator(GTE$operator(percentage_0, 0)?'+':'-', percentage_0.abs$named(0, $noargs).toString$named(0, $noargs)), '%');
+          countWow = ADD$operator(ADD$operator(GTE$operator(percentage_0, 0)?'+':'-', percentage_0.abs$named(0, $noargs).toString$named(0, $noargs)), '%');
         }
       }
        else {
-        countWowStr = 'n/a';
+        countWow = 'n/a';
       }
-      this.updateContextual$named(0, {$p_count:this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('count'), $p_countWow:countWowStr, count:2});
+      this.updateContextual$named(0, {$p_count:this.data$getter().INDEX$operator(dartc_scp$1.id).INDEX$operator(i_0).INDEX$operator('count'), $p_countWow:countWow, count:2});
     }
   }
 }
@@ -67691,7 +67608,7 @@ function unnamed24740d$BarChart$Dart$fetchData$c0$27_27$Hoisted(dartc_scp$0, dar
    else {
     this.data$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter())) , tmp$0;
     print$getter()(1, $noargs, '' + $toString(this.data$getter().INDEX$operator(dartc_scp$0.id).length$getter()) + ' new stats loaded for the bar chart.');
-    if (dartc_scp$0.thenCall != null) {
+    if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
       dartc_scp$0.thenCall(0, $noargs);
     }
   }
@@ -68294,10 +68211,10 @@ unnamed24740d$Topics$Dart.prototype.populateTable$member = function(){
             changeSign = '+';
           }
            else {
-            changeStr = MUL$operator(SUB$operator(change, 1), 100).abs$named(0, $noargs).round$named(0, $noargs).toString$named(0, $noargs);
-            changeSign = GTE$operator(change, 1)?'+':'-';
+            changeStr = MUL$operator(change, 100).abs$named(0, $noargs).round$named(0, $noargs).toString$named(0, $noargs);
+            changeSign = GTE$operator(change, 0)?'+':'-';
           }
-          wowChangeHtml = ADD$operator(ADD$operator(ADD$operator("<span class='" + $toString(changeSign === '+'?'green':'red') + "'>", changeSign), changeStr), '%<\/span>');
+          wowChangeHtml = ADD$operator(ADD$operator(ADD$operator('<span class="' + $toString(changeSign === '+'?'green':'red') + '">', changeSign), changeStr), '%<\/span>');
         }
          else {
           wowChangeHtml = 'N/A';
@@ -68902,20 +68819,6 @@ isolate$inits.push(function(){
 );
 isolate$inits.push(function(){
   this.tableElement$field = static$uninitialized;
-}
-);
-isolate$inits.push(function(){
-  this.articles$field = static$uninitialized;
-  this.tableElement$field = static$uninitialized;
-  this._articlesCountElement$unnamed24740d$$field_ = static$uninitialized;
-  this._articlesCountWowElement$unnamed24740d$$field_ = static$uninitialized;
-  this._articlesSentimentElement$unnamed24740d$$field_ = static$uninitialized;
-  this._articlesSentimentWowElement$unnamed24740d$$field_ = static$uninitialized;
-  this.articlesFromElement$field = static$uninitialized;
-  this.articlesToElement$field = static$uninitialized;
-  this.data$field = static$uninitialized;
-  this.currentId$field = static$uninitialized;
-  this.selectedDateRange$field = static$uninitialized;
 }
 );
 isolate$inits.push(function(){
