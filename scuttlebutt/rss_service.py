@@ -100,11 +100,9 @@ class RssService(object):
       if last_weeks_count is 0:
         topic.weekOnWeekChange = None
         if topic.countPastSevenDays is 0:
-          # The "1.0" should be replaced by 0.0 once the front-end has been fixed!
-          topic.weekOnWeekChange = 1.0
+          topic.weekOnWeekChange = 0.0
       else:
-        # The "1.0+" should be removed once the front-end has been fixed!
-        topic.weekOnWeekChange = 1.0 + (1.0 * (topic.countPastSevenDays - last_weeks_count)) / last_weeks_count
+        topic.weekOnWeekChange = (1.0 * (topic.countPastSevenDays - last_weeks_count)) / last_weeks_count
 
       topic.put()
 
