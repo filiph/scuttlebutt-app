@@ -7,28 +7,26 @@ bool DEBUG = false;
   * Table.
   */
 class Table {
-  TableElement tableElement = null;
+  TableElement tableElement;
   
   Table(String domQuery) {
     this.tableElement = document.query(domQuery);
   }
   
   /**
-  Adds a row to the table. A row is represented by a List of Strings. Each list element is
-  a <td>. Its HTML content will be the string. 
+  Adds a row to the table. A row is represented by a List of Strings. Each list
+  element is a <td>. Its HTML content will be the string. 
   
   E.g.: addRow(["blah"]); will create this row: "<tr><td>blah</td></tr>".
   */
   Element addRow(List<String> row) {
     Element tr = new Element.tag('tr');
-    for (var i = 0; i < row.length; i++) {
+    row.forEach((column) {
       Element td = new Element.tag('td');
-      td.innerHTML = row[i];
+      td.innerHTML = column;
       tr.elements.add(td);
-    }
-
+    });
     tableElement.elements.add(tr);
-    
     return tr;
   }
   
@@ -37,8 +35,8 @@ class Table {
       this.addRow(
         [
          record['title'], 
-         ScuttlebuttUI.prettifyUrl(record['url']), 
-         ScuttlebuttUI.prettifyDate(record['updated']), 
+         ScuttlebuttUi.prettifyUrl(record['url']), 
+         ScuttlebuttUi.prettifyDate(record['updated']), 
          record.containsKey("readership") ? record["readership"] : "N/A",  
          record.containsKey("sentiment") ? record["sentiment"] : "N/A"
         ]
@@ -65,7 +63,7 @@ class Table {
   * BarChart.
   */
 class BarChart {
-  Articles articles;
+  ArticlesUi articlesUi;
   TableElement tableElement;
   SpanElement _articlesCountElement;
   SpanElement _articlesCountWowElement;
@@ -82,7 +80,7 @@ class BarChart {
   BarChart(
       String domQuery,
       [
-        Articles articles_=null,
+        ArticlesUi articlesUi_=null,
         String countEl="#articles-count",
         String countWowEl="#articles-count-wow",
         String sentimentEl="#articles-sentiment",
@@ -92,7 +90,7 @@ class BarChart {
       ]) {
     data = new Map<int,List<Map<String,Dynamic>>>();
     this.tableElement = document.query(domQuery);
-    this.articles = articles_;
+    this.articlesUi = articlesUi_;
     
     _articlesCountElement = document.query(countEl);
     _articlesCountWowElement = document.query(countWowEl);
@@ -152,7 +150,8 @@ class BarChart {
        div.classes.add("blue-bar");
        td.classes.add("data-available");
      } else {
-       percentage = (Math.random() * averageCount / maxCount * 75).toInt();  // 75 instead of 100 for esthetic purposes only
+       // 75 instead of 100 for esthetic purposes only
+       percentage = (Math.random() * averageCount / maxCount * 75).toInt();  
        div.classes.add("gray-bar");
      }
      div.style.height = "$percentage%";
@@ -178,7 +177,7 @@ class BarChart {
                countWow = nowCount > 0 ? "+&#8734;%" : "+0%";
              } else {
                int percentage = (((nowCount / prevCount) - 1) * 100).toInt();
-               countWow = (percentage >= 0 ? "+" : "-") + percentage.abs().toString() + "%";
+               countWow = "${percentage >= 0 ? '+' : '-'}${percentage.abs()}%";
              }
            } else {
              countWow = "n/a";
@@ -198,9 +197,9 @@ class BarChart {
          int i = Math.parseInt(el.dataAttributes["i"]);
          if (i < data[id].length) {
            selectedDateRange = i;
-           articles.fromDate = ScuttlebuttUI.dateFromString(data[id][i]["from"]);
-           articles.toDate = ScuttlebuttUI.dateFromString(data[id][i]["to"]);
-           articles.fetchData(thenCall:articles.populateTable);
+           articlesUi.fromDate = ScuttlebuttUi.dateFromString(data[id][i]["from"]);
+           articlesUi.toDate = ScuttlebuttUi.dateFromString(data[id][i]["to"]);
+           articlesUi.fetchData(thenCall:articlesUi.populateTable);
            updateDateRange();
          }
        }
@@ -227,10 +226,10 @@ class BarChart {
  }
 
  void updateDateRange() {
-   //articlesFromElement.valueAsDate = articles.fromDate;
-   //articlesToElement.valueAsDate = articles.toDate;
-   articlesFromElement.value = articles.fromDateShort;
-   articlesToElement.value = articles.toDateShort;
+   //articlesFromElement.valueAsDate = articlesUi.fromDate;
+   //articlesToElement.valueAsDate = articlesUi.toDate;
+   articlesFromElement.value = articlesUi.fromDateShort;
+   articlesToElement.value = articlesUi.toDateShort;
  }
  
  /**
@@ -267,28 +266,30 @@ class BarChart {
 
 
 /**
-  * Articles.
+  * ArticlesUi.
   */
-class Articles {
-  BarChart barChart = null;
-  Table outputTable = null;
-  DivElement _articlesDivElement = null;
-  ButtonElement _loadMoreButton = null;
-  Map<int,List> data = null;
-  ScuttlebuttUI scuttlebuttUi = null;
-  int currentId = null;
-  int currentOffset = null;
+class ArticlesUi {
+  BarChart barChart;
+  Table outputTable;
+  DivElement _articlesDivElement;
+  ButtonElement _loadMoreButton;
+  Map<int,List> data;
+  ScuttlebuttUi scuttlebuttUi;
+  int currentId;
+  int currentOffset;
   
-  Date fromDate = null;
-  Date toDate = null;
+  Date fromDate;
+  Date toDate;
   
-  int _waitingToBeShown = null;  // count number of articles that are loaded but haven't been shown yet by populateTable
+  // count number of articles that are loaded but haven't been shown yet 
+  // by populateTable
+  int _waitingToBeShown;  
   
   final int ARTICLES_LIMIT = 20;  // articles per page/request
   
-  Articles() {
+  ArticlesUi() {
     data = new Map();
-    barChart = new BarChart("table#articles-stats", articles_:this);
+    barChart = new BarChart("table#articles-stats", articlesUi_:this);
     _articlesDivElement = document.query("div#articles-div");
     _loadMoreButton = document.query("button#load-more-button");
     _waitingToBeShown = 0;
@@ -305,8 +306,8 @@ class Articles {
   }
   
   // TODO: iso has a tailing Z (as timezone)
-  String get fromDateIso() => fromDate.year.toString() + "-" + (fromDate.month < 10 ? "0" : "") + fromDate.month.toString() +"-" + (fromDate.day < 10 ? "0" : "") + fromDate.day.toString() + "T" + (fromDate.hours < 10 ? "0" : "") + fromDate.hours.toString() + ":" + (fromDate.minutes < 10 ? "0" : "") + fromDate.minutes.toString() + ":" + (fromDate.seconds < 10 ? "0" : "") + fromDate.seconds.toString();
-  String get toDateIso() => toDate.year.toString() + "-" + (toDate.month < 10 ? "0" : "") + toDate.month.toString() +"-" + (toDate.day < 10 ? "0" : "") + toDate.day.toString() + "T" + (toDate.hours < 10 ? "0" : "") + toDate.hours.toString() + ":" + (toDate.minutes < 10 ? "0" : "") + toDate.minutes.toString() + ":" + (toDate.seconds < 10 ? "0" : "") + toDate.seconds.toString();
+  String get fromDateIso() => "${fromDate.year}-${fromDate.month < 10 ? '0' : ''}${fromDate.month}-${fromDate.day < 10 ? '0' : ''}${fromDate.day}T${fromDate.hours < 10 ? '0' : ''}${fromDate.hours}:${fromDate.minutes < 10 ? '0' : ''}${fromDate.minutes}:${fromDate.seconds < 10 ? '0' : ''}${fromDate.seconds}";
+  String get toDateIso() => "${toDate.year}-${toDate.month < 10 ? '0' : ''}${toDate.month}-${toDate.day < 10 ? '0' : ''}${toDate.day}T${toDate.hours < 10 ? '0' : ''}${toDate.hours}:${toDate.minutes < 10 ? '0' : ''}${toDate.minutes}:${toDate.seconds < 10 ? '0' : ''}${toDate.seconds}";
   
   String get fromDateShort() => fromDateIso.substring(0, 10);
   String get toDateShort() => toDateIso.substring(0, 10);
@@ -363,14 +364,8 @@ class Articles {
  
  void set visibility(bool value) {
    if (value == true) {
-//     this.outputTable.tableElement.style.display = "block";
-//     this._loadMoreButton.style.display = "block";
-//     this.barChart.tableElement.style.display = "block";
      this._articlesDivElement.style.display = "block";
    } else {
-//     this.outputTable.tableElement.style.display = "none";
-//     this._loadMoreButton.style.display = "none";
-//     this.barChart.tableElement.style.display = "none";
      this._articlesDivElement.style.display = "none";
    }
  }
@@ -385,7 +380,8 @@ class Articles {
    request.open("GET", url, true);
    
    request.on.load.add((event) {
-     if (offset == 0) data[id] = new List(); // get rid of all data if starting from beginning
+     // get rid of all data if starting from beginning
+     if (offset == 0) data[id] = new List(); 
      List responseJson = JSON.parse(request.responseText);
      _waitingToBeShown = responseJson.length; 
      
@@ -410,13 +406,12 @@ class Articles {
 /**
   * Topics is where the topics data are stored on the client.
   */
-class Topics {
-  Table outputTable = null;
-  List<Map<String,Object>> data = null;
-  ScuttlebuttUI scuttlebuttUi = null;
-  //XMLHttpRequest _request = null;
+class TopicsUi {
+  Table outputTable;
+  List<Map<String,Object>> data;
+  ScuttlebuttUi scuttlebuttUi;
   
-  Topics() {
+  TopicsUi() {
   }
   
   String getURL() {
@@ -521,26 +516,26 @@ class Topics {
 /**
   * The main app UI class.
   */
-class ScuttlebuttUI {
-  Articles articles = null;
-  Topics topics = null;
-  Object currentPage = null;
+class ScuttlebuttUi {
+  ArticlesUi articlesUi;
+  TopicsUi topicsUi;
+  Object currentPage;
   
-  Element _statusMessage = null;
-  Element _subtitle = null;
-  ButtonElement _homeButton = null;
-  ButtonElement _refreshButton = null; 
+  Element _statusMessage;
+  Element _subtitle;
+  ButtonElement _homeButton;
+  ButtonElement _refreshButton; 
 
-  ScuttlebuttUI() {
+  ScuttlebuttUi() {
   }
 
   void run() {
-    articles = new Articles();
-    topics = new Topics();
-    articles.scuttlebuttUi = topics.scuttlebuttUi = this; // give context
+    articlesUi = new ArticlesUi();
+    topicsUi = new TopicsUi();
+    articlesUi.scuttlebuttUi = topicsUi.scuttlebuttUi = this; // give context
     
-    articles.outputTable = new Table("table#articles-table");
-    topics.outputTable = new Table("table#topics-table");
+    articlesUi.outputTable = new Table("table#articles-table");
+    topicsUi.outputTable = new Table("table#topics-table");
     
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
@@ -553,8 +548,8 @@ class ScuttlebuttUI {
     });
     
     _refreshButton.on.click.add((Event event) {
-      articles.refresh();
-      topics.refresh();
+      articlesUi.refresh();
+      topicsUi.refresh();
       parseUrl();
     });
     
@@ -600,9 +595,9 @@ class ScuttlebuttUI {
       window.history.pushState(JSON.stringify(state), "Home", "#/report/get_topics");
     }
     
-    articles.visibility = false;
-    topics.show();
-    currentPage = topics;
+    articlesUi.visibility = false;
+    topicsUi.show();
+    currentPage = topicsUi;
     
     setPageTitle();
   }
@@ -620,9 +615,9 @@ class ScuttlebuttUI {
       );
     }
     
-    topics.visibility = false;
-    articles.show(id);
-    currentPage = articles;
+    topicsUi.visibility = false;
+    articlesUi.show(id);
+    currentPage = articlesUi;
     
     setPageTitle();
   }
@@ -631,20 +626,21 @@ class ScuttlebuttUI {
     if (str !== null) {
       document.title = "$str :: Scuttlebutt";
       _subtitle.innerHTML = str;
-    } else if (currentPage === topics) {
+    } else if (currentPage === topicsUi) {
       document.title = "Scuttlebutt";
       _subtitle.innerHTML = "Home";
-    } else if (currentPage === articles) {
+    } else if (currentPage === articlesUi) {
       /* 
-        Set header (h1) to correspond the to currently viewed topic. If data is not available on client,
-        this calls the Ajax function (fetchData) with a callback that updates the data.
+        Set header (h1) to correspond the to currently viewed topic. 
+        If data is not available on client, this calls the Ajax function 
+        (fetchData) with a callback to this very function.
       */
-      String topicName = topics.getName(articles.currentId);
+      String topicName = topicsUi.getName(articlesUi.currentId);
       if (topicName != null) {
         document.title = "$topicName :: Scuttlebutt";
         _subtitle.innerHTML = topicName;
       } else {
-        topics.fetchData(thenCall:this.setPageTitle);
+        topicsUi.fetchData(thenCall:this.setPageTitle);
       }
     } else {
       throw new Exception("Unknown type of page displayed.");
@@ -698,7 +694,7 @@ class ScuttlebuttUI {
     Date date = dateFromString(rawDate);
     Duration diff = (new Date.now()).difference(date);
     String dateStr = "${weekdayStrings[date.weekday]}, ${monthStrings[date.month-1]} ${date.day}";
-    String diffStr = null;
+    String diffStr;
     if (diff.inDays > 30) {
       diffStr = "long ago";
     } else if (diff.inDays > 1) {
@@ -716,5 +712,5 @@ class ScuttlebuttUI {
 }
 
 void main() {
-  new ScuttlebuttUI().run();
+  new ScuttlebuttUi().run();
 }
