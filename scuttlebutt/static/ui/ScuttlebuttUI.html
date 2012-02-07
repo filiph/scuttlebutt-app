@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Scuttlebutt</title>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href='scuttlebuttui.css' rel='stylesheet' type='text/css'>
   </head>
   <body>
-  	<div id="wrapper">
-		<header>
-		    <p id="status" style="display:none">Dart is not running yet.</p>
-		    <h1>Scuttlebutt &rarr; <span id="subtitle">Home</span></h1>
-		    <nav id="controls">
-		    	<button type="button" id="home-button"><strong>Home</strong></button>
-		    	<button type="button" id="refresh-button" title="Clears local cache to see if there are any new data since you opened this page.">Refresh</button>
-		    	<button type="button" id="donothing-button">Do Nothing</button>
-		    	<button type="button" id="feedback-button">Send Feedback</button>
-		    </nav>
-		</header>
-	    <div id="topics-div">
-	    	<table class="output-table" id="topics-table" cellpadding="0" cellspacing="0" border="0">
-	    		<tr class="header">
-	    			<th>Topic</th>
-	    			<th><small>Last</small> <br>24h</th>
-	    			<th><small>Last</small> <br>7d</th>
-	    			<th><small>Week on Week</small> <br>Trend</th>
-	    		</tr>
-	    		<tr class="initial-loading"><td>Loading...</td></tr>
-	    	</table>
-	    </div>
-	    <div id="articles-div">
-	    	<table id="articles-stats" cellpadding="0" cellspacing="0" border="0"></table>
-	    	<table id="articles-contextual" cellpadding="0" cellspacing="0" border="0">
-	    		<tr>
-	    			<td>Articles: <span id="articles-count">n/a</span> (<span id="articles-count-wow">n/a</span>)</td>
-	    			<td>From: <input id="articles-from" type="date" /></td>
-	    		</tr>
-	    		<tr>
-	    			<td>Sentiment: <span id="articles-sentiment">n/a</span> (<span id="articles-sentiment-wow">n/a</span>)</td>
-	    			<td>To: <input id="articles-to" type="date" /></td>
-	    		</tr>
-	    	</table>
-	    	<table class="output-table" id="articles-table" cellpadding="0" cellspacing="0" border="0">
-	    		<tr class="header">
-	    			<th>Article</th>
-	    			<th class="url">URL</th>
-	    			<th>Published</th>
-	    			<th>Readership</th>
-	    			<th>Sentiment</th>
-	    		</tr>
-	    		<tr><td>Loading...</td></tr>
-	    	</table>
-	    	<p id="articles-load-more"><button type="button" id="load-more-button">Load more articles</button></p>
-	    </div>
-	    <footer>
-	    	<p><small>Scuttlebutt. This is a footer that we put here just for the hell of it.</small></p>
-	    </footer>
-	</div>
+    <div id="wrapper">
+      <header>
+      <p id="status" style="display:none">Dart is not running yet.</p>
+      <h1>Scuttlebutt &rarr; <span id="subtitle">Home</span></h1>
+      <nav id="controls">
+      <button type="button" id="home-button"><strong>Home</strong></button>
+      <button type="button" id="refresh-button" title="Clears local cache to see if there are any new data since you opened this page.">Refresh</button>
+      <button type="button" id="donothing-button">Do Nothing</button>
+      <button type="button" id="feedback-button">Send Feedback</button>
+      </nav>
+      </header>
+      <div id="topics-div">
+        <table class="output-table" id="topics-table" cellpadding="0" cellspacing="0" border="0">
+          <tr class="header">
+            <th>Topic</th>
+            <th><small>Last</small> <br>24h</th>
+            <th><small>Last</small> <br>7d</th>
+            <th><small>Week on Week</small> <br>Trend</th>
+          </tr>
+          <tr class="initial-loading"><td>Loading...</td></tr>
+        </table>
+      </div>
+      <div id="articles-div">
+        <table id="articles-stats" cellpadding="0" cellspacing="0" border="0"></table>
+        <table id="articles-contextual" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td>Articles: <span id="articles-count">n/a</span> (<span id="articles-count-wow">n/a</span>)</td>
+            <td>From: <input id="articles-from" type="date" /></td>
+          </tr>
+          <tr>
+            <td>Sentiment: <span id="articles-sentiment">n/a</span> (<span id="articles-sentiment-wow">n/a</span>)</td>
+            <td>To: <input id="articles-to" type="date" /></td>
+          </tr>
+        </table>
+        <table class="output-table" id="articles-table" cellpadding="0" cellspacing="0" border="0">
+          <tr class="header">
+            <th>Article</th>
+            <th class="url">URL</th>
+            <th>Published</th>
+            <th>Readership</th>
+            <th>Sentiment</th>
+          </tr>
+          <tr><td>Loading...</td></tr>
+        </table>
+        <p id="articles-load-more"><button type="button" id="load-more-button">Load more articles</button></p>
+      </div>
+      <footer>
+      <p><small>Scuttlebutt. This is a footer that we put here just for the hell of it.</small></p>
+      </footer>
+    </div>
     <script type="text/javascript" src="ScuttlebuttUI.dart.js"></script>
   </body>
 </html>
