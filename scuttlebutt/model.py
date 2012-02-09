@@ -16,6 +16,7 @@ class Feed(db.Model):
 
   @property
   def articles(self):
+    """Get articles for that feed."""
     return Article.gql("WHERE feeds = :1", self.key())
 
 

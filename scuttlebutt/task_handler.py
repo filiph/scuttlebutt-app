@@ -67,7 +67,7 @@ class DeleteArticlesHandler(webapp.RequestHandler):
 
 
 class SetReadershipForAllArticlesHandler(webapp.RequestHandler):
-
+  """Handler class to set readership for articles."""
   def get(self):
     from google.appengine.ext import db
     from model import Article
@@ -81,7 +81,7 @@ class SetReadershipForAllArticlesHandler(webapp.RequestHandler):
 
 
 class SetArticleReadershipHandler(webapp.RequestHandler):
-
+  """Handler class to delete an  article."""
   def get(self):
     from google.appengine.ext import db
     from model import Article
