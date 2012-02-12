@@ -47,10 +47,11 @@ class ScuttlebuttService(object):
     articles_list = []
     for article in articles:
       articles_list.append(article.ToDict())
-    articles_list = sorted(articles_list, key=lambda a: a['readership'], reverse=True)
+    articles_list = sorted(
+        articles_list, key=lambda a: a['readership'], reverse=True)
     my_offset = 0
     if offset:
-      my_offset= offset
+      my_offset = offset
     my_limit = len(articles_list)
     if limit:
       my_limit = my_offset + limit
@@ -125,6 +126,7 @@ class ScuttlebuttService(object):
 
 class WeeklyTopicStatsAggregator(object):
   """Class get the aggregated article counts per week."""
+
   def __init__(self, now):
     self.now = now
     # The week's Monday is the key. The data is a dict of article count,
@@ -167,7 +169,10 @@ class WeeklyTopicStatsAggregator(object):
 
     The dictionary starts with the week of the earliest article and ends at the
     now datetime given at init. There are no gaps in the weeks (a value of 0
-    is assigned)."""
+    is assigned).
+    Returns:
+      A dictionary of weeks and their article counts.
+    """
     result = []
     current_monday = self.oldest_monday
     while True:
@@ -178,15 +183,16 @@ class WeeklyTopicStatsAggregator(object):
                        'from': current_monday.strftime('%Y-%m-%dT%H:%M:%S'),
                        'to': self._EndOfWeek(current_monday).strftime(
                            '%Y-%m-%dT%H:%M:%S')})
-      current_monday = current_monday + datetime.timedelta(days=7)
+      current_monday += datetime.timedelta(days=7)
       if current_monday > self.now:
         break
-    sorted_result = sorted(result, key=lambda week:week['to'], reverse=True)
+    sorted_result = sorted(result, key=lambda week: week['to'], reverse=True)
     return sorted_result
 
 
 class DailyTopicStatsAggregator(object):
   """Class get the aggregated article counts per week."""
+
   def __init__(self, now):
     self.now = now
     self.days = {}
@@ -214,7 +220,8 @@ class DailyTopicStatsAggregator(object):
 
   def _EndOfDay(self, day):
     """Returns the datetime for the end of the day."""
-    return self._BeginningOfDay(day) + datetime.timedelta(days=1) - datetime.timedelta(seconds=1)
+    return (self._BeginningOfDay(day) + datetime.timedelta(days=1) -
+            datetime.timedelta(seconds=1))
 
   def _BeginningOfDay(self, day):
     """Returns the datetime for the beginning of the day."""
@@ -225,7 +232,11 @@ class DailyTopicStatsAggregator(object):
 
     The dictionary starts with the day of the earliest article and ends at the
     now datetime given at init. There are no gaps in the days (a value of 0
-    is assigned)."""
+    is assigned).
+
+    Returns:
+      A dictionary of days and their article counts.
+    """
     result = []
     current_day = self.oldest_day
     while True:
@@ -237,8 +248,8 @@ class DailyTopicStatsAggregator(object):
                            '%Y-%m-%dT%H:%M:%S'),
                        'to': self._EndOfDay(current_day).strftime(
                            '%Y-%m-%dT%H:%M:%S')})
-      current_day = current_day + datetime.timedelta(days=1)
+      current_day += datetime.timedelta(days=1)
       if current_day > self.now:
         break
-    sorted_result = sorted(result, key=lambda day:day['to'], reverse=True)
+    sorted_result = sorted(result, key=lambda day: day['to'], reverse=True)
     return sorted_result

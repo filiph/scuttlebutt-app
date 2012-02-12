@@ -5,16 +5,16 @@
 __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
-import os
 import datetime
+import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
+import simplejson
 from model import Article
 from model import Feed
 from model import Topic
 from scuttlebutt_service import ScuttlebuttService
-import simplejson
 
 
 class GetTopicsHandler(webapp.RequestHandler):
