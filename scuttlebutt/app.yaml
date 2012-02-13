@@ -17,3 +17,6 @@ handlers:
 
 - url: /ui
   static_dir: static/ui
+
+builtins:
+- appstats: on
