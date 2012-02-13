@@ -46,7 +46,7 @@ class Article(db.Model):
   """Represents an article extracted from a feed."""
   url = db.StringProperty()
   title = db.StringProperty()
-  potential_readers = db.IntegerProperty(indexed=False)
+  potential_readers = db.IntegerProperty()
   summary = db.TextProperty(indexed=False)
   updated = db.DateTimeProperty()
   topics = db.ListProperty(db.Key)
