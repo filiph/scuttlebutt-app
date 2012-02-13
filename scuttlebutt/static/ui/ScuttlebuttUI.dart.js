@@ -69724,7 +69724,7 @@ function unnamed6fbae6$TopicStats$Dart$$c0$29_29$HoistedConstructor$named$named_
   return RTT.createFunction([Map$Dart.$lookupRTT([String$Dart.$lookupRTT(), Object.$lookupRTT()])], RTT.dynamicType.$lookupRTT());
 }
 function unnamed6fbae6$TopicStats$Dart$$c1$29_29$HoistedConstructor(a, b){
-  return a.compareTo$named(1, $noargs, b);
+  return negate$operator(a.compareTo$named(1, $noargs, b));
 }
 function unnamed6fbae6$TopicStats$Dart$$c1$29_29$HoistedConstructor$named($n, $o, a, b){
   if ($o.count || $n != 2)
@@ -69741,15 +69741,15 @@ unnamed6fbae6$TopicStats$Dart.$Constructor = function(jsonData){
   this.weeks$getter().sort$named(1, $noargs, $bind(unnamed6fbae6$TopicStats$Dart$$c1$29_29$HoistedConstructor$named, unnamed6fbae6$TopicStats$Dart$$c1$29_29$HoistedConstructor$named$named_$lookupRTT, $Dart$Null));
   var absCount = 0;
   {
-    var i = 0;
-    for (; LT$operator(i, this.weeks$getter().length$getter()); tmp$1 = i , (i = ADD$operator(tmp$1, 1) , tmp$1)) {
+    var i = SUB$operator(this.weeks$getter().length$getter(), 1);
+    for (; GTE$operator(i, 0); tmp$1 = i , (i = SUB$operator(tmp$1, 1) , tmp$1)) {
       var curr = this.weeks$getter().INDEX$operator(i);
       this.maxCount$setter(tmp$2 = Math$Dart.max$member(this.maxCount$getter(), curr.count$getter())) , tmp$2;
       absCount = ADD$operator(absCount, curr.count$getter());
-      if (EQ$operator(i, 0)) {
+      if (EQ$operator(i, SUB$operator(this.weeks$getter().length$getter(), 1))) {
         continue;
       }
-      var prev = this.weeks$getter().INDEX$operator(SUB$operator(i, 1));
+      var prev = this.weeks$getter().INDEX$operator(ADD$operator(i, 1));
       if (EQ$operator(prev.count$getter(), 0)) {
         if (GT$operator(curr.count$getter(), 0)) {
           curr.wowChange$setter(tmp$3 = ADD$operator(unnamed6fbae6$VERY_LARGE_NUMBER$getter(), 1)) , tmp$3;
@@ -69759,7 +69759,7 @@ unnamed6fbae6$TopicStats$Dart.$Constructor = function(jsonData){
         }
       }
        else {
-        curr.wowChange$setter(tmp$5 = DIV$operator(curr.count$getter(), prev.count$getter())) , tmp$5;
+        curr.wowChange$setter(tmp$5 = SUB$operator(DIV$operator(curr.count$getter(), prev.count$getter()), 1)) , tmp$5;
       }
     }
   }
@@ -69948,11 +69948,13 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1,
     }
      else {
       var countWow = $Dart$Null;
-      if (GT$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter(), unnamed6fbae6$VERY_LARGE_NUMBER$getter())) {
-        countWow = '+&#8734;%';
-      }
-       else {
-        countWow = '' + $toString(GTE$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter(), 0)?'+':'-') + '\n' + $toString(MUL$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter().abs$named(0, $noargs), 100).toInt$named(0, $noargs)) + '%';
+      if (NE$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter(), $Dart$Null)) {
+        if (GT$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter(), unnamed6fbae6$VERY_LARGE_NUMBER$getter())) {
+          countWow = '+&#8734;%';
+        }
+         else {
+          countWow = '' + $toString(GTE$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter(), 0)?'+':'-') + '' + $toString(MUL$operator(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).wowChange$getter().abs$named(0, $noargs), 100).toInt$named(0, $noargs)) + '%';
+        }
       }
       this.updateContextual$member(dartc_scp$1.topicStats.weeks$getter().INDEX$operator(i_0).count$getter().toString$named(0, $noargs), countWow, unnamed6fbae6$NOT_AVAILABLE_STRING$getter(), unnamed6fbae6$NOT_AVAILABLE_STRING$getter());
     }
@@ -70118,7 +70120,7 @@ unnamed6fbae6$BarChart$Dart.prototype.fetchData$member = function(id, thenCall, 
   var dartc_scp$0 = {id:id, thenCall:thenCall};
   var dartc_scp$1;
   dartc_scp$1 = {};
-  dartc_scp$1.url = url_ == null?this.getURL$member(dartc_scp$0.id):url_;
+  dartc_scp$1.url = EQ$operator(url_, $Dart$Null)?this.getURL$member(dartc_scp$0.id):url_;
   dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
   dartc_scp$1.request.open$named(3, $noargs, 'GET', dartc_scp$1.url, true);
   dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$fetchData$c0$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
@@ -70319,7 +70321,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.toDateShort$getter = function(){
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.prototype.getURL$member = function(id, limit, offset){
-  if (limit == null) {
+  if (EQ$operator(limit, $Dart$Null)) {
     limit = this.ARTICLES_LIMIT$getter();
   }
   if (unnamed6fbae6$DEBUG$getter()) {
@@ -70410,7 +70412,7 @@ function unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted(dartc_scp$0, d
     this.data$getter().INDEX$operator(dartc_scp$0.id).addAll$named(1, $noargs, responseJson);
     print$getter()(1, $noargs, '' + $toString(responseJson.length$getter()) + ' new articles loaded.');
   }
-  if (dartc_scp$0.thenCall != null) {
+  if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
     dartc_scp$0.thenCall(0, $noargs);
   }
 }
@@ -70640,7 +70642,7 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
             changeStr = MUL$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), 100).abs$named(0, $noargs).round$named(0, $noargs).toString$named(0, $noargs);
             changeSign = GTE$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), 0)?'+':'-';
           }
-          wowChangeHtml = '<span class="' + $toString(EQ$operator(changeSign, '+')?'green':'red') + '">\n' + $toString(changeSign) + '' + $toString(changeStr) + '%<\/span>';
+          wowChangeHtml = '<span class="' + $toString(EQ$operator(changeSign, '+')?'green':'red') + '">\n                         ' + $toString(changeSign) + '' + $toString(changeStr) + '%<\/span>';
         }
         var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([dartc_scp$3.topic.name$getter(), dartc_scp$3.topic.countPastTwentyFourHours$getter(), dartc_scp$3.topic.countPastSevenDays$getter(), wowChangeHtml], Array.$lookupRTT()));
         tr.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$3));
@@ -70693,7 +70695,7 @@ function unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted(dartc_scp$0, dar
   this.topics$setter(tmp$0 = ListFactory$Dart.List$$Factory([unnamed6fbae6$Topic$Dart.$lookupRTT()], $Dart$Null)) , tmp$0;
   data.forEach$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT, this));
   print$getter()(1, $noargs, 'Topics loaded successfully.');
-  if (dartc_scp$0.thenCall != null) {
+  if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
     dartc_scp$0.thenCall(0, $noargs);
   }
 }
@@ -70902,7 +70904,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$named = function($n, $o){
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$member = function(url){
-  if (url == null) {
+  if (EQ$operator(url, $Dart$Null)) {
     url = htmld071c1$window$getter().location$getter().href$getter();
   }
   if (url.contains$named(1, $noargs, '/api/topics')) {
@@ -70985,17 +70987,17 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$named = function($n, $o,
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.setPageTitle$member = function(str){
   var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
-  if (str != null) {
+  if (NE$operator(str, $Dart$Null)) {
     htmld071c1$document$getter().title$setter(tmp$0 = '' + $toString(str) + ' :: Scuttlebutt') , tmp$0;
     this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$1 = str) , tmp$1;
   }
    else {
-    if (this.currentPage$getter() === this.topicsUi$getter()) {
+    if (EQ$operator(this.currentPage$getter(), this.topicsUi$getter())) {
       htmld071c1$document$getter().title$setter(tmp$2 = 'Scuttlebutt') , tmp$2;
       this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$3 = 'Home') , tmp$3;
     }
      else {
-      if (this.currentPage$getter() === this.articlesUi$getter()) {
+      if (EQ$operator(this.currentPage$getter(), this.articlesUi$getter())) {
         var topicName = this.topicsUi$getter().getName$named(1, $noargs, this.articlesUi$getter().currentId$getter());
         if (NE$operator(topicName, $Dart$Null)) {
           htmld071c1$document$getter().title$setter(tmp$4 = '' + $toString(topicName) + ' :: Scuttlebutt') , tmp$4;
@@ -71041,7 +71043,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member = function(rawUrl){
   var MAX_URI_LENGTH = 40;
   var urlValidity = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('^https?\\://([a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,4})(/\\S*)?$', false, false));
   var match = urlValidity.firstMatch$named(1, $noargs, rawUrl);
-  if (match == null) {
+  if (EQ$operator(match, $Dart$Null)) {
     return "<span style='border-bottom: 1px dashed black; cursor:help' title='\"" + $toString(rawUrl) + '"\'>Invalid URL<\/span>';
   }
    else {
