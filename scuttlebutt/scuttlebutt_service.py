@@ -41,16 +41,18 @@ class ScuttlebuttService(object):
     if not my_max_date:
       my_max_date = datetime.datetime.max
     topic = Topic.get_by_id(topic_id)
-    filter_statement = ('WHERE topics = :1 AND updated >= :2 AND updated <= :3')
-    articles = Article.gql(filter_statement, topic.key(), my_min_date,
-                           my_max_date)
+    articles = Article.all()
+    articles.filter('topics =', topic.key())
+    articles.filter('updated >=', my_min_date)
+    articles.filter('updated <=', my_max_date)
     articles_list = []
     for article in articles:
       articles_list.append(article.ToDict())
-    articles_list = sorted(articles_list, key=lambda a: a['readership'], reverse=True)
+    articles_list = sorted(
+        articles_list, key=lambda a: a['readership'], reverse=True)
     my_offset = 0
     if offset:
-      my_offset= offset
+      my_offset = offset
     my_limit = len(articles_list)
     if limit:
       my_limit = my_offset + limit
@@ -86,25 +88,7 @@ class ScuttlebuttService(object):
       result = None
     return result
 
-  def GetWeeklyTopicStats(self, topic_id, now):
-    """Gets the weekly aggregated article count.
-
-    Args:
-      topic_id: str The id of the topic to report on.
-      now: datetime The present datetime (end of report)
-
-    Returns:
-      A dictionary where keys are weeks and values is the article count.
-    """
-    s = WeeklyTopicStatsAggregator(now)
-    topic = Topic.get_by_id(topic_id)
-    filter_statement = 'WHERE topics = :1'
-    articles = Article.gql(filter_statement, topic.key())
-    for article in articles:
-      s.AddArticle(article)
-    return s.ToDict()
-
-  def GetDailyTopicStats(self, topic_id, now):
+  def GetDailyTopicStats(self, topic_id, today):
     """Gets the daily aggregated article count.
 
     Args:
@@ -114,7 +98,7 @@ class ScuttlebuttService(object):
     Returns:
       A dictionary where keys are weeks and values is the article count.
     """
-    s = DailyTopicStatsAggregator(now)
+    s = DailyTopicStatsAggregator(today)
     topic = Topic.get_by_id(topic_id)
     filter_statement = 'WHERE topics = :1'
     articles = Article.gql(filter_statement, topic.key())
@@ -123,72 +107,11 @@ class ScuttlebuttService(object):
     return s.ToDict()
 
 
-class WeeklyTopicStatsAggregator(object):
-  """Class get the aggregated article counts per week."""
-  def __init__(self, now):
-    self.now = now
-    # The week's Monday is the key. The data is a dict of article count,
-    # sentiment, etc.
-    self.weeks = {}
-    self.oldest_monday = None
-
-  def AddArticle(self, article):
-    """Add an article to the stats.
-
-    Articles are counted into weeks where the monday of the week is the key and
-    the count of articles is the value.
-
-    Args:
-      article: Article The article model object to add.
-    """
-    monday = self._GetMonday(article.updated)
-    if self.oldest_monday is None or monday < self.oldest_monday:
-      self.oldest_monday = monday
-    if monday in self.weeks:
-      self.weeks[monday]['count'] += 1
-    else:
-      self.weeks[monday] = {'count': 1,
-                            'from': monday.strftime('%Y-%m-%dT%H:%M:%S'),
-                            'to': self._EndOfWeek(monday).strftime(
-                                '%Y-%m-%dT%H:%M:%S')}
-
-  def _EndOfWeek(self, monday):
-    """Returns the datetime for the end of the week for the given monday."""
-    return monday + datetime.timedelta(days=7) - datetime.timedelta(seconds=1)
-
-  def _GetMonday(self, search_date):
-    """Returns the monday for the given date."""
-    result = search_date - datetime.timedelta(days=search_date.weekday())
-    d = result.date()
-    return datetime.datetime(d.year, d.month, d.day)
-
-  def ToDict(self):
-    """Gives a dictionary of weeks and their article counts.
-
-    The dictionary starts with the week of the earliest article and ends at the
-    now datetime given at init. There are no gaps in the weeks (a value of 0
-    is assigned)."""
-    result = []
-    current_monday = self.oldest_monday
-    while True:
-      if current_monday in self.weeks:
-        result.append(self.weeks[current_monday])
-      else:
-        result.append({'count': 0,
-                       'from': current_monday.strftime('%Y-%m-%dT%H:%M:%S'),
-                       'to': self._EndOfWeek(current_monday).strftime(
-                           '%Y-%m-%dT%H:%M:%S')})
-      current_monday = current_monday + datetime.timedelta(days=7)
-      if current_monday > self.now:
-        break
-    sorted_result = sorted(result, key=lambda week:week['to'], reverse=True)
-    return sorted_result
-
-
 class DailyTopicStatsAggregator(object):
   """Class get the aggregated article counts per week."""
-  def __init__(self, now):
-    self.now = now
+
+  def __init__(self, today):
+    self.today = today
     self.days = {}
     self.oldest_day = None
 
@@ -201,44 +124,48 @@ class DailyTopicStatsAggregator(object):
     Args:
       article: Article The article model object to add.
     """
-    day = self._BeginningOfDay(article.updated)
-    if self.oldest_day is None or day < self.oldest_day:
-      self.oldest_day = day
-    if day in self.days:
-      self.days[day]['count'] += 1
-    else:
-      self.days[day] = {'count': 1,
-                        'from': self._BeginningOfDay(day).strftime(
-                            '%Y-%m-%dT%H:%M:%S'),
-                        'to': self._EndOfDay(day).strftime('%Y-%m-%dT%H:%M:%S')}
-
-  def _EndOfDay(self, day):
-    """Returns the datetime for the end of the day."""
-    return self._BeginningOfDay(day) + datetime.timedelta(days=1) - datetime.timedelta(seconds=1)
-
-  def _BeginningOfDay(self, day):
-    """Returns the datetime for the beginning of the day."""
-    return datetime.datetime(day.year, day.month, day.day)
+    update_date = datetime.date(article.updated.year, article.updated.month, article.updated.day)
+    self.days[update_date] = self.days.get(update_date, 0) + 1
+    if self.oldest_day is None or update_date < self.oldest_day:
+      self.oldest_day = update_date
 
   def ToDict(self):
     """Gives a dictionary of days and their article counts.
 
-    The dictionary starts with the day of the earliest article and ends at the
-    now datetime given at init. There are no gaps in the days (a value of 0
-    is assigned)."""
+    The dictionary starts with the day of the earliest article and ends at today
+    given at init. There are no gaps in the days (a value of 0
+    is assigned).
+
+    Returns:
+      A dictionary of days and their article counts.
+    """
     result = []
-    current_day = self.oldest_day
+    current_day = self.today
     while True:
-      if current_day in self.days:
-        result.append(self.days[current_day])
-      else:
-        result.append({'count': 0,
-                       'from': self._BeginningOfDay(current_day).strftime(
-                           '%Y-%m-%dT%H:%M:%S'),
-                       'to': self._EndOfDay(current_day).strftime(
-                           '%Y-%m-%dT%H:%M:%S')})
-      current_day = current_day + datetime.timedelta(days=1)
-      if current_day > self.now:
+      result.append(self._GetRecord(current_day, self.days.get(current_day, 0)))
+      current_day -= datetime.timedelta(days=1)
+      if current_day < self.oldest_day:
         break
-    sorted_result = sorted(result, key=lambda day:day['to'], reverse=True)
-    return sorted_result
+    return result
+
+  def _GetRecord(self, date, count):
+    return {
+        'count': count,
+        'from': self._BeginningOfDayString(date),
+        'to': self._EndOfDayString(date)
+    }
+
+  def _EndOfDayString(self, day):
+    """Returns the formatted datetime for the end of the day."""
+    temp = datetime.datetime(day.year, day.month, day.day)
+    temp += datetime.timedelta(days=1)
+    temp -= datetime.timedelta(seconds=1)
+    return self._Format(temp)
+
+  def _BeginningOfDayString(self, day):
+    """Returns the formatted datetime for the beginning of the day."""
+    return self._Format(datetime.datetime(day.year, day.month, day.day))
+
+  def _Format(self, datetime):
+    return datetime.strftime('%Y-%m-%dT%H:%M:%S')
+

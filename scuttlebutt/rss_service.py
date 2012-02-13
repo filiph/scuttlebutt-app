@@ -85,6 +85,11 @@ class RssService(object):
           logging.info('Saved article with title %s.', a.title)
 
   def ComputeTopicStats(self, now):
+    """Fetch aggregated stats for all topics.
+
+    Args:
+        now: datetime Current point in time to calculate stats for.
+    """
     a_week_ago = now - timedelta(days=7)
     twenty_four_hours_ago = now - timedelta(days=1)
     two_weeks_ago = now - timedelta(days=14)
@@ -102,7 +107,8 @@ class RssService(object):
         if topic.countPastSevenDays is 0:
           topic.weekOnWeekChange = 0.0
       else:
-        topic.weekOnWeekChange = (1.0 * (topic.countPastSevenDays - last_weeks_count)) / last_weeks_count
+        topic.weekOnWeekChange = (1.0 * (topic.countPastSevenDays -
+                                         last_weeks_count)) / last_weeks_count
 
       topic.put()
 

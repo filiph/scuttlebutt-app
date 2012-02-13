@@ -1,43 +1,43 @@
 [
   {
-    "name": "Android", 
-    "id": 4001, 
-    "countPastSevenDays": 512, 
+    "name": "Android",
+    "id": 4001,
+    "countPastSevenDays": 512,
     "countPastTwentyFourHours": 56,
     "weekOnWeekChange": 1.15913
   },
   {
-    "name": "Gmail", 
-    "id": 115001, 
-    "countPastSevenDays": 123, 
+    "name": "Gmail",
+    "id": 115001,
+    "countPastSevenDays": 123,
     "countPastTwentyFourHours": 10,
     "weekOnWeekChange": 0.89456
   },
   {
-    "name": "Google+", 
-    "id": 1001, 
-    "countPastSevenDays": 48, 
+    "name": "Google+",
+    "id": 1001,
+    "countPastSevenDays": 48,
     "countPastTwentyFourHours": 8,
     "weekOnWeekChange": 2.053168
   },
   {
-    "name": "Chromebook", 
-    "id": 120001, 
-    "countPastSevenDays": 15, 
+    "name": "Chromebook",
+    "id": 120001,
+    "countPastSevenDays": 15,
     "countPastTwentyFourHours": 3,
     "weekOnWeekChange": 1.33333
-  }, 
+  },
   {
-    "name": "Google Wallet", 
-    "id": 72002, 
-    "countPastSevenDays": 1, 
+    "name": "Google Wallet",
+    "id": 72002,
+    "countPastSevenDays": 1,
     "countPastTwentyFourHours": 1,
     "weekOnWeekChange": 1000000001
   },
   {
-    "name": "Google Offers", 
-    "id": 117001, 
-    "countPastSevenDays": 0, 
+    "name": "Google Offers",
+    "id": 117001,
+    "countPastSevenDays": 0,
     "countPastTwentyFourHours": 0,
     "weekOnWeekChange": 0.0
   }

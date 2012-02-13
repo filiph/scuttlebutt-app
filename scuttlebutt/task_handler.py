@@ -6,9 +6,13 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 import datetime
+import logging
 from google.appengine.api import taskqueue
+from google.appengine.ext import db
 from google.appengine.ext import webapp
+from google.appengine.ext.db import Error
 from google.appengine.ext.webapp import util
+from model import Article
 from rss_service import RssService
 
 
@@ -67,24 +71,25 @@ class DeleteArticlesHandler(webapp.RequestHandler):
 
 
 class SetReadershipForAllArticlesHandler(webapp.RequestHandler):
+  """Handler class to set readership for articles."""
 
   def get(self):
-    from google.appengine.ext import db
-    from model import Article
+    """Handle HTTP Get set readership for articles."""
     jobs_dispatched = 0
     for article in Article.all():
       url = '/task/set_article_readerhip?article_id=%s' % article.key().id()
       taskqueue.add(url=url, method='GET')
       jobs_dispatched += 1
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('Dispatched updates for %d articles' % jobs_dispatched)
+    self.response.out.write(
+        'Dispatched updates for %d articles' % jobs_dispatched)
 
 
 class SetArticleReadershipHandler(webapp.RequestHandler):
+  """Handler class to set readership for an article."""
 
   def get(self):
-    from google.appengine.ext import db
-    from model import Article
+    """Handle HTTP Get set readership for an article."""
     article_id = int(self.request.get('article_id'))
     article = Article.get_by_id(article_id)
     max_visitors = 0
@@ -93,12 +98,13 @@ class SetArticleReadershipHandler(webapp.RequestHandler):
         feed = db.get(feed_key)
         if feed.monthly_visitors > max_visitors:
           max_visitors = feed.monthly_visitors
-      except:
-        pass
+      except Error:
+        logging.info('Could not get feed with key: %s', feed_key)
     article.potential_readers = max_visitors
     article.put()
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.out.write('Set potential_readers=%s for article %s' % (max_visitors, article_id))
+    self.response.out.write(
+        'Set potential_readers=%s for article %s' % (max_visitors, article_id))
 
 
 def main():
@@ -108,8 +114,9 @@ def main():
       ('/task/download', DownloadHandler),
       ('/task/compute_stats', ComputeStatsHandler),
       ('/task/delete_articles', DeleteArticlesHandler),
-      ('/task/set_readerhip_for_all_articles', SetReadershipForAllArticlesHandler),
-      ('/task/set_article_readerhip', SetArticleReadershipHandler),
+      ('/task/set_readership_for_all_articles',
+       SetReadershipForAllArticlesHandler),
+      ('/task/set_article_readership', SetArticleReadershipHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 

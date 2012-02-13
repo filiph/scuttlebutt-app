@@ -5,16 +5,18 @@
 __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
-import os
 import datetime
+import logging
+import os
+from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp import util
+import simplejson
 from model import Article
 from model import Feed
 from model import Topic
 from scuttlebutt_service import ScuttlebuttService
-import simplejson
 
 
 class GetTopicsHandler(webapp.RequestHandler):
@@ -22,13 +24,17 @@ class GetTopicsHandler(webapp.RequestHandler):
 
   def get(self):
     """Handles the HTTP Get for a topic fetch call."""
-    topics = Topic.all().order('name')
-    topic_list = []
-    for topic in topics:
-      topic_list.append(topic.ToDict())
-    json = simplejson.dumps(topic_list)
+    CACHE_KEY = 'get_topics'
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      topics = Topic.all().order('name')
+      topic_list = []
+      for topic in topics:
+        topic_list.append(topic.ToDict())
+      memcache.add(CACHE_KEY, simplejson.dumps(topic_list), 600)
+    logging.info('Using cache.')
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(json)
+    self.response.out.write(memcache.get(CACHE_KEY))
 
 
 class GetArticlesHandler(webapp.RequestHandler):
@@ -46,28 +52,20 @@ class GetArticlesHandler(webapp.RequestHandler):
     max_date = s.StringToDatetime(self.request.get('max_date'))
     limit = s.StringToInt(self.request.get('limit'))
     offset = s.StringToInt(self.request.get('offset'))
-    article_list = s.GetArticles(
-        topic_id=int(self.request.get('topic_id')),
-        min_date=min_date,
-        max_date=max_date,
-        limit=limit,
-        offset=offset
-    )
+    CACHE_KEY = 'get_articles_%s_%s_%s_%s' % (min_date, max_date, limit, offset)
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      article_list = s.GetArticles(
+          topic_id=int(self.request.get('topic_id')),
+          min_date=min_date,
+          max_date=max_date,
+          limit=limit,
+          offset=offset
+      )
+      memcache.add(CACHE_KEY, simplejson.dumps(article_list), 600)
+    logging.info('Using cache.')
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(simplejson.dumps(article_list))
-
-
-class ReportHandler(webapp.RequestHandler):
-  """Handler class for a simple view of the articles."""
-
-  def get(self):
-    """Handles the HTTP Get for a article report view."""
-    articles = Article.all().order('-updated')
-    template_values = {
-        'articles': articles
-    }
-    path = os.path.join(os.path.dirname(__file__), 'templates/report.html')
-    self.response.out.write(template.render(path, template_values))
+    self.response.out.write(memcache.get(CACHE_KEY))
 
 
 class CreateFeedHandler(webapp.RequestHandler):
@@ -76,11 +74,13 @@ class CreateFeedHandler(webapp.RequestHandler):
   def get(self):
     """Handles the HTTP Get for a Feed and Topic creation."""
     f1 = Feed()
-    f1.name = 'Reuters'
-    f1.url = '../test_data/reuters_test_rss.xml'
+    f1.name = 'Test_Feed'
+    # Change the feed url here to create your test feed.
+    f1.url = 'http://news.google.com/?output=rss'
     f1.put()
     t2 = Topic()
-    t2.name = 'Banana tycoon'
+    # A topic of interest.
+    t2.name = 'internet'
     t2.put()
 
 
@@ -89,18 +89,21 @@ class GetTopicStatsHandler(webapp.RequestHandler):
 
   def get(self):
     s = ScuttlebuttService()
-    result = s.GetDailyTopicStats(
-        topic_id=int(self.request.get('topic_id')),
-        now=datetime.datetime.now()
-    )
+    topic_id = int(self.request.get('topic_id'))
+    today = datetime.date.today()
+    CACHE_KEY = 'get_topic_stats_%s_%s' % (topic_id, today)
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      result = s.GetDailyTopicStats(topic_id, today)
+      memcache.add(CACHE_KEY, simplejson.dumps(result), 600)
+    logging.info('Using cache.')
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(simplejson.dumps(result))
+    self.response.out.write(memcache.get(CACHE_KEY))
 
 
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
-      ('/report/report', ReportHandler),
       ('/report/create_feed', CreateFeedHandler),
       ('/report/get_articles', GetArticlesHandler),
       ('/report/get_topics', GetTopicsHandler),

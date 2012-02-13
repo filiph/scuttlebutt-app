@@ -10,13 +10,14 @@ from google.appengine.ext import db
 
 class Feed(db.Model):
   """Represents an RSS Feed."""
-  name = db.StringProperty()
-  url = db.StringProperty()
-  monthly_visitors = db.IntegerProperty()
+  name = db.StringProperty(indexed=False)
+  url = db.StringProperty(indexed=False)
+  monthly_visitors = db.IntegerProperty(indexed=False)
 
   @property
   def articles(self):
-    return Article.gql("WHERE feeds = :1", self.key())
+    """Get articles for that feed."""
+    return Article.gql('WHERE feeds = :1', self.key())
 
 
 class Topic(db.Model):
@@ -26,9 +27,9 @@ class Topic(db.Model):
   (i.e. Google Chrome).
   """
   name = db.StringProperty()
-  countPastSevenDays = db.IntegerProperty()
-  countPastTwentyFourHours = db.IntegerProperty()
-  weekOnWeekChange = db.FloatProperty()
+  countPastSevenDays = db.IntegerProperty(indexed=False)
+  countPastTwentyFourHours = db.IntegerProperty(indexed=False)
+  weekOnWeekChange = db.FloatProperty(indexed=False)
 
   def ToDict(self):
     """Returns a dictionary representation of the object."""
@@ -46,7 +47,7 @@ class Article(db.Model):
   url = db.StringProperty()
   title = db.StringProperty()
   potential_readers = db.IntegerProperty()
-  summary = db.TextProperty()
+  summary = db.TextProperty(indexed=False)
   updated = db.DateTimeProperty()
   topics = db.ListProperty(db.Key)
   feeds = db.ListProperty(db.Key)
