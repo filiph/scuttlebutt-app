@@ -1,7 +1,9 @@
 #import('dart:html');
 #import('dart:json');
 
-bool DEBUG = false;
+bool DEBUG = false; // will be flipped automatically on localhost
+final num VERY_LARGE_NUMBER = 1000000000;
+final String NOT_AVAILABLE_STRING = "N/A";
 
 /**
   * Table.
@@ -18,12 +20,18 @@ class Table {
   element is a <td>. Its HTML content will be the string. 
   
   E.g.: addRow(["blah"]); will create this row: "<tr><td>blah</td></tr>".
+  
+  When element in List is null, cell will contain "N/A".
   */
   Element addRow(List<String> row) {
     Element tr = new Element.tag('tr');
     row.forEach((column) {
       Element td = new Element.tag('td');
-      td.innerHTML = column;
+      if (column != null) {
+        td.innerHTML = column;
+      } else {
+        td.innerHTML = NOT_AVAILABLE_STRING;
+      }
       tr.elements.add(td);
     });
     tableElement.elements.add(tr);
@@ -60,6 +68,70 @@ class Table {
 }
 
 /**
+  * An class representing one week's worth of statistics for
+  * a given TopicStats.
+  *
+  * I.e.: week 2011-12-26 to 2012-12-26 saw 5 articles about 'Android'...
+  */ 
+class TopicStatsWeek implements Comparable {
+  Date from;
+  Date to;
+  int count;
+  double wowChange;
+  // double sentiment;  // not used, but I'm leaving this here for future gen
+  
+  TopicStatsWeek(Map<String,Object> jsonData) {
+    if (!jsonData.containsKey("from") || !jsonData.containsKey("to") 
+        || !jsonData.containsKey("count")) {
+      throw new Exception("JSON data corrupt. Couldn't find keys.");
+    }
+    count = jsonData["count"];
+    from = ScuttlebuttUi.dateFromString(jsonData["from"]);
+    to = ScuttlebuttUi.dateFromString(jsonData["to"]);
+  }
+  
+  int compareTo(TopicStatsWeek other) {
+    return from.compareTo(other.from);
+  }
+}
+
+/**
+ * An class representing data for a given topic. Includes all the weeks
+ * as TopicStatsWeek objects.
+ */ 
+class TopicStats {
+  List<TopicStatsWeek> weeks;
+  int maxCount = 0;
+  double avgCount;
+  
+  TopicStats(List<Map<String,Object>> jsonData) {
+    weeks = new List<TopicStatsWeek>();
+    jsonData.forEach((Map<String,Object> jsonRecord) {
+      weeks.add(new TopicStatsWeek(jsonRecord));
+    });
+    // now we compute WoW changes and MaxCount
+    weeks.sort((TopicStatsWeek a, TopicStatsWeek b) => a.compareTo(b));
+    int absCount = 0;
+    for (int i = 0; i < weeks.length; i++) {
+      TopicStatsWeek curr = weeks[i];
+      maxCount = Math.max(maxCount, curr.count);
+      absCount += curr.count;
+      if (i == 0) continue;
+      TopicStatsWeek prev = weeks[i-1];
+      if (prev.count == 0) {
+        if (curr.count > 0)
+          curr.wowChange = VERY_LARGE_NUMBER + 1.0;
+        else
+          curr.wowChange = 0.0;
+      } else {
+        curr.wowChange = curr.count / prev.count;
+      }
+    }
+    avgCount = absCount / weeks.length;
+  }
+}
+
+/**
   * BarChart.
   */
 class BarChart {
@@ -71,7 +143,11 @@ class BarChart {
   SpanElement _articlesSentimentWowElement;
   InputElement articlesFromElement;
   InputElement articlesToElement;
-  Map<int,List<Map<String,Dynamic>>> data;
+  
+  // A map topic_id -> stats. This allows for caching data that has 
+  // already been downloaded.
+  Map<int,TopicStats> topicStatsCache;   
+  
   int currentId;
   int selectedDateRange;
   
@@ -88,7 +164,7 @@ class BarChart {
         String fromEl="#articles-from",
         String toEl="#articles-to"
       ]) {
-    data = new Map<int,List<Map<String,Dynamic>>>();
+    topicStatsCache = new Map<int,TopicStats>();
     this.tableElement = document.query(domQuery);
     this.articlesUi = articlesUi_;
     
@@ -102,20 +178,19 @@ class BarChart {
   
   String getURL(int id) {
     if (DEBUG) {
-      return "/report/get_topic_stats_mock.json";
+      return "/api/get_topic_stats_mock.json";
     } else {
-      return "/report/get_topic_stats?topic_id=$id";
+      return "/api/get_topic_stats?topic_id=$id";
     }
   }
   
   /**
-    Shows articles for given [Topic] id. Run this the first time you want
-    to show the articles.
+    * Shows barchart for given [Topic] id.
     */
   void show(int id) {
     currentId = id;
     
-    if (data.containsKey(id)) {
+    if (topicStatsCache.containsKey(id)) {
       populateChart(id);
     } else {
       fetchData(id, thenCall:populateChart);
@@ -128,30 +203,26 @@ class BarChart {
    */
  void populateChart([int id_, bool resetTable=true]) {
    int id = (id_ != null) ? id_ : this.currentId;
+   TopicStats topicStats = topicStatsCache[id];
    
-   if (resetTable) this.reset();
-   
-   int maxCount = 0;
-   int absoluteCount = 0;
-   for (Map<String,Dynamic> record in data[id]) {
-     maxCount = Math.max(record["count"], maxCount);
-     absoluteCount += record["count"];
-   }
-   int averageCount = (absoluteCount / data[id].length).toInt();     
-   
+   if (resetTable) reset();
+      
    Element tr = new Element.tag('tr');
    for (var i = MAX_WEEKS - 1; i >= 0; i--) {
      Element td = new Element.tag('td');
      Element div = new Element.tag('div');
      
      int percentage;
-     if (i < data[id].length) {
-       percentage = (data[id][i]["count"] / maxCount * 100).toInt();  
+     if (i < topicStats.weeks.length) {
+       percentage = 
+         (topicStats.weeks[i].count / topicStats.maxCount * 100).toInt();  
        div.classes.add("blue-bar");
        td.classes.add("data-available");
      } else {
        // 75 instead of 100 for esthetic purposes only
-       percentage = (Math.random() * averageCount / maxCount * 75).toInt();  
+       percentage = (
+           Math.random() * topicStats.avgCount / topicStats.maxCount * 75
+           ).toInt();  
        div.classes.add("gray-bar");
      }
      div.style.height = "$percentage%";
@@ -166,25 +237,19 @@ class BarChart {
        if (el.dataAttributes.containsKey("i")) {
          int i = Math.parseInt(el.dataAttributes["i"]);
          
-         if (i > data[id].length - 1) {
+         if (i > topicStats.weeks.length - 1) {
            this.updateContextual(count:"no data");
          } else {
            String countWow;
-           if (i < data[id].length - 1) {
-             int prevCount = Math.parseInt(data[id][i+1]["count"]);
-             int nowCount = Math.parseInt(data[id][i]["count"]);
-             if (prevCount == 0) {
-               countWow = nowCount > 0 ? "+&#8734;%" : "+0%";
-             } else {
-               int percentage = (((nowCount / prevCount) - 1) * 100).toInt();
-               countWow = "${percentage >= 0 ? '+' : '-'}${percentage.abs()}%";
-             }
-           } else {
-             countWow = "n/a";
-           }
-           
-           this.updateContextual(
-               count:data[id][i]["count"],
+
+           if (topicStats.weeks[i].wowChange > VERY_LARGE_NUMBER)
+             countWow = "+&#8734;%";
+           else
+             countWow = "${topicStats.weeks[i].wowChange >= 0.0 ? '+' : '-'}\
+${(topicStats.weeks[i].wowChange.abs() * 100).toInt()}%";
+             
+           updateContextual(
+               count:topicStats.weeks[i].count.toString(),
                countWow:countWow
                );
          }
@@ -195,10 +260,10 @@ class BarChart {
        Element el = e.currentTarget;
        if (el.dataAttributes.containsKey("i")) {
          int i = Math.parseInt(el.dataAttributes["i"]);
-         if (i < data[id].length) {
+         if (i < topicStats.weeks.length) {
            selectedDateRange = i;
-           articlesUi.fromDate = ScuttlebuttUi.dateFromString(data[id][i]["from"]);
-           articlesUi.toDate = ScuttlebuttUi.dateFromString(data[id][i]["to"]);
+           articlesUi.fromDate = topicStats.weeks[i].from;
+           articlesUi.toDate = topicStats.weeks[i].to;
            articlesUi.fetchData(thenCall:articlesUi.populateTable);
            updateDateRange();
          }
@@ -216,10 +281,10 @@ class BarChart {
  }
  
  void updateContextual([
-     String count="n/a",
-     String countWow="n/a",
-     String sentiment="n/a",
-     String sentimentWow="n/a"
+     String count=NOT_AVAILABLE_STRING,
+     String countWow=NOT_AVAILABLE_STRING,
+     String sentiment=NOT_AVAILABLE_STRING,
+     String sentimentWow=NOT_AVAILABLE_STRING
    ]) {   
    this._articlesCountElement.innerHTML = count;
    this._articlesCountWowElement.innerHTML = countWow;
@@ -244,11 +309,12 @@ class BarChart {
      if (request.status == 404) {
        window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
        print("Trying to load mock data.");
-       fetchData(id, thenCall:this.populateChart, url_:"https://scuttlebutt.googleplex.com/ui/report/get_topic_stats_mock.json");
+       fetchData(id, thenCall:this.populateChart, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_mock.json");
      } else {
-       data[id] = JSON.parse(request.responseText);
+       //data[id] = JSON.parse(request.responseText);
+       topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
        
-       print("${data[id].length} new stats loaded for the bar chart.");
+       print("${topicStatsCache[id].weeks.length} new stats loaded for the bar chart.");
        
        if (thenCall != null) {
          thenCall();
@@ -315,9 +381,9 @@ class ArticlesUi {
   String getURL(int id, [int limit=null, int offset=0]) {
     if (limit === null) limit = ARTICLES_LIMIT;
     if (DEBUG) {
-      return "/report/get_articles_mock.json";
+      return "/api/get_articles_mock.json";
     } else {
-      return "/report/get_articles?topic_id=$id&limit=$limit&offset=$offset&min_date=$fromDateIso&max_date=$toDateIso";
+      return "/api/get_articles?topic_id=$id&limit=$limit&offset=$offset&min_date=$fromDateIso&max_date=$toDateIso";
     }
   }
   
@@ -404,11 +470,35 @@ class ArticlesUi {
 
 
 /**
-  * Topics is where the topics data are stored on the client.
+  * Simple class for holding Topics data.
+  */
+class Topic {
+  int id;
+  String name;
+  String searchTerm;
+  int countPastTwentyFourHours;
+  int countPastSevenDays;
+  double weekOnWeekChange;
+  
+  Topic(Map<String,Object> jsonData) {
+    if (!jsonData.containsKey("id") || !jsonData.containsKey("name")) {
+      throw new Exception("JSON data corrupt. Couldn't find 'id' or 'name'.");
+    }
+    id = jsonData["id"];
+    name = jsonData["name"];
+    searchTerm = jsonData["searchTerm"];
+    countPastTwentyFourHours = jsonData["countPastTwentyFourHours"];
+    countPastSevenDays = jsonData["countPastSevenDays"];
+    weekOnWeekChange = jsonData["weekOnWeekChange"];
+  }
+}
+
+/**
+  * TopicsUi handles ajax calls and shows the data on the client.
   */
 class TopicsUi {
   Table outputTable;
-  List<Map<String,Object>> data;
+  List<Topic> topics;
   ScuttlebuttUi scuttlebuttUi;
   
   TopicsUi() {
@@ -416,14 +506,14 @@ class TopicsUi {
   
   String getURL() {
     if (DEBUG) {
-      return "/report/get_topics_mock.json";
+      return "/api/get_topics_mock.json";
     } else {
-      return "/report/get_topics";
+      return "/api/topics";
     }
   }
 
   void show() {
-    if (data !== null) {
+    if (topics != null) {
       populateTable();
     } else {
       fetchData(thenCall:this.populateTable);
@@ -435,36 +525,30 @@ class TopicsUi {
     */
   void populateTable() {
     this.outputTable.reset();
-    for (Map<String,Dynamic> record in data) {
+    for (Topic topic in topics) {
       String wowChangeHtml;
-      if (record.containsKey("weekOnWeekChange")) {
-        double change = record["weekOnWeekChange"];
+      if (topic.weekOnWeekChange != null) {
         String changeStr;
         String changeSign;
-        if (change == null) {
+        if (topic.weekOnWeekChange > VERY_LARGE_NUMBER) {
           changeStr = "&#8734;";  // infinity symbol
           changeSign = "+";
         } else {
-          changeStr = ((change)*100.0).abs().round().toString();
-          changeSign = (change >= 0.0) ? "+" : "-";
+          changeStr = ((topic.weekOnWeekChange)*100.0).abs().round().toString();
+          changeSign = (topic.weekOnWeekChange >= 0.0) ? "+" : "-";
         }
-        wowChangeHtml = "<span class=\"${(changeSign==='+'?'green':'red')}\">"+changeSign+changeStr+"%</span>"; 
-      } else {
-        wowChangeHtml = "N/A";
+        wowChangeHtml = "<span class=\"${(changeSign=='+'?'green':'red')}\">\
+$changeSign$changeStr%</span>"; 
       }
       
       // adds a row with 4 cells: name, count for past 24h, count for past 7d,
       // and week on week change
       Element tr = this.outputTable.addRow(
-        [
-         record["name"], 
-         record.containsKey("countPastTwentyFourHours") ? record["countPastTwentyFourHours"] : "N/A", 
-         record.containsKey("countPastSevenDays") ? record["countPastSevenDays"] : "N/A", 
-         wowChangeHtml 
-        ]
-        );
+          [ topic.name, topic.countPastTwentyFourHours, 
+            topic.countPastSevenDays, wowChangeHtml ]
+          );
       tr.on.click.add((event) {
-        this.scuttlebuttUi.listArticles(record['id']);
+        this.scuttlebuttUi.listArticles(topic.id);
       });
     };
     this.visibility = true;
@@ -487,7 +571,11 @@ class TopicsUi {
     request.open("GET", url, true);
     
     request.on.load.add((event) {
-      data = JSON.parse(request.responseText);
+      List<Map<String,Object>> data = JSON.parse(request.responseText);
+      topics = new List<Topic>();
+      data.forEach((Map<String,Object> record) {
+        topics.add(new Topic(record));
+      });
       print("Topics loaded successfully.");
       if (thenCall !== null) {
         thenCall();
@@ -501,14 +589,14 @@ class TopicsUi {
   }
   
   String getName(int id) {
-    if (data !== null) {
-      for (Map<String,Object> topic in data) {
-        if (Math.parseInt(topic["id"]) == id) {
-          return topic["name"];
+    if (topics != null) {
+      for (Topic topic in topics) {
+        if (topic.id == id) {
+          return topic.name;
         }
       }
     } else {
-      return null;
+      return null; 
     }
   }
 }
@@ -572,10 +660,10 @@ class ScuttlebuttUi {
       url = window.location.href;
     }
     
-    if (url.contains("/report/get_topics")) {
+    if (url.contains("/api/topics")) {
       this.listTopics(pushState:false);
       return;
-    } else if (url.contains("/report/get_articles")) {
+    } else if (url.contains("/api/get_articles")) {
       RegExp exp = const RegExp(@"topic_id=([0-9]+)");
       Match match = exp.firstMatch(url);
       int id = Math.parseInt(match.group(1));
@@ -591,8 +679,8 @@ class ScuttlebuttUi {
     */
   void listTopics([bool pushState=true]) {
     if (pushState) {
-      Map state = {"url" : "#/report/get_topics"};
-      window.history.pushState(JSON.stringify(state), "Home", "#/report/get_topics");
+      Map state = {"url" : "#/api/topics"};
+      window.history.pushState(JSON.stringify(state), "Home", "#/api/topics");
     }
     
     articlesUi.visibility = false;
@@ -607,11 +695,11 @@ class ScuttlebuttUi {
    */
   void listArticles(int id, [bool pushState=true]) {
     if (pushState) {
-      Map state = {"url" : "#/report/get_articles?topic_id=$id"};
+      Map state = {"url" : "#/api/get_articles?topic_id=$id"};
       window.history.pushState(
         JSON.stringify(state), 
         "Articles", 
-        "#/report/get_articles?topic_id=$id"
+        "#/api/get_articles?topic_id=$id"
       );
     }
     

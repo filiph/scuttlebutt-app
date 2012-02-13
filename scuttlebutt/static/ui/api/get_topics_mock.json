@@ -32,7 +32,7 @@
     "id": 72002, 
     "countPastSevenDays": 1, 
     "countPastTwentyFourHours": 1,
-    "weekOnWeekChange": null
+    "weekOnWeekChange": 1000000001
   },
   {
     "name": "Google Offers", 
