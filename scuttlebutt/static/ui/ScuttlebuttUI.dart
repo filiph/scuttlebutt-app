@@ -109,23 +109,27 @@ class TopicStats {
     jsonData.forEach((Map<String,Object> jsonRecord) {
         weeks.add(new TopicStatsWeek(jsonRecord));
         });
+    // sort weeks from most recent to oldest
+    weeks.sort((TopicStatsWeek a, TopicStatsWeek b) => -a.compareTo(b));
     // now we compute WoW changes and MaxCount
-    weeks.sort((TopicStatsWeek a, TopicStatsWeek b) => a.compareTo(b));
     int absCount = 0;
-    for (int i = 0; i < weeks.length; i++) {
+    for (int i = weeks.length - 1; i >= 0; i--) {
       TopicStatsWeek curr = weeks[i];
       maxCount = Math.max(maxCount, curr.count);
       absCount += curr.count;
-      if (i == 0) continue;
-      TopicStatsWeek prev = weeks[i-1];
+      if (i == weeks.length - 1) 
+        continue;  // don't compute WoW change for first available week
+      TopicStatsWeek prev = weeks[i+1];
       if (prev.count == 0) {
         if (curr.count > 0)
           curr.wowChange = VERY_LARGE_NUMBER + 1.0;
         else
           curr.wowChange = 0.0;
       } else {
-        curr.wowChange = curr.count / prev.count;
+        curr.wowChange = (curr.count / prev.count) - 1.0;
       }
+      
+      //print("$i-th week: count = ${curr.count}, change = ${curr.wowChange}");
     }
     avgCount = absCount / weeks.length;
   }
@@ -180,7 +184,7 @@ class BarChart {
     if (DEBUG) {
       return "/api/get_topic_stats_mock.json";
     } else {
-      return "/api/get_topic_stats?topic_id=$id";
+      return "/api/topics/$id";
     }
   }
 
@@ -236,17 +240,18 @@ class BarChart {
           Element el = e.currentTarget;
           if (el.dataAttributes.containsKey("i")) {
           int i = Math.parseInt(el.dataAttributes["i"]);
-
+          
           if (i > topicStats.weeks.length - 1) {
           this.updateContextual(count:"no data");
           } else {
           String countWow;
 
-          if (topicStats.weeks[i].wowChange > VERY_LARGE_NUMBER)
-          countWow = "+&#8734;%";
-          else
-          countWow = "${topicStats.weeks[i].wowChange >= 0.0 ? '+' : '-'}\
-          ${(topicStats.weeks[i].wowChange.abs() * 100).toInt()}%";
+          if (topicStats.weeks[i].wowChange != null) {
+            if (topicStats.weeks[i].wowChange > VERY_LARGE_NUMBER)
+              countWow = "+&#8734;%";
+            else
+              countWow = "${topicStats.weeks[i].wowChange >= 0.0 ? '+' : '-'}${(topicStats.weeks[i].wowChange.abs() * 100).toInt()}%";  
+          }
 
           updateContextual(
             count:topicStats.weeks[i].count.toString(),
