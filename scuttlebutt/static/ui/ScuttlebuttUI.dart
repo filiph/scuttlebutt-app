@@ -184,7 +184,7 @@ class BarChart {
     if (DEBUG) {
       return "/api/get_topic_stats_mock.json";
     } else {
-      return "/api/get_topic_stats?topic_id=$id";
+      return "/api/topics/$id";
     }
   }
 

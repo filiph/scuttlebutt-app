@@ -69918,7 +69918,7 @@ unnamed6fbae6$BarChart$Dart.prototype.getURL$member = function(id){
     return '/api/get_topic_stats_mock.json';
   }
    else {
-    return '/api/get_topic_stats?topic_id=' + $toString(id) + '';
+    return '/api/topics/' + $toString(id) + '';
   }
 }
 ;
