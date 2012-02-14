@@ -19,24 +19,6 @@ from model import Topic
 from scuttlebutt_service import ScuttlebuttService
 
 
-class GetTopicsHandler(webapp.RequestHandler):
-  """Handler class for fetching a JSON list of Topics."""
-
-  def get(self):
-    """Handles the HTTP Get for a topic fetch call."""
-    CACHE_KEY = 'get_topics'
-    if not memcache.get(CACHE_KEY):
-      logging.info('Populating cache.')
-      topics = Topic.all().order('name')
-      topic_list = []
-      for topic in topics:
-        topic_list.append(topic.ToDict())
-      memcache.add(CACHE_KEY, simplejson.dumps(topic_list), 600)
-    logging.info('Using cache.')
-    self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(memcache.get(CACHE_KEY))
-
-
 class GetArticlesHandler(webapp.RequestHandler):
   """Handler class for fetching a JSON list of Articles."""
 
@@ -84,23 +66,6 @@ class CreateFeedHandler(webapp.RequestHandler):
     t2.put()
 
 
-class GetTopicStatsHandler(webapp.RequestHandler):
-  """Handler class to return aggregated topic stats per week."""
-
-  def get(self):
-    s = ScuttlebuttService()
-    topic_id = int(self.request.get('topic_id'))
-    today = datetime.date.today()
-    CACHE_KEY = 'get_topic_stats_%s_%s' % (topic_id, today)
-    if not memcache.get(CACHE_KEY):
-      logging.info('Populating cache.')
-      result = s.GetDailyTopicStats(topic_id, today)
-      memcache.add(CACHE_KEY, simplejson.dumps(result), 600)
-    logging.info('Using cache.')
-    self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(memcache.get(CACHE_KEY))
-
-
 class AllTopicsHandler(webapp.RequestHandler):
   """Handler class for fetching a JSON list of Topics."""
 
@@ -141,10 +106,7 @@ def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
       ('/report/create_feed', CreateFeedHandler),
-      ('/report/get_articles', GetArticlesHandler),
       ('/api/get_articles', GetArticlesHandler),
-      ('/report/get_topics', GetTopicsHandler),
-      ('/report/get_topic_stats', GetTopicStatsHandler),
       ('/api/topics', AllTopicsHandler),
       ('/api/topics/(\d+)', TopicsHandler),
   ], debug=True)
