@@ -21,5 +21,8 @@ handlers:
 - url: /ui
   static_dir: static/ui
 
+- url: /.*
+  script: redirect_handler.py
+  
 builtins:
 - appstats: on
