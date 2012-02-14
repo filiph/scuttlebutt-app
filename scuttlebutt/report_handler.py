@@ -101,13 +101,52 @@ class GetTopicStatsHandler(webapp.RequestHandler):
     self.response.out.write(memcache.get(CACHE_KEY))
 
 
+class AllTopicsHandler(webapp.RequestHandler):
+  """Handler class for fetching a JSON list of Topics."""
+
+  def get(self):
+    """Handles the HTTP Get for a topic fetch call."""
+    CACHE_KEY = 'topics'
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      topics = Topic.all().order('name')
+      topic_list = []
+      for topic in topics:
+        topic_list.append(topic.ToDict())
+      memcache.add(CACHE_KEY, simplejson.dumps(topic_list), 600)
+    logging.info('Using cache.')
+    logging.info(memcache.get(CACHE_KEY))
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(memcache.get(CACHE_KEY))
+
+
+class TopicsHandler(webapp.RequestHandler):
+  """Handler class to return aggregated topic stats per week."""
+
+  def get(self, topic_id):
+    s = ScuttlebuttService()
+    today = datetime.date.today()
+    CACHE_KEY = 'get_topic_stats_%s_%s' % (topic_id, today)
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      result = s.GetDailyTopicStats(int(topic_id), today)
+      memcache.add(CACHE_KEY, simplejson.dumps(result), 600)
+    logging.info('Using cache.')
+    logging.info(memcache.get(CACHE_KEY))
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(memcache.get(CACHE_KEY))
+
+
 def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
       ('/report/create_feed', CreateFeedHandler),
       ('/report/get_articles', GetArticlesHandler),
+      ('/api/get_articles', GetArticlesHandler),
       ('/report/get_topics', GetTopicsHandler),
       ('/report/get_topic_stats', GetTopicStatsHandler),
+      ('/api/topics', AllTopicsHandler),
+      ('/api/topics/(\d+)', TopicsHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 

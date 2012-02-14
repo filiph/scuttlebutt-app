@@ -15,6 +15,9 @@ handlers:
 - url: /report/.*
   script: report_handler.py
 
+- url: /api/.*
+  script: report_handler.py
+
 - url: /ui
   static_dir: static/ui
 
