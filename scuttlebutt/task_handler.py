@@ -27,7 +27,7 @@ class TaskQueueWrapper(object):
     """
     url = '/task/download?feedId=%s' % feed_id
     # Use the default queue.
-    taskqueue.add(url=url, method='GET')
+    taskqueue.add(url=url, method='GET', queue_name='download')
 
 
 class DispatchHandler(webapp.RequestHandler):

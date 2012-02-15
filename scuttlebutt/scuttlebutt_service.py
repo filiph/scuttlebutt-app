@@ -65,13 +65,28 @@ class ScuttlebuttService(object):
       str: str The datetime in the format yyyy-mm-ddTHH:MM:SS.
 
     Returns:
-      A datetime object.
+      A datetime.datetime object.
     """
     try:
       result = datetime.datetime.strptime(str, '%Y-%m-%dT%H:%M:%S')
     except ValueError:
       result = None
     return result
+
+  def StringToDate(self, str):
+    """Converts a string in the format yyyy-mm-dd to date.
+
+    Args:
+      str: str The datetime in the format yyyy-mm-dd.
+
+    Returns:
+      A datetime.date object if the input parameter was in the right format,
+      None otherwise.
+    """
+    try:
+      return datetime.datetime.strptime(str, '%Y-%m-%d').date()
+    except ValueError:
+      return None
 
   def StringToInt(self, str):
     """Converts a string in an int.
