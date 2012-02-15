@@ -42,7 +42,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     f1.url = 'some_bad_url'
     f1.put()
     s = RssService()
-    self.assertRaises(Exception, s.Download, f1.key())
+    self.assertRaises(Exception, s.Download, f1.key().id())
 
   def testDispatch(self):
     """Test that RssService dispatches tasks."""
@@ -56,8 +56,8 @@ class RssServiceTests(pymock.PyMockTestCase):
     f2.put()
     taskqueue = self.mock()
     # Set expectations.
-    taskqueue.Download(f1.key())
-    taskqueue.Download(f2.key())
+    taskqueue.Download(f1.key().id())
+    taskqueue.Download(f2.key().id())
     # Run test.
     self.replay()
     s = RssService(taskqueue)
@@ -82,7 +82,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2.put()
 
     s = RssService()
-    s.Download(f1.key())
+    s.Download(f1.key().id())
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
     # Examine first article.
@@ -123,8 +123,8 @@ class RssServiceTests(pymock.PyMockTestCase):
     t2.put()
 
     s = RssService()
-    s.Download(f1.key())
-    s.Download(f1.key())
+    s.Download(f1.key().id())
+    s.Download(f1.key().id())
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
     self.assertEqual(1, len(articles[0].feeds))

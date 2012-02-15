@@ -46,7 +46,7 @@ class DownloadHandler(webapp.RequestHandler):
   def get(self):
     """Handle HTTP Get to download a feed."""
     s = RssService()
-    feed_id = self.request.get('feedId')
+    feed_id = int(self.request.get('feedId'))
     s.Download(feed_id)
     self.response.out.write('Downloaded.')
 

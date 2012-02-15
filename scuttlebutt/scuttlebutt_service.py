@@ -149,6 +149,14 @@ class DailyTopicStatsAggregator(object):
     return result
 
   def _GetRecord(self, date, count):
+    """ Returns a dictionary that matches the expected JSON format.
+    Args:
+      date: The date entry for the record.
+      count: The number of articles for that day.
+
+    Returns:
+      A dictionary for the article count for the date.
+    """
     return {
         'count': count,
         'from': self._BeginningOfDayString(date),
@@ -167,5 +175,6 @@ class DailyTopicStatsAggregator(object):
     return self._Format(datetime.datetime(day.year, day.month, day.day))
 
   def _Format(self, datetime):
+    """Returns datetime in string format."""
     return datetime.strftime('%Y-%m-%dT%H:%M:%S')
 

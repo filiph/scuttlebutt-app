@@ -33,15 +33,17 @@ class RssService(object):
   def Dispatch(self):
     """Creates a download task for each feed in the datastore."""
     for feed in Feed.all():
-      self.taskqueue.Download(feed.key())
+      self.taskqueue.Download(feed.key().id())
 
   def Download(self, feed_id):
     """Creates a download task for each feed in the datastore.
 
     Args:
-      feed_id: str The key for the feed to fetch.
+      feed_id: str The id for the feed to fetch.
     """
-    feed = db.get(feed_id)
+    feed = Feed.get_by_id(feed_id)
+    print feed
+    print feed.url
     feed_content = feedparser.parse(feed.url)
     # Fetch with urlfetch on App Engine and feed it through to feedparser.
     if not feed_content['entries']:
