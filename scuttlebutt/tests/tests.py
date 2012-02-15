@@ -35,15 +35,6 @@ class RssServiceTests(pymock.PyMockTestCase):
     super(RssServiceTests, self).tearDown()
     self.testbed.deactivate()
 
-  def testInvalidFeedUrlRaisesException(self):
-    """Test that the service raises an exception with an invalid feed URL."""
-    f1 = Feed()
-    f1.name = 'Reuters'
-    f1.url = 'some_bad_url'
-    f1.put()
-    s = RssService()
-    self.assertRaises(Exception, s.Download, f1.key().id())
-
   def testDispatch(self):
     """Test that RssService dispatches tasks."""
     f1 = Feed()

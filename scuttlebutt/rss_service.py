@@ -42,27 +42,12 @@ class RssService(object):
       feed_id: str The id for the feed to fetch.
     """
     feed = Feed.get_by_id(feed_id)
-    print feed
-    print feed.url
+    logging.info('Attempting to fetch: %s' % feed.url)
     feed_content = feedparser.parse(feed.url)
-    # Fetch with urlfetch on App Engine and feed it through to feedparser.
-    if not feed_content['entries']:
-      try:
-        fetched_feed = urlfetch.fetch(feed.url)
-        if fetched_feed.status_code is 200:
-          feed_content = feedparser.parse(StringIO(fetched_feed.content))
-          logging.info('Feed content %s' % feed_content['entries'])
-        else:
-          logging.info('Could not fetch feed with name %s and url: %s'
-                       % (feed.name, feed.url))
-      except Exception:
-        msg = 'Error: Feed with name %s has invalid url: %s' % (feed.name,
-                                                                feed.url)
-        logging.info(msg)
-        raise Exception(msg)
-    # For each topic in database, find if any of the downloaded articles match.
+    found_articles = False
     for topic in Topic.all():
       for entry in feed_content['entries']:
+        found_articles = True
         if (self._Match(entry['title'], topic.name) or
             self._Match(entry['summary'], topic.name)):
           # Create a new Article, or update existing one.
@@ -85,6 +70,8 @@ class RssService(object):
           a.updated = datetime.fromtimestamp(mktime(entry['updated_parsed']))
           a.put()
           logging.info('Saved article with title %s.', a.title)
+    if not found_articles:
+      logging.warn('Found no articles!')
 
   def ComputeTopicStats(self, now):
     """Fetch aggregated stats for all topics.
@@ -104,6 +91,7 @@ class RssService(object):
           filter_statement, topic.key(), twenty_four_hours_ago, now).count()
       last_weeks_count = Article.gql(
           filter_statement, topic.key(), two_weeks_ago, a_week_ago).count()
+
       if last_weeks_count is 0:
         topic.weekOnWeekChange = None
         if topic.countPastSevenDays is 0:
