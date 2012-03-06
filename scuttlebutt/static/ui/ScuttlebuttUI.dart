@@ -311,7 +311,7 @@ class BarChart {
         if (request.status == 404) {
         window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
         print("Trying to load mock data.");
-        fetchData(id, thenCall:this.populateChart, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_mock.json");
+        fetchData(id, thenCall:this.populateChart, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json");
         } else {
         //data[id] = JSON.parse(request.responseText);
         topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
@@ -665,8 +665,8 @@ class ScuttlebuttUi {
     if (url.contains("/api/topics")) {
       this.listTopics(pushState:false);
       return;
-    } else if (url.contains("/api/get_articles")) {
-      RegExp exp = const RegExp(@"topic_id=([0-9]+)");
+    } else if (url.contains("/api/articles")) {
+      RegExp exp = const RegExp(@"articles/([0-9]+)");
       Match match = exp.firstMatch(url);
       int id = Math.parseInt(match.group(1));
       this.listArticles(id, pushState:false);
@@ -697,11 +697,11 @@ class ScuttlebuttUi {
    */
   void listArticles(int id, [bool pushState=true]) {
     if (pushState) {
-      Map state = {"url" : "#/api/get_articles?topic_id=$id"};
+      Map state = {"url" : "#/api/articles/$id"};
       window.history.pushState(
           JSON.stringify(state), 
           "Articles", 
-          "#/api/get_articles?topic_id=$id"
+          "#/api/articles/$id"
           );
     }
 
@@ -774,6 +774,9 @@ class ScuttlebuttUi {
     }
   }
 
+  /**
+    Returns a date object given any number of (even invalid) date strings.
+    */
   static Date dateFromString(String str) {
     if (str.length == 19) // format "2011-12-26T00:00:00" - needs to add Z
       return new Date.fromString("${str}Z");   // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.

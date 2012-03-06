@@ -70089,7 +70089,7 @@ function unnamed6fbae6$BarChart$Dart$fetchData$c0$27_27$Hoisted(dartc_scp$0, dar
   if (EQ$operator(dartc_scp$1.request.status$getter(), 404)) {
     htmld071c1$window$getter().console$getter().error$named(1, $noargs, 'TOFIX: Could not retrieve ' + $toString(dartc_scp$1.url) + '. Maybe stats are not implemented yet?');
     print$getter()(1, $noargs, 'Trying to load mock data.');
-    this.fetchData$member(dartc_scp$0.id, this.populateChart$getter(), 'https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_mock.json');
+    this.fetchData$member(dartc_scp$0.id, this.populateChart$getter(), 'https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json');
   }
    else {
     this.topicStatsCache$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = unnamed6fbae6$TopicStats$Dart.TopicStats$$Factory(jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter()))) , tmp$0;
@@ -70903,8 +70903,8 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$member = function(url){
     return;
   }
    else {
-    if (url.contains$named(1, $noargs, '/api/get_articles')) {
-      var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('topic_id=([0-9]+)', false, false));
+    if (url.contains$named(1, $noargs, '/api/articles')) {
+      var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('articles/([0-9]+)', false, false));
       var match = exp.firstMatch$named(1, $noargs, url);
       var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
       this.listArticles$named(1, {$p_pushState:false, count:1}, id);
@@ -70955,8 +70955,8 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listTopics$named = function($n, $o, p
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$member = function(id, pushState){
   var tmp$1, tmp$2, tmp$0;
   if (pushState) {
-    var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/get_articles?topic_id=' + $toString(id) + '') , tmp$0);
-    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Articles', '#/api/get_articles?topic_id=' + $toString(id) + '');
+    var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/articles/' + $toString(id) + '') , tmp$0);
+    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Articles', '#/api/articles/' + $toString(id) + '');
   }
   this.topicsUi$getter().visibility$setter(tmp$1 = false) , tmp$1;
   this.articlesUi$getter().show$named(1, $noargs, id);
