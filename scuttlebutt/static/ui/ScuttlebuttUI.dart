@@ -432,7 +432,7 @@ offset:this.currentOffset);
 
   void set visibility(bool value) {
     if (value == true) {
-      this._articlesDivElement.style.display = "block";
+      this._articlesDivElement.style.display = "table";
     } else {
       this._articlesDivElement.style.display = "none";
     }
@@ -506,6 +506,7 @@ class TopicsUi {
   ButtonElement _addButton;
   TableRowElement _addRow;
   InputElement _nameInput;
+  SpanElement _addStatus;
 
   TopicsUi([String tableSelector]) {
     if (tableSelector != null)
@@ -545,11 +546,43 @@ class TopicsUi {
         _addRow.remove();
         _addRow = null;
       });
+      // create status text field
+      _addStatus = new Element.tag("span");
+      _addStatus.classes.add("info");
+      buttonCell.elements.add(_addStatus);
     }
   }
   
   void postNew(Event e) {
     print("Posting new record.");
+    String url = "/api/topics";
+    if (DEBUG)
+      url = "/api/post_topics_mock.json";
+    XMLHttpRequest request = new XMLHttpRequest();
+    request.open(DEBUG ? "GET" : "POST", url, true);
+
+    request.on.load.add((event) {
+        if (request.status != 200) {
+          window.console.error("Server returned status code ${request.status} (${request.statusText}). Cannot add new record.");
+          if (_addStatus != null) {
+            _addStatus.text = "SERVER ERROR (${request.status}): Could not add.";
+            _addStatus.classes.add("yellow");
+          }
+          return;
+        }
+        if (DEBUG) {
+          //Map<String,Dynamic> data = JSON.parse(request.responseText);
+          //window.console.info(data);
+          window.console.info(request);
+        }
+        _addRow.remove();
+        refresh();
+    });
+    
+    Map<String,Dynamic> sendData = {
+        "name": _nameInput.value
+    };
+    request.send(JSON.stringify(sendData));
   }
 
   String getURL() {
@@ -604,7 +637,7 @@ class TopicsUi {
 
   void set visibility(bool value) {
     if (value == true) {
-      this.outputTable.tableElement.style.display = "block";
+      this.outputTable.tableElement.style.display = "table";
     } else {
       this.outputTable.tableElement.style.display = "none";
     }

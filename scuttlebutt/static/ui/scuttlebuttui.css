@@ -85,9 +85,6 @@ button {
 	text-transform: uppercase;
 }
 
-table.output-table button {
-  padding: 2px 7px;
-}
 
 /* @end */
 
@@ -179,6 +176,20 @@ table.output-table th:not(:first-child) {
 }
 
 /* @end */
+
+table.output-table button {
+  padding: 2px 7px;
+}
+
+table.output-table span.info {
+  font-size: 0.8em;
+  padding: 2px 7px;
+  margin-left: 10px;
+}
+
+span.yellow {
+  background:yellow;
+}
 
 div#topics-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
