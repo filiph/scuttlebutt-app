@@ -85,6 +85,10 @@ button {
 	text-transform: uppercase;
 }
 
+table.output-table button {
+  padding: 2px 7px;
+}
+
 /* @end */
 
 /* @group BarChart */

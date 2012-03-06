@@ -7015,6 +7015,13 @@ function native__AudioParamWrappingImplementation__set_value(_this, value) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__BiquadFilterNodeWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__CSSFontFaceRuleWrappingImplementation__get_style(_this) {
   try {
     return __dom_wrap(_this.$dom.style);
@@ -7470,6 +7477,13 @@ function native__DOMWindowWrappingImplementation__addEventListener_DOMWindow_2(_
     throw __dom_wrap_exception(e);
   }
 }
+function native__DOMWindowWrappingImplementation__focus(_this) {
+  try {
+    return __dom_wrap(_this.$dom.focus());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__DOMWindowWrappingImplementation__open(_this, url, name) {
   try {
     return __dom_wrap(_this.$dom.open(__dom_unwrap(url), __dom_unwrap(name)));
@@ -7627,6 +7641,13 @@ function native__ElementWrappingImplementation__get_lastElementChild(_this) {
 function native__ElementWrappingImplementation__get_style(_this) {
   try {
     return __dom_wrap(_this.$dom.style);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__ElementWrappingImplementation__focus(_this) {
+  try {
+    return __dom_wrap(_this.$dom.focus());
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8009,6 +8030,13 @@ function native__HTMLAnchorElementWrappingImplementation__set_name(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLAnchorElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLAnchorElementWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
@@ -8054,6 +8082,13 @@ function native__HTMLBRElementWrappingImplementation__get_clear(_this) {
 function native__HTMLBaseElementWrappingImplementation__get_href(_this) {
   try {
     return __dom_wrap(_this.$dom.href);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLBodyElementWrappingImplementation__set_text(_this, value) {
+  try {
+    _this.$dom.text = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8212,6 +8247,13 @@ function native__HTMLEmbedElementWrappingImplementation__set_name(_this, value) 
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLEmbedElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLFormElementWrappingImplementation__get_elements(_this) {
   try {
     return __dom_wrap(_this.$dom.elements);
@@ -8331,6 +8373,13 @@ function native__HTMLInputElementWrappingImplementation__get_pattern(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLInputElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLInputElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -8366,6 +8415,13 @@ function native__HTMLKeygenElementWrappingImplementation__set_name(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLLIElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLLIElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -8383,6 +8439,13 @@ function native__HTMLLIElementWrappingImplementation__set_value(_this, value) {
 function native__HTMLLinkElementWrappingImplementation__get_href(_this) {
   try {
     return __dom_wrap(_this.$dom.href);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLLinkElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8450,6 +8513,13 @@ function native__HTMLMeterElementWrappingImplementation__set_value(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLOListElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLObjectElementWrappingImplementation__get_data(_this) {
   try {
     return __dom_wrap(_this.$dom.data);
@@ -8481,6 +8551,20 @@ function native__HTMLObjectElementWrappingImplementation__get_name(_this) {
 function native__HTMLObjectElementWrappingImplementation__set_name(_this, value) {
   try {
     _this.$dom.name = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLObjectElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLOptionElementWrappingImplementation__set_text(_this, value) {
+  try {
+    _this.$dom.text = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8562,6 +8646,13 @@ function native__HTMLParamElementWrappingImplementation__set_name(_this, value) 
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLParamElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLParamElementWrappingImplementation__get_value(_this) {
   try {
     return __dom_wrap(_this.$dom.value);
@@ -8586,6 +8677,20 @@ function native__HTMLProgressElementWrappingImplementation__get_value(_this) {
 function native__HTMLProgressElementWrappingImplementation__set_value(_this, value) {
   try {
     _this.$dom.value = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLScriptElementWrappingImplementation__set_text(_this, value) {
+  try {
+    _this.$dom.text = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLScriptElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8660,9 +8765,51 @@ function native__HTMLSelectElementWrappingImplementation__remove_2(_this, index_
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLSourceElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLStyleElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTableCellElementWrappingImplementation__set_colSpan(_this, value) {
+  try {
+    _this.$dom.colSpan = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLTableCellElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTableElementWrappingImplementation__insertRow(_this, index) {
+  try {
+    return __dom_wrap(_this.$dom.insertRow(__dom_unwrap(index)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTableRowElementWrappingImplementation__insertCell(_this, index) {
+  try {
+    return __dom_wrap(_this.$dom.insertCell(__dom_unwrap(index)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTableSectionElementWrappingImplementation__insertRow(_this, index) {
+  try {
+    return __dom_wrap(_this.$dom.insertRow(__dom_unwrap(index)));
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8691,6 +8838,20 @@ function native__HTMLTextAreaElementWrappingImplementation__get_value(_this) {
 function native__HTMLTextAreaElementWrappingImplementation__set_value(_this, value) {
   try {
     _this.$dom.value = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTitleElementWrappingImplementation__set_text(_this, value) {
+  try {
+    _this.$dom.text = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLUListElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -10284,6 +10445,13 @@ function native__SVGSVGElementWrappingImplementation__get_style_SVGSVGElement(_t
     throw __dom_wrap_exception(e);
   }
 }
+function native__SVGScriptElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__SVGScriptElementWrappingImplementation__get_href(_this) {
   try {
     return __dom_wrap(_this.$dom.href);
@@ -10329,6 +10497,13 @@ function native__SVGStylableWrappingImplementation__get_style(_this) {
 function native__SVGStyleElementWrappingImplementation__set_title(_this, value) {
   try {
     _this.$dom.title = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__SVGStyleElementWrappingImplementation__set_type(_this, value) {
+  try {
+    _this.$dom.type = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -10571,6 +10746,13 @@ function native__TextTrackCueWrappingImplementation__set_id(_this, value) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__TextTrackCueWrappingImplementation__set_text(_this, value) {
+  try {
+    _this.$dom.text = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__TextTrackCueWrappingImplementation__addEventListener(_this, type, listener) {
   try {
     return __dom_wrap(_this.$dom.addEventListener(__dom_unwrap(type), __dom_unwrap(listener)));
@@ -10707,6 +10889,13 @@ function native__TreeWalkerWrappingImplementation__lastChild(_this) {
 function native__TreeWalkerWrappingImplementation__parentNode(_this) {
   try {
     return __dom_wrap(_this.$dom.parentNode());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__UIEventWrappingImplementation__get_charCode(_this) {
+  try {
+    return __dom_wrap(_this.$dom.charCode);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -21604,6 +21793,14 @@ _BiquadFilterNodeWrappingImplementation$Dart.create__BiquadFilterNodeWrappingImp
 function native__BiquadFilterNodeWrappingImplementation_create__BiquadFilterNodeWrappingImplementation(){
   return _BiquadFilterNodeWrappingImplementation$Dart.create__BiquadFilterNodeWrappingImplementation$member();
 }
+_BiquadFilterNodeWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _BiquadFilterNodeWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_BiquadFilterNodeWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__BiquadFilterNodeWrappingImplementation__set_type(_this, value);
+}
+;
 _BiquadFilterNodeWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'BiquadFilterNode';
 }
@@ -24398,6 +24595,29 @@ _DOMWindowWrappingImplementation$Dart._addEventListener_DOMWindow$$member_ = fun
 ;
 _DOMWindowWrappingImplementation$Dart._addEventListener_DOMWindow_2$$member_ = function(receiver, type, listener, useCapture){
   return native__DOMWindowWrappingImplementation__addEventListener_DOMWindow_2(receiver, type, listener, useCapture);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.focus$member = function(){
+  _DOMWindowWrappingImplementation$Dart._focus$$member_(this);
+  return;
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.focus$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _DOMWindowWrappingImplementation$Dart.prototype.focus$member.call(this);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.focus$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.focus$getter = function(){
+  return $bind(_DOMWindowWrappingImplementation$Dart.prototype.focus$named, _DOMWindowWrappingImplementation$Dart.prototype.focus$named_$lookupRTT, this);
+}
+;
+_DOMWindowWrappingImplementation$Dart._focus$$member_ = function(receiver){
+  return native__DOMWindowWrappingImplementation__focus(receiver);
 }
 ;
 _DOMWindowWrappingImplementation$Dart.prototype.open$member = function(url, name_0, options){
@@ -32318,6 +32538,29 @@ _ElementWrappingImplementation$Dart._get_style$$member_ = function(_this){
   return native__ElementWrappingImplementation__get_style(_this);
 }
 ;
+_ElementWrappingImplementation$Dart.prototype.focus$member = function(){
+  _ElementWrappingImplementation$Dart._focus$$member_(this);
+  return;
+}
+;
+_ElementWrappingImplementation$Dart.prototype.focus$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.focus$member.call(this);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.focus$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+_ElementWrappingImplementation$Dart.prototype.focus$getter = function(){
+  return $bind(_ElementWrappingImplementation$Dart.prototype.focus$named, _ElementWrappingImplementation$Dart.prototype.focus$named_$lookupRTT, this);
+}
+;
+_ElementWrappingImplementation$Dart._focus$$member_ = function(receiver){
+  return native__ElementWrappingImplementation__focus(receiver);
+}
+;
 _ElementWrappingImplementation$Dart.prototype.getAttribute$member = function(name_0){
   return _ElementWrappingImplementation$Dart._getAttribute$$member_(this, name_0);
 }
@@ -32756,6 +32999,14 @@ _HTMLAnchorElementWrappingImplementation$Dart._set_name$$member_ = function(_thi
   return native__HTMLAnchorElementWrappingImplementation__set_name(_this, value);
 }
 ;
+_HTMLAnchorElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLAnchorElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLAnchorElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLAnchorElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLAnchorElementWrappingImplementation$Dart.prototype.toString$member = function(){
   return _HTMLAnchorElementWrappingImplementation$Dart._toString$$member_(this);
 }
@@ -33092,6 +33343,14 @@ _HTMLBodyElementWrappingImplementation$Dart.create__HTMLBodyElementWrappingImple
 function native__HTMLBodyElementWrappingImplementation_create__HTMLBodyElementWrappingImplementation(){
   return _HTMLBodyElementWrappingImplementation$Dart.create__HTMLBodyElementWrappingImplementation$member();
 }
+_HTMLBodyElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  _HTMLBodyElementWrappingImplementation$Dart._set_text$$member_(this, value);
+}
+;
+_HTMLBodyElementWrappingImplementation$Dart._set_text$$member_ = function(_this, value){
+  return native__HTMLBodyElementWrappingImplementation__set_text(_this, value);
+}
+;
 _HTMLBodyElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLBodyElement';
 }
@@ -33504,6 +33763,14 @@ _HTMLEmbedElementWrappingImplementation$Dart._get_name$$member_ = function(_this
 ;
 _HTMLEmbedElementWrappingImplementation$Dart._set_name$$member_ = function(_this, value){
   return native__HTMLEmbedElementWrappingImplementation__set_name(_this, value);
+}
+;
+_HTMLEmbedElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLEmbedElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLEmbedElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLEmbedElementWrappingImplementation__set_type(_this, value);
 }
 ;
 _HTMLEmbedElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -34197,6 +34464,14 @@ _HTMLInputElementWrappingImplementation$Dart._get_pattern$$member_ = function(_t
   return native__HTMLInputElementWrappingImplementation__get_pattern(_this);
 }
 ;
+_HTMLInputElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLInputElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLInputElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLInputElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLInputElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLInputElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -34387,6 +34662,14 @@ _HTMLLIElementWrappingImplementation$Dart.create__HTMLLIElementWrappingImplement
 function native__HTMLLIElementWrappingImplementation_create__HTMLLIElementWrappingImplementation(){
   return _HTMLLIElementWrappingImplementation$Dart.create__HTMLLIElementWrappingImplementation$member();
 }
+_HTMLLIElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLLIElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLLIElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLLIElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLLIElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLLIElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -34544,6 +34827,14 @@ _HTMLLinkElementWrappingImplementation$Dart.prototype.href$getter = function(){
 ;
 _HTMLLinkElementWrappingImplementation$Dart._get_href$$member_ = function(_this){
   return native__HTMLLinkElementWrappingImplementation__get_href(_this);
+}
+;
+_HTMLLinkElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLLinkElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLLinkElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLLinkElementWrappingImplementation__set_type(_this, value);
 }
 ;
 _HTMLLinkElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -35042,6 +35333,14 @@ _HTMLOListElementWrappingImplementation$Dart.create__HTMLOListElementWrappingImp
 function native__HTMLOListElementWrappingImplementation_create__HTMLOListElementWrappingImplementation(){
   return _HTMLOListElementWrappingImplementation$Dart.create__HTMLOListElementWrappingImplementation$member();
 }
+_HTMLOListElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLOListElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLOListElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLOListElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLOListElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLOListElement';
 }
@@ -35125,6 +35424,14 @@ _HTMLObjectElementWrappingImplementation$Dart._get_name$$member_ = function(_thi
 ;
 _HTMLObjectElementWrappingImplementation$Dart._set_name$$member_ = function(_this, value){
   return native__HTMLObjectElementWrappingImplementation__set_name(_this, value);
+}
+;
+_HTMLObjectElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLObjectElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLObjectElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLObjectElementWrappingImplementation__set_type(_this, value);
 }
 ;
 _HTMLObjectElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -35218,6 +35525,14 @@ _HTMLOptionElementWrappingImplementation$Dart.create__HTMLOptionElementWrappingI
 function native__HTMLOptionElementWrappingImplementation_create__HTMLOptionElementWrappingImplementation(){
   return _HTMLOptionElementWrappingImplementation$Dart.create__HTMLOptionElementWrappingImplementation$member();
 }
+_HTMLOptionElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  _HTMLOptionElementWrappingImplementation$Dart._set_text$$member_(this, value);
+}
+;
+_HTMLOptionElementWrappingImplementation$Dart._set_text$$member_ = function(_this, value){
+  return native__HTMLOptionElementWrappingImplementation__set_text(_this, value);
+}
+;
 _HTMLOptionElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return _HTMLOptionElementWrappingImplementation$Dart._get_value$$member_(this);
 }
@@ -35415,6 +35730,14 @@ _HTMLParamElementWrappingImplementation$Dart._get_name$$member_ = function(_this
 ;
 _HTMLParamElementWrappingImplementation$Dart._set_name$$member_ = function(_this, value){
   return native__HTMLParamElementWrappingImplementation__set_name(_this, value);
+}
+;
+_HTMLParamElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLParamElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLParamElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLParamElementWrappingImplementation__set_type(_this, value);
 }
 ;
 _HTMLParamElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -35629,6 +35952,22 @@ _HTMLScriptElementWrappingImplementation$Dart.create__HTMLScriptElementWrappingI
 function native__HTMLScriptElementWrappingImplementation_create__HTMLScriptElementWrappingImplementation(){
   return _HTMLScriptElementWrappingImplementation$Dart.create__HTMLScriptElementWrappingImplementation$member();
 }
+_HTMLScriptElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  _HTMLScriptElementWrappingImplementation$Dart._set_text$$member_(this, value);
+}
+;
+_HTMLScriptElementWrappingImplementation$Dart._set_text$$member_ = function(_this, value){
+  return native__HTMLScriptElementWrappingImplementation__set_text(_this, value);
+}
+;
+_HTMLScriptElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLScriptElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLScriptElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLScriptElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLScriptElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLScriptElement';
 }
@@ -35825,6 +36164,14 @@ _HTMLSourceElementWrappingImplementation$Dart.create__HTMLSourceElementWrappingI
 function native__HTMLSourceElementWrappingImplementation_create__HTMLSourceElementWrappingImplementation(){
   return _HTMLSourceElementWrappingImplementation$Dart.create__HTMLSourceElementWrappingImplementation$member();
 }
+_HTMLSourceElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLSourceElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLSourceElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLSourceElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLSourceElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLSourceElement';
 }
@@ -35915,6 +36262,14 @@ _HTMLStyleElementWrappingImplementation$Dart.create__HTMLStyleElementWrappingImp
 function native__HTMLStyleElementWrappingImplementation_create__HTMLStyleElementWrappingImplementation(){
   return _HTMLStyleElementWrappingImplementation$Dart.create__HTMLStyleElementWrappingImplementation$member();
 }
+_HTMLStyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLStyleElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLStyleElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLStyleElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLStyleElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLStyleElement';
 }
@@ -36005,6 +36360,14 @@ _HTMLTableCellElementWrappingImplementation$Dart.create__HTMLTableCellElementWra
 function native__HTMLTableCellElementWrappingImplementation_create__HTMLTableCellElementWrappingImplementation(){
   return _HTMLTableCellElementWrappingImplementation$Dart.create__HTMLTableCellElementWrappingImplementation$member();
 }
+_HTMLTableCellElementWrappingImplementation$Dart.prototype.colSpan$setter = function(value){
+  _HTMLTableCellElementWrappingImplementation$Dart._set_colSpan$$member_(this, value);
+}
+;
+_HTMLTableCellElementWrappingImplementation$Dart._set_colSpan$$member_ = function(_this, value){
+  return native__HTMLTableCellElementWrappingImplementation__set_colSpan(_this, value);
+}
+;
 _HTMLTableCellElementWrappingImplementation$Dart.prototype.height$setter = function(value){
   _HTMLTableCellElementWrappingImplementation$Dart._set_height$$member_(this, value);
 }
@@ -36103,6 +36466,20 @@ _HTMLTableElementWrappingImplementation$Dart.create__HTMLTableElementWrappingImp
 function native__HTMLTableElementWrappingImplementation_create__HTMLTableElementWrappingImplementation(){
   return _HTMLTableElementWrappingImplementation$Dart.create__HTMLTableElementWrappingImplementation$member();
 }
+_HTMLTableElementWrappingImplementation$Dart.prototype.insertRow$member = function(index){
+  return _HTMLTableElementWrappingImplementation$Dart._insertRow$$member_(this, index);
+}
+;
+_HTMLTableElementWrappingImplementation$Dart.prototype.insertRow$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _HTMLTableElementWrappingImplementation$Dart.prototype.insertRow$member.call(this, index);
+}
+;
+_HTMLTableElementWrappingImplementation$Dart._insertRow$$member_ = function(receiver, index){
+  return native__HTMLTableElementWrappingImplementation__insertRow(receiver, index);
+}
+;
 _HTMLTableElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLTableElement';
 }
@@ -36148,6 +36525,20 @@ _HTMLTableRowElementWrappingImplementation$Dart.create__HTMLTableRowElementWrapp
 function native__HTMLTableRowElementWrappingImplementation_create__HTMLTableRowElementWrappingImplementation(){
   return _HTMLTableRowElementWrappingImplementation$Dart.create__HTMLTableRowElementWrappingImplementation$member();
 }
+_HTMLTableRowElementWrappingImplementation$Dart.prototype.insertCell$member = function(index){
+  return _HTMLTableRowElementWrappingImplementation$Dart._insertCell$$member_(this, index);
+}
+;
+_HTMLTableRowElementWrappingImplementation$Dart.prototype.insertCell$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _HTMLTableRowElementWrappingImplementation$Dart.prototype.insertCell$member.call(this, index);
+}
+;
+_HTMLTableRowElementWrappingImplementation$Dart._insertCell$$member_ = function(receiver, index){
+  return native__HTMLTableRowElementWrappingImplementation__insertCell(receiver, index);
+}
+;
 _HTMLTableRowElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLTableRowElement';
 }
@@ -36193,6 +36584,20 @@ _HTMLTableSectionElementWrappingImplementation$Dart.create__HTMLTableSectionElem
 function native__HTMLTableSectionElementWrappingImplementation_create__HTMLTableSectionElementWrappingImplementation(){
   return _HTMLTableSectionElementWrappingImplementation$Dart.create__HTMLTableSectionElementWrappingImplementation$member();
 }
+_HTMLTableSectionElementWrappingImplementation$Dart.prototype.insertRow$member = function(index){
+  return _HTMLTableSectionElementWrappingImplementation$Dart._insertRow$$member_(this, index);
+}
+;
+_HTMLTableSectionElementWrappingImplementation$Dart.prototype.insertRow$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return _HTMLTableSectionElementWrappingImplementation$Dart.prototype.insertRow$member.call(this, index);
+}
+;
+_HTMLTableSectionElementWrappingImplementation$Dart._insertRow$$member_ = function(receiver, index){
+  return native__HTMLTableSectionElementWrappingImplementation__insertRow(receiver, index);
+}
+;
 _HTMLTableSectionElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLTableSectionElement';
 }
@@ -36315,6 +36720,14 @@ _HTMLTitleElementWrappingImplementation$Dart.create__HTMLTitleElementWrappingImp
 function native__HTMLTitleElementWrappingImplementation_create__HTMLTitleElementWrappingImplementation(){
   return _HTMLTitleElementWrappingImplementation$Dart.create__HTMLTitleElementWrappingImplementation$member();
 }
+_HTMLTitleElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  _HTMLTitleElementWrappingImplementation$Dart._set_text$$member_(this, value);
+}
+;
+_HTMLTitleElementWrappingImplementation$Dart._set_text$$member_ = function(_this, value){
+  return native__HTMLTitleElementWrappingImplementation__set_text(_this, value);
+}
+;
 _HTMLTitleElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLTitleElement';
 }
@@ -36405,6 +36818,14 @@ _HTMLUListElementWrappingImplementation$Dart.create__HTMLUListElementWrappingImp
 function native__HTMLUListElementWrappingImplementation_create__HTMLUListElementWrappingImplementation(){
   return _HTMLUListElementWrappingImplementation$Dart.create__HTMLUListElementWrappingImplementation$member();
 }
+_HTMLUListElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _HTMLUListElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_HTMLUListElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__HTMLUListElementWrappingImplementation__set_type(_this, value);
+}
+;
 _HTMLUListElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLUListElement';
 }
@@ -44643,6 +45064,14 @@ _SVGScriptElementWrappingImplementation$Dart.create__SVGScriptElementWrappingImp
 function native__SVGScriptElementWrappingImplementation_create__SVGScriptElementWrappingImplementation(){
   return _SVGScriptElementWrappingImplementation$Dart.create__SVGScriptElementWrappingImplementation$member();
 }
+_SVGScriptElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _SVGScriptElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_SVGScriptElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__SVGScriptElementWrappingImplementation__set_type(_this, value);
+}
+;
 _SVGScriptElementWrappingImplementation$Dart.prototype.href$getter = function(){
   return _SVGScriptElementWrappingImplementation$Dart._get_href$$member_(this);
 }
@@ -44982,6 +45411,14 @@ _SVGStyleElementWrappingImplementation$Dart.prototype.title$setter = function(va
 ;
 _SVGStyleElementWrappingImplementation$Dart._set_title$$member_ = function(_this, value){
   return native__SVGStyleElementWrappingImplementation__set_title(_this, value);
+}
+;
+_SVGStyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  _SVGStyleElementWrappingImplementation$Dart._set_type$$member_(this, value);
+}
+;
+_SVGStyleElementWrappingImplementation$Dart._set_type$$member_ = function(_this, value){
+  return native__SVGStyleElementWrappingImplementation__set_type(_this, value);
 }
 ;
 _SVGStyleElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -47183,6 +47620,14 @@ _TextTrackCueWrappingImplementation$Dart._set_id$$member_ = function(_this, valu
   return native__TextTrackCueWrappingImplementation__set_id(_this, value);
 }
 ;
+_TextTrackCueWrappingImplementation$Dart.prototype.text$setter = function(value){
+  _TextTrackCueWrappingImplementation$Dart._set_text$$member_(this, value);
+}
+;
+_TextTrackCueWrappingImplementation$Dart._set_text$$member_ = function(_this, value){
+  return native__TextTrackCueWrappingImplementation__set_text(_this, value);
+}
+;
 _TextTrackCueWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _TextTrackCueWrappingImplementation$Dart._addEventListener$$member_(this, type, listener);
@@ -48136,6 +48581,14 @@ _UIEventWrappingImplementation$Dart.create__UIEventWrappingImplementation$member
 function native__UIEventWrappingImplementation_create__UIEventWrappingImplementation(){
   return _UIEventWrappingImplementation$Dart.create__UIEventWrappingImplementation$member();
 }
+_UIEventWrappingImplementation$Dart.prototype.charCode$getter = function(){
+  return _UIEventWrappingImplementation$Dart._get_charCode$$member_(this);
+}
+;
+_UIEventWrappingImplementation$Dart._get_charCode$$member_ = function(_this){
+  return native__UIEventWrappingImplementation__get_charCode(_this);
+}
+;
 _UIEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'UIEvent';
 }
@@ -55648,6 +56101,18 @@ htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.error$getter = functio
   return this._get$htmlimpl0a8e4b$$member_('error');
 }
 ;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.focus$named = function(){
+  return this.focus$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.focus$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('focus');
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.keyPress$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('keypress');
+}
+;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.load$named = function(){
   return this.load$getter().apply(this, arguments);
 }
@@ -57474,6 +57939,11 @@ htmlimpl0a8e4b$NodeWrappingImplementation$Dart.prototype.parent$getter = functio
   return htmlimpl0a8e4b$LevelDom$Dart.wrapNode$member(this._ptr$htmlimpl0a8e4b$$getter_().parentNode$getter());
 }
 ;
+htmlimpl0a8e4b$NodeWrappingImplementation$Dart.prototype.text$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().textContent$setter(tmp$0 = value) , tmp$0;
+}
+;
 htmlimpl0a8e4b$NodeWrappingImplementation$Dart.prototype.replaceWith$member = function(otherNode){
   var e_0;
   try {
@@ -57887,6 +58357,23 @@ htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.style$gette
   return htmlimpl0a8e4b$EmptyStyleDeclaration$Dart.EmptyStyleDeclaration$$Factory();
 }
 ;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$member = function(){
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$member.call(this);
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$getter = function(){
+  return $bind(htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$named, htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$named_$lookupRTT, this);
+}
+;
 function htmlimpl0a8e4b$ElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$ElementWrappingImplementation$Dart, htmlimpl0a8e4b$NodeWrappingImplementation$Dart);
@@ -58052,6 +58539,24 @@ htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.contains$named = fun
   return htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.contains$member.call(this, element);
 }
 ;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().focus$named(0, $noargs);
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$member.call(this);
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$getter = function(){
+  return $bind(htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$named, htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.focus$named_$lookupRTT, this);
+}
+;
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.query$member = function(selectors){
   return htmlimpl0a8e4b$LevelDom$Dart.wrapElement$member(this._ptr$htmlimpl0a8e4b$$getter_().querySelector$named(1, $noargs, selectors));
 }
@@ -58126,6 +58631,11 @@ htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.name$getter = 
 htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.name$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().name$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$AnchorElementWrappingImplementation$Dart.prototype.toString$member = function(){
@@ -58568,6 +59078,11 @@ htmlimpl0a8e4b$EmbedElementWrappingImplementation$Dart.prototype.name$setter = f
   this._ptr$htmlimpl0a8e4b$$getter_().name$setter(tmp$0 = value) , tmp$0;
 }
 ;
+htmlimpl0a8e4b$EmbedElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$FieldSetElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$FieldSetElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -58956,6 +59471,11 @@ htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.pattern$getter 
   return this._ptr$htmlimpl0a8e4b$$getter_().pattern$getter();
 }
 ;
+htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.value$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().value$getter();
 }
@@ -59061,6 +59581,11 @@ htmlimpl0a8e4b$LIElementWrappingImplementation$Dart.LIElementWrappingImplementat
   htmlimpl0a8e4b$LIElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$LIElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$LIElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$LIElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -59179,6 +59704,11 @@ htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.LinkElementWrappingImpleme
 ;
 htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.prototype.href$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().href$getter();
+}
+;
+htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 function htmlimpl0a8e4b$MapElementWrappingImplementation$Dart(){
@@ -59555,6 +60085,11 @@ htmlimpl0a8e4b$OListElementWrappingImplementation$Dart.OListElementWrappingImple
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$OListElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -59623,6 +60158,11 @@ htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.OptionElementWrappingImp
   htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().text$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -59764,6 +60304,11 @@ htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.name$getter = f
 htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.name$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().name$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$ParamElementWrappingImplementation$Dart.prototype.value$getter = function(){
@@ -59924,6 +60469,16 @@ htmlimpl0a8e4b$ScriptElementWrappingImplementation$Dart.ScriptElementWrappingImp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$ScriptElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().text$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$ScriptElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60042,6 +60597,11 @@ htmlimpl0a8e4b$SourceElementWrappingImplementation$Dart.SourceElementWrappingImp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$SourceElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$SpanElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$SpanElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60112,6 +60672,11 @@ htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.StyleElementWrappingImple
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$TableCaptionElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TableCaptionElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60180,6 +60745,11 @@ htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart.TableCellElementWrapp
   htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart.prototype.colSpan$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().colSpan$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$TableCellElementWrappingImplementation$Dart.prototype.height$setter = function(value){
@@ -60257,6 +60827,16 @@ htmlimpl0a8e4b$TableElementWrappingImplementation$Dart.TableElementWrappingImple
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$TableElementWrappingImplementation$Dart.prototype.insertRow$member = function(index){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapElement$member(this._ptr$htmlimpl0a8e4b$$getter_().insertRow$named(1, $noargs, index));
+}
+;
+htmlimpl0a8e4b$TableElementWrappingImplementation$Dart.prototype.insertRow$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$TableElementWrappingImplementation$Dart.prototype.insertRow$member.call(this, index);
+}
+;
 function htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60292,6 +60872,16 @@ htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart.TableRowElementWrappin
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart.prototype.insertCell$member = function(index){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapElement$member(this._ptr$htmlimpl0a8e4b$$getter_().insertCell$named(1, $noargs, index));
+}
+;
+htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart.prototype.insertCell$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$TableRowElementWrappingImplementation$Dart.prototype.insertCell$member.call(this, index);
+}
+;
 function htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60325,6 +60915,16 @@ htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart.TableSectionElemen
   htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart.prototype.insertRow$member = function(index){
+  return htmlimpl0a8e4b$LevelDom$Dart.wrapElement$member(this._ptr$htmlimpl0a8e4b$$getter_().insertRow$named(1, $noargs, index));
+}
+;
+htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart.prototype.insertRow$named = function($n, $o, index){
+  if ($o.count || $n != 1)
+    $nsme();
+  return htmlimpl0a8e4b$TableSectionElementWrappingImplementation$Dart.prototype.insertRow$member.call(this, index);
 }
 ;
 function htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart(){
@@ -60415,6 +61015,11 @@ htmlimpl0a8e4b$TitleElementWrappingImplementation$Dart.TitleElementWrappingImple
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$TitleElementWrappingImplementation$Dart.prototype.text$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().text$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$TrackElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TrackElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60483,6 +61088,11 @@ htmlimpl0a8e4b$UListElementWrappingImplementation$Dart.UListElementWrappingImple
   htmlimpl0a8e4b$UListElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$UListElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$UListElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 function htmlimpl0a8e4b$UnknownElementWrappingImplementation$Dart(){
@@ -60772,6 +61382,11 @@ htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.prototype.name$getter = 
 htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.prototype.name$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().name$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$ObjectElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 function htmlimpl0a8e4b$OverflowEventWrappingImplementation$Dart(){
@@ -63737,6 +64352,11 @@ htmlimpl0a8e4b$SVGScriptElementWrappingImplementation$Dart.SVGScriptElementWrapp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$SVGScriptElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
+}
+;
 htmlimpl0a8e4b$SVGScriptElementWrappingImplementation$Dart.prototype.href$getter = function(){
   return htmlimpl0a8e4b$LevelDom$Dart.wrapSVGAnimatedString$member(this._ptr$htmlimpl0a8e4b$$getter_().href$getter());
 }
@@ -63857,6 +64477,11 @@ htmlimpl0a8e4b$SVGStyleElementWrappingImplementation$Dart.SVGStyleElementWrappin
 htmlimpl0a8e4b$SVGStyleElementWrappingImplementation$Dart.prototype.title$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().title$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$SVGStyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().type$setter(tmp$0 = value) , tmp$0;
 }
 ;
 function htmlimpl0a8e4b$SVGSwitchElementWrappingImplementation$Dart(){
@@ -64621,6 +65246,10 @@ htmlimpl0a8e4b$UIEventWrappingImplementation$Dart.UIEventWrappingImplementation$
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$UIEventWrappingImplementation$Dart.prototype.charCode$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().charCode$getter();
+}
+;
 function htmlimpl0a8e4b$SVGZoomEventWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$SVGZoomEventWrappingImplementation$Dart, htmlimpl0a8e4b$UIEventWrappingImplementation$Dart);
@@ -64969,6 +65598,18 @@ htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.error$getter = function
   return this._get$htmlimpl0a8e4b$$member_('error');
 }
 ;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.focus$named = function(){
+  return this.focus$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.focus$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('focus');
+}
+;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.keyPress$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('keypress');
+}
+;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.load$named = function(){
   return this.load$getter().apply(this, arguments);
 }
@@ -65075,6 +65716,24 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.parent$getter = funct
 ;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.status$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().status$getter();
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().focus$named(0, $noargs);
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$member.call(this);
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$getter = function(){
+  return $bind(htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$named, htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$named_$lookupRTT, this);
 }
 ;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.open$member = function(url, target, features){
@@ -70539,17 +71198,23 @@ unnamed6fbae6$TopicsUi$Dart.$lookupRTT = function(typeArgs, named){
   return RTT.create($cls('unnamed6fbae6$TopicsUi$Dart'), null, null, named);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.$Constructor = function(){
+unnamed6fbae6$TopicsUi$Dart.$Constructor = function(tableSelector){
+  var tmp$1, tmp$0;
+  if (NE$operator(tableSelector, $Dart$Null)) {
+    this.outputTable$setter(tmp$0 = unnamed6fbae6$Table$Dart.Table$$Factory(tableSelector)) , tmp$0;
+  }
+  this._addButton$unnamed6fbae6$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, '#add-topic-button')) , tmp$1;
+  this._addButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named, unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named_$lookupRTT, this));
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.$Initializer = function(){
+unnamed6fbae6$TopicsUi$Dart.$Initializer = function(tableSelector){
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory = function(){
+unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory = function(tableSelector){
   var tmp$0 = new unnamed6fbae6$TopicsUi$Dart;
   tmp$0.$typeInfo = unnamed6fbae6$TopicsUi$Dart.$lookupRTT();
-  unnamed6fbae6$TopicsUi$Dart.$Initializer.call(tmp$0);
-  unnamed6fbae6$TopicsUi$Dart.$Constructor.call(tmp$0);
+  unnamed6fbae6$TopicsUi$Dart.$Initializer.call(tmp$0, tableSelector);
+  unnamed6fbae6$TopicsUi$Dart.$Constructor.call(tmp$0, tableSelector);
   return tmp$0;
 }
 ;
@@ -70575,6 +71240,106 @@ unnamed6fbae6$TopicsUi$Dart.prototype.scuttlebuttUi$getter = function(){
 ;
 unnamed6fbae6$TopicsUi$Dart.prototype.scuttlebuttUi$setter = function(tmp$0){
   this.scuttlebuttUi$field = tmp$0;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._addButton$unnamed6fbae6$$getter_ = function(){
+  return this._addButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._addButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._addButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._addRow$unnamed6fbae6$$getter_ = function(){
+  return this._addRow$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._addRow$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._addRow$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._nameInput$unnamed6fbae6$$getter_ = function(){
+  return this._nameInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._nameInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this.postNew$member(ev);
+  }
+}
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted(ev){
+  var tmp$0;
+  this._addRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._addRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+}
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$member = function(e){
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  if (EQ$operator(this.outputTable$getter(), $Dart$Null)) {
+    $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("Couldn't find outputTable."));
+  }
+  if (EQ$operator(this._addRow$unnamed6fbae6$$getter_(), $Dart$Null)) {
+    this._addRow$unnamed6fbae6$$setter_(tmp$0 = this.outputTable$getter().tableElement$getter().insertRow$named(1, $noargs, 1)) , tmp$0;
+    var nameCell = this._addRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 0);
+    this._nameInput$unnamed6fbae6$$setter_(tmp$1 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$1;
+    this._nameInput$unnamed6fbae6$$getter_().type$setter(tmp$2 = 'text') , tmp$2;
+    nameCell.elements$getter().add$named(1, $noargs, this._nameInput$unnamed6fbae6$$getter_());
+    this._nameInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+    this._nameInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named$named_$lookupRTT, this));
+    var buttonCell = this._addRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 1);
+    buttonCell.colSpan$setter(tmp$3 = 3) , tmp$3;
+    var createButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    createButton.text$setter(tmp$4 = 'Create') , tmp$4;
+    buttonCell.elements$getter().add$named(1, $noargs, createButton);
+    createButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named, unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named_$lookupRTT, this));
+    var discardButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    discardButton.text$setter(tmp$5 = 'Discard') , tmp$5;
+    buttonCell.elements$getter().add$named(1, $noargs, discardButton);
+    discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$member.call(this, e);
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.postNew$member = function(e){
+  print$getter()(1, $noargs, 'Posting new record.');
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$TopicsUi$Dart.prototype.postNew$member.call(this, e);
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 ;
 unnamed6fbae6$TopicsUi$Dart.prototype.getURL$member = function(){
@@ -70870,21 +71635,20 @@ function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$look
   return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
-  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$10, tmp$0;
+  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.articlesUi$setter(tmp$0 = unnamed6fbae6$ArticlesUi$Dart.ArticlesUi$$Factory()) , tmp$0;
-  this.topicsUi$setter(tmp$1 = unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory()) , tmp$1;
+  this.topicsUi$setter(tmp$1 = unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory('table#topics-table')) , tmp$1;
   this.articlesUi$getter().scuttlebuttUi$setter(tmp$3 = (this.topicsUi$getter().scuttlebuttUi$setter(tmp$2 = this) , tmp$2)) , tmp$3;
   this.articlesUi$getter().outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#articles-table')) , tmp$4;
-  this.topicsUi$getter().outputTable$setter(tmp$5 = unnamed6fbae6$Table$Dart.Table$$Factory('table#topics-table')) , tmp$5;
-  this._statusMessage$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$6;
-  this._subtitle$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$7;
-  this._homeButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#home-button')) , tmp$8;
-  this._refreshButton$unnamed6fbae6$$setter_(tmp$9 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$9;
+  this._statusMessage$unnamed6fbae6$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$5;
+  this._subtitle$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$6;
+  this._homeButton$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, '#home-button')) , tmp$7;
+  this._refreshButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$8;
   this.statusMessage$member('Dart is now running.');
   this._homeButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
   this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
   var landingUrl = htmld071c1$window$getter().location$getter().href$getter();
-  unnamed6fbae6$DEBUG$setter(tmp$10 = landingUrl.contains$named(1, $noargs, '0.0.0.0')) , tmp$10;
+  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0')) , tmp$9;
   htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
 }
 ;

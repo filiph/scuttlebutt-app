@@ -502,8 +502,54 @@ class TopicsUi {
   Table outputTable;
   List<Topic> topics;
   ScuttlebuttUi scuttlebuttUi;
+  
+  ButtonElement _addButton;
+  TableRowElement _addRow;
+  InputElement _nameInput;
 
-  TopicsUi() {
+  TopicsUi([String tableSelector]) {
+    if (tableSelector != null)
+      outputTable = new Table(tableSelector);
+    _addButton = document.query("#add-topic-button");
+    
+    _addButton.on.click.add(showAddRow);
+  }
+  
+  void showAddRow(Event e) {
+    if (outputTable == null)
+      throw new Exception("Couldn't find outputTable.");
+    if (_addRow == null) {
+      // create the input row (top of table)
+      _addRow = outputTable.tableElement.insertRow(1);
+      // create input cell
+      TableCellElement nameCell = _addRow.insertCell(0);
+      _nameInput = new Element.tag("input");
+      _nameInput.type = "text";
+      nameCell.elements.add(_nameInput);
+      _nameInput.focus();
+      _nameInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed
+          postNew(ev);
+      });
+      // create & discard buttons
+      TableCellElement buttonCell = _addRow.insertCell(1);
+      buttonCell.colSpan = 3;
+      ButtonElement createButton = new Element.tag("button");
+      createButton.text = "Create";
+      buttonCell.elements.add(createButton);
+      createButton.on.click.add(postNew);
+      ButtonElement discardButton = new Element.tag("button");
+      discardButton.text = "Discard";
+      buttonCell.elements.add(discardButton);
+      discardButton.on.click.add((Event ev) {
+        _addRow.remove();
+        _addRow = null;
+      });
+    }
+  }
+  
+  void postNew(Event e) {
+    print("Posting new record.");
   }
 
   String getURL() {
@@ -620,12 +666,12 @@ class ScuttlebuttUi {
   }
 
   void run() {
+    // TODO(filiph): make a superclass to articlesUi and topicsUi
     articlesUi = new ArticlesUi();
-    topicsUi = new TopicsUi();
+    topicsUi = new TopicsUi(tableSelector:"table#topics-table");
     articlesUi.scuttlebuttUi = topicsUi.scuttlebuttUi = this; // give context
 
-    articlesUi.outputTable = new Table("table#articles-table");
-    topicsUi.outputTable = new Table("table#topics-table");
+    articlesUi.outputTable = new Table("table#articles-table"); // TODO: same as topicsUI
 
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
@@ -642,7 +688,7 @@ class ScuttlebuttUi {
         topicsUi.refresh();
         parseUrl();
         });
-
+    
     String landingUrl = window.location.href;
     DEBUG = landingUrl.contains("0.0.0.0");   // if we're running on localhost, flip the DEBUG flag
 
