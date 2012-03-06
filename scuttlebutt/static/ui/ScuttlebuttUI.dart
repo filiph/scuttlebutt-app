@@ -68,58 +68,55 @@ class Table {
 }
 
 /**
- * An class representing one week's worth of statistics for
+ * An class representing one day's worth of statistics for
  * a given TopicStats.
  *
- * I.e.: week 2011-12-26 to 2012-12-26 saw 5 articles about 'Android'...
+ * I.e.: day 2012-12-26 saw 5 articles about 'Android'...
  */ 
-class TopicStatsWeek implements Comparable {
-  Date from;
-  Date to;
+class TopicStatsDay implements Comparable {
+  Date date;
   int count;
   double wowChange;
   // double sentiment;  // not used, but I'm leaving this here for future gen
 
-  TopicStatsWeek(Map<String,Object> jsonData) {
-    if (!jsonData.containsKey("from") || !jsonData.containsKey("to") 
-        || !jsonData.containsKey("count")) {
+  TopicStatsDay(Map<String,Object> jsonData) {
+    if (!jsonData.containsKey("date") || !jsonData.containsKey("count")) {
       throw new Exception("JSON data corrupt. Couldn't find keys.");
     }
     count = jsonData["count"];
-    from = ScuttlebuttUi.dateFromString(jsonData["from"]);
-    to = ScuttlebuttUi.dateFromString(jsonData["to"]);
+    date = ScuttlebuttUi.dateFromString(jsonData["date"]);
   }
 
-  int compareTo(TopicStatsWeek other) {
-    return from.compareTo(other.from);
+  int compareTo(TopicStatsDay other) {
+    return date.compareTo(other.date);
   }
 }
 
 /**
- * An class representing data for a given topic. Includes all the weeks
- * as TopicStatsWeek objects.
+ * An class representing data for a given topic. Includes all the days
+ * as TopicStatsDay objects.
  */ 
 class TopicStats {
-  List<TopicStatsWeek> weeks;
+  List<TopicStatsDay> days;
   int maxCount = 0;
   double avgCount;
 
   TopicStats(List<Map<String,Object>> jsonData) {
-    weeks = new List<TopicStatsWeek>();
+    days = new List<TopicStatsDay>();
     jsonData.forEach((Map<String,Object> jsonRecord) {
-        weeks.add(new TopicStatsWeek(jsonRecord));
+        days.add(new TopicStatsDay(jsonRecord));
         });
-    // sort weeks from most recent to oldest
-    weeks.sort((TopicStatsWeek a, TopicStatsWeek b) => -a.compareTo(b));
+    // sort days from most recent to oldest
+    days.sort((TopicStatsDay a, TopicStatsDay b) => -a.compareTo(b));
     // now we compute WoW changes and MaxCount
     int absCount = 0;
-    for (int i = weeks.length - 1; i >= 0; i--) {
-      TopicStatsWeek curr = weeks[i];
+    for (int i = days.length - 1; i >= 0; i--) {
+      TopicStatsDay curr = days[i];
       maxCount = Math.max(maxCount, curr.count);
       absCount += curr.count;
-      if (i == weeks.length - 1) 
-        continue;  // don't compute WoW change for first available week
-      TopicStatsWeek prev = weeks[i+1];
+      if (i == days.length - 1) 
+        continue;  // don't compute WoW change for first available day
+      TopicStatsDay prev = days[i+1];
       if (prev.count == 0) {
         if (curr.count > 0)
           curr.wowChange = VERY_LARGE_NUMBER + 1.0;
@@ -128,10 +125,10 @@ class TopicStats {
       } else {
         curr.wowChange = (curr.count / prev.count) - 1.0;
       }
-      
-      //print("$i-th week: count = ${curr.count}, change = ${curr.wowChange}");
+
+      //print("$i-th day: count = ${curr.count}, change = ${curr.wowChange}");
     }
-    avgCount = absCount / weeks.length;
+    avgCount = absCount / days.length;
   }
 }
 
@@ -182,7 +179,7 @@ class BarChart {
 
   String getURL(int id) {
     if (DEBUG) {
-      return "/api/get_topic_stats_mock.json";
+      return "/api/get_topic_stats_new_mock.json";
     } else {
       return "/api/topics/$id";
     }
@@ -217,9 +214,9 @@ class BarChart {
       Element div = new Element.tag('div');
 
       int percentage;
-      if (i < topicStats.weeks.length) {
+      if (i < topicStats.days.length) {
         percentage = 
-          (topicStats.weeks[i].count / topicStats.maxCount * 100).toInt();  
+          (topicStats.days[i].count / topicStats.maxCount * 100).toInt();  
         div.classes.add("blue-bar");
         td.classes.add("data-available");
       } else {
@@ -239,22 +236,22 @@ class BarChart {
       td.on.mouseOver.add((MouseEvent e) {
           Element el = e.currentTarget;
           if (el.dataAttributes.containsKey("i")) {
-          int i = Math.parseInt(el.dataAttributes["i"]);
-          
-          if (i > topicStats.weeks.length - 1) {
+          int i_ = Math.parseInt(el.dataAttributes["i"]);
+
+          if (i_ > topicStats.days.length - 1) {
           this.updateContextual(count:"no data");
           } else {
           String countWow;
 
-          if (topicStats.weeks[i].wowChange != null) {
-            if (topicStats.weeks[i].wowChange > VERY_LARGE_NUMBER)
-              countWow = "+&#8734;%";
-            else
-              countWow = "${topicStats.weeks[i].wowChange >= 0.0 ? '+' : '-'}${(topicStats.weeks[i].wowChange.abs() * 100).toInt()}%";  
+          if (topicStats.days[i_].wowChange != null) {
+          if (topicStats.days[i_].wowChange > VERY_LARGE_NUMBER)
+          countWow = "+&#8734;%";
+          else
+          countWow = "${topicStats.days[i_].wowChange >= 0.0 ? '+' : '-'}${(topicStats.days[i_].wowChange.abs() * 100).toInt()}%";  
           }
 
           updateContextual(
-            count:topicStats.weeks[i].count.toString(),
+            count:topicStats.days[i_].count.toString(),
             countWow:countWow
             );
           }
@@ -264,11 +261,11 @@ class BarChart {
       td.on.click.add((MouseEvent e) {
           Element el = e.currentTarget;
           if (el.dataAttributes.containsKey("i")) {
-          int i = Math.parseInt(el.dataAttributes["i"]);
-          if (i < topicStats.weeks.length) {
-          selectedDateRange = i;
-          articlesUi.fromDate = topicStats.weeks[i].from;
-          articlesUi.toDate = topicStats.weeks[i].to;
+          int i_ = Math.parseInt(el.dataAttributes["i"]);
+          if (i_ < topicStats.days.length) {
+          selectedDateRange = i_;
+          articlesUi.fromDate = topicStats.days[i_].date;
+          articlesUi.toDate = topicStats.days[i_].date;
           articlesUi.fetchData(thenCall:articlesUi.populateTable);
           updateDateRange();
           }
@@ -319,7 +316,7 @@ class BarChart {
         //data[id] = JSON.parse(request.responseText);
         topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
 
-        print("${topicStatsCache[id].weeks.length} new stats loaded for the bar chart.");
+        print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
 
         if (thenCall != null) {
         thenCall();
@@ -388,7 +385,7 @@ offset:this.currentOffset);
     if (DEBUG) {
       return "/api/get_articles_mock.json";
     } else {
-      return "/api/get_articles?topic_id=$id&limit=$limit&offset=$offset&min_date=$fromDateIso&max_date=$toDateIso";
+      return "/api/articles/$id/$fromDateIso/$toDateIso/$limit/$offset";
     }
   }
 
@@ -778,7 +775,12 @@ class ScuttlebuttUi {
   }
 
   static Date dateFromString(String str) {
-    return new Date.fromString(str+"Z");  // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.
+    if (str.length == 19) // format "2011-12-26T00:00:00" - needs to add Z
+      return new Date.fromString("${str}Z");   // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.
+    else if (str.length == 10) // format "2012-02-10"
+      return new Date.fromString(str);
+    else
+      return new Date.fromString(str);
   }
 
   static String prettifyDate(String rawDate) {
