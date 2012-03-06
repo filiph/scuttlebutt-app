@@ -189,7 +189,7 @@ table.output-table span.info {
 
 span.yellow {
   background:yellow;
-
+}
 
 div#topics-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
