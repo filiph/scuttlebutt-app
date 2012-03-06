@@ -181,7 +181,7 @@ class BarChart {
     if (DEBUG) {
       return "/api/get_topic_stats_new_mock.json";
     } else {
-      return "/api/topics/$id";
+      return "/api/topic_stats/$id";
     }
   }
 
@@ -380,7 +380,7 @@ offset:this.currentOffset);
   String get fromDateShort() => fromDateIso.substring(0, 10);
   String get toDateShort() => toDateIso.substring(0, 10);
 
-  String getURL(int id, [int limit=null, int offset=0]) {
+  String getURL(int id, [int limit=20, int offset=0]) {
     if (limit == null) limit = ARTICLES_LIMIT;
     if (DEBUG) {
       return "/api/get_articles_mock.json";

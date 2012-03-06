@@ -70620,7 +70620,7 @@ unnamed6fbae6$BarChart$Dart.prototype.getURL$member = function(id){
     return '/api/get_topic_stats_new_mock.json';
   }
    else {
-    return '/api/topics/' + $toString(id) + '';
+    return '/api/topic_stats/' + $toString(id) + '';
   }
 }
 ;
