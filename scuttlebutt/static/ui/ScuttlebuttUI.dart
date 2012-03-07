@@ -156,7 +156,7 @@ class BarChart {
   int currentId;
   int selectedDateRange;
 
-  final int MAX_WEEKS = 102;  // two years
+  final int MAX_DAYS = 90;  // 3 months
 
   BarChart(
       String domQuery,
@@ -179,6 +179,15 @@ class BarChart {
     _articlesSentimentWowElement = document.query(sentimentWowEl);
     articlesFromElement = document.query(fromEl);
     articlesToElement = document.query(toEl);
+    
+    articlesFromElement.on.blur.add((Event ev) {
+      articlesUi.fromDate = ScuttlebuttUi.dateFromString(articlesFromElement.value);
+      articlesUi.fetchData(thenCall:articlesUi.populateTable);
+    });
+    articlesToElement.on.blur.add((Event ev) {
+      articlesUi.toDate = ScuttlebuttUi.dateFromString(articlesToElement.value);
+      articlesUi.fetchData(thenCall:articlesUi.populateTable);
+    });
   }
 
   String getURL(int id) {
@@ -213,7 +222,7 @@ class BarChart {
     if (resetTable) reset();
 
     Element tr = new Element.tag('tr');
-    for (var i = MAX_WEEKS - 1; i >= 0; i--) {
+    for (var i = MAX_DAYS - 1; i >= 0; i--) {
       Element td = new Element.tag('td');
       Element div = new Element.tag('div');
 

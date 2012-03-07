@@ -7492,6 +7492,13 @@ function native__DOMWindowWrappingImplementation__addEventListener_DOMWindow_2(_
     throw __dom_wrap_exception(e);
   }
 }
+function native__DOMWindowWrappingImplementation__blur(_this) {
+  try {
+    return __dom_wrap(_this.$dom.blur());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__DOMWindowWrappingImplementation__focus(_this) {
   try {
     return __dom_wrap(_this.$dom.focus());
@@ -7656,6 +7663,13 @@ function native__ElementWrappingImplementation__get_lastElementChild(_this) {
 function native__ElementWrappingImplementation__get_style(_this) {
   try {
     return __dom_wrap(_this.$dom.style);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__ElementWrappingImplementation__blur(_this) {
+  try {
+    return __dom_wrap(_this.$dom.blur());
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -24634,6 +24648,29 @@ _DOMWindowWrappingImplementation$Dart._addEventListener_DOMWindow_2$$member_ = f
   return native__DOMWindowWrappingImplementation__addEventListener_DOMWindow_2(receiver, type, listener, useCapture);
 }
 ;
+_DOMWindowWrappingImplementation$Dart.prototype.blur$member = function(){
+  _DOMWindowWrappingImplementation$Dart._blur$$member_(this);
+  return;
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.blur$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _DOMWindowWrappingImplementation$Dart.prototype.blur$member.call(this);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.blur$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.blur$getter = function(){
+  return $bind(_DOMWindowWrappingImplementation$Dart.prototype.blur$named, _DOMWindowWrappingImplementation$Dart.prototype.blur$named_$lookupRTT, this);
+}
+;
+_DOMWindowWrappingImplementation$Dart._blur$$member_ = function(receiver){
+  return native__DOMWindowWrappingImplementation__blur(receiver);
+}
+;
 _DOMWindowWrappingImplementation$Dart.prototype.focus$member = function(){
   _DOMWindowWrappingImplementation$Dart._focus$$member_(this);
   return;
@@ -32573,6 +32610,29 @@ _ElementWrappingImplementation$Dart.prototype.style$getter = function(){
 ;
 _ElementWrappingImplementation$Dart._get_style$$member_ = function(_this){
   return native__ElementWrappingImplementation__get_style(_this);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.blur$member = function(){
+  _ElementWrappingImplementation$Dart._blur$$member_(this);
+  return;
+}
+;
+_ElementWrappingImplementation$Dart.prototype.blur$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _ElementWrappingImplementation$Dart.prototype.blur$member.call(this);
+}
+;
+_ElementWrappingImplementation$Dart.prototype.blur$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+_ElementWrappingImplementation$Dart.prototype.blur$getter = function(){
+  return $bind(_ElementWrappingImplementation$Dart.prototype.blur$named, _ElementWrappingImplementation$Dart.prototype.blur$named_$lookupRTT, this);
+}
+;
+_ElementWrappingImplementation$Dart._blur$$member_ = function(receiver){
+  return native__ElementWrappingImplementation__blur(receiver);
 }
 ;
 _ElementWrappingImplementation$Dart.prototype.focus$member = function(){
@@ -56141,6 +56201,14 @@ htmlimpl0a8e4b$ElementEventsImplementation$Dart.ElementEventsImplementation$_wra
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.blur$named = function(){
+  return this.blur$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.blur$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('blur');
+}
+;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.click$named = function(){
   return this.click$getter().apply(this, arguments);
 }
@@ -58413,6 +58481,23 @@ htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.style$gette
   return htmlimpl0a8e4b$EmptyStyleDeclaration$Dart.EmptyStyleDeclaration$$Factory();
 }
 ;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$member = function(){
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$member.call(this);
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$getter = function(){
+  return $bind(htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$named, htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.blur$named_$lookupRTT, this);
+}
+;
 htmlimpl0a8e4b$DocumentFragmentWrappingImplementation$Dart.prototype.focus$member = function(){
 }
 ;
@@ -58583,6 +58668,24 @@ htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.style$getter = funct
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.title$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().title$setter(tmp$0 = value) , tmp$0;
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().blur$named(0, $noargs);
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$member.call(this);
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$getter = function(){
+  return $bind(htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$named, htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.blur$named_$lookupRTT, this);
 }
 ;
 htmlimpl0a8e4b$ElementWrappingImplementation$Dart.prototype.contains$member = function(element){
@@ -65638,6 +65741,14 @@ htmlimpl0a8e4b$WindowEventsImplementation$Dart.WindowEventsImplementation$_wrap$
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.blur$named = function(){
+  return this.blur$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.blur$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('blur');
+}
+;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.click$named = function(){
   return this.click$getter().apply(this, arguments);
 }
@@ -65772,6 +65883,24 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.parent$getter = funct
 ;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.status$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().status$getter();
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().blur$named(0, $noargs);
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$member.call(this);
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$getter = function(){
+  return $bind(htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$named, htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.blur$named_$lookupRTT, this);
 }
 ;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.focus$member = function(){
@@ -70518,6 +70647,32 @@ unnamed6fbae6$BarChart$Dart.$lookupRTT = function(typeArgs, named){
   return RTT.create($cls('unnamed6fbae6$BarChart$Dart'), null, null, named);
 }
 ;
+function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor(ev){
+  var tmp$0;
+  this.articlesUi$getter().fromDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesFromElement$getter().value$getter())) , tmp$0;
+  this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+}
+function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor.call(this, ev);
+}
+function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor(ev){
+  var tmp$0;
+  this.articlesUi$getter().toDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesToElement$getter().value$getter())) , tmp$0;
+  this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+}
+function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor.call(this, ev);
+}
+function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
 unnamed6fbae6$BarChart$Dart.$Constructor = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   var tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.topicStatsCache$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT([int$Dart.$lookupRTT(), unnamed6fbae6$TopicStats$Dart.$lookupRTT()]))) , tmp$0;
@@ -70529,10 +70684,12 @@ unnamed6fbae6$BarChart$Dart.$Constructor = function(domQuery, articlesUi_, count
   this._articlesSentimentWowElement$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, sentimentWowEl)) , tmp$6;
   this.articlesFromElement$setter(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, fromEl)) , tmp$7;
   this.articlesToElement$setter(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, toEl)) , tmp$8;
+  this.articlesFromElement$getter().on$getter().blur$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named, unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named$named_$lookupRTT, this));
+  this.articlesToElement$getter().on$getter().blur$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named, unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT, this));
 }
 ;
 unnamed6fbae6$BarChart$Dart.$Initializer = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
-  this.MAX_WEEKS$field = 102;
+  this.MAX_DAYS$field = 90;
 }
 ;
 unnamed6fbae6$BarChart$Dart.BarChart$$Factory = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
@@ -70619,8 +70776,8 @@ unnamed6fbae6$BarChart$Dart.prototype.selectedDateRange$setter = function(tmp$0)
   this.selectedDateRange$field = tmp$0;
 }
 ;
-unnamed6fbae6$BarChart$Dart.prototype.MAX_WEEKS$getter = function(){
-  return 102;
+unnamed6fbae6$BarChart$Dart.prototype.MAX_DAYS$getter = function(){
+  return 90;
 }
 ;
 unnamed6fbae6$BarChart$Dart.prototype.getURL$member = function(id){
@@ -70724,7 +70881,7 @@ unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, reset
   }
   var tr = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('tr');
   {
-    var i = SUB$operator(this.MAX_WEEKS$getter(), 1);
+    var i = SUB$operator(this.MAX_DAYS$getter(), 1);
     for (; GTE$operator(i, 0); tmp$0 = i , (i = SUB$operator(tmp$0, 1) , tmp$0)) {
       var td = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('td');
       var div = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('div');
