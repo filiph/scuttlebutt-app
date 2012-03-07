@@ -7807,6 +7807,20 @@ function native__EventWrappingImplementation__get_currentTarget(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__EventWrappingImplementation__preventDefault(_this) {
+  try {
+    return __dom_wrap(_this.$dom.preventDefault());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__EventWrappingImplementation__stopPropagation(_this) {
+  try {
+    return __dom_wrap(_this.$dom.stopPropagation());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__EventExceptionWrappingImplementation__get_name(_this) {
   try {
     return __dom_wrap(_this.$dom.name);
@@ -26086,6 +26100,36 @@ _EventWrappingImplementation$Dart.prototype.currentTarget$getter = function(){
 ;
 _EventWrappingImplementation$Dart._get_currentTarget$$member_ = function(_this){
   return native__EventWrappingImplementation__get_currentTarget(_this);
+}
+;
+_EventWrappingImplementation$Dart.prototype.preventDefault$member = function(){
+  _EventWrappingImplementation$Dart._preventDefault$$member_(this);
+  return;
+}
+;
+_EventWrappingImplementation$Dart.prototype.preventDefault$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _EventWrappingImplementation$Dart.prototype.preventDefault$member.call(this);
+}
+;
+_EventWrappingImplementation$Dart._preventDefault$$member_ = function(receiver){
+  return native__EventWrappingImplementation__preventDefault(receiver);
+}
+;
+_EventWrappingImplementation$Dart.prototype.stopPropagation$member = function(){
+  _EventWrappingImplementation$Dart._stopPropagation$$member_(this);
+  return;
+}
+;
+_EventWrappingImplementation$Dart.prototype.stopPropagation$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return _EventWrappingImplementation$Dart.prototype.stopPropagation$member.call(this);
+}
+;
+_EventWrappingImplementation$Dart._stopPropagation$$member_ = function(receiver){
+  return native__EventWrappingImplementation__stopPropagation(receiver);
 }
 ;
 _EventWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -56245,12 +56289,20 @@ htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.load$getter = function
   return this._get$htmlimpl0a8e4b$$member_('load');
 }
 ;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseDown$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mousedown');
+}
+;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseOut$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('mouseout');
 }
 ;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseOver$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('mouseover');
+}
+;
+htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.mouseUp$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseup');
 }
 ;
 htmlimpl0a8e4b$ElementEventsImplementation$Dart.prototype.reset$named = function(){
@@ -56778,6 +56830,28 @@ htmlimpl0a8e4b$EventWrappingImplementation$Dart.EventWrappingImplementation$_wra
 ;
 htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.currentTarget$getter = function(){
   return htmlimpl0a8e4b$LevelDom$Dart.wrapEventTarget$member(this._ptr$htmlimpl0a8e4b$$getter_().currentTarget$getter());
+}
+;
+htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.preventDefault$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().preventDefault$named(0, $noargs);
+  return;
+}
+;
+htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.preventDefault$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.preventDefault$member.call(this);
+}
+;
+htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.stopPropagation$member = function(){
+  this._ptr$htmlimpl0a8e4b$$getter_().stopPropagation$named(0, $noargs);
+  return;
+}
+;
+htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.stopPropagation$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return htmlimpl0a8e4b$EventWrappingImplementation$Dart.prototype.stopPropagation$member.call(this);
 }
 ;
 function htmlimpl0a8e4b$AudioProcessingEventWrappingImplementation$Dart(){
@@ -65785,12 +65859,20 @@ htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.load$getter = function(
   return this._get$htmlimpl0a8e4b$$member_('load');
 }
 ;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseDown$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mousedown');
+}
+;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseOut$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('mouseout');
 }
 ;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseOver$getter = function(){
   return this._get$htmlimpl0a8e4b$$member_('mouseover');
+}
+;
+htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.mouseUp$getter = function(){
+  return this._get$htmlimpl0a8e4b$$member_('mouseup');
 }
 ;
 htmlimpl0a8e4b$WindowEventsImplementation$Dart.prototype.popState$getter = function(){
@@ -70780,8 +70862,20 @@ unnamed6fbae6$BarChart$Dart.prototype.currentId$setter = function(tmp$0){
   this.currentId$field = tmp$0;
 }
 ;
-unnamed6fbae6$BarChart$Dart.prototype.selectedDateRange$setter = function(tmp$0){
-  this.selectedDateRange$field = tmp$0;
+unnamed6fbae6$BarChart$Dart.prototype._startDragI$unnamed6fbae6$$getter_ = function(){
+  return this._startDragI$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$BarChart$Dart.prototype._startDragI$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._startDragI$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$BarChart$Dart.prototype._endDragI$unnamed6fbae6$$getter_ = function(){
+  return this._endDragI$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$BarChart$Dart.prototype._endDragI$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._endDragI$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
 unnamed6fbae6$BarChart$Dart.prototype.MAX_DAYS$getter = function(){
@@ -70815,6 +70909,7 @@ unnamed6fbae6$BarChart$Dart.prototype.show$named = function($n, $o, id){
 }
 ;
 function unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1, e){
+  var tmp$0;
   var el = e.currentTarget$getter();
   if (el.dataAttributes$getter().containsKey$named(1, $noargs, 'i')) {
     var i_ = Math$Dart.parseInt$member(el.dataAttributes$getter().INDEX$operator('i'));
@@ -70830,6 +70925,19 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1,
          else {
           countWow = '' + $toString(GTE$operator(dartc_scp$1.topicStats.days$getter().INDEX$operator(i_).wowChange$getter(), 0)?'+':'-') + '' + $toString(MUL$operator(dartc_scp$1.topicStats.days$getter().INDEX$operator(i_).wowChange$getter().abs$named(0, $noargs), 100).toInt$named(0, $noargs)) + '%';
         }
+        if (NE$operator(this._startDragI$unnamed6fbae6$$getter_(), $Dart$Null)) {
+          var min = Math$Dart.min$member(this._startDragI$unnamed6fbae6$$getter_(), i_);
+          var max = Math$Dart.max$member(this._startDragI$unnamed6fbae6$$getter_(), i_);
+          {
+            var j = 0;
+            for (; LT$operator(j, dartc_scp$1.topicStats.days$getter().length$getter()); tmp$0 = j , (j = ADD$operator(tmp$0, 1) , tmp$0)) {
+              dartc_scp$1.topicStats.days$getter().INDEX$operator(j).td$getter().classes$getter().remove$named(1, $noargs, 'selected');
+              if (GTE$operator(j, min) && LTE$operator(j, max)) {
+                dartc_scp$1.topicStats.days$getter().INDEX$operator(j).td$getter().classes$getter().add$named(1, $noargs, 'selected');
+              }
+            }
+          }
+        }
       }
       this.updateContextual$member(dartc_scp$1.topicStats.days$getter().INDEX$operator(i_).count$getter().toString$named(0, $noargs), countWow, unnamed6fbae6$NOT_AVAILABLE_STRING$getter(), unnamed6fbae6$NOT_AVAILABLE_STRING$getter());
     }
@@ -70844,18 +70952,16 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted$named$named_
   return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 function unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted(dartc_scp$1, e){
-  var tmp$1, tmp$2, tmp$0;
+  var tmp$0;
   var el = e.currentTarget$getter();
   if (el.dataAttributes$getter().containsKey$named(1, $noargs, 'i')) {
     var i_ = Math$Dart.parseInt$member(el.dataAttributes$getter().INDEX$operator('i'));
     if (LT$operator(i_, dartc_scp$1.topicStats.days$getter().length$getter())) {
-      this.selectedDateRange$setter(tmp$0 = i_) , tmp$0;
-      this.articlesUi$getter().fromDate$setter(tmp$1 = dartc_scp$1.topicStats.days$getter().INDEX$operator(i_).date$getter()) , tmp$1;
-      this.articlesUi$getter().toDate$setter(tmp$2 = dartc_scp$1.topicStats.days$getter().INDEX$operator(i_).date$getter()) , tmp$2;
-      this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
-      this.updateDateRange$member();
+      this._startDragI$unnamed6fbae6$$setter_(tmp$0 = i_) , tmp$0;
     }
   }
+  e.stopPropagation$named(0, $noargs);
+  e.preventDefault$named(0, $noargs);
 }
 function unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named($s0, $n, $o, e){
   if ($o.count || $n != 1)
@@ -70865,18 +70971,48 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named($s0, $
 function unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted(e){
+function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted(dartc_scp$1, e){
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var el = e.currentTarget$getter();
+  if (el.dataAttributes$getter().containsKey$named(1, $noargs, 'i')) {
+    var i_ = Math$Dart.parseInt$member(el.dataAttributes$getter().INDEX$operator('i'));
+    if (LT$operator(i_, dartc_scp$1.topicStats.days$getter().length$getter())) {
+      this._endDragI$unnamed6fbae6$$setter_(tmp$0 = i_) , tmp$0;
+      if (EQ$operator(this._startDragI$unnamed6fbae6$$getter_(), $Dart$Null)) {
+        this._startDragI$unnamed6fbae6$$setter_(tmp$1 = i_) , tmp$1;
+      }
+      this.articlesUi$getter().fromDate$setter(tmp$2 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.max$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$2;
+      this.articlesUi$getter().toDate$setter(tmp$3 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.min$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$3;
+      this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+      this.updateDateRange$member();
+      this._startDragI$unnamed6fbae6$$setter_(tmp$5 = (this._endDragI$unnamed6fbae6$$setter_(tmp$4 = $Dart$Null) , tmp$4)) , tmp$5;
+    }
+  }
+  e.stopPropagation$named(0, $noargs);
+  e.preventDefault$named(0, $noargs);
+}
+function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named($s0, $n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted.call(this, $s0, e);
+}
+function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted(e){
+  var tmp$0;
   var el = e.toElement$getter();
   if (!this.tableElement$getter().contains$named(1, $noargs, el)) {
     this.updateContextual$named(0, $noargs);
+    this._startDragI$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
   }
 }
-function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named($n, $o, e){
+function unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted$named($n, $o, e){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted.call(this, e);
+  return unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted.call(this, e);
 }
-function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, resetTable){
@@ -70909,11 +71045,12 @@ unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, reset
       tr.elements$getter().add$named(1, $noargs, td);
       td.dataAttributes$setter(tmp$4 = (tmp$3 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$3.ASSIGN_INDEX$operator('i', i) , tmp$3)) , tmp$4;
       td.on$getter().mouseOver$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
-      td.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+      td.on$getter().mouseDown$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+      td.on$getter().mouseUp$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
     }
   }
   this.tableElement$getter().elements$getter().add$named(1, $noargs, tr);
-  this.tableElement$getter().on$getter().mouseOut$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT, this));
+  this.tableElement$getter().on$getter().mouseOut$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c3$27_27$Hoisted$named$named_$lookupRTT, this));
   this.updateDateRange$member();
   dartc_scp$1 = $Dart$Null;
 }
@@ -71951,7 +72088,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
   this._homeButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
   this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
   var landingUrl = htmld071c1$window$getter().location$getter().href$getter();
-  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0')) , tmp$9;
+  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, 'http://dhcp-172-28-154-53.prh.corp.google.com:8000/')) , tmp$9;
   htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
 }
 ;

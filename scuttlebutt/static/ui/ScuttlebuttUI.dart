@@ -155,7 +155,9 @@ class BarChart {
   Map<int,TopicStats> topicStatsCache;   
 
   int currentId;
-  int selectedDateRange;
+    
+  int _startDragI;
+  int _endDragI;
 
   final int MAX_DAYS = 90;  // 3 months
 
@@ -249,51 +251,81 @@ class BarChart {
       td.dataAttributes = {"i": i};
 
       td.on.mouseOver.add((MouseEvent e) {
-          Element el = e.currentTarget;
-          if (el.dataAttributes.containsKey("i")) {
+        Element el = e.currentTarget;
+        if (el.dataAttributes.containsKey("i")) {
           int i_ = Math.parseInt(el.dataAttributes["i"]);
-
+          
           if (i_ > topicStats.days.length - 1) {
-          this.updateContextual(count:"no data");
+            this.updateContextual(count:"no data");
           } else {
-          String countWow;
-
-          if (topicStats.days[i_].wowChange != null) {
-          if (topicStats.days[i_].wowChange > VERY_LARGE_NUMBER)
-          countWow = "+&#8734;%";
-          else
-          countWow = "${topicStats.days[i_].wowChange >= 0.0 ? '+' : '-'}${(topicStats.days[i_].wowChange.abs() * 100).toInt()}%";  
+            String countWow;
+            
+            if (topicStats.days[i_].wowChange != null) {
+            if (topicStats.days[i_].wowChange > VERY_LARGE_NUMBER)
+              countWow = "+&#8734;%";
+            else
+              countWow = "${topicStats.days[i_].wowChange >= 0.0 ? '+' : '-'}${(topicStats.days[i_].wowChange.abs() * 100).toInt()}%";
+              
+            if (_startDragI != null) {
+              int min = Math.min(_startDragI, i_);
+              int max = Math.max(_startDragI, i_);
+              for (int j=0; j < topicStats.days.length; j++) {
+                topicStats.days[j].td.classes.remove("selected");
+                if (j >= min && j <= max)
+                  topicStats.days[j].td.classes.add("selected");
+              }
+            }
           }
-
+          
           updateContextual(
             count:topicStats.days[i_].count.toString(),
             countWow:countWow
             );
           }
-          }
+        }
       });
 
-      td.on.click.add((MouseEvent e) {
-          Element el = e.currentTarget;
-          if (el.dataAttributes.containsKey("i")) {
+      td.on.mouseDown.add((MouseEvent e) {
+        Element el = e.currentTarget;
+        if (el.dataAttributes.containsKey("i")) {
           int i_ = Math.parseInt(el.dataAttributes["i"]);
           if (i_ < topicStats.days.length) {
-          selectedDateRange = i_;
-          articlesUi.fromDate = topicStats.days[i_].date;
-          articlesUi.toDate = topicStats.days[i_].date;
-          articlesUi.fetchData(thenCall:articlesUi.populateTable);
-          updateDateRange();
+            _startDragI = i_;
           }
-          }
-          });
-    }
-    this.tableElement.elements.add(tr);
-
-    this.tableElement.on.mouseOut.add((MouseEvent e) {
-        Element el = e.toElement;
-        if (!this.tableElement.contains(el)) {
-        this.updateContextual();
         }
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      
+      td.on.mouseUp.add((MouseEvent e) {
+        Element el = e.currentTarget;
+        if (el.dataAttributes.containsKey("i")) {
+          int i_ = Math.parseInt(el.dataAttributes["i"]);
+          if (i_ < topicStats.days.length) {
+            _endDragI = i_;
+            if (_startDragI == null)
+              _startDragI = i_;
+            articlesUi.fromDate = topicStats.days[Math.max(_startDragI, _endDragI)].date;
+            articlesUi.toDate = topicStats.days[Math.min(_startDragI, _endDragI)].date;
+            articlesUi.fetchData(thenCall:articlesUi.populateTable);
+            updateDateRange();
+            _startDragI = _endDragI = null;
+          }
+        }
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    }
+
+    tableElement.elements.add(tr);
+
+    tableElement.on.mouseOut.add((MouseEvent e) {
+        Element el = e.toElement;
+        // check if we're actually mousing out of the table (not just sub-element)
+        if (!this.tableElement.contains(el)) {
+          this.updateContextual();
+          _startDragI = null;
+        }      
     });
     
     updateDateRange();
@@ -755,7 +787,7 @@ class ScuttlebuttUi {
         });
     
     String landingUrl = window.location.href;
-    DEBUG = landingUrl.contains("0.0.0.0");   // if we're running on localhost, flip the DEBUG flag
+    DEBUG = landingUrl.contains("0.0.0.0") || landingUrl.contains("http://dhcp-172-28-154-53.prh.corp.google.com:8000/");   // if we're running on localhost, flip the DEBUG flag
 
     // history magic (getting Back button to work properly)
     window.on.popState.add((var e) {
