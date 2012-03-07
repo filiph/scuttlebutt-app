@@ -823,6 +823,9 @@ function native_NumberImplementation_toDouble() {
 function native_NumberImplementation_toString() {
   return this.toString();
 }
+function native_NumberImplementation_toStringAsFixed(fractionDigits) {
+  return this.toFixed(fractionDigits);
+}
 function native_NumberImplementation_hashCode() {
   "use strict";
   return this & 0xFFFFFFF;
@@ -2022,6 +2025,16 @@ DateImplementation$Dart.prototype.add$named = function($n, $o, duration){
   return DateImplementation$Dart.prototype.add$member.call(this, duration);
 }
 ;
+DateImplementation$Dart.prototype.subtract$member = function(duration){
+  return DateImplementation$Dart.DateImplementation$fromEpoch$18$Factory(SUB$operator(this.value$getter(), duration.inMilliseconds$getter()), this.timeZone$getter());
+}
+;
+DateImplementation$Dart.prototype.subtract$named = function($n, $o, duration){
+  if ($o.count || $n != 1)
+    $nsme();
+  return DateImplementation$Dart.prototype.subtract$member.call(this, duration);
+}
+;
 DateImplementation$Dart.prototype.difference$member = function(other){
   return DurationImplementation$Dart.DurationImplementation$$Factory(0, 0, 0, 0, SUB$operator(this.value$getter(), other.value$getter()));
 }
@@ -3049,6 +3062,16 @@ Number.prototype.toString$named = function($n, $o){
   return Number.prototype.toString$member.call(this);
 }
 ;
+Number.prototype.toStringAsFixed$member = function(fractionDigits){
+  return native_NumberImplementation_toStringAsFixed.call(this, fractionDigits);
+}
+;
+Number.prototype.toStringAsFixed$named = function($n, $o, fractionDigits){
+  if ($o.count || $n != 1)
+    $nsme();
+  return Number.prototype.toStringAsFixed$member.call(this, fractionDigits);
+}
+;
 Number.prototype.hashCode$member = function(){
   return native_NumberImplementation_hashCode.call(this);
 }
@@ -3992,21 +4015,6 @@ TimeZoneImplementation$Dart.$addTo = function(target){
 }
 ;
 TimeZoneImplementation$Dart.prototype.$implements$TimeZoneImplementation$Dart = 1;
-TimeZoneImplementation$Dart.utc$Constructor = function(){
-}
-;
-TimeZoneImplementation$Dart.utc$Initializer = function(){
-  this.isUtc$field = true;
-}
-;
-TimeZoneImplementation$Dart.TimeZoneImplementation$utc$22$Factory = function(){
-  var tmp$0 = new TimeZoneImplementation$Dart;
-  tmp$0.$typeInfo = TimeZoneImplementation$Dart.$lookupRTT();
-  TimeZoneImplementation$Dart.utc$Initializer.call(tmp$0);
-  TimeZoneImplementation$Dart.utc$Constructor.call(tmp$0);
-  return tmp$0;
-}
-;
 TimeZoneImplementation$Dart.local$Constructor = function(){
 }
 ;
@@ -70285,7 +70293,7 @@ unnamed6fbae6$Table$Dart.prototype.addData$member = function(data){
     while ($0.hasNext$named(0, $noargs)) {
       var record = $0.next$named(0, $noargs);
       {
-        this.addRow$named(1, $noargs, RTT.setTypeInfo([record.INDEX$operator('title'), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member(record.INDEX$operator('url')), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyDate$member(record.INDEX$operator('updated')), record.containsKey$named(1, $noargs, 'readership')?record.INDEX$operator('readership'):'N/A', record.containsKey$named(1, $noargs, 'sentiment')?record.INDEX$operator('sentiment'):'N/A'], Array.$lookupRTT()));
+        this.addRow$named(1, $noargs, RTT.setTypeInfo([record.INDEX$operator('title'), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member(record.INDEX$operator('url')), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyDate$member(record.INDEX$operator('updated')), record.containsKey$named(1, $noargs, 'readership')?unnamed6fbae6$ScuttlebuttUi$Dart.prettifyInt$member(Math$Dart.parseInt$member(record.INDEX$operator('readership'))):'N/A'], Array.$lookupRTT()));
       }
     }
   }
@@ -71034,7 +71042,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.show$member = function(id){
   var tmp$5, tmp$6, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.currentId$setter(tmp$0 = id) , tmp$0;
   this.currentOffset$setter(tmp$1 = 0) , tmp$1;
-  this.fromDate$setter(tmp$2 = DateImplementation$Dart.DateImplementation$fromEpoch$18$Factory(0, TimeZoneImplementation$Dart.TimeZoneImplementation$utc$22$Factory())) , tmp$2;
+  this.fromDate$setter(tmp$2 = DateImplementation$Dart.DateImplementation$now$18$Factory().subtract$named(1, $noargs, DurationImplementation$Dart.DurationImplementation$$Factory(7, 0, 0, 0, 0))) , tmp$2;
   this.toDate$setter(tmp$3 = DateImplementation$Dart.DateImplementation$now$18$Factory()) , tmp$3;
   this.barChart$getter().articlesFromElement$getter().value$setter(tmp$4 = this.fromDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$4;
   this.barChart$getter().articlesToElement$getter().value$setter(tmp$5 = this.toDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$5;
@@ -71066,7 +71074,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$member = function(id_, res
   }
    else {
     if (resetTable) {
-      this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo(['No data', '', '', '', ''], Array.$lookupRTT()));
+      this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo(['No articles', '', '', ''], Array.$lookupRTT()));
     }
   }
   this.visibility$setter(tmp$1 = true) , tmp$1;
@@ -71963,6 +71971,18 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prettifyDate$member = function(rawDate){
     }
   }
   return '' + $toString(dateStr) + '<br/>(<strong>' + $toString(diffStr) + '<\/strong>)';
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prettifyInt$member = function(i){
+  if (GTE$operator(i, 1000000)) {
+    return '<strong>' + $toString(DIV$operator(i, 1000000).toStringAsFixed$named(1, $noargs, 1)) + '<\/strong> M';
+  }
+  if (GTE$operator(i, 1000)) {
+    var kilos = DIV$operator(i, 1000).round$named(0, $noargs);
+    return '<strong>' + $toString(kilos.toStringAsFixed$named(1, $noargs, 0)) + '<\/strong> K';
+  }
+  i = SUB$operator(i, MOD$operator(i, 10));
+  return i.toString$named(0, $noargs);
 }
 ;
 function unnamed6fbae6$DEBUG$getter(){

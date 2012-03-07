@@ -48,8 +48,9 @@ class Table {
           record['title'],
           ScuttlebuttUi.prettifyUrl(record['url']),
           ScuttlebuttUi.prettifyDate(record['updated']),
-          record.containsKey("readership") ? record["readership"] : "N/A",
-          record.containsKey("sentiment") ? record["sentiment"] : "N/A"
+          record.containsKey("readership") ? 
+              ScuttlebuttUi.prettifyInt(Math.parseInt(record["readership"])) 
+              : "N/A"
           ]
           );
     }
@@ -399,7 +400,8 @@ class ArticlesUi {
     currentId = id;
     this.currentOffset = 0;
 
-    this.fromDate = new Date.fromEpoch(0, new TimeZone.utc());
+    //previously: new Date.fromEpoch(0, new TimeZone.utc());
+    this.fromDate = new Date.now().subtract(new Duration(days:7));
     this.toDate = new Date.now();
 
     this.barChart.articlesFromElement.value = this.fromDate.toString().substring(0, 10);
@@ -428,7 +430,7 @@ class ArticlesUi {
       this.outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
       _waitingToBeShown = 0;
     } else if (resetTable) {
-      outputTable.addRow(["No data", "", "", "", ""]);
+      outputTable.addRow(["No articles", "", "", ""]);
     }
 
     this.visibility = true;
@@ -891,6 +893,18 @@ class ScuttlebuttUi {
     }
 
     return "$dateStr<br/>(<strong>$diffStr</strong>)";
+  }
+  
+  static String prettifyInt(int i) {
+    if (i >= 1000000) {
+      return "<strong>${(i/1000000).toStringAsFixed(1)}</strong> M";
+    }
+    if (i >= 1000) {
+      double kilos = (i / 1000).round();
+      return "<strong>${kilos.toStringAsFixed(0)}</strong> K";
+    }
+    i = i - (i%10); // don't report 123, report 120 instead
+    return i.toString();
   }
 }
 
