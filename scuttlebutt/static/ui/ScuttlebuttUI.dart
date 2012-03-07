@@ -81,6 +81,7 @@ class TopicStatsDay implements Comparable {
   Date date;
   int count;
   double wowChange;
+  TableCellElement td;
   // double sentiment;  // not used, but I'm leaving this here for future gen
 
   TopicStatsDay(Map<String,Object> jsonData) {
@@ -228,6 +229,7 @@ class BarChart {
 
       int percentage;
       if (i < topicStats.days.length) {
+        topicStats.days[i].td = td;
         percentage = 
           (topicStats.days[i].count / topicStats.maxCount * 100).toInt();  
         div.classes.add("blue-bar");
@@ -292,7 +294,9 @@ class BarChart {
         if (!this.tableElement.contains(el)) {
         this.updateContextual();
         }
-        });
+    });
+    
+    updateDateRange();
   }
 
   void updateContextual([
@@ -306,10 +310,22 @@ class BarChart {
   }
 
   void updateDateRange() {
-    //articlesFromElement.valueAsDate = articlesUi.fromDate;
-    //articlesToElement.valueAsDate = articlesUi.toDate;
     articlesFromElement.value = articlesUi.fromDateShort;
     articlesToElement.value = articlesUi.toDateShort;
+    
+    // show bars as selected
+    TopicStats topicStats = topicStatsCache[currentId];
+    if (topicStats != null && !topicStats.days.isEmpty()) {
+      print("Updating date range: ${articlesUi.fromDate} to ${articlesUi.toDate}");
+      topicStats.days.forEach((TopicStatsDay day) {
+        if (day.td != null) {
+          day.td.classes.remove("selected");
+          if (day.date.difference(articlesUi.fromDate).inDays >= 0
+              && day.date.difference(articlesUi.toDate).inDays <= 0)
+            day.td.classes.add("selected");
+        }
+      });
+    }
   }
 
   /**
@@ -413,9 +429,6 @@ class ArticlesUi {
     this.fromDate = new Date.now().subtract(new Duration(days:7));
     this.toDate = new Date.now();
 
-    this.barChart.articlesFromElement.value = this.fromDate.toString().substring(0, 10);
-    this.barChart.articlesToElement.value = this.toDate.toString().substring(0, 10);
-
     if (data.containsKey(id)) {
       _waitingToBeShown = data[id].length;
       populateTable(id);
@@ -441,8 +454,10 @@ class ArticlesUi {
     } else if (resetTable) {
       outputTable.addRow(["No articles", "", "", ""]);
     }
-
     this.visibility = true;
+    
+    print("Updating barChart");
+    barChart.updateDateRange();
   }
 
   void set visibility(bool value) {

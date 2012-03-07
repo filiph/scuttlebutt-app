@@ -70535,6 +70535,14 @@ unnamed6fbae6$TopicStatsDay$Dart.prototype.wowChange$setter = function(tmp$0){
   this.wowChange$field = tmp$0;
 }
 ;
+unnamed6fbae6$TopicStatsDay$Dart.prototype.td$getter = function(){
+  return this.td$field;
+}
+;
+unnamed6fbae6$TopicStatsDay$Dart.prototype.td$setter = function(tmp$0){
+  this.td$field = tmp$0;
+}
+;
 unnamed6fbae6$TopicStatsDay$Dart.prototype.compareTo$member = function(other){
   return this.date$getter().compareTo$named(1, $noargs, other.date$getter());
 }
@@ -70872,7 +70880,7 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_
   return RTT.createFunction([htmld071c1$MouseEvent$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, resetTable){
-  var dartc_scp$1, tmp$1, tmp$2, tmp$3, tmp$0;
+  var dartc_scp$1, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   dartc_scp$1 = {};
   var id = NE$operator(id_, $Dart$Null)?id_:this.currentId$getter();
   dartc_scp$1.topicStats = this.topicStatsCache$getter().INDEX$operator(id);
@@ -70887,6 +70895,7 @@ unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, reset
       var div = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('div');
       var percentage = $Dart$Null;
       if (LT$operator(i, dartc_scp$1.topicStats.days$getter().length$getter())) {
+        dartc_scp$1.topicStats.days$getter().INDEX$operator(i).td$setter(tmp$1 = td) , tmp$1;
         percentage = MUL$operator(DIV$operator(dartc_scp$1.topicStats.days$getter().INDEX$operator(i).count$getter(), dartc_scp$1.topicStats.maxCount$getter()), 100).toInt$named(0, $noargs);
         div.classes$getter().add$named(1, $noargs, 'blue-bar');
         td.classes$getter().add$named(1, $noargs, 'data-available');
@@ -70895,16 +70904,17 @@ unnamed6fbae6$BarChart$Dart.prototype.populateChart$member = function(id_, reset
         percentage = MUL$operator(DIV$operator(MUL$operator(Math$Dart.random$member(), dartc_scp$1.topicStats.avgCount$getter()), dartc_scp$1.topicStats.maxCount$getter()), 75).toInt$named(0, $noargs);
         div.classes$getter().add$named(1, $noargs, 'gray-bar');
       }
-      div.style$getter().height$setter(tmp$1 = '' + $toString(percentage) + '%') , tmp$1;
+      div.style$getter().height$setter(tmp$2 = '' + $toString(percentage) + '%') , tmp$2;
       td.elements$getter().add$named(1, $noargs, div);
       tr.elements$getter().add$named(1, $noargs, td);
-      td.dataAttributes$setter(tmp$3 = (tmp$2 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$2.ASSIGN_INDEX$operator('i', i) , tmp$2)) , tmp$3;
+      td.dataAttributes$setter(tmp$4 = (tmp$3 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$3.ASSIGN_INDEX$operator('i', i) , tmp$3)) , tmp$4;
       td.on$getter().mouseOver$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
       td.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c1$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
     }
   }
   this.tableElement$getter().elements$getter().add$named(1, $noargs, tr);
   this.tableElement$getter().on$getter().mouseOut$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted$named$named_$lookupRTT, this));
+  this.updateDateRange$member();
   dartc_scp$1 = $Dart$Null;
 }
 ;
@@ -70954,10 +70964,37 @@ unnamed6fbae6$BarChart$Dart.prototype.updateContextual$named = function($n, $o, 
   return unnamed6fbae6$BarChart$Dart.prototype.updateContextual$member.call(this, count, countWow, sentiment, sentimentWow);
 }
 ;
+function unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted(day){
+  if (NE$operator(day.td$getter(), $Dart$Null)) {
+    day.td$getter().classes$getter().remove$named(1, $noargs, 'selected');
+    if (GTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUi$getter().fromDate$getter()).inDays$getter(), 0) && LTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUi$getter().toDate$getter()).inDays$getter(), 0)) {
+      day.td$getter().classes$getter().add$named(1, $noargs, 'selected');
+    }
+  }
+}
+function unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named($n, $o, day){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted.call(this, day);
+}
+function unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([unnamed6fbae6$TopicStatsDay$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
 unnamed6fbae6$BarChart$Dart.prototype.updateDateRange$member = function(){
   var tmp$1, tmp$0;
   this.articlesFromElement$getter().value$setter(tmp$0 = this.articlesUi$getter().fromDateShort$getter()) , tmp$0;
   this.articlesToElement$getter().value$setter(tmp$1 = this.articlesUi$getter().toDateShort$getter()) , tmp$1;
+  var topicStats = this.topicStatsCache$getter().INDEX$operator(this.currentId$getter());
+  if (NE$operator(topicStats, $Dart$Null) && !topicStats.days$getter().isEmpty$named(0, $noargs)) {
+    print$getter()(1, $noargs, 'Updating date range: ' + $toString(this.articlesUi$getter().fromDate$getter()) + ' to ' + $toString(this.articlesUi$getter().toDate$getter()) + '');
+    topicStats.days$getter().forEach$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$BarChart$Dart.prototype.updateDateRange$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$BarChart$Dart.prototype.updateDateRange$member.call(this);
 }
 ;
 function unnamed6fbae6$BarChart$Dart$fetchData$c0$27_27$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
@@ -71196,15 +71233,13 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.getURL$member = function(id, limit, offs
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.prototype.show$member = function(id){
-  var tmp$5, tmp$6, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.currentId$setter(tmp$0 = id) , tmp$0;
   this.currentOffset$setter(tmp$1 = 0) , tmp$1;
   this.fromDate$setter(tmp$2 = DateImplementation$Dart.DateImplementation$now$18$Factory().subtract$named(1, $noargs, DurationImplementation$Dart.DurationImplementation$$Factory(7, 0, 0, 0, 0))) , tmp$2;
   this.toDate$setter(tmp$3 = DateImplementation$Dart.DateImplementation$now$18$Factory()) , tmp$3;
-  this.barChart$getter().articlesFromElement$getter().value$setter(tmp$4 = this.fromDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$4;
-  this.barChart$getter().articlesToElement$getter().value$setter(tmp$5 = this.toDate$getter().toString$named(0, $noargs).substring$named(2, $noargs, 0, 10)) , tmp$5;
   if (this.data$getter().containsKey$named(1, $noargs, id)) {
-    this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$6 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$6;
+    this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$4 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$4;
     this.populateTable$member(id, true);
   }
    else {
@@ -71235,6 +71270,8 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$member = function(id_, res
     }
   }
   this.visibility$setter(tmp$1 = true) , tmp$1;
+  print$getter()(1, $noargs, 'Updating barChart');
+  this.barChart$getter().updateDateRange$named(0, $noargs);
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named = function($n, $o, id_, resetTable){
