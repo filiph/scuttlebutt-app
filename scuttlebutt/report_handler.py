@@ -19,92 +19,33 @@ from model import Topic
 from scuttlebutt_service import ScuttlebuttService
 
 
-class GetArticlesHandler(webapp.RequestHandler):
-  """Handler class for fetching a JSON list of Articles."""
-
-  def get(self):
-    """Handles the HTTP Get for a article fetch call.
-
-       The method requires a topic_id be supplied as a URL parameter.  The
-       min_date and max_date are optional and will return the largest possible
-       date range if left out.
-    """
-    s = ScuttlebuttService()
-    min_date = s.StringToDatetime(self.request.get('min_date'))
-    max_date = s.StringToDatetime(self.request.get('max_date'))
-    limit = s.StringToInt(self.request.get('limit'))
-    offset = s.StringToInt(self.request.get('offset'))
-    CACHE_KEY = 'get_articles_%s_%s_%s_%s' % (min_date, max_date, limit, offset)
-    if not memcache.get(CACHE_KEY):
-      logging.info('Populating cache.')
-      article_list = s.GetArticles(
-          topic_id=int(self.request.get('topic_id')),
-          min_date=min_date,
-          max_date=max_date,
-          limit=limit,
-          offset=offset
-      )
-      memcache.add(CACHE_KEY, simplejson.dumps(article_list), 600)
-    logging.info('Using cache.')
-    self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(memcache.get(CACHE_KEY))
-
-
-class FromToArticlesHandler(webapp.RequestHandler):
-  """Handler class for fetching a JSON list of Articles."""
-
-  def get(self, topic_id, min_date, max_date, limit, offset):
-    """Handles the HTTP Get for a article fetch call.
-
-       The method requires a topic_id be supplied as a URL parameter.  The
-       min_date and max_date are optional and will return the largest possible
-       date range if left out.
-    """
-    s = ScuttlebuttService()
-    topic_id = s.StringToInt(topic_id)
-    min_date = s.StringToDatetime(min_date)
-    max_date = s.StringToDatetime(max_date)
-    limit = s.StringToInt(limit)
-    offset = s.StringToInt(offset)
-    CACHE_KEY = 'get_articles_%s_%s_%s_%s_%s' % (
-        topic_id, min_date, max_date, limit, offset)
-    if not memcache.get(CACHE_KEY):
-      logging.info('Populating cache.')
-      article_list = s.GetArticles(
-          topic_id=topic_id,
-          min_date=min_date,
-          max_date=max_date,
-          limit=limit,
-          offset=offset
-      )
-      memcache.add(CACHE_KEY, simplejson.dumps(article_list), 600)
-    logging.info('Using cache.')
-    self.response.headers['Content-Type'] = 'application/json'
-    self.response.out.write(memcache.get(CACHE_KEY))
-
-
 class ArticlesHandler(webapp.RequestHandler):
   """Handler class for fetching a JSON list of Articles."""
 
-  def get(self, topic_id, date, limit, offset):
+  def get(self, topic_id):
     """Handles the HTTP Get for a article fetch call.
 
        The method requires a topic_id be supplied as a URL parameter.  The
        min_date and max_date are optional and will return the largest possible
        date range if left out.
     """
+    import helpers
     s = ScuttlebuttService()
-    topic_id = s.StringToInt(topic_id)
-    date = s.StringToDate(date)
-    limit = s.StringToInt(limit)
-    offset = s.StringToInt(offset)
-    CACHE_KEY = 'get_articles_%s_%s_%s_%s' % (topic_id, date, limit, offset)
+    topic_id = helpers.StringToInt(topic_id)
+    from_date = helpers.GetDateParam(self.request, 'from', 
+        default=datetime.date.min)
+    to_date = helpers.GetDateParam(self.request, 'to', 
+        default=datetime.date.max)
+    limit = helpers.GetIntParam(self.request, 'limit', default=10000)
+    offset = helpers.GetIntParam(self.request, 'offset', default=0)
+    CACHE_KEY = 'get_articles_%s_%s_%s_%s_%s' % (topic_id, from_date, to_date, 
+        limit, offset)
     if not memcache.get(CACHE_KEY):
       logging.info('Populating cache.')
       article_list = s.GetArticles(
           topic_id=topic_id,
-          min_date=date,
-          max_date=date+datetime.timedelta(days=1),
+          min_date=from_date,
+          max_date=to_date,
           limit=limit,
           offset=offset
       )
@@ -170,9 +111,7 @@ def main():
   """Initiates main application."""
   application = webapp.WSGIApplication([
       ('/report/create_feed', CreateFeedHandler),
-      ('/api/get_articles', GetArticlesHandler),
-      ('/api/articles/(.*)/(.*)/(.*)/(.*)/(.*)/?', FromToArticlesHandler),
-      ('/api/articles/(.*)/(.*)/(.*)/(.*)/?', ArticlesHandler),
+      ('/api/articles/(.*)', ArticlesHandler),
       ('/api/topics', AllTopicsHandler),
       ('/api/topics/(\d+)/?', TopicsHandler),
   ], debug=True)

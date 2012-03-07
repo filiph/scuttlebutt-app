@@ -275,11 +275,15 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.feeds.append(f.key())
     a1.put()
     s = ScuttlebuttService()
-    expected_list = [{"url": "http://reuters.com/5",
-                     "readership": 1200,
-                     "updated": "2012-01-15T00:00:00",
-                     "summary": "Something happened",
-                     "id": 3, "title": "News!"}]
+    expected_list = [{
+        "url": "http://reuters.com/5",
+        "readership": 1200,
+        "updated": "2012-01-15T00:00:00",
+        "summary": "Something happened",
+        "id": 3, 
+        "title": "News!",
+        "source_id": 2,
+    }]
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
@@ -320,11 +324,15 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.put()
     s = ScuttlebuttService()
     # Specify start and end dates, get one article.
-    expected_list = [{"url": "http://reuters.com/1",
-                     "readership": 12000,
-                     "updated": "2012-01-15T00:00:00",
-                     "summary": "Something happened 1",
-                     "id": 3, "title": "News 1!"}]
+    expected_list = [{
+        "url": "http://reuters.com/1",
+        "readership": 12000,
+        "updated": "2012-01-15T00:00:00",
+        "summary": "Something happened 1",
+        "id": 3,
+        "title": "News 1!",
+        "source_id": 2,
+    }]
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
@@ -332,16 +340,23 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     )
     self.assertEqual(expected_list, actual_list)
     # Specify no dates, get all articles.
-    expected_list = [{"url": "http://reuters.com/2",
-                    "readership": 45000,
-                    "updated": "2012-02-01T00:00:00",
-                    "summary": "Something happened 2",
-                    "id": 4, "title": "News 2!"},
-                    {"url": "http://reuters.com/1",
-                    "readership": 12000,
-                    "updated": "2012-01-15T00:00:00",
-                    "summary": "Something happened 1",
-                    "id": 3, "title": "News 1!"}]
+    expected_list = [{
+        "url": "http://reuters.com/2",
+        "readership": 45000,
+        "updated": "2012-02-01T00:00:00",
+        "summary": "Something happened 2",
+        "id": 4,
+        "title": "News 2!",
+        "source_id": 2,
+    },{
+        "url": "http://reuters.com/1",
+        "readership": 12000,
+        "updated": "2012-01-15T00:00:00",
+        "summary": "Something happened 1",
+        "id": 3,
+        "title": "News 1!",
+        "source_id": 2,
+    }]
     actual_list = s.GetArticles(
         topic_id=t.key().id()
     )
@@ -376,11 +391,15 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.topics.append(t.key())
     a2.feeds.append(f.key())
     a2.put()
-    expected_list = [{"url": "http://reuters.com/2",
-                    "readership": 25000000,
-                    "updated": "2012-01-15T00:00:00",
-                    "summary": "Something happened 2",
-                    "id": 4, "title": "News 2!"}]
+    expected_list = [{
+        "url": "http://reuters.com/2",
+        "readership": 25000000,
+        "updated": "2012-01-15T00:00:00",
+        "summary": "Something happened 2",
+        "id": 4,
+        "title": "News 2!",
+        "source_id": 2,
+    }]
     # Specify limit of 1.
     s = ScuttlebuttService()
     actual_list = s.GetArticles(
@@ -422,11 +441,15 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.put()
     s = ScuttlebuttService()
     # Specify start and end dates, get one article.
-    expected_list = [{'url': 'http://reuters.com/1',
-                     'readership': 1200,
-                     'updated': '2012-01-15T00:00:00',
-                     'summary': 'Something happened 1',
-                     'id': 3, 'title': 'News 1!'}]
+    expected_list = [{
+        'url': 'http://reuters.com/1',
+        'readership': 1200,
+        'updated': '2012-01-15T00:00:00',
+        'summary': 'Something happened 1',
+        'id': 3,
+        'title': 'News 1!',
+        'source_id': 2,
+    }]
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
@@ -434,11 +457,15 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     )
     self.assertEqual(expected_list, actual_list)
     # Expect 1 result because of offset.
-    expected_list = [{'url': 'http://reuters.com/1',
-                     'readership': 1200,
-                     'updated': '2012-01-15T00:00:00',
-                     'summary': 'Something happened 1',
-                     'id': 3, 'title': 'News 1!'}]
+    expected_list = [{
+        'url': 'http://reuters.com/1',
+        'readership': 1200,
+        'updated': '2012-01-15T00:00:00',
+        'summary': 'Something happened 1',
+        'id': 3,
+        'title': 'News 1!',
+        'source_id': 2,
+    }]
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         limit=1,
@@ -524,3 +551,72 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         }
     ]
     self.assertEqual(expected, result)
+
+
+class HelpersTests(unittest.TestCase):
+  """Test methods for helpers.py."""
+
+  def testStringToInt(self):
+    import helpers
+    self.assertEqual(123, helpers.StringToInt('123'))
+    self.assertEqual(None, helpers.StringToInt('ABC'))
+
+  def testGetStringParam(self):
+    import helpers
+    m = MockRequest('name', 'Helga')
+    self.assertEqual('Helga', helpers.GetStringParam(m, 'name'))
+    self.assertRaises(Exception, helpers.GetStringParam, (m, 'address'))
+    # Optional parameter that's included.
+    name = helpers.GetStringParam(m, 'name', default="Olga")
+    self.assertEqual('Helga', name)
+    # Optional parameter that's NOT included.
+    gender = helpers.GetStringParam(m, 'gender', default="f")
+    self.assertEqual('f', gender)
+    # Parameter is an empty string
+    m = MockRequest('name', '')
+    name = helpers.GetStringParam(m, 'name')
+    self.assertEqual('', name)
+
+  def testGetDateParam(self):
+    import helpers
+    m = MockRequest('start_date', '2011-07-31')
+    d = datetime.date(2011, 7, 31)
+    self.assertEqual(d, helpers.GetDateParam(m, 'start_date'))
+    m = MockRequest('start_date', '2011.07.31')
+    self.assertRaises(Exception, helpers.GetDateParam, (m, 'start_date'))
+    m = MockRequest('message', 'allyourbasearebelongtous')
+    MAY1 = datetime.date(2011, 5, 1)
+    self.assertEqual(MAY1, helpers.GetDateParam(m, 'start_date', default=MAY1))
+
+  def test_getIntParam(self):
+    import helpers
+    m = MockRequest('id', '231')
+    self.assertEqual(231, helpers.GetIntParam(m, 'id'))
+    m = MockRequest('id', 'I love icecream!')
+    self.assertRaises(Exception, helpers.GetIntParam, (m, 'id'))
+    # Test for optional parameter that's not included (get the default).
+    m = MockRequest('shoesize', '10')
+    twinkies = helpers.GetIntParam(m, 'twinkies', default=50)
+    self.assertEqual(50, twinkies)
+    # Test for optional parameter that is included.
+    m = MockRequest('shoesize', '10')
+    shoesize = helpers.GetIntParam(m, 'shoesize', default=12)
+    self.assertEqual(10, shoesize)
+    m = MockRequest('vertical', '')
+    vertical_id = helpers.GetIntParam(m, 'vertical', default=0)
+    self.assertEqual(0, vertical_id)
+
+
+class MockRequest:
+  def __init__(self, key, value):
+    self.key = key
+    self.value = value
+
+  def get(self, key_looked_for, default=None):
+    if key_looked_for == self.key:
+      return self.value
+    else:
+      if default is not None:
+        return default
+      else:
+        return None

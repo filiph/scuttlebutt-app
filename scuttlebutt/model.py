@@ -61,4 +61,5 @@ class Article(db.Model):
     d['updated'] = self.updated.isoformat()
     d['id'] = int(self.key().id())
     d['readership'] = self.potential_readers
+    d['source_id'] = int(self.feeds[0].id())
     return d
