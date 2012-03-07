@@ -70881,7 +70881,7 @@ function unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named$named_
 }
 function unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor(event_0){
   var tmp$1, tmp$0;
-  tmp$0 = this , (tmp$0.currentOffset$setter(tmp$1 = ADD$operator(tmp$0.currentOffset$getter(), this.ARTICLES_LIMIT$getter())) , tmp$1);
+  tmp$0 = this , (tmp$0.currentOffset$setter(tmp$1 = ADD$operator(tmp$0.currentOffset$getter(), unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter())) , tmp$1);
   this.fetchData$named(1, {$p_thenCall:$bind(unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named, unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named$named_$lookupRTT, this), $p_offset:this.currentOffset$getter(), count:2}, this.currentId$getter());
 }
 function unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor$named($n, $o, event_0){
@@ -70903,7 +70903,6 @@ unnamed6fbae6$ArticlesUi$Dart.$Constructor = function(){
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.$Initializer = function(){
-  this.ARTICLES_LIMIT$field = 20;
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.ArticlesUi$$Factory = function(){
@@ -71002,7 +71001,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype._waitingToBeShown$unnamed6fbae6$$setter_
   this._waitingToBeShown$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.ARTICLES_LIMIT$getter = function(){
+unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter = function(){
   return 20;
 }
 ;
@@ -71023,14 +71022,11 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.toDateShort$getter = function(){
 }
 ;
 unnamed6fbae6$ArticlesUi$Dart.prototype.getURL$member = function(id, limit, offset){
-  if (EQ$operator(limit, $Dart$Null)) {
-    limit = this.ARTICLES_LIMIT$getter();
-  }
   if (unnamed6fbae6$DEBUG$getter()) {
     return '/api/get_articles_mock.json';
   }
    else {
-    return '/api/articles/' + $toString(id) + '/' + $toString(this.fromDateIso$getter()) + '/' + $toString(this.toDateIso$getter()) + '/' + $toString(limit) + '/' + $toString(offset) + '';
+    return '/api/articles/' + $toString(id) + '?from=' + $toString(this.fromDateShort$getter()) + '&to=' + $toString(this.toDateShort$getter()) + '&offset=' + $toString(offset) + '&limit=' + $toString(limit) + '';
   }
 }
 ;
@@ -71047,7 +71043,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.show$member = function(id){
     this.populateTable$member(id, true);
   }
    else {
-    this.fetchData$member(id, $bind(unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named_$lookupRTT, this), $Dart$Null, 0);
+    this.fetchData$member(id, $bind(unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named_$lookupRTT, this), unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter(), 0);
   }
   this.barChart$getter().show$named(1, $noargs, id);
 }
@@ -71067,6 +71063,11 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$member = function(id_, res
   if (GT$operator(this._waitingToBeShown$unnamed6fbae6$$getter_(), 0)) {
     this.outputTable$getter().addData$named(1, $noargs, this.data$getter().INDEX$operator(id).getRange$named(2, $noargs, SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed6fbae6$$getter_()), this._waitingToBeShown$unnamed6fbae6$$getter_()));
     this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$0 = 0) , tmp$0;
+  }
+   else {
+    if (resetTable) {
+      this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo(['No data', '', '', '', ''], Array.$lookupRTT()));
+    }
   }
   this.visibility$setter(tmp$1 = true) , tmp$1;
 }
@@ -71096,7 +71097,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$getter = function(){
 unnamed6fbae6$ArticlesUi$Dart.prototype.visibility$setter = function(value){
   var tmp$1, tmp$0;
   if (EQ$operator(value, true)) {
-    this._articlesDivElement$unnamed6fbae6$$getter_().style$getter().display$setter(tmp$0 = 'table') , tmp$0;
+    this._articlesDivElement$unnamed6fbae6$$getter_().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
   }
    else {
     this._articlesDivElement$unnamed6fbae6$$getter_().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
@@ -71134,6 +71135,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.fetchData$member = function(id, thenCall
     dartc_scp$0.id = this.currentId$getter();
   }
   var url = this.getURL$member(dartc_scp$0.id, limit, dartc_scp$0.offset);
+  print$getter()(1, $noargs, "Sending async request to '" + $toString(url) + "'.");
   dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
   dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
   dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named, unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
@@ -71150,7 +71152,7 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.fetchData$named = function($n, $o, id, t
     case 1:
       thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
     case 2:
-      limit = '$p_limit' in $o?(++seen , $o.$p_limit):(++def , $Dart$Null);
+      limit = '$p_limit' in $o?(++seen , $o.$p_limit):(++def , unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter());
     case 3:
       offset = '$p_offset' in $o?(++seen , $o.$p_offset):(++def , 0);
   }

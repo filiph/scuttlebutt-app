@@ -38,6 +38,9 @@ class Table {
     return tr;
   }
 
+  /**
+    Convenience function that makes a call to addRow given a JSON record.
+    */
   void addData(List<Map<String,String>> data) {
     for (Map<String,String> record in data) {
       this.addRow(
@@ -353,7 +356,7 @@ class ArticlesUi {
   // by populateTable
   int _waitingToBeShown;
 
-  final int ARTICLES_LIMIT = 20;  // articles per page/request
+  static final int ARTICLES_LIMIT = 20;  // articles per page/request
 
   ArticlesUi() {
     data = new Map();
@@ -369,7 +372,7 @@ class ArticlesUi {
           thenCall:() {
           populateTable(this.currentId, resetTable:false);
           },
-offset:this.currentOffset);
+          offset:this.currentOffset);
         });
   }
 
@@ -380,12 +383,11 @@ offset:this.currentOffset);
   String get fromDateShort() => fromDateIso.substring(0, 10);
   String get toDateShort() => toDateIso.substring(0, 10);
 
-  String getURL(int id, [int limit=20, int offset=0]) {
-    if (limit == null) limit = ARTICLES_LIMIT;
+  String getURL(int id, [int limit=ARTICLES_LIMIT, int offset=0]) {
     if (DEBUG) {
       return "/api/get_articles_mock.json";
     } else {
-      return "/api/articles/$id/$fromDateIso/$toDateIso/$limit/$offset";
+      return "/api/articles/$id?from=$fromDateShort&to=$toDateShort&offset=$offset&limit=$limit";
     }
   }
 
@@ -425,6 +427,8 @@ offset:this.currentOffset);
     if (_waitingToBeShown > 0) {
       this.outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
       _waitingToBeShown = 0;
+    } else if (resetTable) {
+      outputTable.addRow(["No data", "", "", "", ""]);
     }
 
     this.visibility = true;
@@ -432,7 +436,7 @@ offset:this.currentOffset);
 
   void set visibility(bool value) {
     if (value == true) {
-      this._articlesDivElement.style.display = "table";
+      this._articlesDivElement.style.display = "block";
     } else {
       this._articlesDivElement.style.display = "none";
     }
@@ -441,27 +445,29 @@ offset:this.currentOffset);
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData([int id=null, Function thenCall=null, int limit=null, int offset=0]) {
+  void fetchData([int id=null, Function thenCall=null, int limit=ARTICLES_LIMIT, int offset=0]) {
     if (id == null) id = this.currentId;
     String url = getURL(id, limit:limit, offset:offset);
+    print("Sending async request to '$url'.");
     XMLHttpRequest request = new XMLHttpRequest();
     request.open("GET", url, true);
 
     request.on.load.add((event) {
         // get rid of all data if starting from beginning
-        if (offset == 0) data[id] = new List();
+        if (offset == 0) 
+          data[id] = new List();
         List responseJson = JSON.parse(request.responseText);
         _waitingToBeShown = responseJson.length;
 
         if (_waitingToBeShown > 0) {
-        data[id].addAll(responseJson);
-        print("${responseJson.length} new articles loaded.");
+          data[id].addAll(responseJson);
+          print("${responseJson.length} new articles loaded.");
         }
 
         if (thenCall != null) {
-        thenCall();
+          thenCall();
         }
-        });
+    });
     request.send();
   }
 
