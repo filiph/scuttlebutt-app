@@ -13,6 +13,32 @@ from model import Topic
 class ScuttlebuttService(object):
   """Class that contains the service layer methods in the application."""
 
+  def CreateTopic(self, topic_dict):
+    """Create a new topic if it does not already exist.
+
+    Args: topic_dict a dictionary representation of the topic to create.
+
+    Returns:
+      A topic object with the datastore assigned ID.
+
+    Raises:
+      Exception if the topic already exists or if the fields in the dictionary do
+      not match fields on the object.
+    """
+    if 'name' not in topic_dict:
+      raise Exception('Topic provided has no "name" field.')
+
+    count = Topic.all().filter('name =', topic_dict['name']).count(2)
+    if count:
+      raise Exception(
+          'Topic with name "%s" already exists.' % topic_dict['name'])
+
+    topic = Topic()
+    topic.name = topic_dict['name']
+    topic.put()
+
+    return topic
+
   def GetArticles(self, topic_id, min_date=None, max_date=None, limit=None,
                   offset=None):
     """Get a list of articles in JSON representation matching the topic.

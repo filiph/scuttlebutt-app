@@ -8,6 +8,7 @@ __author__ = ('momander@google.com (Martin Omander)',
 import datetime
 import logging
 import os
+import helpers
 from google.appengine.api import memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -29,16 +30,15 @@ class ArticlesHandler(webapp.RequestHandler):
        min_date and max_date are optional and will return the largest possible
        date range if left out.
     """
-    import helpers
     s = ScuttlebuttService()
     topic_id = helpers.StringToInt(topic_id)
-    from_date = helpers.GetDateParam(self.request, 'from', 
+    from_date = helpers.GetDateParam(self.request, 'from',
         default=datetime.date.min)
-    to_date = helpers.GetDateParam(self.request, 'to', 
+    to_date = helpers.GetDateParam(self.request, 'to',
         default=datetime.date.max)
     limit = helpers.GetIntParam(self.request, 'limit', default=10000)
     offset = helpers.GetIntParam(self.request, 'offset', default=0)
-    CACHE_KEY = 'get_articles_%s_%s_%s_%s_%s' % (topic_id, from_date, to_date, 
+    CACHE_KEY = 'get_articles_%s_%s_%s_%s_%s' % (topic_id, from_date, to_date,
         limit, offset)
     if not memcache.get(CACHE_KEY):
       logging.info('Populating cache.')
@@ -89,6 +89,19 @@ class AllTopicsHandler(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'application/json'
     self.response.out.write(memcache.get(CACHE_KEY))
 
+  def post(self):
+    """Handles the HTTP Get for creating a topic."""
+    s = ScuttlebuttService()
+    try:
+      topic_dict = simplejson.loads(self.request.body)
+      topic = s.CreateTopic(topic_dict)
+      self.response.headers['Content-Type'] = 'application/json'
+      self.response.out.write(simplejson.dumps(topic.ToDict()))
+    except simplejson.JSONDecodeError:
+      self.response.out.write(
+          'Failed to create topic. Invalid JSON: %s' % self.request.body)
+    except Exception, e:
+      self.response.out.write('Error creating topic: %s' % e)
 
 class TopicsHandler(webapp.RequestHandler):
   """Handler class to return aggregated topic stats per week."""

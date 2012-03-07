@@ -9,6 +9,7 @@ import datetime
 import unittest
 import feedparser
 from google.appengine.ext import testbed
+import helpers
 from model import Article
 from model import Feed
 from model import Topic
@@ -253,6 +254,29 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     """clean up test bed."""
     self.testbed.deactivate()
 
+  def testCreateTopic(self):
+    """Test that we can create a topic."""
+    s = ScuttlebuttService()
+    topic_dict = {u'name': u'My New Interest'}
+    topic = s.CreateTopic(topic_dict)
+    self.assertEqual(1, Topic.all().count())
+    self.assertEqual(topic_dict['name'], topic.name)
+
+  def testCreateAlreadyExistTopic(self):
+    """Test that creating an already existing topic is not permitted."""
+    s = ScuttlebuttService()
+    topic_dict = {u'name': u'My New Interest'}
+    s.CreateTopic(topic_dict)
+    self.assertRaises(Exception, s.CreateTopic, topic_dict)
+    self.assertEqual(1, Topic.all().count(2))
+
+  def testFieldMissingInTopic(self):
+      """Test that creating topic with fields missing throws errors."""
+      s = ScuttlebuttService()
+      topic_dict = {u'unknownField': u'Some unknown field'}
+      self.assertRaises(Exception, s.CreateTopic, topic_dict)
+      self.assertEqual(0, Topic.all().count(1))
+
   def testGetArticles(self):
     """Test that the service returns a list of articles in JSON."""
     JAN1 = datetime.datetime(2012, 1, 1)
@@ -280,7 +304,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         "readership": 1200,
         "updated": "2012-01-15T00:00:00",
         "summary": "Something happened",
-        "id": 3, 
+        "id": 3,
         "title": "News!",
         "source_id": 2,
     }]
@@ -557,12 +581,10 @@ class HelpersTests(unittest.TestCase):
   """Test methods for helpers.py."""
 
   def testStringToInt(self):
-    import helpers
     self.assertEqual(123, helpers.StringToInt('123'))
     self.assertEqual(None, helpers.StringToInt('ABC'))
 
   def testGetStringParam(self):
-    import helpers
     m = MockRequest('name', 'Helga')
     self.assertEqual('Helga', helpers.GetStringParam(m, 'name'))
     self.assertRaises(Exception, helpers.GetStringParam, (m, 'address'))
@@ -578,7 +600,6 @@ class HelpersTests(unittest.TestCase):
     self.assertEqual('', name)
 
   def testGetDateParam(self):
-    import helpers
     m = MockRequest('start_date', '2011-07-31')
     d = datetime.date(2011, 7, 31)
     self.assertEqual(d, helpers.GetDateParam(m, 'start_date'))
@@ -589,7 +610,7 @@ class HelpersTests(unittest.TestCase):
     self.assertEqual(MAY1, helpers.GetDateParam(m, 'start_date', default=MAY1))
 
   def test_getIntParam(self):
-    import helpers
+
     m = MockRequest('id', '231')
     self.assertEqual(231, helpers.GetIntParam(m, 'id'))
     m = MockRequest('id', 'I love icecream!')
