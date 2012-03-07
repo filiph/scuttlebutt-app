@@ -171,6 +171,10 @@ table.output-table th small {
 	font-size: 0.7em;
 }
 
+table.output-table th span.arrow {
+  font-size: 0.7em;
+}
+
 table.output-table th:not(:first-child) {
 	width: 15%;
 }
