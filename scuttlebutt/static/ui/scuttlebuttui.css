@@ -201,6 +201,9 @@ span.yellow {
 
 div#topics-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) td {
 	cursor: pointer;
 }
 
