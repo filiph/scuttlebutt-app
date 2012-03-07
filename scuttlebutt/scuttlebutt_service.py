@@ -6,6 +6,8 @@ __author__ = ('momander@google.com (Martin Omander)',
               'shamjeff@google.com (Jeff Sham)')
 
 import datetime
+import logging
+from google.appengine.api import memcache
 from model import Article
 from model import Topic
 
@@ -36,7 +38,8 @@ class ScuttlebuttService(object):
     topic = Topic()
     topic.name = topic_dict['name']
     topic.put()
-
+    logging.info('Topic with name "%s" was created.' % topic.name)
+    memcache.delete('topics')
     return topic
 
   def GetArticles(self, topic_id, min_date=None, max_date=None, limit=None,
