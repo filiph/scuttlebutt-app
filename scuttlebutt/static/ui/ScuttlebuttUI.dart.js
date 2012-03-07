@@ -72088,7 +72088,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
   this._homeButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
   this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
   var landingUrl = htmld071c1$window$getter().location$getter().href$getter();
-  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, 'http://dhcp-172-28-154-53.prh.corp.google.com:8000/')) , tmp$9;
+  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, '.prh.corp.google.com:8000/')) , tmp$9;
   htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
 }
 ;

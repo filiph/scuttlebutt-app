@@ -787,7 +787,7 @@ class ScuttlebuttUi {
         });
     
     String landingUrl = window.location.href;
-    DEBUG = landingUrl.contains("0.0.0.0") || landingUrl.contains("http://dhcp-172-28-154-53.prh.corp.google.com:8000/");   // if we're running on localhost, flip the DEBUG flag
+    DEBUG = landingUrl.contains("0.0.0.0") || landingUrl.contains(".prh.corp.google.com:8000/");   // if we're running on localhost, flip the DEBUG flag
 
     // history magic (getting Back button to work properly)
     window.on.popState.add((var e) {
