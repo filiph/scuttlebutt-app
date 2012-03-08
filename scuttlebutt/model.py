@@ -57,7 +57,6 @@ class Article(db.Model):
     d = {}
     d['url'] = self.url
     d['title'] = self.title
-    d['summary'] = self.summary
     d['updated'] = self.updated.isoformat()
     d['id'] = int(self.key().id())
     d['readership'] = self.potential_readers
