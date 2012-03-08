@@ -311,16 +311,19 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
-        max_date=JAN31
+        max_date=JAN31,
+        limit=10,
+        offset=0
     )
     self.assertEqual(expected_list, actual_list)
 
   def testMultipleArticles(self):
     """Test that the service returns articles within date range."""
-    JAN1 = datetime.datetime(2012, 1, 1)
-    JAN15 = datetime.datetime(2012, 1, 15)
-    JAN31 = datetime.datetime(2012, 1, 31)
-    FEB1 = datetime.datetime(2012, 2, 1)
+    JAN1 = datetime.date(2012, 1, 1)
+    JAN15_NOON = datetime.datetime(2012, 1, 15, 12)
+    JAN31 = datetime.date(2012, 1, 31)
+    FEB1 = datetime.date(2012, 2, 1)
+    FEB1_NOON = datetime.datetime(2012, 2, 1, 12)
     t = Topic()
     t.name = 'News'
     t.put()
@@ -332,7 +335,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.url = 'http://reuters.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
-    a1.updated = JAN15
+    a1.updated = JAN15_NOON
     a1.potential_readers = 12000
     a1.topics.append(t.key())
     a1.feeds.append(f.key())
@@ -341,17 +344,19 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.url = 'http://reuters.com/2'
     a2.title = 'News 2!'
     a2.summary = 'Something happened 2'
-    a2.updated = FEB1
+    a2.updated = FEB1_NOON
     a2.potential_readers = 45000
     a2.topics.append(t.key())
     a2.feeds.append(f.key())
     a2.put()
     s = ScuttlebuttService()
+    #################################################
     # Specify start and end dates, get one article.
+    #################################################
     expected_list = [{
         "url": "http://reuters.com/1",
         "readership": 12000,
-        "updated": "2012-01-15T00:00:00",
+        "updated": "2012-01-15T12:00:00",
         "id": 3,
         "title": "News 1!",
         "source_id": 2,
@@ -359,27 +364,63 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
-        max_date=JAN31
+        max_date=JAN31,
+        limit=10,
+        offset=0
     )
     self.assertEqual(expected_list, actual_list)
-    # Specify no dates, get all articles.
+    #################################################
+    # Specify end date on the same day as the last article, to check that 
+    # end date is inclusive. Expect both articles.
+    #################################################
     expected_list = [{
         "url": "http://reuters.com/2",
         "readership": 45000,
-        "updated": "2012-02-01T00:00:00",
+        "updated": "2012-02-01T12:00:00",
         "id": 4,
         "title": "News 2!",
         "source_id": 2,
     },{
         "url": "http://reuters.com/1",
         "readership": 12000,
-        "updated": "2012-01-15T00:00:00",
+        "updated": "2012-01-15T12:00:00",
         "id": 3,
         "title": "News 1!",
         "source_id": 2,
     }]
     actual_list = s.GetArticles(
-        topic_id=t.key().id()
+        topic_id=t.key().id(),
+        min_date=JAN1,
+        max_date=FEB1,
+        limit=10,
+        offset=0
+    )
+    self.assertEqual(expected_list, actual_list)
+    #################################################
+    # Specify start and end dates as date.min and date.max, as the handlers
+    # do when they want articles for all time.
+    #################################################
+    expected_list = [{
+        "url": "http://reuters.com/2",
+        "readership": 45000,
+        "updated": "2012-02-01T12:00:00",
+        "id": 4,
+        "title": "News 2!",
+        "source_id": 2,
+    },{
+        "url": "http://reuters.com/1",
+        "readership": 12000,
+        "updated": "2012-01-15T12:00:00",
+        "id": 3,
+        "title": "News 1!",
+        "source_id": 2,
+    }]
+    actual_list = s.GetArticles(
+        topic_id=t.key().id(),
+        min_date=datetime.date.min,
+        max_date=datetime.date.max,
+        limit=10,
+        offset=0
     )
     self.assertEqual(expected_list, actual_list)
 
@@ -387,6 +428,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     """Test that the service limits results."""
     JAN1 = datetime.datetime(2012, 1, 1)
     JAN15 = datetime.datetime(2012, 1, 15)
+    JAN31 = datetime.datetime(2012, 1, 31)
     t = Topic()
     t.name = 'News'
     t.put()
@@ -424,16 +466,19 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     s = ScuttlebuttService()
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
-        limit=1
+        min_date=JAN1,
+        max_date=JAN31,
+        limit=1,
+        offset=0
     )
     self.assertEqual(expected_list, actual_list)
 
   def testArticlesWithOffset(self):
     """Test that the service returns articles shifted by offset."""
-    JAN1 = datetime.datetime(2012, 1, 1)
-    JAN15 = datetime.datetime(2012, 1, 15)
-    JAN31 = datetime.datetime(2012, 1, 31)
-    FEB1 = datetime.datetime(2012, 2, 1)
+    JAN1 = datetime.date(2012, 1, 1)
+    JAN15_NOON = datetime.datetime(2012, 1, 15, 12)
+    JAN16_NOON = datetime.datetime(2012, 1, 16, 12)
+    JAN31 = datetime.date(2012, 1, 31)
     t = Topic()
     t.name = 'News'
     t.put()
@@ -444,8 +489,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1 = Article()
     a1.url = 'http://reuters.com/1'
     a1.title = 'News 1!'
-    a1.summary = 'Something happened 1'
-    a1.updated = JAN15
+    a1.updated = JAN15_NOON
     a1.potential_readers = 1200
     a1.topics.append(t.key())
     a1.feeds.append(f.key())
@@ -453,18 +497,24 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2 = Article()
     a2.url = 'http://reuters.com/2'
     a2.title = 'News 2!'
-    a2.summary = 'Something happened 2'
-    a2.updated = FEB1
+    a2.updated = JAN16_NOON
     a2.potential_readers = 29000
     a2.topics.append(t.key())
     a2.feeds.append(f.key())
     a2.put()
     s = ScuttlebuttService()
-    # Specify start and end dates, get one article.
+    # Specify start and end dates, get both articles.
     expected_list = [{
+        'url': 'http://reuters.com/2',
+        'readership': 29000,
+        'updated': '2012-01-16T12:00:00',
+        'id': 4,
+        'title': 'News 2!',
+        'source_id': 2,
+    },{
         'url': 'http://reuters.com/1',
         'readership': 1200,
-        'updated': '2012-01-15T00:00:00',
+        'updated': '2012-01-15T12:00:00',
         'id': 3,
         'title': 'News 1!',
         'source_id': 2,
@@ -472,20 +522,24 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
         min_date=JAN1,
-        max_date=JAN31
+        max_date=JAN31,
+        limit=10,
+        offset=0
     )
     self.assertEqual(expected_list, actual_list)
     # Expect 1 result because of offset.
     expected_list = [{
         'url': 'http://reuters.com/1',
         'readership': 1200,
-        'updated': '2012-01-15T00:00:00',
+        'updated': '2012-01-15T12:00:00',
         'id': 3,
         'title': 'News 1!',
         'source_id': 2,
     }]
     actual_list = s.GetArticles(
         topic_id=t.key().id(),
+        min_date=JAN1,
+        max_date=JAN31,
         limit=1,
         offset=1
     )

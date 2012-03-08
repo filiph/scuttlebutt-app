@@ -42,8 +42,7 @@ class ScuttlebuttService(object):
     memcache.delete('topics')
     return topic
 
-  def GetArticles(self, topic_id, min_date=None, max_date=None, limit=None,
-                  offset=None):
+  def GetArticles(self, topic_id, min_date, max_date, limit, offset):
     """Get a list of articles in JSON representation matching the topic.
 
     Articles returned from this method contains the given topic and has an
@@ -53,39 +52,32 @@ class ScuttlebuttService(object):
 
     Args:
       topic_id: int The id (human readable) of the topic to get articles for.
-      [optional]
       min_date: datetime The earliest article updated time to include in the
-          list.
-      max_date: datetime The latest article updated time to include in the list.
+          list, inclusive.
+      max_date: datetime The latest article updated time to include in the list,
+          inclusive.
       limit: int The number of results to return.
       offset: int Results returned are shifted by offset.
 
     Returns:
-      A JSON string for the list of articles that has the given topic.
+      A JSON string for the list of articles that has the given topic, sorted
+      by descending readership.
     """
-    my_min_date = min_date
-    if not my_min_date:
-      my_min_date = datetime.datetime.min
-    my_max_date = max_date
-    if not my_max_date:
-      my_max_date = datetime.datetime.max
+    try:
+      max_date = max_date + datetime.timedelta(days=1)
+    except:
+      pass
     topic = Topic.get_by_id(topic_id)
     articles = Article.all()
     articles.filter('topics =', topic.key())
-    articles.filter('updated >=', my_min_date)
-    articles.filter('updated <=', my_max_date)
+    articles.filter('updated >=', min_date)
+    articles.filter('updated <=', max_date)
     articles_list = []
     for article in articles:
       articles_list.append(article.ToDict())
     articles_list = sorted(
         articles_list, key=lambda a: a['readership'], reverse=True)
-    my_offset = 0
-    if offset:
-      my_offset = offset
-    my_limit = len(articles_list)
-    if limit:
-      my_limit = my_offset + limit
-    return articles_list[my_offset : my_limit]
+    return articles_list[offset : offset+limit]
 
   def StringToDatetime(self, str):
     """Converts a string in the format yyyy-mm-ddTHH:MM:SS to datetime.
