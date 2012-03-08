@@ -203,8 +203,7 @@ class DailyTopicStatsAggregator(object):
     """
     return {
         'count': count,
-        'from': self._BeginningOfDayString(date),
-        'to': self._EndOfDayString(date)
+        'date': self._BeginningOfDayString(date)
     }
 
   def _EndOfDayString(self, day):
@@ -220,5 +219,5 @@ class DailyTopicStatsAggregator(object):
 
   def _Format(self, datetime):
     """Returns datetime in string format."""
-    return datetime.strftime('%Y-%m-%dT%H:%M:%S')
+    return datetime.strftime('%Y-%m-%d')
 

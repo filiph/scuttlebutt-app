@@ -551,20 +551,18 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a3.topics.append(t.key())
     a3.put()
     a4 = Article()
-    a4.updated = DEC2_NOON
+    a4.updated = DEC2_3PM
     a4.topics.append(t.key())
     a4.put()
     s = ScuttlebuttService()
     result = s.GetDailyTopicStats(topic_id=t.key().id(), today=DEC2)
     expected = [
         {
-          "from" : "2011-12-02T00:00:00",
-          "to" : "2011-12-02T23:59:59",
+          "date" : "2011-12-02",
           "count" : 2,
         },
         {
-          "from" : "2011-12-01T00:00:00",
-          "to" : "2011-12-01T23:59:59",
+          "date" : "2011-12-01",
           "count" : 2,
         }
     ]
