@@ -98,10 +98,13 @@ class AllTopicsHandler(webapp.RequestHandler):
       self.response.headers['Content-Type'] = 'application/json'
       self.response.out.write(simplejson.dumps(topic.ToDict()))
     except simplejson.JSONDecodeError:
-      self.response.out.write(
-          'Failed to create topic. Invalid JSON: %s' % self.request.body)
+      # HTTP 400 for bad syntax.
+      self.response.set_status(
+          400, 'Failed to create topic. Invalid JSON: %s' % self.request.body)
     except Exception, e:
-      self.response.out.write('Error creating topic: %s' % e)
+      # HTTP 422 for syntactically correct but semantically wrong.
+      self.response.set_status(422, 'Error creating topic: %s' % e)
+
 
 class TopicsHandler(webapp.RequestHandler):
   """Handler class to return aggregated topic stats per week."""
@@ -126,7 +129,7 @@ def main():
       ('/report/create_feed', CreateFeedHandler),
       ('/api/articles/(.*)', ArticlesHandler),
       ('/api/topics', AllTopicsHandler),
-      ('/api/topics/(\d+)/?', TopicsHandler),
+      ('/api/topic_stats/(\d+)/?', TopicsHandler),
   ], debug=True)
   util.run_wsgi_app(application)
 
