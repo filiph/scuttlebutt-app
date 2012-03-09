@@ -7375,6 +7375,13 @@ function native__AudioParamWrappingImplementation__set_value(_this, value) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__BeforeLoadEventWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__BiquadFilterNodeWrappingImplementation__set_type(_this, value) {
   try {
     _this.$dom.type = __dom_unwrap(value);
@@ -8176,6 +8183,13 @@ function native__EventExceptionWrappingImplementation__get_name(_this) {
 function native__EventExceptionWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__EventSourceWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -11078,6 +11092,13 @@ function native__ScriptProfileNodeWrappingImplementation__get_children(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__ScriptProfileNodeWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__SharedWorkerContextWrappingImplementation__get_name(_this) {
   try {
     return __dom_wrap(_this.$dom.name);
@@ -11123,6 +11144,13 @@ function native__StorageWrappingImplementation__key(_this, index) {
 function native__StorageEventWrappingImplementation__get_key(_this) {
   try {
     return __dom_wrap(_this.$dom.key);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__StorageEventWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -11501,6 +11529,13 @@ function native__WebKitCSSKeyframesRuleWrappingImplementation__set_name(_this, v
 function native__WebKitCSSMatrixWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__WebSocketWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -26294,6 +26329,14 @@ _EventSourceWrappingImplementation$Dart.create__EventSourceWrappingImplementatio
 function native__EventSourceWrappingImplementation_create__EventSourceWrappingImplementation(){
   return _EventSourceWrappingImplementation$Dart.create__EventSourceWrappingImplementation$member();
 }
+_EventSourceWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _EventSourceWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_EventSourceWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__EventSourceWrappingImplementation__get_url(_this);
+}
+;
 _EventSourceWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _EventSourceWrappingImplementation$Dart._addEventListener_EventSource$$member_(this, type, listener);
@@ -26636,6 +26679,14 @@ _BeforeLoadEventWrappingImplementation$Dart.create__BeforeLoadEventWrappingImple
 function native__BeforeLoadEventWrappingImplementation_create__BeforeLoadEventWrappingImplementation(){
   return _BeforeLoadEventWrappingImplementation$Dart.create__BeforeLoadEventWrappingImplementation$member();
 }
+_BeforeLoadEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _BeforeLoadEventWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_BeforeLoadEventWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__BeforeLoadEventWrappingImplementation__get_url(_this);
+}
+;
 _BeforeLoadEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'BeforeLoadEvent';
 }
@@ -47246,6 +47297,14 @@ _ScriptProfileNodeWrappingImplementation$Dart._get_children$$member_ = function(
   return native__ScriptProfileNodeWrappingImplementation__get_children(_this);
 }
 ;
+_ScriptProfileNodeWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _ScriptProfileNodeWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_ScriptProfileNodeWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__ScriptProfileNodeWrappingImplementation__get_url(_this);
+}
+;
 _ScriptProfileNodeWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'ScriptProfileNode';
 }
@@ -47544,6 +47603,14 @@ _StorageEventWrappingImplementation$Dart.prototype.key$getter = function(){
 ;
 _StorageEventWrappingImplementation$Dart._get_key$$member_ = function(_this){
   return native__StorageEventWrappingImplementation__get_key(_this);
+}
+;
+_StorageEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _StorageEventWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_StorageEventWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__StorageEventWrappingImplementation__get_url(_this);
 }
 ;
 _StorageEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -51822,6 +51889,14 @@ _WebSocketWrappingImplementation$Dart.create__WebSocketWrappingImplementation$me
 function native__WebSocketWrappingImplementation_create__WebSocketWrappingImplementation(){
   return _WebSocketWrappingImplementation$Dart.create__WebSocketWrappingImplementation$member();
 }
+_WebSocketWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _WebSocketWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_WebSocketWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__WebSocketWrappingImplementation__get_url(_this);
+}
+;
 _WebSocketWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _WebSocketWrappingImplementation$Dart._addEventListener_WebSocket$$member_(this, type, listener);
@@ -57605,6 +57680,10 @@ htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart.BeforeLoadEventWrappin
   htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().url$getter();
 }
 ;
 function htmlimpl0a8e4b$CloseEventWrappingImplementation$Dart(){
@@ -65911,6 +65990,10 @@ htmlimpl0a8e4b$StorageEventWrappingImplementation$Dart.prototype.key$getter = fu
   return this._ptr$htmlimpl0a8e4b$$getter_().key$getter();
 }
 ;
+htmlimpl0a8e4b$StorageEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().url$getter();
+}
+;
 function htmlimpl0a8e4b$TextWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$TextWrappingImplementation$Dart, htmlimpl0a8e4b$CharacterDataWrappingImplementation$Dart);
@@ -72321,14 +72404,6 @@ unnamed6fbae6$TopicsUiView$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = fu
   this._nameInput$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUiView$Dart.prototype._createStatus$unnamed6fbae6$$getter_ = function(){
-  return this._createStatus$unnamed6fbae6$$field_;
-}
-;
-unnamed6fbae6$TopicsUiView$Dart.prototype._createStatus$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._createStatus$unnamed6fbae6$$field_ = tmp$0;
-}
-;
 function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted(ev){
   if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
     this.postNew$member(ev);
@@ -72356,7 +72431,7 @@ function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named$na
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$member = function(e){
-  var tmp$5, tmp$6, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (EQ$operator(this.outputTable$getter(), $Dart$Null)) {
     $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("Couldn't find outputTable."));
   }
@@ -72378,9 +72453,6 @@ unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$member = function(e){
     discardButton.text$setter(tmp$5 = 'Discard') , tmp$5;
     buttonCell.elements$getter().add$named(1, $noargs, discardButton);
     discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named$named_$lookupRTT, this));
-    this._createStatus$unnamed6fbae6$$setter_(tmp$6 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('span')) , tmp$6;
-    this._createStatus$unnamed6fbae6$$getter_().classes$getter().add$named(1, $noargs, 'info');
-    buttonCell.elements$getter().add$named(1, $noargs, this._createStatus$unnamed6fbae6$$getter_());
   }
 }
 ;
@@ -72414,9 +72486,8 @@ unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$member = function(e){
   if (EQ$operator(this._nameInput$unnamed6fbae6$$getter_().value$getter(), '')) {
     return;
   }
-  var newName = this._nameInput$unnamed6fbae6$$getter_().value$getter();
   print$getter()(1, $noargs, 'Posting new record.');
-  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', newName) , tmp$0), '/api/post_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT, this));
+  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', this._nameInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0), '/api/post_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT, this));
 }
 ;
 unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named = function($n, $o, e){
@@ -72585,6 +72656,414 @@ unnamed6fbae6$TopicsUiView$Dart.prototype.getName$named = function($n, $o, id){
   return unnamed6fbae6$TopicsUiView$Dart.prototype.getName$member.call(this, id);
 }
 ;
+function unnamed6fbae6$Source$Dart(){
+}
+unnamed6fbae6$Source$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$Source$Dart'), null, null, named);
+}
+;
+unnamed6fbae6$Source$Dart.$Constructor = function(jsonData){
+  var tmp$1, tmp$2, tmp$3, tmp$0;
+  if (!jsonData.containsKey$named(1, $noargs, 'id') || !jsonData.containsKey$named(1, $noargs, 'name') || !jsonData.containsKey$named(1, $noargs, 'url')) {
+    $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'."));
+  }
+  this.id$setter(tmp$0 = jsonData.INDEX$operator('id')) , tmp$0;
+  this.name$setter(tmp$1 = jsonData.INDEX$operator('name')) , tmp$1;
+  this.url$setter(tmp$2 = jsonData.INDEX$operator('url')) , tmp$2;
+  this.monthlyVisitors$setter(tmp$3 = jsonData.INDEX$operator('monthlyVisitors')) , tmp$3;
+}
+;
+unnamed6fbae6$Source$Dart.$Initializer = function(jsonData){
+}
+;
+unnamed6fbae6$Source$Dart.Source$$Factory = function(jsonData){
+  var tmp$0 = new unnamed6fbae6$Source$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$Source$Dart.$lookupRTT();
+  unnamed6fbae6$Source$Dart.$Initializer.call(tmp$0, jsonData);
+  unnamed6fbae6$Source$Dart.$Constructor.call(tmp$0, jsonData);
+  return tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.id$getter = function(){
+  return this.id$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.id$setter = function(tmp$0){
+  this.id$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.name$getter = function(){
+  return this.name$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.name$setter = function(tmp$0){
+  this.name$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.url$getter = function(){
+  return this.url$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.url$setter = function(tmp$0){
+  this.url$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.monthlyVisitors$getter = function(){
+  return this.monthlyVisitors$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.monthlyVisitors$setter = function(tmp$0){
+  this.monthlyVisitors$field = tmp$0;
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart(){
+}
+$inherits(unnamed6fbae6$SourcesUiView$Dart, unnamed6fbae6$UiView$Dart);
+unnamed6fbae6$SourcesUiView$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$SourcesUiView$Dart'), unnamed6fbae6$SourcesUiView$Dart.$RTTimplements, null, named);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$RTTimplements = function(rtt){
+  unnamed6fbae6$SourcesUiView$Dart.$addTo(rtt);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$addTo = function(target){
+  var rtt = unnamed6fbae6$SourcesUiView$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  unnamed6fbae6$UiView$Dart.$addTo(target);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$Constructor = function(){
+  unnamed6fbae6$UiView$Dart.$Constructor.call(this);
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  this.baseUrl$setter(tmp$0 = '/api/sources') , tmp$0;
+  this._createButton$unnamed6fbae6$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, '#add-source-button')) , tmp$1;
+  this.divElement$setter(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'div#sources-div')) , tmp$2;
+  this.mainButton$setter(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'button#sources-button')) , tmp$3;
+  this.outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#sources-table')) , tmp$4;
+  this._createButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named, unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$Initializer = function(){
+  unnamed6fbae6$UiView$Dart.$Initializer.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.SourcesUiView$$Factory = function(){
+  var tmp$0 = new unnamed6fbae6$SourcesUiView$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$SourcesUiView$Dart.$lookupRTT();
+  unnamed6fbae6$SourcesUiView$Dart.$Initializer.call(tmp$0);
+  unnamed6fbae6$SourcesUiView$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.sources$getter = function(){
+  return this.sources$field;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.sources$setter = function(tmp$0){
+  this.sources$field = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createButton$unnamed6fbae6$$getter_ = function(){
+  return this._createButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createRow$unnamed6fbae6$$getter_ = function(){
+  return this._createRow$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createRow$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createRow$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._nameInput$unnamed6fbae6$$getter_ = function(){
+  return this._nameInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._nameInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._urlInput$unnamed6fbae6$$getter_ = function(){
+  return this._urlInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._urlInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._urlInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._visitorsInput$unnamed6fbae6$$getter_ = function(){
+  return this._visitorsInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._visitorsInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._visitorsInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this._urlInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this._visitorsInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this.postNew$member(ev);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted(ev){
+  var tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$member = function(e){
+  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  if (EQ$operator(this.outputTable$getter(), $Dart$Null)) {
+    $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("Couldn't find outputTable."));
+  }
+  if (EQ$operator(this._createRow$unnamed6fbae6$$getter_(), $Dart$Null)) {
+    this._createRow$unnamed6fbae6$$setter_(tmp$0 = this.outputTable$getter().tableElement$getter().insertRow$named(1, $noargs, 1)) , tmp$0;
+    var nameCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 0);
+    this._nameInput$unnamed6fbae6$$setter_(tmp$1 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$1;
+    this._nameInput$unnamed6fbae6$$getter_().type$setter(tmp$2 = 'text') , tmp$2;
+    nameCell.elements$getter().add$named(1, $noargs, this._nameInput$unnamed6fbae6$$getter_());
+    this._nameInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+    var urlCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 1);
+    this._urlInput$unnamed6fbae6$$setter_(tmp$3 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$3;
+    this._urlInput$unnamed6fbae6$$getter_().type$setter(tmp$4 = 'text') , tmp$4;
+    urlCell.elements$getter().add$named(1, $noargs, this._urlInput$unnamed6fbae6$$getter_());
+    var visitorsCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 2);
+    this._visitorsInput$unnamed6fbae6$$setter_(tmp$5 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$5;
+    this._visitorsInput$unnamed6fbae6$$getter_().type$setter(tmp$6 = 'text') , tmp$6;
+    visitorsCell.elements$getter().add$named(1, $noargs, this._visitorsInput$unnamed6fbae6$$getter_());
+    this._nameInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named$named_$lookupRTT, this));
+    this._urlInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+    this._visitorsInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named$named_$lookupRTT, this));
+    var buttonCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 3);
+    buttonCell.colSpan$setter(tmp$7 = 3) , tmp$7;
+    var createButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    createButton.text$setter(tmp$8 = 'Create') , tmp$8;
+    buttonCell.elements$getter().add$named(1, $noargs, createButton);
+    createButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named, unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named_$lookupRTT, this));
+    var discardButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    discardButton.text$setter(tmp$9 = 'Discard') , tmp$9;
+    buttonCell.elements$getter().add$named(1, $noargs, discardButton);
+    discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$member.call(this, e);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted(responseText){
+  var tmp$1, tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+  this.sources$setter(tmp$1 = $Dart$Null) , tmp$1;
+  this.scuttlebuttUi$getter().parseUrl$named(0, $noargs);
+}
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named($n, $o, responseText){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted.call(this, responseText);
+}
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$member = function(e){
+  var tmp$0;
+  if (EQ$operator(this._nameInput$unnamed6fbae6$$getter_().value$getter(), '') || EQ$operator(this._urlInput$unnamed6fbae6$$getter_().value$getter(), '')) {
+    return;
+  }
+  print$getter()(1, $noargs, 'Posting new record.');
+  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', this._nameInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0.ASSIGN_INDEX$operator('url', this._urlInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0.ASSIGN_INDEX$operator('monthlyVisitors', this._visitorsInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0), '/api/post_sources_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$member.call(this, e);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.show$member = function(){
+  if (NE$operator(this.sources$getter(), $Dart$Null)) {
+    this.populateTable$member();
+  }
+   else {
+    this.fetchData$member($bind(unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.show$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.show$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$member = function(){
+  var tmp$0;
+  this.outputTable$getter().reset$named(0, $noargs);
+  {
+    var $0 = this.sources$getter().iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var source = $0.next$named(0, $noargs);
+      {
+        var sourceNameHtml = '' + $toString(source.name$getter()) + " <a class='more-actions'>&hellip;<\/a>";
+        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([sourceNameHtml, unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member(source.url$getter()), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyInt$member(source.monthlyVisitors$getter()), 'N/A'], Array.$lookupRTT()));
+      }
+    }
+  }
+  ;
+  this.visibility$setter(tmp$0 = true) , tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$getter = function(){
+  return $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT, this);
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted(dartc_scp$0, responseText){
+  this.actOnData$member(responseText);
+  if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
+    dartc_scp$0.thenCall(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named($s0, $n, $o, responseText){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted.call(this, $s0, responseText);
+}
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$member = function(thenCall){
+  var dartc_scp$0 = {thenCall:thenCall};
+  this.sendXhr$member(this.baseUrl$getter(), 'GET', $Dart$Null, '/api/get_sources_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$named = function($n, $o, thenCall){
+  var seen = 0;
+  var def = 0;
+  switch ($n) {
+    case 0:
+      thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
+  }
+  if (seen != $o.count || seen + def + $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$member.call(this, thenCall);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.actOnData$member = function(responseText){
+  var tmp$0;
+  var data = jsonc5ef24$JSON$Dart.parse$member(responseText);
+  this.sources$setter(tmp$0 = ListFactory$Dart.List$$Factory([unnamed6fbae6$Source$Dart.$lookupRTT()], $Dart$Null)) , tmp$0;
+  {
+    var $0 = data.iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var record = $0.next$named(0, $noargs);
+      {
+        this.sources$getter().add$named(1, $noargs, unnamed6fbae6$Source$Dart.Source$$Factory(record));
+      }
+    }
+  }
+  print$getter()(1, $noargs, 'Sources loaded successfully.');
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$member = function(){
+  this.fetchData$member($Dart$Null);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.getName$member = function(id){
+  if (NE$operator(this.sources$getter(), $Dart$Null)) {
+    {
+      var $0 = this.sources$getter().iterator$named(0, $noargs);
+      while ($0.hasNext$named(0, $noargs)) {
+        var source = $0.next$named(0, $noargs);
+        {
+          if (EQ$operator(source.id$getter(), id)) {
+            return source.name$getter();
+          }
+        }
+      }
+    }
+  }
+   else {
+    return $Dart$Null;
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.getName$named = function($n, $o, id){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.getName$member.call(this, id);
+}
+;
 function unnamed6fbae6$ScuttlebuttUi$Dart(){
 }
 unnamed6fbae6$ScuttlebuttUi$Dart.$lookupRTT = function(typeArgs, named){
@@ -72621,6 +73100,14 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.topicsUiView$setter = function(tmp$0)
   this.topicsUiView$field = tmp$0;
 }
 ;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.sourcesUiView$getter = function(){
+  return this.sourcesUiView$field;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.sourcesUiView$setter = function(tmp$0){
+  this.sourcesUiView$field = tmp$0;
+}
+;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.currentPage$getter = function(){
   return this.currentPage$field;
 }
@@ -72653,6 +73140,14 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype._topicsButton$unnamed6fbae6$$setter_ 
   this._topicsButton$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._sourcesButton$unnamed6fbae6$$getter_ = function(){
+  return this._sourcesButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._sourcesButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._sourcesButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype._articlesButton$unnamed6fbae6$$getter_ = function(){
   return this._articlesButton$unnamed6fbae6$$field_;
 }
@@ -72681,9 +73176,7 @@ function unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$look
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted(event_0){
-  this.articlesUiView$getter().refresh$named(0, $noargs);
-  this.topicsUiView$getter().refresh$named(0, $noargs);
-  this.parseUrl$member($Dart$Null);
+  this.listSources$member(true);
 }
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named($n, $o, event_0){
   if ($o.count || $n != 1)
@@ -72693,34 +73186,50 @@ function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named($n, $o, eve
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted(e){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted(event_0){
+  this.articlesUiView$getter().refresh$named(0, $noargs);
+  this.topicsUiView$getter().refresh$named(0, $noargs);
+  this.parseUrl$member($Dart$Null);
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named($n, $o, event_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted.call(this, event_0);
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted(e){
   print$getter()(1, $noargs, 'On pop state triggered.');
   this.parseUrl$named(0, $noargs);
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named($n, $o, e){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named($n, $o, e){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted.call(this, e);
+  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted.call(this, e);
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
-  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$11, tmp$10, tmp$12, tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.articlesUiView$setter(tmp$0 = unnamed6fbae6$ArticlesUiView$Dart.ArticlesUiView$$Factory()) , tmp$0;
   this.topicsUiView$setter(tmp$1 = unnamed6fbae6$TopicsUiView$Dart.TopicsUiView$$Factory()) , tmp$1;
-  this.articlesUiView$getter().scuttlebuttUi$setter(tmp$3 = (this.topicsUiView$getter().scuttlebuttUi$setter(tmp$2 = this) , tmp$2)) , tmp$3;
-  this._statusMessage$unnamed6fbae6$$setter_(tmp$4 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$4;
-  this._subtitle$unnamed6fbae6$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$5;
-  this._topicsButton$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, '#topics-button')) , tmp$6;
-  this._articlesButton$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, '#articles-button')) , tmp$7;
-  this._refreshButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$8;
+  this.sourcesUiView$setter(tmp$2 = unnamed6fbae6$SourcesUiView$Dart.SourcesUiView$$Factory()) , tmp$2;
+  this.articlesUiView$getter().scuttlebuttUi$setter(tmp$5 = (this.topicsUiView$getter().scuttlebuttUi$setter(tmp$4 = (this.sourcesUiView$getter().scuttlebuttUi$setter(tmp$3 = this) , tmp$3)) , tmp$4)) , tmp$5;
+  this._statusMessage$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$6;
+  this._subtitle$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$7;
+  this._topicsButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#topics-button')) , tmp$8;
+  this._sourcesButton$unnamed6fbae6$$setter_(tmp$9 = htmld071c1$document$getter().query$named(1, $noargs, '#sources-button')) , tmp$9;
+  this._articlesButton$unnamed6fbae6$$setter_(tmp$10 = htmld071c1$document$getter().query$named(1, $noargs, '#articles-button')) , tmp$10;
+  this._refreshButton$unnamed6fbae6$$setter_(tmp$11 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$11;
   this.statusMessage$member('Dart is now running.');
   this._topicsButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
-  this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+  this._sourcesButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+  this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
   var landingUrl = htmld071c1$window$getter().location$getter().href$getter();
-  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, '.prh.corp.google.com:8000/')) , tmp$9;
-  htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
+  unnamed6fbae6$DEBUG$setter(tmp$12 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, '.prh.corp.google.com:8000/')) , tmp$12;
+  htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named$named_$lookupRTT, this));
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$named = function($n, $o){
@@ -72738,15 +73247,21 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$member = function(url){
     return;
   }
    else {
-    if (url.contains$named(1, $noargs, '/api/articles')) {
-      var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('articles/([0-9]+)', false, false));
-      var match = exp.firstMatch$named(1, $noargs, url);
-      var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
-      this.listArticles$member(id, false);
+    if (url.contains$named(1, $noargs, '/api/sources')) {
+      this.listSources$member(false);
       return;
     }
      else {
-      this.listTopics$member(true);
+      if (url.contains$named(1, $noargs, '/api/articles')) {
+        var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('articles/([0-9]+)', false, false));
+        var match = exp.firstMatch$named(1, $noargs, url);
+        var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
+        this.listArticles$member(id, false);
+        return;
+      }
+       else {
+        this.listTopics$member(true);
+      }
     }
   }
 }
@@ -72764,29 +73279,46 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$named = function($n, $o, url
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listTopics$member = function(pushState){
-  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (pushState) {
     var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/topics') , tmp$0);
     htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Topics', '#/api/topics');
   }
   this.articlesUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
-  this.topicsUiView$getter().visibility$setter(tmp$2 = true) , tmp$2;
+  this.sourcesUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.topicsUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
   this.topicsUiView$getter().show$named(0, $noargs);
-  this.currentPage$setter(tmp$3 = this.topicsUiView$getter()) , tmp$3;
-  this._articlesButton$unnamed6fbae6$$getter_().disabled$setter(tmp$4 = true) , tmp$4;
+  this.currentPage$setter(tmp$4 = this.topicsUiView$getter()) , tmp$4;
+  this._articlesButton$unnamed6fbae6$$getter_().disabled$setter(tmp$5 = true) , tmp$5;
+  this.setPageTitle$member($Dart$Null);
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listSources$member = function(pushState){
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  if (pushState) {
+    var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/sources') , tmp$0);
+    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Sources', '#/api/sources');
+  }
+  this.articlesUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
+  this.topicsUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.sourcesUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
+  this.sourcesUiView$getter().show$named(0, $noargs);
+  this.currentPage$setter(tmp$4 = this.sourcesUiView$getter()) , tmp$4;
+  this._articlesButton$unnamed6fbae6$$getter_().disabled$setter(tmp$5 = true) , tmp$5;
   this.setPageTitle$member($Dart$Null);
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$member = function(id, pushState){
-  var tmp$1, tmp$2, tmp$3, tmp$0;
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (pushState) {
     var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/articles/' + $toString(id) + '') , tmp$0);
     htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Articles', '#/api/articles/' + $toString(id) + '');
   }
   this.topicsUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
-  this.articlesUiView$getter().visibility$setter(tmp$2 = true) , tmp$2;
+  this.sourcesUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.articlesUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
   this.articlesUiView$getter().show$named(1, $noargs, id);
-  this.currentPage$setter(tmp$3 = this.articlesUiView$getter()) , tmp$3;
+  this.currentPage$setter(tmp$4 = this.articlesUiView$getter()) , tmp$4;
   this.setPageTitle$member($Dart$Null);
 }
 ;
@@ -72803,7 +73335,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$named = function($n, $o,
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.setPageTitle$member = function(str){
-  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$5, tmp$6, tmp$7, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (NE$operator(str, $Dart$Null)) {
     htmld071c1$document$getter().title$setter(tmp$0 = '' + $toString(str) + ' :: Scuttlebutt') , tmp$0;
     this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$1 = str) , tmp$1;
@@ -72814,18 +73346,24 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.setPageTitle$member = function(str){
       this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$3 = 'Topics') , tmp$3;
     }
      else {
-      if (EQ$operator(this.currentPage$getter(), this.articlesUiView$getter())) {
-        var topicName = this.topicsUiView$getter().getName$named(1, $noargs, this.articlesUiView$getter().currentId$getter());
-        if (NE$operator(topicName, $Dart$Null)) {
-          htmld071c1$document$getter().title$setter(tmp$4 = '' + $toString(topicName) + ' :: Scuttlebutt') , tmp$4;
-          this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$5 = topicName) , tmp$5;
-        }
-         else {
-          this.topicsUiView$getter().fetchData$named(0, {$p_thenCall:this.setPageTitle$getter(), count:1});
-        }
+      if (EQ$operator(this.currentPage$getter(), this.sourcesUiView$getter())) {
+        htmld071c1$document$getter().title$setter(tmp$4 = 'Sources :: Scuttlebutt') , tmp$4;
+        this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$5 = 'Sources') , tmp$5;
       }
        else {
-        $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory('Unknown type of page displayed.'));
+        if (EQ$operator(this.currentPage$getter(), this.articlesUiView$getter())) {
+          var topicName = this.topicsUiView$getter().getName$named(1, $noargs, this.articlesUiView$getter().currentId$getter());
+          if (NE$operator(topicName, $Dart$Null)) {
+            htmld071c1$document$getter().title$setter(tmp$6 = '' + $toString(topicName) + ' :: Scuttlebutt') , tmp$6;
+            this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$7 = topicName) , tmp$7;
+          }
+           else {
+            this.topicsUiView$getter().fetchData$named(0, {$p_thenCall:this.setPageTitle$getter(), count:1});
+          }
+        }
+         else {
+          $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory('Unknown type of page displayed.'));
+        }
       }
     }
   }

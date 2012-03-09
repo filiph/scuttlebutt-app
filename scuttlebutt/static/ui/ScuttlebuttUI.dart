@@ -623,7 +623,6 @@ class TopicsUiView extends UiView {
   ButtonElement _createButton;
   TableRowElement _createRow;
   InputElement _nameInput;
-  SpanElement _createStatus;
 
   TopicsUiView() {
     baseUrl = "/api/topics";
@@ -665,78 +664,25 @@ class TopicsUiView extends UiView {
         _createRow.remove();
         _createRow = null;
       });
-      // create status text field
-      _createStatus = new Element.tag("span");
-      _createStatus.classes.add("info");
-      buttonCell.elements.add(_createStatus);
     }
   }
   
   void postNew(Event e) {
     if (_nameInput.value == "")
       return;
-    String newName = _nameInput.value;
     print("Posting new record.");
     
     sendXhr(baseUrl, "POST", 
-      params:{ "name": newName },
+      params:{ "name": _nameInput.value },
       debugUrl:"/api/post_topics_mock.json"
         ).then((String responseText) {
           _createRow.remove();
           _createRow = null;
-          
-          // refresh with new data
-          // TODO: show loading icon
-          //window.setTimeout(() {
-            topics = null;
-            scuttlebuttUi.parseUrl();
-          //}, 5000);
-          
+          topics = null;
+          scuttlebuttUi.parseUrl();
         });
-    /*
-    String url = "/api/topics";
-    if (DEBUG)
-      url = "/api/post_topics_mock.json";
-    XMLHttpRequest request = new XMLHttpRequest();
-    request.open(DEBUG ? "GET" : "POST", url, true);
 
-    request.on.load.add((event) {
-        if (request.status != 200) {
-          window.console.error("Server returned status code ${request.status} (${request.statusText}). Cannot add new record.");
-          if (_createStatus != null) {
-            _createStatus.text = "SERVER ERROR (${request.status}): Could not add.";
-            _createStatus.classes.add("yellow");
-          }
-          return;
-        }
-        if (DEBUG) {
-          //Map<String,Dynamic> data = JSON.parse(request.responseText);
-          //window.console.info(data);
-          window.console.info(request);
-        }
-        _createRow.remove();
-        _createRow = null;
-        
-        // TODO: show loading icon
-        window.setTimeout(refresh, 2000);
-        //refresh();
-    });
-    
-    Map<String,Dynamic> sendData = {
-        "name": _nameInput.value
-    };
-    request.send(JSON.stringify(sendData));
-    */
   }
-/*
-  String getURL() {
-    if (DEBUG) {
-      currentUrl = "/api/get_topics_mock.json";
-    } else {
-      currentUrl = baseUrl;
-    }
-    return currentUrl;
-  }*/
 
   void show() {
     if (topics != null) {
@@ -820,16 +766,203 @@ class TopicsUiView extends UiView {
 }
 
 /**
+ * Simple class for holding Sources data.
+ */
+class Source {
+  int id;
+  String name;
+  String url;
+  int monthlyVisitors;
+
+  Source(Map<String,Object> jsonData) {
+    if (!jsonData.containsKey("id") || !jsonData.containsKey("name")
+        || !jsonData.containsKey("url")) {
+      throw new Exception("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'.");
+    }
+    id = jsonData["id"];
+    name = jsonData["name"];
+    url = jsonData["url"];
+    monthlyVisitors = jsonData["monthlyVisitors"];
+  }
+}
+
+/**
+ * TopicsUiViewView handles ajax calls and shows the data on the client.
+ */
+class SourcesUiView extends UiView {
+  List<Source> sources;
+  
+  ButtonElement _createButton;
+  TableRowElement _createRow;
+  InputElement _nameInput;
+  InputElement _urlInput;
+  InputElement _visitorsInput;
+
+  SourcesUiView() {
+    baseUrl = "/api/sources";
+    _createButton = document.query("#add-source-button");
+    divElement = document.query("div#sources-div");
+    mainButton = document.query("button#sources-button");
+    outputTable = new Table("table#sources-table");
+    
+    _createButton.on.click.add(showCreateRow);
+  }
+  
+  void showCreateRow(Event e) {
+    if (outputTable == null)
+      throw new Exception("Couldn't find outputTable.");
+    if (_createRow == null) {
+      // create the input row (top of table)
+      _createRow = outputTable.tableElement.insertRow(1);
+      // create input cells
+      TableCellElement nameCell = _createRow.insertCell(0);
+      _nameInput = new Element.tag("input");
+      _nameInput.type = "text";
+      nameCell.elements.add(_nameInput);
+      _nameInput.focus();
+      TableCellElement urlCell = _createRow.insertCell(1);
+      _urlInput = new Element.tag("input");
+      _urlInput.type = "text";
+      urlCell.elements.add(_urlInput);
+      TableCellElement visitorsCell = _createRow.insertCell(2);
+      _visitorsInput = new Element.tag("input");
+      _visitorsInput.type = "text";
+      visitorsCell.elements.add(_visitorsInput);
+
+      // bind Enter 
+      _nameInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed - TODO: do we need "dynamic" ?
+          _urlInput.focus();
+      });
+      _urlInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed
+          _visitorsInput.focus();
+      });
+      _visitorsInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed
+          postNew(ev);
+      });
+      // create & discard buttons
+      TableCellElement buttonCell = _createRow.insertCell(3);
+      buttonCell.colSpan = 3;
+      ButtonElement createButton = new Element.tag("button");
+      createButton.text = "Create";
+      buttonCell.elements.add(createButton);
+      createButton.on.click.add(postNew);
+      ButtonElement discardButton = new Element.tag("button");
+      discardButton.text = "Discard";
+      buttonCell.elements.add(discardButton);
+      discardButton.on.click.add((Event ev) {
+        _createRow.remove();
+        _createRow = null;
+      });
+    }
+  }
+  
+  void postNew(Event e) {
+    if (_nameInput.value == "" || _urlInput.value == "")
+      return;
+    print("Posting new record.");
+    
+    sendXhr(baseUrl, "POST", 
+      params:{ 
+        "name": _nameInput.value,
+        "url": _urlInput.value,
+        "monthlyVisitors": _visitorsInput.value
+        },
+      debugUrl:"/api/post_sources_mock.json"
+        ).then((String responseText) {
+          _createRow.remove();
+          _createRow = null;
+          sources = null;
+          scuttlebuttUi.parseUrl();
+        });
+
+  }
+
+  void show() {
+    if (sources != null) {
+      populateTable();
+    } else {
+      fetchData(thenCall:populateTable);
+    }
+  }
+
+  /**
+   * Populates the DOM with data.
+   */
+  void populateTable() {
+    outputTable.reset();
+    for (Source source in sources) {
+      String sourceNameHtml = "${source.name} <a class='more-actions'>&hellip;</a>";
+
+      // adds a row with 4 cells: name, url, monthly visitors, num articles
+      Element tr = outputTable.addRow(
+          [ sourceNameHtml, ScuttlebuttUi.prettifyUrl(source.url), 
+          ScuttlebuttUi.prettifyInt(source.monthlyVisitors), "N/A" ]
+          );
+      
+      // TODO: what to do when user click's a source?
+      /*tr.on.click.add((event) {
+          scuttlebuttUi.listArticles(topic.id);
+          });*/
+    };
+    visibility = true;
+  }
+
+  /**
+   * Creates XMLHttpRequest
+   */
+  void fetchData([Function thenCall=null]) {
+    sendXhr(baseUrl, "GET", 
+      debugUrl:"/api/get_sources_mock.json"
+    ).then((String responseText) {
+        actOnData(responseText);
+        if (thenCall != null)
+          thenCall();
+      });
+  }
+  
+  void actOnData(String responseText) {
+    List<Map<String,Object>> data = JSON.parse(responseText);
+    sources = new List<Source>();
+    for (Map<String,Object> record in data) {
+      sources.add(new Source(record));
+    }
+    print("Sources loaded successfully.");
+  }
+
+  void refresh() {
+    fetchData();
+  }
+
+  String getName(int id) {
+    if (sources != null) {
+      for (Source source in sources) {
+        if (source.id == id) {
+          return source.name;
+        }
+      }
+    } else {
+      return null; 
+    }
+  }
+}
+
+
+/**
  * The main app UI class.
  */
 class ScuttlebuttUi {
   ArticlesUiView articlesUiView;
   TopicsUiView topicsUiView;
+  SourcesUiView sourcesUiView;
   UiView currentPage;
 
   Element _statusMessage;
   Element _subtitle;
   ButtonElement _topicsButton;
+  ButtonElement _sourcesButton;
   ButtonElement _articlesButton;
   ButtonElement _refreshButton;
 
@@ -839,34 +972,42 @@ class ScuttlebuttUi {
   void run() {
     articlesUiView = new ArticlesUiView();
     topicsUiView = new TopicsUiView();
-    articlesUiView.scuttlebuttUi = topicsUiView.scuttlebuttUi = this; // give context
+    sourcesUiView = new SourcesUiView();
+    
+    // give context
+    articlesUiView.scuttlebuttUi = topicsUiView.scuttlebuttUi 
+      = sourcesUiView.scuttlebuttUi = this; 
 
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
     _topicsButton = document.query("#topics-button");
+    _sourcesButton = document.query("#sources-button");
     _articlesButton = document.query("#articles-button");
     _refreshButton = document.query("#refresh-button");
     statusMessage("Dart is now running.");
 
     _topicsButton.on.click.add((Event event) {
-        listTopics();
-        });
+      listTopics();
+    });
+    
+    _sourcesButton.on.click.add((Event event) {
+      listSources();
+    });
 
     _refreshButton.on.click.add((Event event) {
-        articlesUiView.refresh();
-        topicsUiView.refresh();
-        parseUrl();
-        });
+      articlesUiView.refresh();
+      topicsUiView.refresh();
+      parseUrl();
+    });
     
     String landingUrl = window.location.href;
     DEBUG = landingUrl.contains("0.0.0.0") || landingUrl.contains(".prh.corp.google.com:8000/");   // if we're running on localhost, flip the DEBUG flag
 
     // history magic (getting Back button to work properly)
     window.on.popState.add((var e) {
-        print("On pop state triggered.");
-        //var stateStr = e.state;
-        this.parseUrl();
-        });
+      print("On pop state triggered.");
+      this.parseUrl();
+    });
   }
 
   /**
@@ -879,6 +1020,9 @@ class ScuttlebuttUi {
 
     if (url.contains("/api/topics")) {
       listTopics(pushState:false);
+      return;
+    } else if (url.contains("/api/sources")) {
+      listSources(pushState:false);
       return;
     } else if (url.contains("/api/articles")) {
       RegExp exp = const RegExp(@"articles/([0-9]+)");
@@ -901,6 +1045,7 @@ class ScuttlebuttUi {
     }
 
     articlesUiView.visibility = false;
+    sourcesUiView.visibility = false;
     topicsUiView.visibility = true;
     topicsUiView.show();
     currentPage = topicsUiView;
@@ -909,6 +1054,25 @@ class ScuttlebuttUi {
     setPageTitle();
   }
 
+  /**
+    Lists all Sources. -- TODO: not DRY with Topics
+  */
+  void listSources([bool pushState=true]) {
+    if (pushState) {
+      Map state = {"url" : "#/api/sources"};
+      window.history.pushState(JSON.stringify(state), "Sources", "#/api/sources");
+    }
+  
+    articlesUiView.visibility = false;
+    topicsUiView.visibility = false;
+    sourcesUiView.visibility = true;
+    sourcesUiView.show();
+    currentPage = sourcesUiView;
+  
+    _articlesButton.disabled = true;
+    setPageTitle();
+  }
+  
   /**
     Lists all articles for given Topic id.
    */
@@ -923,6 +1087,7 @@ class ScuttlebuttUi {
     }
 
     topicsUiView.visibility = false;
+    sourcesUiView.visibility = false;
     articlesUiView.visibility = true;
     articlesUiView.show(id);
     currentPage = articlesUiView;
@@ -937,6 +1102,9 @@ class ScuttlebuttUi {
     } else if (currentPage == topicsUiView) {
       document.title = "Scuttlebutt";
       _subtitle.innerHTML = "Topics";
+    } else if (currentPage == sourcesUiView) {
+      document.title = "Sources :: Scuttlebutt";
+      _subtitle.innerHTML = "Sources";
     } else if (currentPage == articlesUiView) {
       /*
          Set header (h1) to correspond the to currently viewed topic.
