@@ -11356,6 +11356,20 @@ function native__XSLTProcessorWrappingImplementation__reset(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function __dom_native_TimeoutHander_method(_this, callback, timeout, operation) {
+  try {
+    return _this.$dom[operation](__dom_unwrap_TimeoutHandler_function(callback),
+                                 __dom_unwrap(timeout));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__DOMWindowWrappingImplementation__setTimeout(_this, callback, timeout) {
+  return __dom_native_TimeoutHander_method(_this, callback, timeout, 'setTimeout');
+}
+function native__WorkerContextWrappingImplementation__setTimeout(_this, callback, timeout) {
+  return __dom_native_TimeoutHander_method(_this, callback, timeout, 'setTimeout');
+}
 function native__XMLHttpRequestFactoryProvider_create() {
   try {
     return __dom_wrap(new XMLHttpRequest());
@@ -12001,6 +12015,12 @@ function __dom_unwrap(obj, dropargs) {
     return unwrapped;
   }
   return obj;
+}
+function __dom_unwrap_TimeoutHandler_function(fn) {
+  // Some browsers (e.g. FF) pass data to the timeout function, others do not.
+  // Dart's TimeoutHandler takes no arguments, so drop any arguments passed to
+  // the unwrapped callback.
+  return __dom_unwrap(fn, true);
 }
 function native__NativeDomGlobalProperties_getWindow() {
   // TODO: Should the window be obtained from an isolate?
@@ -24797,6 +24817,20 @@ _DOMWindowWrappingImplementation$Dart._removeEventListener_DOMWindow$$member_ = 
 ;
 _DOMWindowWrappingImplementation$Dart._removeEventListener_DOMWindow_2$$member_ = function(receiver, type, listener, useCapture){
   return native__DOMWindowWrappingImplementation__removeEventListener_DOMWindow_2(receiver, type, listener, useCapture);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
+  return _DOMWindowWrappingImplementation$Dart._setTimeout$$member_(this, handler, timeout);
+}
+;
+_DOMWindowWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
+  if ($o.count || $n != 2)
+    $nsme();
+  return _DOMWindowWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
+}
+;
+_DOMWindowWrappingImplementation$Dart._setTimeout$$member_ = function(receiver, handler, timeout){
+  return native__DOMWindowWrappingImplementation__setTimeout(receiver, handler, timeout);
 }
 ;
 _DOMWindowWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -51548,6 +51582,20 @@ _WorkerContextWrappingImplementation$Dart._removeEventListener_2$$member_ = func
   return native__WorkerContextWrappingImplementation__removeEventListener_2(receiver, type, listener, useCapture);
 }
 ;
+_WorkerContextWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
+  return _WorkerContextWrappingImplementation$Dart._setTimeout$$member_(this, handler, timeout);
+}
+;
+_WorkerContextWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
+  if ($o.count || $n != 2)
+    $nsme();
+  return _WorkerContextWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
+}
+;
+_WorkerContextWrappingImplementation$Dart._setTimeout$$member_ = function(receiver, handler, timeout){
+  return native__WorkerContextWrappingImplementation__setTimeout(receiver, handler, timeout);
+}
+;
 _WorkerContextWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WorkerContext';
 }
@@ -66050,6 +66098,16 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$getter = functi
   return $bind(htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$named, htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$named_$lookupRTT, this);
 }
 ;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
+  return this._ptr$htmlimpl0a8e4b$$getter_().setTimeout$named(2, $noargs, handler, timeout);
+}
+;
+htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
+  if ($o.count || $n != 2)
+    $nsme();
+  return htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
+}
+;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.on$getter = function(){
   var tmp$0;
   if (this._on$htmlimpl0a8e4b$$getter_() == null) {
@@ -71733,7 +71791,7 @@ unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named_$lookupRTT = function(){
 }
 ;
 function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted(dartc_scp$1, event_0){
-  var tmp$0;
+  var tmp$1, tmp$0;
   if (NE$operator(dartc_scp$1.request.status$getter(), 200)) {
     htmld071c1$window$getter().console$getter().error$named(1, $noargs, 'Server returned status code ' + $toString(dartc_scp$1.request.status$getter()) + ' (' + $toString(dartc_scp$1.request.statusText$getter()) + '). Cannot add new record.');
     if (NE$operator(this._addStatus$unnamed6fbae6$$getter_(), $Dart$Null)) {
@@ -71746,7 +71804,8 @@ function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted(dartc_scp$1, event
     htmld071c1$window$getter().console$getter().info$named(1, $noargs, dartc_scp$1.request);
   }
   this._addRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
-  this.refresh$member();
+  this._addRow$unnamed6fbae6$$setter_(tmp$1 = $Dart$Null) , tmp$1;
+  htmld071c1$window$getter().setTimeout$named(2, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart.prototype.refresh$named, unnamed6fbae6$TopicsUi$Dart.prototype.refresh$named_$lookupRTT, this), 2000);
 }
 function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named($s0, $n, $o, event_0){
   if ($o.count || $n != 1)
@@ -71759,6 +71818,9 @@ function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named$named_$looku
 unnamed6fbae6$TopicsUi$Dart.prototype.postNew$member = function(e){
   var dartc_scp$1, tmp$0;
   dartc_scp$1 = {};
+  if (EQ$operator(this._nameInput$unnamed6fbae6$$getter_().value$getter(), '')) {
+    return;
+  }
   print$getter()(1, $noargs, 'Posting new record.');
   var url = '/api/topics';
   if (unnamed6fbae6$DEBUG$getter()) {
@@ -71826,6 +71888,7 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
       dartc_scp$3 = {};
       dartc_scp$3.topic = $0.next$named(0, $noargs);
       {
+        var topicNameHtml = '' + $toString(dartc_scp$3.topic.name$getter()) + " <a class='more-actions'>&hellip;<\/a>";
         var wowChangeHtml = $Dart$Null;
         if (NE$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), $Dart$Null)) {
           var changeStr = $Dart$Null;
@@ -71840,7 +71903,7 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
           }
           wowChangeHtml = '<span class="' + $toString(EQ$operator(changeSign, '+')?'green':'red') + '">\n                         ' + $toString(changeSign) + '' + $toString(changeStr) + '%<\/span>';
         }
-        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([dartc_scp$3.topic.name$getter(), dartc_scp$3.topic.countPastTwentyFourHours$getter(), dartc_scp$3.topic.countPastSevenDays$getter(), wowChangeHtml], Array.$lookupRTT()));
+        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([topicNameHtml, dartc_scp$3.topic.countPastTwentyFourHours$getter(), dartc_scp$3.topic.countPastSevenDays$getter(), wowChangeHtml], Array.$lookupRTT()));
         tr.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$3));
       }
       dartc_scp$3 = $Dart$Null;
@@ -71935,6 +71998,10 @@ unnamed6fbae6$TopicsUi$Dart.prototype.refresh$named = function($n, $o){
   if ($o.count || $n != 0)
     $nsme();
   return unnamed6fbae6$TopicsUi$Dart.prototype.refresh$member.call(this);
+}
+;
+unnamed6fbae6$TopicsUi$Dart.prototype.refresh$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
 }
 ;
 unnamed6fbae6$TopicsUi$Dart.prototype.getName$member = function(id){
@@ -72082,7 +72149,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
   this.articlesUi$getter().outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#articles-table')) , tmp$4;
   this._statusMessage$unnamed6fbae6$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$5;
   this._subtitle$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$6;
-  this._homeButton$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, '#home-button')) , tmp$7;
+  this._homeButton$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, '#topics-button')) , tmp$7;
   this._refreshButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$8;
   this.statusMessage$member('Dart is now running.');
   this._homeButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));

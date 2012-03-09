@@ -2,6 +2,7 @@
 	http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css
 	http://0.0.0.0:8000/scuttlebuttui.css
 	https://scuttlebutt.googleplex.com/ui/scuttlebuttui.css
+	http://dhcp-172-28-154-53.prh.corp.google.com:8000/scuttlebuttui.css
 */
 
 body {
@@ -60,29 +61,64 @@ button {
 	/* source: http://css3button.net/14433 */
 	cursor: pointer;
 	color: #050505;
-	padding: 7px 20px;
+	padding: 5px 20px;
+	height: 25px;
 	background: -moz-linear-gradient(
 		top,
-		#ffffff 0%,
+		#eeeeee 0%,
 		#bdbdbd);
 	background: -webkit-gradient(
 		linear, left top, left bottom, 
-		from(#ffffff),
+		from(#eeeeee),
 		to(#bdbdbd));
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border: 1px solid #949494;
 	-moz-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 2px rgba(255,255,255,1);
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
 	-webkit-box-shadow:
-		0px 1px 3px rgba(000,000,000,0.5),
-		inset 0px 0px 2px rgba(255,255,255,1);
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
 	text-shadow:
 		0px -1px 0px rgba(000,000,000,0.2),
 		0px 1px 0px rgba(255,255,255,1);
 	text-transform: uppercase;
+}
+
+button.small {
+	text-shadow: none;
+	color: #555;
+}
+
+button:hover {
+	background: -moz-linear-gradient(
+		top,
+		#eeeeee 0%,
+		#bdbdbd);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#eeeeee),
+		to(#eeeeee));
+	-moz-box-shadow:
+		0px 0px 5px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 5px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+}
+
+nav#controls button.selected {
+	font-weight: bold;
+	background: -moz-linear-gradient(
+		top,
+		#ffffff 0%,
+		#eeeeee);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#ffffff),
+		to(#eeeeee));
 }
 
 
@@ -185,8 +221,23 @@ table.output-table th:not(:first-child) {
 
 /* @end */
 
+/* @group Input */
+
+table.output-table input {
+	background: #fefbab;
+	border-width: 1px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+}
+
 table.output-table button {
-  padding: 2px 7px;
+  margin: 5px 5px;
+  height: 15px;
+  padding: 1px 6px;
+  font-size: 0.5em;
 }
 
 table.output-table span.info {
@@ -195,12 +246,26 @@ table.output-table span.info {
   margin-left: 10px;
 }
 
+/* @end */
+
 span.yellow {
   background:yellow;
 }
 
+div#topics-div table.output-table td a.more-actions {
+	color: white;
+}
+
 div#topics-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions {
+	color: gray;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions:hover {
+	color: blue;
 }
 
 div#topics-div table.output-table tr:hover:not(:first-child) td {

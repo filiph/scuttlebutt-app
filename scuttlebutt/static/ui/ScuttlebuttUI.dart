@@ -618,6 +618,8 @@ class TopicsUi {
   }
   
   void postNew(Event e) {
+    if (_nameInput.value == "")
+      return;
     print("Posting new record.");
     String url = "/api/topics";
     if (DEBUG)
@@ -640,7 +642,11 @@ class TopicsUi {
           window.console.info(request);
         }
         _addRow.remove();
-        refresh();
+        _addRow = null;
+        
+        // TODO: show loading icon
+        window.setTimeout(refresh, 2000);
+        //refresh();
     });
     
     Map<String,Dynamic> sendData = {
@@ -671,6 +677,7 @@ class TopicsUi {
   void populateTable() {
     this.outputTable.reset();
     for (Topic topic in topics) {
+      String topicNameHtml = "${topic.name} <a class='more-actions'>&hellip;</a>";
       String wowChangeHtml;
       if (topic.weekOnWeekChange != null) {
         String changeStr;
@@ -689,7 +696,7 @@ class TopicsUi {
       // adds a row with 4 cells: name, count for past 24h, count for past 7d,
       // and week on week change
       Element tr = this.outputTable.addRow(
-          [ topic.name, topic.countPastTwentyFourHours, 
+          [ topicNameHtml, topic.countPastTwentyFourHours, 
           topic.countPastSevenDays, wowChangeHtml ]
           );
       tr.on.click.add((event) {
@@ -772,7 +779,7 @@ class ScuttlebuttUi {
 
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
-    _homeButton = document.query("#home-button");
+    _homeButton = document.query("#topics-button");
     _refreshButton = document.query("#refresh-button");
     statusMessage("Dart is now running.");
 
