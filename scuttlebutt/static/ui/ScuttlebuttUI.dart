@@ -687,10 +687,10 @@ class TopicsUiView extends UiView {
           
           // refresh with new data
           // TODO: show loading icon
-          window.setTimeout(() {
-            refresh();
+          //window.setTimeout(() {
+            topics = null;
             scuttlebuttUi.parseUrl();
-          }, 1000);
+          //}, 5000);
           
         });
     /*

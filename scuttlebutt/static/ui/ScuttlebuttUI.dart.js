@@ -11785,20 +11785,6 @@ function native__XSLTProcessorWrappingImplementation__reset(_this) {
     throw __dom_wrap_exception(e);
   }
 }
-function __dom_native_TimeoutHander_method(_this, callback, timeout, operation) {
-  try {
-    return _this.$dom[operation](__dom_unwrap_TimeoutHandler_function(callback),
-                                 __dom_unwrap(timeout));
-  } catch (e) {
-    throw __dom_wrap_exception(e);
-  }
-}
-function native__DOMWindowWrappingImplementation__setTimeout(_this, callback, timeout) {
-  return __dom_native_TimeoutHander_method(_this, callback, timeout, 'setTimeout');
-}
-function native__WorkerContextWrappingImplementation__setTimeout(_this, callback, timeout) {
-  return __dom_native_TimeoutHander_method(_this, callback, timeout, 'setTimeout');
-}
 function native__XMLHttpRequestFactoryProvider_create() {
   try {
     return __dom_wrap(new XMLHttpRequest());
@@ -12444,12 +12430,6 @@ function __dom_unwrap(obj, dropargs) {
     return unwrapped;
   }
   return obj;
-}
-function __dom_unwrap_TimeoutHandler_function(fn) {
-  // Some browsers (e.g. FF) pass data to the timeout function, others do not.
-  // Dart's TimeoutHandler takes no arguments, so drop any arguments passed to
-  // the unwrapped callback.
-  return __dom_unwrap(fn, true);
 }
 function native__NativeDomGlobalProperties_getWindow() {
   // TODO: Should the window be obtained from an isolate?
@@ -25231,20 +25211,6 @@ _DOMWindowWrappingImplementation$Dart._removeEventListener_DOMWindow$$member_ = 
 ;
 _DOMWindowWrappingImplementation$Dart._removeEventListener_DOMWindow_2$$member_ = function(receiver, type, listener, useCapture){
   return native__DOMWindowWrappingImplementation__removeEventListener_DOMWindow_2(receiver, type, listener, useCapture);
-}
-;
-_DOMWindowWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
-  return _DOMWindowWrappingImplementation$Dart._setTimeout$$member_(this, handler, timeout);
-}
-;
-_DOMWindowWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
-  if ($o.count || $n != 2)
-    $nsme();
-  return _DOMWindowWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
-}
-;
-_DOMWindowWrappingImplementation$Dart._setTimeout$$member_ = function(receiver, handler, timeout){
-  return native__DOMWindowWrappingImplementation__setTimeout(receiver, handler, timeout);
 }
 ;
 _DOMWindowWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -52100,20 +52066,6 @@ _WorkerContextWrappingImplementation$Dart._removeEventListener_2$$member_ = func
   return native__WorkerContextWrappingImplementation__removeEventListener_2(receiver, type, listener, useCapture);
 }
 ;
-_WorkerContextWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
-  return _WorkerContextWrappingImplementation$Dart._setTimeout$$member_(this, handler, timeout);
-}
-;
-_WorkerContextWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
-  if ($o.count || $n != 2)
-    $nsme();
-  return _WorkerContextWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
-}
-;
-_WorkerContextWrappingImplementation$Dart._setTimeout$$member_ = function(receiver, handler, timeout){
-  return native__WorkerContextWrappingImplementation__setTimeout(receiver, handler, timeout);
-}
-;
 _WorkerContextWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WorkerContext';
 }
@@ -66666,16 +66618,6 @@ htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$getter = functi
   return $bind(htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$named, htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.print$named_$lookupRTT, this);
 }
 ;
-htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$member = function(handler, timeout){
-  return this._ptr$htmlimpl0a8e4b$$getter_().setTimeout$named(2, $noargs, handler, timeout);
-}
-;
-htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$named = function($n, $o, handler, timeout){
-  if ($o.count || $n != 2)
-    $nsme();
-  return htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.setTimeout$member.call(this, handler, timeout);
-}
-;
 htmlimpl0a8e4b$WindowWrappingImplementation$Dart.prototype.on$getter = function(){
   var tmp$0;
   if (this._on$htmlimpl0a8e4b$$getter_() == null) {
@@ -72452,30 +72394,19 @@ unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$named_$lookupRTT = funct
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 ;
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted(){
-  this.refresh$member();
-  this.scuttlebuttUi$getter().parseUrl$named(0, $noargs);
-}
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named($n, $o){
-  if ($o.count || $n != 0)
-    $nsme();
-  return unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted.call(this);
-}
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
-}
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted(responseText){
-  var tmp$0;
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted(responseText){
+  var tmp$1, tmp$0;
   this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
   this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
-  htmld071c1$window$getter().setTimeout$named(2, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT, this), 1000);
+  this.topics$setter(tmp$1 = $Dart$Null) , tmp$1;
+  this.scuttlebuttUi$getter().parseUrl$named(0, $noargs);
 }
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted$named($n, $o, responseText){
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named($n, $o, responseText){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted.call(this, responseText);
+  return unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted.call(this, responseText);
 }
-function unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$member = function(e){
@@ -72485,7 +72416,7 @@ unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$member = function(e){
   }
   var newName = this._nameInput$unnamed6fbae6$$getter_().value$getter();
   print$getter()(1, $noargs, 'Posting new record.');
-  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', newName) , tmp$0), '/api/post_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c1$31_31$Hoisted$named$named_$lookupRTT, this));
+  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', newName) , tmp$0), '/api/post_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT, this));
 }
 ;
 unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named = function($n, $o, e){
