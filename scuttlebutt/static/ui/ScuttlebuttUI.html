@@ -10,11 +10,11 @@
     <div id="wrapper">
       <header>
       <p id="status" style="display:none">Dart is not running yet.</p>
-      <h1>Scuttlebutt &rarr; <span id="subtitle">Home</span></h1>
+      <h1>Scuttlebutt &rarr; <span id="subtitle">Topics</span></h1>
       <nav id="controls">
       <button type="button" id="topics-button" class="selected">Topics</button>
       <button type="button" id="sources-button">Sources</button>
-      <button type="button" id="articles-button">Articles</button>
+      <button type="button" id="articles-button" disabled="disabled">Articles</button>
       |
       <button type="button" id="refresh-button" title="Clears local cache to see if there are any new data since you opened this page." alt="Refresh" class="small">Refresh</button>
       <!--
@@ -32,7 +32,7 @@
             <th><small>Last</small> <br>7d</th>
             <th><small>Week on Week</small> <br>Trend</th>
           </tr>
-          <tr class="initial-loading"><td>Loading...</td></tr>
+          <!--<tr class="initial-loading"><td>Loading...</td></tr>-->
         </table>
       </div>
       
@@ -55,7 +55,7 @@
             <th>Published</th>
             <th>Readership <span class="arrow">&#x25BC;</span></th>
           </tr>
-          <tr><td>Loading...</td><td></td><td></td><td></td></tr>
+          <!--<tr><td>Loading...</td><td></td><td></td><td></td></tr>-->
         </table>
         <p id="articles-load-more"><button type="button" id="load-more-button">Load more articles</button></p>
       </div>
