@@ -106,6 +106,41 @@ class AllTopicsHandler(webapp.RequestHandler):
       self.response.set_status(422, 'Error creating topic: %s' % e)
 
 
+class SourcesHandler(webapp.RequestHandler):
+  """Handler class for fetching a JSON list of Feeds."""
+
+  def get(self):
+    """Handles the HTTP Get for a feed fetch call."""
+    CACHE_KEY = 'sources'
+    if not memcache.get(CACHE_KEY):
+      logging.info('Populating cache.')
+      feeds = Feed.all().order('name')
+      feed_list = []
+      for feed in feeds:
+        feed_list.append(feed.ToDict())
+      memcache.add(CACHE_KEY, simplejson.dumps(feed_list), 600)
+    logging.info('Using cache.')
+    logging.info(memcache.get(CACHE_KEY))
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.out.write(memcache.get(CACHE_KEY))
+
+  def post(self):
+    """Handles the HTTP Get for creating a feed."""
+    s = ScuttlebuttService()
+    try:
+      feed_dict = simplejson.loads(self.request.body)
+      feed = s.CreateFeed(feed_dict)
+      self.response.headers['Content-Type'] = 'application/json'
+      self.response.out.write(simplejson.dumps(feed.ToDict()))
+    except simplejson.JSONDecodeError:
+      # HTTP 400 for bad syntax.
+      self.response.set_status(
+          400, 'Failed to create source. Invalid JSON: %s' % self.request.body)
+    except Exception, e:
+      # HTTP 422 for syntactically correct but semantically wrong.
+      self.response.set_status(422, 'Error creating source: %s' % e)
+
+
 class TopicsHandler(webapp.RequestHandler):
   """Handler class to return aggregated topic stats per week."""
 
@@ -129,6 +164,7 @@ def main():
       ('/report/create_feed', CreateFeedHandler),
       ('/api/articles/(.*)', ArticlesHandler),
       ('/api/topics', AllTopicsHandler),
+      ('/api/sources', SourcesHandler),
       ('/api/topic_stats/(\d+)/?', TopicsHandler),
   ], debug=True)
   util.run_wsgi_app(application)

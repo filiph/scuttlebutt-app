@@ -10,8 +10,8 @@ from google.appengine.ext import db
 
 class Feed(db.Model):
   """Represents an RSS Feed."""
-  name = db.StringProperty(indexed=False)
-  url = db.StringProperty(indexed=False)
+  name = db.StringProperty()
+  url = db.StringProperty()
   monthly_visitors = db.IntegerProperty(indexed=False)
 
   @property
@@ -19,6 +19,14 @@ class Feed(db.Model):
     """Get articles for that feed."""
     return Article.gql('WHERE feeds = :1', self.key())
 
+  def ToDict(self):
+    """Returns a dictionary representation of the object."""
+    d = {}
+    d['name'] = self.name
+    d['url'] = self.url
+    d['monthlyVisitors'] = self.monthly_visitors
+    d['id'] = int(self.key().id())
+    return d
 
 class Topic(db.Model):
   """Represents a topic of interest.

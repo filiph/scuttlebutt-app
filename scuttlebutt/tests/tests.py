@@ -278,6 +278,43 @@ class ScuttlebuttServiceTests(unittest.TestCase):
       self.assertRaises(Exception, s.CreateTopic, topic_dict)
       self.assertEqual(0, Topic.all().count(1))
 
+  def testCreateFeed(self):
+    """Test that we can create a feed."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': 0
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+
+  def testCreateFeed(self):
+    """Test that we can create a feed."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': 0
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+
+  def testCreateFeedWithNoMonthlyVisitorSet(self):
+    """Test that we can create a feed with empty monthly visitor set."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': u''
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+    self.assertEqual(0, feed.monthly_visitors)
+
   def testGetArticles(self):
     """Test that the service returns a list of articles in JSON."""
     JAN1 = datetime.datetime(2012, 1, 1)
