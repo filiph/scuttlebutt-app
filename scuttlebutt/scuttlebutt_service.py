@@ -118,51 +118,6 @@ class ScuttlebuttService(object):
         articles_list, key=lambda a: a['readership'], reverse=True)
     return articles_list[offset : offset+limit]
 
-  def StringToDatetime(self, str):
-    """Converts a string in the format yyyy-mm-ddTHH:MM:SS to datetime.
-
-    Args:
-      str: str The datetime in the format yyyy-mm-ddTHH:MM:SS.
-
-    Returns:
-      A datetime.datetime object.
-    """
-    try:
-      result = datetime.datetime.strptime(str, '%Y-%m-%dT%H:%M:%S')
-    except ValueError:
-      result = None
-    return result
-
-  def StringToDate(self, str):
-    """Converts a string in the format yyyy-mm-dd to date.
-
-    Args:
-      str: str The datetime in the format yyyy-mm-dd.
-
-    Returns:
-      A datetime.date object if the input parameter was in the right format,
-      None otherwise.
-    """
-    try:
-      return datetime.datetime.strptime(str, '%Y-%m-%d').date()
-    except ValueError:
-      return None
-
-  def StringToInt(self, str):
-    """Converts a string in an int.
-
-    Args:
-      str: str The string to convert to int.
-
-    Returns:
-      A int for the string.
-    """
-    try:
-      result = int(str)
-    except ValueError:
-      result = None
-    return result
-
   def GetDailyTopicStats(self, topic_id, today):
     """Gets the daily aggregated article count.
 
