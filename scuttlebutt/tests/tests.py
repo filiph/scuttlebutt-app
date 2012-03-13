@@ -622,6 +622,34 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     ]
     self.assertEqual(expected, result)
 
+  def testGetDailyTopicStatsNoArticles(self):
+    """Test that we can get daily aggregated article counts event if there
+    are no articles. (This used to result in a crash.)"""
+    DEC1_NOON = datetime.datetime(2011, 12, 1, 12)
+    DEC2_NOON = datetime.datetime(2011, 12, 2, 12)
+    DEC2 = datetime.date(2011, 12, 2)
+    DEC2_3PM = datetime.datetime(2011, 12, 2, 15)
+    t = Topic()
+    t.name = 'Chrome'
+    t.put()
+    s = ScuttlebuttService()
+    result = s.GetDailyTopicStats(topic_id=t.key().id(), today=DEC2)
+    expected = [
+        {
+          "date" : "2011-12-02",
+          "count" : 0,
+        },
+        {
+          "date" : "2011-12-01",
+          "count" : 0,
+        },
+        {
+          "date" : "2011-11-30",
+          "count" : 0,
+        }
+    ]
+    self.assertEqual(expected, result)
+
 
 class HelpersTests(unittest.TestCase):
   """Test methods for helpers.py."""

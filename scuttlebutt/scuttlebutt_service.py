@@ -177,6 +177,8 @@ class DailyTopicStatsAggregator(object):
     """
     result = []
     current_day = self.today
+    if self.oldest_day is None:
+      self.oldest_day = self.today - datetime.timedelta(days=2)
     while True:
       result.append(self._GetRecord(current_day, self.days.get(current_day, 0)))
       current_day -= datetime.timedelta(days=1)
