@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Reuters", 
+    "id": 4001,
+    "url": "http://www.reuters.com/rss", 
+    "monthlyVisitors": 100000 
+  },
+  {
+    "name": "Tech Crunch", 
+    "id": 4002, 
+    "url": "http://www.techcrunch.com/new/feed",
+    "monthlyVisitors": 1200000
+  }
+]

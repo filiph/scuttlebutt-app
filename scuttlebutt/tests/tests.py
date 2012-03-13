@@ -278,6 +278,43 @@ class ScuttlebuttServiceTests(unittest.TestCase):
       self.assertRaises(Exception, s.CreateTopic, topic_dict)
       self.assertEqual(0, Topic.all().count(1))
 
+  def testCreateFeed(self):
+    """Test that we can create a feed."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': 0
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+
+  def testCreateFeed(self):
+    """Test that we can create a feed."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': 0
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+
+  def testCreateFeedWithNoMonthlyVisitorSet(self):
+    """Test that we can create a feed with empty monthly visitor set."""
+    s = ScuttlebuttService()
+    feed_dict = {
+        u'name': u'My New Interest',
+        u'url': u'http://someFeedUrl.com',
+        u'monthlyVisitors': u''
+    }
+    feed = s.CreateFeed(feed_dict)
+    self.assertEqual(1, Feed.all().count())
+    self.assertEqual(feed_dict['name'], feed.name)
+    self.assertEqual(0, feed.monthly_visitors)
+
   def testGetArticles(self):
     """Test that the service returns a list of articles in JSON."""
     JAN1 = datetime.datetime(2012, 1, 1)
@@ -370,7 +407,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     )
     self.assertEqual(expected_list, actual_list)
     #################################################
-    # Specify end date on the same day as the last article, to check that 
+    # Specify end date on the same day as the last article, to check that
     # end date is inclusive. Expect both articles.
     #################################################
     expected_list = [{
@@ -544,44 +581,6 @@ class ScuttlebuttServiceTests(unittest.TestCase):
         offset=1
     )
     self.assertEqual(expected_list, actual_list)
-
-  def testStringToDatetime(self):
-    """Test that the string to date function works for simple case."""
-    s = ScuttlebuttService()
-    expected_date = datetime.datetime(2012, 1, 1, 23, 59, 59)
-    actual_date = s.StringToDatetime('2012-01-01T23:59:59')
-    self.assertEqual(expected_date, actual_date)
-
-  def testStringToDatetimeWithInvalidFormat(self):
-    """Test that invalid date formats returns None."""
-    s = ScuttlebuttService()
-    actual_date = s.StringToDatetime('2012 01 01')
-    self.assertEqual(None, actual_date)
-
-  def testStringToDatetimeWithInvalidDate(self):
-    """Test invalid dates return None."""
-    s = ScuttlebuttService()
-    actual_date = s.StringToDatetime('2012-22-01T00:00:00')
-    self.assertEqual(None, actual_date)
-
-  def testStringToDate(self):
-    """Test that the string to date function works for simple case."""
-    s = ScuttlebuttService()
-    expected_date = datetime.date(2012, 1, 1)
-    actual_date = s.StringToDate('2012-01-01')
-    self.assertEqual(expected_date, actual_date)
-
-  def testStringToDateWithInvalidFormat(self):
-    """Test that invalid date formats returns None."""
-    s = ScuttlebuttService()
-    actual_date = s.StringToDate('2012 01 01')
-    self.assertEqual(None, actual_date)
-
-  def testStringToDateWithInvalidDate(self):
-    """Test invalid dates return None."""
-    s = ScuttlebuttService()
-    actual_date = s.StringToDate('2012-22-01')
-    self.assertEqual(None, actual_date)
 
   def testGetDailyTopicStats(self):
     """Test that we can get daily aggregated article counts."""

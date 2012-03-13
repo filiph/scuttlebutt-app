@@ -9,6 +9,7 @@ import datetime
 import logging
 from google.appengine.api import memcache
 from model import Article
+from model import Feed
 from model import Topic
 
 
@@ -24,8 +25,8 @@ class ScuttlebuttService(object):
       A topic object with the datastore assigned ID.
 
     Raises:
-      Exception if the topic already exists or if the fields in the dictionary do
-      not match fields on the object.
+      Exception if the topic already exists or if the fields in the dictionary
+      do not match fields on the object.
     """
     if 'name' not in topic_dict:
       raise Exception('Topic provided has no "name" field.')
@@ -33,7 +34,7 @@ class ScuttlebuttService(object):
     count = Topic.all().filter('name =', topic_dict['name']).count(2)
     if count:
       raise Exception(
-          'Topic with name "%s" already exists.' % topic_dict['name'])
+        'Topic with name "%s" already exists.' % topic_dict['name'])
 
     topic = Topic()
     topic.name = topic_dict['name']
@@ -41,6 +42,44 @@ class ScuttlebuttService(object):
     logging.info('Topic with name "%s" was created.' % topic.name)
     memcache.delete('topics')
     return topic
+
+  def CreateFeed(self, feed_dict):
+      """Create a new feed if it does not already exist.  The uniqueness check
+      is done by url but slight variation like query parameters can throw this
+      off
+
+      Args: feed_dict a dictionary representation of the feed to create.
+
+      Returns:
+        A feed object with the datastore assigned ID.
+
+      Raises:
+        Exception if the feed already exists or if the fields in the dictionary
+        do not match fields on the object.
+      """
+
+      required_fields = ['name', 'url', 'monthlyVisitors']
+      for field in required_fields:
+        if field not in feed_dict:
+          raise Exception('Source provided has no "%s" field.' % field)
+
+      count = Feed.all().filter('url =', feed_dict['url']).count(2)
+      if count:
+        raise Exception(
+          'Source with url "%s" already exists.' % feed_dict['name'])
+
+      feed = Feed()
+      feed.name = feed_dict['name']
+      feed.url = feed_dict['url']
+      if feed_dict['monthlyVisitors'] == '':
+        feed.monthly_visitors = 0
+      else:
+        feed.monthly_visitors = int(feed_dict['monthlyVisitors'])
+
+      feed.put()
+      logging.info('Source with name "%s" was created.' % feed.name)
+      memcache.delete('sources')
+      return feed
 
   def GetArticles(self, topic_id, min_date, max_date, limit, offset):
     """Get a list of articles in JSON representation matching the topic.
@@ -78,51 +117,6 @@ class ScuttlebuttService(object):
     articles_list = sorted(
         articles_list, key=lambda a: a['readership'], reverse=True)
     return articles_list[offset : offset+limit]
-
-  def StringToDatetime(self, str):
-    """Converts a string in the format yyyy-mm-ddTHH:MM:SS to datetime.
-
-    Args:
-      str: str The datetime in the format yyyy-mm-ddTHH:MM:SS.
-
-    Returns:
-      A datetime.datetime object.
-    """
-    try:
-      result = datetime.datetime.strptime(str, '%Y-%m-%dT%H:%M:%S')
-    except ValueError:
-      result = None
-    return result
-
-  def StringToDate(self, str):
-    """Converts a string in the format yyyy-mm-dd to date.
-
-    Args:
-      str: str The datetime in the format yyyy-mm-dd.
-
-    Returns:
-      A datetime.date object if the input parameter was in the right format,
-      None otherwise.
-    """
-    try:
-      return datetime.datetime.strptime(str, '%Y-%m-%d').date()
-    except ValueError:
-      return None
-
-  def StringToInt(self, str):
-    """Converts a string in an int.
-
-    Args:
-      str: str The string to convert to int.
-
-    Returns:
-      A int for the string.
-    """
-    try:
-      result = int(str)
-    except ValueError:
-      result = None
-    return result
 
   def GetDailyTopicStats(self, topic_id, today):
     """Gets the daily aggregated article count.

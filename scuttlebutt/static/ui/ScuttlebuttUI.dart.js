@@ -4497,6 +4497,336 @@ ExceptionImplementation$Dart.prototype.$const_id = function(){
   return $cls('ExceptionImplementation$Dart') + (':' + $dart_const_id(this._msg$$field_));
 }
 ;
+function FutureNotCompleteException$Dart(){
+}
+FutureNotCompleteException$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('FutureNotCompleteException$Dart'), FutureNotCompleteException$Dart.$RTTimplements, null, named);
+}
+;
+FutureNotCompleteException$Dart.$RTTimplements = function(rtt){
+  FutureNotCompleteException$Dart.$addTo(rtt);
+}
+;
+FutureNotCompleteException$Dart.$addTo = function(target){
+  var rtt = FutureNotCompleteException$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  Exception$Dart.$addTo(target);
+}
+;
+FutureNotCompleteException$Dart.$Constructor = function(){
+}
+;
+FutureNotCompleteException$Dart.$Initializer = function(){
+}
+;
+FutureNotCompleteException$Dart.FutureNotCompleteException$$Factory = function(){
+  var tmp$0 = new FutureNotCompleteException$Dart;
+  tmp$0.$typeInfo = FutureNotCompleteException$Dart.$lookupRTT();
+  FutureNotCompleteException$Dart.$Initializer.call(tmp$0);
+  FutureNotCompleteException$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+FutureNotCompleteException$Dart.prototype.toString$member = function(){
+  return 'Exception: future has not been completed';
+}
+;
+FutureNotCompleteException$Dart.prototype.toString$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return FutureNotCompleteException$Dart.prototype.toString$member.call(this);
+}
+;
+function FutureAlreadyCompleteException$Dart(){
+}
+FutureAlreadyCompleteException$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('FutureAlreadyCompleteException$Dart'), FutureAlreadyCompleteException$Dart.$RTTimplements, null, named);
+}
+;
+FutureAlreadyCompleteException$Dart.$RTTimplements = function(rtt){
+  FutureAlreadyCompleteException$Dart.$addTo(rtt);
+}
+;
+FutureAlreadyCompleteException$Dart.$addTo = function(target){
+  var rtt = FutureAlreadyCompleteException$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  Exception$Dart.$addTo(target);
+}
+;
+FutureAlreadyCompleteException$Dart.$Constructor = function(){
+}
+;
+FutureAlreadyCompleteException$Dart.$Initializer = function(){
+}
+;
+FutureAlreadyCompleteException$Dart.FutureAlreadyCompleteException$$Factory = function(){
+  var tmp$0 = new FutureAlreadyCompleteException$Dart;
+  tmp$0.$typeInfo = FutureAlreadyCompleteException$Dart.$lookupRTT();
+  FutureAlreadyCompleteException$Dart.$Initializer.call(tmp$0);
+  FutureAlreadyCompleteException$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+FutureAlreadyCompleteException$Dart.prototype.toString$member = function(){
+  return 'Exception: future already completed';
+}
+;
+FutureAlreadyCompleteException$Dart.prototype.toString$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return FutureAlreadyCompleteException$Dart.prototype.toString$member.call(this);
+}
+;
+function FutureImpl$Dart(){
+}
+FutureImpl$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('FutureImpl$Dart'), FutureImpl$Dart.$RTTimplements, typeArgs, named);
+}
+;
+FutureImpl$Dart.$RTTimplements = function(rtt, typeArgs){
+  FutureImpl$Dart.$addTo(rtt, typeArgs);
+}
+;
+FutureImpl$Dart.$addTo = function(target, typeArgs){
+  var rtt = FutureImpl$Dart.$lookupRTT(typeArgs);
+  target.implementedTypes[rtt.classKey] = rtt;
+  Future$Dart.$addTo(target, [RTT.getTypeArg(target.typeArgs, 0)]);
+}
+;
+FutureImpl$Dart.$Constructor = function(){
+  var tmp$1, tmp$0;
+  this._isComplete$$setter_(tmp$0 = false) , tmp$0;
+  this._exceptionHandled$$setter_(tmp$1 = false) , tmp$1;
+}
+;
+FutureImpl$Dart.$Initializer = function(){
+  this._listeners$$field_ = ListFactory$Dart.List$$Factory(null, $Dart$Null);
+  this._exceptionHandlers$$field_ = ListFactory$Dart.List$$Factory(null, $Dart$Null);
+}
+;
+FutureImpl$Dart.FutureImpl$$Factory = function($rtt){
+  var tmp$0 = new FutureImpl$Dart;
+  tmp$0.$typeInfo = $rtt;
+  FutureImpl$Dart.$Initializer.call(tmp$0);
+  FutureImpl$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+FutureImpl$Dart.prototype._isComplete$$getter_ = function(){
+  return this._isComplete$$field_;
+}
+;
+FutureImpl$Dart.prototype._isComplete$$setter_ = function(tmp$0){
+  this._isComplete$$field_ = tmp$0;
+}
+;
+FutureImpl$Dart.prototype._value$$getter_ = function(){
+  return this._value$$field_;
+}
+;
+FutureImpl$Dart.prototype._value$$setter_ = function(tmp$0){
+  this._value$$field_ = tmp$0;
+}
+;
+FutureImpl$Dart.prototype._exception$$getter_ = function(){
+  return this._exception$$field_;
+}
+;
+FutureImpl$Dart.prototype._exception$$setter_ = function(tmp$0){
+  this._exception$$field_ = tmp$0;
+}
+;
+FutureImpl$Dart.prototype._exceptionHandled$$getter_ = function(){
+  return this._exceptionHandled$$field_;
+}
+;
+FutureImpl$Dart.prototype._exceptionHandled$$setter_ = function(tmp$0){
+  this._exceptionHandled$$field_ = tmp$0;
+}
+;
+FutureImpl$Dart.prototype._listeners$$getter_ = function(){
+  return this._listeners$$field_;
+}
+;
+FutureImpl$Dart.prototype._exceptionHandlers$$getter_ = function(){
+  return this._exceptionHandlers$$field_;
+}
+;
+FutureImpl$Dart.prototype.value$getter = function(){
+  if (!this.isComplete$getter()) {
+    $Dart$ThrowException(FutureNotCompleteException$Dart.FutureNotCompleteException$$Factory());
+  }
+  if (this._exception$$getter_() != null) {
+    $Dart$ThrowException(this._exception$$getter_());
+  }
+  return this._value$$getter_();
+}
+;
+FutureImpl$Dart.prototype.isComplete$getter = function(){
+  return this._isComplete$$getter_();
+}
+;
+FutureImpl$Dart.prototype.hasValue$getter = function(){
+  return this.isComplete$getter() && this._exception$$getter_() == null;
+}
+;
+FutureImpl$Dart.prototype.then$member = function(onComplete){
+  if (this.hasValue$getter()) {
+    onComplete(1, $noargs, this.value$getter());
+  }
+   else {
+    if (!this.isComplete$getter()) {
+      this._listeners$$getter_().add$named(1, $noargs, onComplete);
+    }
+     else {
+      if (!this._exceptionHandled$$getter_()) {
+        $Dart$ThrowException(this._exception$$getter_());
+      }
+    }
+  }
+}
+;
+FutureImpl$Dart.prototype.then$named = function($n, $o, onComplete){
+  if ($o.count || $n != 1)
+    $nsme();
+  return FutureImpl$Dart.prototype.then$member.call(this, onComplete);
+}
+;
+FutureImpl$Dart.prototype._complete$$member_ = function(){
+  var tmp$1, tmp$0;
+  this._isComplete$$setter_(tmp$0 = true) , tmp$0;
+  if (this._exception$$getter_() != null) {
+    {
+      var $0 = this._exceptionHandlers$$getter_().iterator$named(0, $noargs);
+      while ($0.hasNext$named(0, $noargs)) {
+        var handler = $0.next$named(0, $noargs);
+        {
+          if (handler(1, $noargs, this._exception$$getter_())) {
+            this._exceptionHandled$$setter_(tmp$1 = true) , tmp$1;
+            break;
+          }
+        }
+      }
+    }
+  }
+  if (this.hasValue$getter()) {
+    {
+      var $1 = this._listeners$$getter_().iterator$named(0, $noargs);
+      while ($1.hasNext$named(0, $noargs)) {
+        var listener = $1.next$named(0, $noargs);
+        {
+          listener(1, $noargs, this.value$getter());
+        }
+      }
+    }
+  }
+   else {
+    if (!this._exceptionHandled$$getter_() && GT$operator(this._listeners$$getter_().length$getter(), 0)) {
+      $Dart$ThrowException(this._exception$$getter_());
+    }
+  }
+}
+;
+FutureImpl$Dart.prototype._setValue$$member_ = function(value){
+  var tmp$0;
+  if (this._isComplete$$getter_()) {
+    $Dart$ThrowException(FutureAlreadyCompleteException$Dart.FutureAlreadyCompleteException$$Factory());
+  }
+  this._value$$setter_(tmp$0 = value) , tmp$0;
+  this._complete$$member_();
+}
+;
+FutureImpl$Dart.prototype._setValue$$named_ = function($n, $o, value){
+  if ($o.count || $n != 1)
+    $nsme();
+  return FutureImpl$Dart.prototype._setValue$$member_.call(this, value);
+}
+;
+FutureImpl$Dart.prototype._setException$$member_ = function(exception){
+  var tmp$0;
+  if (exception == null) {
+    $Dart$ThrowException(IllegalArgumentException$Dart.IllegalArgumentException$$Factory($Dart$Null));
+  }
+  if (this._isComplete$$getter_()) {
+    $Dart$ThrowException(FutureAlreadyCompleteException$Dart.FutureAlreadyCompleteException$$Factory());
+  }
+  this._exception$$setter_(tmp$0 = exception) , tmp$0;
+  this._complete$$member_();
+}
+;
+FutureImpl$Dart.prototype._setException$$named_ = function($n, $o, exception){
+  if ($o.count || $n != 1)
+    $nsme();
+  return FutureImpl$Dart.prototype._setException$$member_.call(this, exception);
+}
+;
+function CompleterImpl$Dart(){
+}
+CompleterImpl$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('CompleterImpl$Dart'), CompleterImpl$Dart.$RTTimplements, typeArgs, named);
+}
+;
+CompleterImpl$Dart.$RTTimplements = function(rtt, typeArgs){
+  CompleterImpl$Dart.$addTo(rtt, typeArgs);
+}
+;
+CompleterImpl$Dart.$addTo = function(target, typeArgs){
+  var rtt = CompleterImpl$Dart.$lookupRTT(typeArgs);
+  target.implementedTypes[rtt.classKey] = rtt;
+  Completer$Dart.$addTo(target, [RTT.getTypeArg(target.typeArgs, 0)]);
+}
+;
+CompleterImpl$Dart.$Constructor = function(){
+}
+;
+CompleterImpl$Dart.$Initializer = function(){
+  this._futureImpl$$field_ = FutureImpl$Dart.FutureImpl$$Factory(FutureImpl$Dart.$lookupRTT());
+}
+;
+CompleterImpl$Dart.CompleterImpl$$Factory = function($rtt){
+  var tmp$0 = new CompleterImpl$Dart;
+  tmp$0.$typeInfo = $rtt;
+  CompleterImpl$Dart.$Initializer.call(tmp$0);
+  CompleterImpl$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+CompleterImpl$Dart.prototype._futureImpl$$getter_ = function(){
+  return this._futureImpl$$field_;
+}
+;
+CompleterImpl$Dart.prototype.future$getter = function(){
+  return this._futureImpl$$getter_();
+}
+;
+CompleterImpl$Dart.prototype.complete$member = function(value){
+  this._futureImpl$$getter_()._setValue$$named_(1, $noargs, value);
+}
+;
+CompleterImpl$Dart.prototype.complete$named = function($n, $o, value){
+  if ($o.count || $n != 1)
+    $nsme();
+  return CompleterImpl$Dart.prototype.complete$member.call(this, value);
+}
+;
+CompleterImpl$Dart.prototype.complete$named_$lookupRTT = function(){
+  return RTT.createFunction([RTT.getTypeArg(RTT.getTypeArgsFor(this, $cls('CompleterImpl$Dart')), 0)], RTT.dynamicType.$lookupRTT());
+}
+;
+CompleterImpl$Dart.prototype.complete$getter = function(){
+  return $bind(CompleterImpl$Dart.prototype.complete$named, CompleterImpl$Dart.prototype.complete$named_$lookupRTT, this);
+}
+;
+CompleterImpl$Dart.prototype.completeException$member = function(exception){
+  this._futureImpl$$getter_()._setException$$named_(1, $noargs, exception);
+}
+;
+CompleterImpl$Dart.prototype.completeException$named = function($n, $o, exception){
+  if ($o.count || $n != 1)
+    $nsme();
+  return CompleterImpl$Dart.prototype.completeException$member.call(this, exception);
+}
+;
 function HashMapImplementation$Dart(){
 }
 HashMapImplementation$Dart.$lookupRTT = function(typeArgs, named){
@@ -6631,6 +6961,28 @@ NotImplementedException$Dart.prototype.$const_id = function(){
   return $cls('NotImplementedException$Dart');
 }
 ;
+function Future$Dart(){
+}
+Future$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('Future$Dart'), null, typeArgs, named);
+}
+;
+Future$Dart.$addTo = function(target, typeArgs){
+  var rtt = Future$Dart.$lookupRTT(typeArgs);
+  target.implementedTypes[rtt.classKey] = rtt;
+}
+;
+function Completer$Dart(){
+}
+Completer$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('Completer$Dart'), null, typeArgs, named);
+}
+;
+Completer$Dart.$addTo = function(target, typeArgs){
+  var rtt = Completer$Dart.$lookupRTT(typeArgs);
+  target.implementedTypes[rtt.classKey] = rtt;
+}
+;
 function Hashable$Dart(){
 }
 Hashable$Dart.$lookupRTT = function(typeArgs, named){
@@ -7023,6 +7375,13 @@ function native__AudioParamWrappingImplementation__set_value(_this, value) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__BeforeLoadEventWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__BiquadFilterNodeWrappingImplementation__set_type(_this, value) {
   try {
     _this.$dom.type = __dom_unwrap(value);
@@ -7201,13 +7560,6 @@ function native__ConsoleWrappingImplementation__error(_this, arg) {
 function native__ConsoleWrappingImplementation__group(_this) {
   try {
     return __dom_wrap(_this.$dom.group());
-  } catch (e) {
-    throw __dom_wrap_exception(e);
-  }
-}
-function native__ConsoleWrappingImplementation__info(_this, arg) {
-  try {
-    return __dom_wrap(_this.$dom.info(__dom_unwrap(arg)));
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -7835,6 +8187,13 @@ function native__EventExceptionWrappingImplementation__toString(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__EventSourceWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__EventSourceWrappingImplementation__addEventListener_EventSource(_this, type, listener) {
   try {
     return __dom_wrap(_this.$dom.addEventListener(__dom_unwrap(type), __dom_unwrap(listener)));
@@ -8136,6 +8495,13 @@ function native__HTMLBodyElementWrappingImplementation__set_text(_this, value) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLButtonElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLButtonElementWrappingImplementation__get_name(_this) {
   try {
     return __dom_wrap(_this.$dom.name);
@@ -8374,6 +8740,13 @@ function native__HTMLIFrameElementWrappingImplementation__set_name(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLImageElementWrappingImplementation__get_complete(_this) {
+  try {
+    return __dom_wrap(_this.$dom.complete);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLImageElementWrappingImplementation__set_height(_this, value) {
   try {
     _this.$dom.height = __dom_unwrap(value);
@@ -8391,6 +8764,13 @@ function native__HTMLImageElementWrappingImplementation__get_name(_this) {
 function native__HTMLImageElementWrappingImplementation__set_name(_this, value) {
   try {
     _this.$dom.name = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLInputElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8444,6 +8824,13 @@ function native__HTMLInputElementWrappingImplementation__click(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLKeygenElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLKeygenElementWrappingImplementation__get_name(_this) {
   try {
     return __dom_wrap(_this.$dom.name);
@@ -8475,6 +8862,13 @@ function native__HTMLLIElementWrappingImplementation__get_value(_this) {
 function native__HTMLLIElementWrappingImplementation__set_value(_this, value) {
   try {
     _this.$dom.value = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLLinkElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8601,6 +8995,20 @@ function native__HTMLObjectElementWrappingImplementation__set_name(_this, value)
 function native__HTMLObjectElementWrappingImplementation__set_type(_this, value) {
   try {
     _this.$dom.type = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLOptGroupElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLOptionElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -8738,6 +9146,13 @@ function native__HTMLScriptElementWrappingImplementation__set_type(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLSelectElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLSelectElementWrappingImplementation__get_length(_this) {
   try {
     return __dom_wrap(_this.$dom.length);
@@ -8815,6 +9230,13 @@ function native__HTMLSourceElementWrappingImplementation__set_type(_this, value)
     throw __dom_wrap_exception(e);
   }
 }
+function native__HTMLStyleElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__HTMLStyleElementWrappingImplementation__set_type(_this, value) {
   try {
     _this.$dom.type = __dom_unwrap(value);
@@ -8853,6 +9275,13 @@ function native__HTMLTableRowElementWrappingImplementation__insertCell(_this, in
 function native__HTMLTableSectionElementWrappingImplementation__insertRow(_this, index) {
   try {
     return __dom_wrap(_this.$dom.insertRow(__dom_unwrap(index)));
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__HTMLTextAreaElementWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -10663,6 +11092,13 @@ function native__ScriptProfileNodeWrappingImplementation__get_children(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__ScriptProfileNodeWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__SharedWorkerContextWrappingImplementation__get_name(_this) {
   try {
     return __dom_wrap(_this.$dom.name);
@@ -10708,6 +11144,20 @@ function native__StorageWrappingImplementation__key(_this, index) {
 function native__StorageEventWrappingImplementation__get_key(_this) {
   try {
     return __dom_wrap(_this.$dom.key);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__StorageEventWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__StyleSheetWrappingImplementation__set_disabled(_this, value) {
+  try {
+    _this.$dom.disabled = __dom_unwrap(value);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -11020,6 +11470,13 @@ function native__WebGLActiveInfoWrappingImplementation__get_name(_this) {
     throw __dom_wrap_exception(e);
   }
 }
+function native__WebGLContextEventWrappingImplementation__get_statusMessage(_this) {
+  try {
+    return __dom_wrap(_this.$dom.statusMessage);
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
 function native__WebGLRenderingContextWrappingImplementation__clear(_this, mask) {
   try {
     return __dom_wrap(_this.$dom.clear(__dom_unwrap(mask)));
@@ -11072,6 +11529,13 @@ function native__WebKitCSSKeyframesRuleWrappingImplementation__set_name(_this, v
 function native__WebKitCSSMatrixWrappingImplementation__toString(_this) {
   try {
     return __dom_wrap(_this.$dom.toString());
+  } catch (e) {
+    throw __dom_wrap_exception(e);
+  }
+}
+function native__WebSocketWrappingImplementation__get_url(_this) {
+  try {
+    return __dom_wrap(_this.$dom.url);
   } catch (e) {
     throw __dom_wrap_exception(e);
   }
@@ -23312,21 +23776,6 @@ _ConsoleWrappingImplementation$Dart._group$$member_ = function(receiver){
   return native__ConsoleWrappingImplementation__group(receiver);
 }
 ;
-_ConsoleWrappingImplementation$Dart.prototype.info$member = function(arg){
-  _ConsoleWrappingImplementation$Dart._info$$member_(this, arg);
-  return;
-}
-;
-_ConsoleWrappingImplementation$Dart.prototype.info$named = function($n, $o, arg){
-  if ($o.count || $n != 1)
-    $nsme();
-  return _ConsoleWrappingImplementation$Dart.prototype.info$member.call(this, arg);
-}
-;
-_ConsoleWrappingImplementation$Dart._info$$member_ = function(receiver, arg){
-  return native__ConsoleWrappingImplementation__info(receiver, arg);
-}
-;
 _ConsoleWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'Console';
 }
@@ -25880,6 +26329,14 @@ _EventSourceWrappingImplementation$Dart.create__EventSourceWrappingImplementatio
 function native__EventSourceWrappingImplementation_create__EventSourceWrappingImplementation(){
   return _EventSourceWrappingImplementation$Dart.create__EventSourceWrappingImplementation$member();
 }
+_EventSourceWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _EventSourceWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_EventSourceWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__EventSourceWrappingImplementation__get_url(_this);
+}
+;
 _EventSourceWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _EventSourceWrappingImplementation$Dart._addEventListener_EventSource$$member_(this, type, listener);
@@ -26222,6 +26679,14 @@ _BeforeLoadEventWrappingImplementation$Dart.create__BeforeLoadEventWrappingImple
 function native__BeforeLoadEventWrappingImplementation_create__BeforeLoadEventWrappingImplementation(){
   return _BeforeLoadEventWrappingImplementation$Dart.create__BeforeLoadEventWrappingImplementation$member();
 }
+_BeforeLoadEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _BeforeLoadEventWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_BeforeLoadEventWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__BeforeLoadEventWrappingImplementation__get_url(_this);
+}
+;
 _BeforeLoadEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'BeforeLoadEvent';
 }
@@ -33537,6 +34002,14 @@ _HTMLButtonElementWrappingImplementation$Dart.create__HTMLButtonElementWrappingI
 function native__HTMLButtonElementWrappingImplementation_create__HTMLButtonElementWrappingImplementation(){
   return _HTMLButtonElementWrappingImplementation$Dart.create__HTMLButtonElementWrappingImplementation$member();
 }
+_HTMLButtonElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLButtonElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLButtonElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLButtonElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLButtonElementWrappingImplementation$Dart.prototype.name$getter = function(){
   return _HTMLButtonElementWrappingImplementation$Dart._get_name$$member_(this);
 }
@@ -34512,6 +34985,18 @@ _HTMLImageElementWrappingImplementation$Dart.create__HTMLImageElementWrappingImp
 function native__HTMLImageElementWrappingImplementation_create__HTMLImageElementWrappingImplementation(){
   return _HTMLImageElementWrappingImplementation$Dart.create__HTMLImageElementWrappingImplementation$member();
 }
+_HTMLImageElementWrappingImplementation$Dart.prototype.complete$named = function(){
+  return this.complete$getter().apply(this, arguments);
+}
+;
+_HTMLImageElementWrappingImplementation$Dart.prototype.complete$getter = function(){
+  return _HTMLImageElementWrappingImplementation$Dart._get_complete$$member_(this);
+}
+;
+_HTMLImageElementWrappingImplementation$Dart._get_complete$$member_ = function(_this){
+  return native__HTMLImageElementWrappingImplementation__get_complete(_this);
+}
+;
 _HTMLImageElementWrappingImplementation$Dart.prototype.height$setter = function(value){
   _HTMLImageElementWrappingImplementation$Dart._set_height$$member_(this, value);
 }
@@ -34581,6 +35066,14 @@ _HTMLInputElementWrappingImplementation$Dart.create__HTMLInputElementWrappingImp
 function native__HTMLInputElementWrappingImplementation_create__HTMLInputElementWrappingImplementation(){
   return _HTMLInputElementWrappingImplementation$Dart.create__HTMLInputElementWrappingImplementation$member();
 }
+_HTMLInputElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLInputElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLInputElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLInputElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLInputElementWrappingImplementation$Dart.prototype.name$getter = function(){
   return _HTMLInputElementWrappingImplementation$Dart._get_name$$member_(this);
 }
@@ -34742,6 +35235,14 @@ _HTMLKeygenElementWrappingImplementation$Dart.create__HTMLKeygenElementWrappingI
 function native__HTMLKeygenElementWrappingImplementation_create__HTMLKeygenElementWrappingImplementation(){
   return _HTMLKeygenElementWrappingImplementation$Dart.create__HTMLKeygenElementWrappingImplementation$member();
 }
+_HTMLKeygenElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLKeygenElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLKeygenElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLKeygenElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLKeygenElementWrappingImplementation$Dart.prototype.name$getter = function(){
   return _HTMLKeygenElementWrappingImplementation$Dart._get_name$$member_(this);
 }
@@ -34962,6 +35463,14 @@ _HTMLLinkElementWrappingImplementation$Dart.create__HTMLLinkElementWrappingImple
 function native__HTMLLinkElementWrappingImplementation_create__HTMLLinkElementWrappingImplementation(){
   return _HTMLLinkElementWrappingImplementation$Dart.create__HTMLLinkElementWrappingImplementation$member();
 }
+_HTMLLinkElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLLinkElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLLinkElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLLinkElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLLinkElementWrappingImplementation$Dart.prototype.href$getter = function(){
   return _HTMLLinkElementWrappingImplementation$Dart._get_href$$member_(this);
 }
@@ -35620,6 +36129,14 @@ _HTMLOptGroupElementWrappingImplementation$Dart.create__HTMLOptGroupElementWrapp
 function native__HTMLOptGroupElementWrappingImplementation_create__HTMLOptGroupElementWrappingImplementation(){
   return _HTMLOptGroupElementWrappingImplementation$Dart.create__HTMLOptGroupElementWrappingImplementation$member();
 }
+_HTMLOptGroupElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLOptGroupElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLOptGroupElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLOptGroupElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLOptGroupElementWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'HTMLOptGroupElement';
 }
@@ -35666,6 +36183,14 @@ _HTMLOptionElementWrappingImplementation$Dart.create__HTMLOptionElementWrappingI
 function native__HTMLOptionElementWrappingImplementation_create__HTMLOptionElementWrappingImplementation(){
   return _HTMLOptionElementWrappingImplementation$Dart.create__HTMLOptionElementWrappingImplementation$member();
 }
+_HTMLOptionElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLOptionElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLOptionElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLOptionElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLOptionElementWrappingImplementation$Dart.prototype.text$setter = function(value){
   _HTMLOptionElementWrappingImplementation$Dart._set_text$$member_(this, value);
 }
@@ -36154,6 +36679,14 @@ _HTMLSelectElementWrappingImplementation$Dart.create__HTMLSelectElementWrappingI
 function native__HTMLSelectElementWrappingImplementation_create__HTMLSelectElementWrappingImplementation(){
   return _HTMLSelectElementWrappingImplementation$Dart.create__HTMLSelectElementWrappingImplementation$member();
 }
+_HTMLSelectElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLSelectElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLSelectElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLSelectElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLSelectElementWrappingImplementation$Dart.prototype.length$getter = function(){
   return _HTMLSelectElementWrappingImplementation$Dart._get_length$$member_(this);
 }
@@ -36403,6 +36936,14 @@ _HTMLStyleElementWrappingImplementation$Dart.create__HTMLStyleElementWrappingImp
 function native__HTMLStyleElementWrappingImplementation_create__HTMLStyleElementWrappingImplementation(){
   return _HTMLStyleElementWrappingImplementation$Dart.create__HTMLStyleElementWrappingImplementation$member();
 }
+_HTMLStyleElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLStyleElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLStyleElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLStyleElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLStyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
   _HTMLStyleElementWrappingImplementation$Dart._set_type$$member_(this, value);
 }
@@ -36784,6 +37325,14 @@ _HTMLTextAreaElementWrappingImplementation$Dart.create__HTMLTextAreaElementWrapp
 function native__HTMLTextAreaElementWrappingImplementation_create__HTMLTextAreaElementWrappingImplementation(){
   return _HTMLTextAreaElementWrappingImplementation$Dart.create__HTMLTextAreaElementWrappingImplementation$member();
 }
+_HTMLTextAreaElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _HTMLTextAreaElementWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_HTMLTextAreaElementWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__HTMLTextAreaElementWrappingImplementation__set_disabled(_this, value);
+}
+;
 _HTMLTextAreaElementWrappingImplementation$Dart.prototype.name$getter = function(){
   return _HTMLTextAreaElementWrappingImplementation$Dart._get_name$$member_(this);
 }
@@ -46748,6 +47297,14 @@ _ScriptProfileNodeWrappingImplementation$Dart._get_children$$member_ = function(
   return native__ScriptProfileNodeWrappingImplementation__get_children(_this);
 }
 ;
+_ScriptProfileNodeWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _ScriptProfileNodeWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_ScriptProfileNodeWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__ScriptProfileNodeWrappingImplementation__get_url(_this);
+}
+;
 _ScriptProfileNodeWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'ScriptProfileNode';
 }
@@ -47046,6 +47603,14 @@ _StorageEventWrappingImplementation$Dart.prototype.key$getter = function(){
 ;
 _StorageEventWrappingImplementation$Dart._get_key$$member_ = function(_this){
   return native__StorageEventWrappingImplementation__get_key(_this);
+}
+;
+_StorageEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _StorageEventWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_StorageEventWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__StorageEventWrappingImplementation__get_url(_this);
 }
 ;
 _StorageEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
@@ -47535,6 +48100,14 @@ _StyleSheetWrappingImplementation$Dart.create__StyleSheetWrappingImplementation$
 function native__StyleSheetWrappingImplementation_create__StyleSheetWrappingImplementation(){
   return _StyleSheetWrappingImplementation$Dart.create__StyleSheetWrappingImplementation$member();
 }
+_StyleSheetWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  _StyleSheetWrappingImplementation$Dart._set_disabled$$member_(this, value);
+}
+;
+_StyleSheetWrappingImplementation$Dart._set_disabled$$member_ = function(_this, value){
+  return native__StyleSheetWrappingImplementation__set_disabled(_this, value);
+}
+;
 _StyleSheetWrappingImplementation$Dart.prototype.href$getter = function(){
   return _StyleSheetWrappingImplementation$Dart._get_href$$member_(this);
 }
@@ -50133,6 +50706,18 @@ _WebGLContextEventWrappingImplementation$Dart.create__WebGLContextEventWrappingI
 function native__WebGLContextEventWrappingImplementation_create__WebGLContextEventWrappingImplementation(){
   return _WebGLContextEventWrappingImplementation$Dart.create__WebGLContextEventWrappingImplementation$member();
 }
+_WebGLContextEventWrappingImplementation$Dart.prototype.statusMessage$named = function(){
+  return this.statusMessage$getter().apply(this, arguments);
+}
+;
+_WebGLContextEventWrappingImplementation$Dart.prototype.statusMessage$getter = function(){
+  return _WebGLContextEventWrappingImplementation$Dart._get_statusMessage$$member_(this);
+}
+;
+_WebGLContextEventWrappingImplementation$Dart._get_statusMessage$$member_ = function(_this){
+  return native__WebGLContextEventWrappingImplementation__get_statusMessage(_this);
+}
+;
 _WebGLContextEventWrappingImplementation$Dart.prototype.typeName$getter = function(){
   return 'WebGLContextEvent';
 }
@@ -51304,6 +51889,14 @@ _WebSocketWrappingImplementation$Dart.create__WebSocketWrappingImplementation$me
 function native__WebSocketWrappingImplementation_create__WebSocketWrappingImplementation(){
   return _WebSocketWrappingImplementation$Dart.create__WebSocketWrappingImplementation$member();
 }
+_WebSocketWrappingImplementation$Dart.prototype.url$getter = function(){
+  return _WebSocketWrappingImplementation$Dart._get_url$$member_(this);
+}
+;
+_WebSocketWrappingImplementation$Dart._get_url$$member_ = function(_this){
+  return native__WebSocketWrappingImplementation__get_url(_this);
+}
+;
 _WebSocketWrappingImplementation$Dart.prototype.addEventListener$member = function(type, listener, useCapture){
   if (useCapture == null) {
     _WebSocketWrappingImplementation$Dart._addEventListener_WebSocket$$member_(this, type, listener);
@@ -54349,17 +54942,6 @@ htmlimpl0a8e4b$ConsoleWrappingImplementation$Dart.prototype.group$named = functi
   return htmlimpl0a8e4b$ConsoleWrappingImplementation$Dart.prototype.group$member.call(this);
 }
 ;
-htmlimpl0a8e4b$ConsoleWrappingImplementation$Dart.prototype.info$member = function(arg){
-  this._ptr$htmlimpl0a8e4b$$getter_().info$named(1, $noargs, htmlimpl0a8e4b$LevelDom$Dart.unwrapMaybePrimitive$member(arg));
-  return;
-}
-;
-htmlimpl0a8e4b$ConsoleWrappingImplementation$Dart.prototype.info$named = function($n, $o, arg){
-  if ($o.count || $n != 1)
-    $nsme();
-  return htmlimpl0a8e4b$ConsoleWrappingImplementation$Dart.prototype.info$member.call(this, arg);
-}
-;
 function htmlimpl0a8e4b$HistoryWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$HistoryWrappingImplementation$Dart, htmlimpl0a8e4b$DOMWrapperBase$Dart);
@@ -57024,6 +57606,14 @@ htmlimpl0a8e4b$WebGLContextEventWrappingImplementation$Dart.WebGLContextEventWra
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$WebGLContextEventWrappingImplementation$Dart.prototype.statusMessage$named = function(){
+  return this.statusMessage$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$WebGLContextEventWrappingImplementation$Dart.prototype.statusMessage$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().statusMessage$getter();
+}
+;
 function htmlimpl0a8e4b$AnimationEventWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$AnimationEventWrappingImplementation$Dart, htmlimpl0a8e4b$EventWrappingImplementation$Dart);
@@ -57090,6 +57680,10 @@ htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart.BeforeLoadEventWrappin
   htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$BeforeLoadEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().url$getter();
 }
 ;
 function htmlimpl0a8e4b$CloseEventWrappingImplementation$Dart(){
@@ -59037,6 +59631,11 @@ htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.ButtonElementWrappingImp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
+}
+;
 htmlimpl0a8e4b$ButtonElementWrappingImplementation$Dart.prototype.name$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().name$getter();
 }
@@ -59642,6 +60241,14 @@ htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.ImageElementWrappingImple
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.prototype.complete$named = function(){
+  return this.complete$getter().apply(this, arguments);
+}
+;
+htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.prototype.complete$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().complete$getter();
+}
+;
 htmlimpl0a8e4b$ImageElementWrappingImplementation$Dart.prototype.height$setter = function(value){
   var tmp$0;
   this._ptr$htmlimpl0a8e4b$$getter_().height$setter(tmp$0 = value) , tmp$0;
@@ -59689,6 +60296,11 @@ htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.InputElementWrappingImple
   htmlimpl0a8e4b$InputElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$InputElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$InputElementWrappingImplementation$Dart.prototype.name$getter = function(){
@@ -59770,6 +60382,11 @@ htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.KeygenElementWrappingImp
   htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$KeygenElementWrappingImplementation$Dart.prototype.name$getter = function(){
@@ -59933,6 +60550,11 @@ htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.LinkElementWrappingImpleme
   htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$LinkElementWrappingImplementation$Dart.prototype.href$getter = function(){
@@ -60358,6 +60980,11 @@ htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart.OptGroupElementWrappin
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$OptGroupElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
+}
+;
 function htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart(){
 }
 $inherits(htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart, htmlimpl0a8e4b$ElementWrappingImplementation$Dart);
@@ -60391,6 +61018,11 @@ htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.OptionElementWrappingImp
   htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$OptionElementWrappingImplementation$Dart.prototype.text$setter = function(value){
@@ -60747,6 +61379,11 @@ htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.SelectElementWrappingImp
   return tmp$0;
 }
 ;
+htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
+}
+;
 htmlimpl0a8e4b$SelectElementWrappingImplementation$Dart.prototype.length$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().length$getter();
 }
@@ -60903,6 +61540,11 @@ htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.StyleElementWrappingImple
   htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$StyleElementWrappingImplementation$Dart.prototype.type$setter = function(value){
@@ -61193,6 +61835,11 @@ htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.TextAreaElementWrappin
   htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Initializer_.call(tmp$0, ptr);
   htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart._wrap$htmlimpl0a8e4b$$Constructor_.call(tmp$0, ptr);
   return tmp$0;
+}
+;
+htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.prototype.disabled$setter = function(value){
+  var tmp$0;
+  this._ptr$htmlimpl0a8e4b$$getter_().disabled$setter(tmp$0 = value) , tmp$0;
 }
 ;
 htmlimpl0a8e4b$TextAreaElementWrappingImplementation$Dart.prototype.name$getter = function(){
@@ -65341,6 +65988,10 @@ htmlimpl0a8e4b$StorageEventWrappingImplementation$Dart.StorageEventWrappingImple
 ;
 htmlimpl0a8e4b$StorageEventWrappingImplementation$Dart.prototype.key$getter = function(){
   return this._ptr$htmlimpl0a8e4b$$getter_().key$getter();
+}
+;
+htmlimpl0a8e4b$StorageEventWrappingImplementation$Dart.prototype.url$getter = function(){
+  return this._ptr$htmlimpl0a8e4b$$getter_().url$getter();
 }
 ;
 function htmlimpl0a8e4b$TextWrappingImplementation$Dart(){
@@ -70739,8 +71390,8 @@ unnamed6fbae6$BarChart$Dart.$lookupRTT = function(typeArgs, named){
 ;
 function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor(ev){
   var tmp$0;
-  this.articlesUi$getter().fromDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesFromElement$getter().value$getter())) , tmp$0;
-  this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+  this.articlesUiView$getter().fromDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesFromElement$getter().value$getter())) , tmp$0;
+  this.articlesUiView$getter().fetchData$named(0, {$p_thenCall:this.articlesUiView$getter().populateTable$getter(), count:1});
 }
 function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named($n, $o, ev){
   if ($o.count || $n != 1)
@@ -70752,8 +71403,8 @@ function unnamed6fbae6$BarChart$Dart$$c0$27_27$HoistedConstructor$named$named_$l
 }
 function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor(ev){
   var tmp$0;
-  this.articlesUi$getter().toDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesToElement$getter().value$getter())) , tmp$0;
-  this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+  this.articlesUiView$getter().toDate$setter(tmp$0 = unnamed6fbae6$ScuttlebuttUi$Dart.dateFromString$member(this.articlesToElement$getter().value$getter())) , tmp$0;
+  this.articlesUiView$getter().fetchData$named(0, {$p_thenCall:this.articlesUiView$getter().populateTable$getter(), count:1});
 }
 function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named($n, $o, ev){
   if ($o.count || $n != 1)
@@ -70763,11 +71414,11 @@ function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named($n, $o, 
 function unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-unnamed6fbae6$BarChart$Dart.$Constructor = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
+unnamed6fbae6$BarChart$Dart.$Constructor = function(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   var tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.topicStatsCache$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT([int$Dart.$lookupRTT(), unnamed6fbae6$TopicStats$Dart.$lookupRTT()]))) , tmp$0;
   this.tableElement$setter(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, domQuery)) , tmp$1;
-  this.articlesUi$setter(tmp$2 = articlesUi_) , tmp$2;
+  this.articlesUiView$setter(tmp$2 = articlesUiView_) , tmp$2;
   this._articlesCountElement$unnamed6fbae6$$setter_(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, countEl)) , tmp$3;
   this._articlesCountWowElement$unnamed6fbae6$$setter_(tmp$4 = htmld071c1$document$getter().query$named(1, $noargs, countWowEl)) , tmp$4;
   this._articlesSentimentElement$unnamed6fbae6$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, sentimentEl)) , tmp$5;
@@ -70778,24 +71429,24 @@ unnamed6fbae6$BarChart$Dart.$Constructor = function(domQuery, articlesUi_, count
   this.articlesToElement$getter().on$getter().blur$getter().add$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named, unnamed6fbae6$BarChart$Dart$$c1$27_27$HoistedConstructor$named$named_$lookupRTT, this));
 }
 ;
-unnamed6fbae6$BarChart$Dart.$Initializer = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
+unnamed6fbae6$BarChart$Dart.$Initializer = function(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   this.MAX_DAYS$field = 90;
 }
 ;
-unnamed6fbae6$BarChart$Dart.BarChart$$Factory = function(domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
+unnamed6fbae6$BarChart$Dart.BarChart$$Factory = function(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl){
   var tmp$0 = new unnamed6fbae6$BarChart$Dart;
   tmp$0.$typeInfo = unnamed6fbae6$BarChart$Dart.$lookupRTT();
-  unnamed6fbae6$BarChart$Dart.$Initializer.call(tmp$0, domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
-  unnamed6fbae6$BarChart$Dart.$Constructor.call(tmp$0, domQuery, articlesUi_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
+  unnamed6fbae6$BarChart$Dart.$Initializer.call(tmp$0, domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
+  unnamed6fbae6$BarChart$Dart.$Constructor.call(tmp$0, domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl);
   return tmp$0;
 }
 ;
-unnamed6fbae6$BarChart$Dart.prototype.articlesUi$getter = function(){
-  return this.articlesUi$field;
+unnamed6fbae6$BarChart$Dart.prototype.articlesUiView$getter = function(){
+  return this.articlesUiView$field;
 }
 ;
-unnamed6fbae6$BarChart$Dart.prototype.articlesUi$setter = function(tmp$0){
-  this.articlesUi$field = tmp$0;
+unnamed6fbae6$BarChart$Dart.prototype.articlesUiView$setter = function(tmp$0){
+  this.articlesUiView$field = tmp$0;
 }
 ;
 unnamed6fbae6$BarChart$Dart.prototype.tableElement$getter = function(){
@@ -70930,7 +71581,7 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c0$27_27$Hoisted(dartc_scp$1,
           var max = Math$Dart.max$member(this._startDragI$unnamed6fbae6$$getter_(), i_);
           {
             var j = 0;
-            for (; LT$operator(j, dartc_scp$1.topicStats.days$getter().length$getter()); tmp$0 = j , (j = ADD$operator(tmp$0, 1) , tmp$0)) {
+            for (; LT$operator(j, Math$Dart.min$member(dartc_scp$1.topicStats.days$getter().length$getter(), this.MAX_DAYS$getter())); tmp$0 = j , (j = ADD$operator(tmp$0, 1) , tmp$0)) {
               dartc_scp$1.topicStats.days$getter().INDEX$operator(j).td$getter().classes$getter().remove$named(1, $noargs, 'selected');
               if (GTE$operator(j, min) && LTE$operator(j, max)) {
                 dartc_scp$1.topicStats.days$getter().INDEX$operator(j).td$getter().classes$getter().add$named(1, $noargs, 'selected');
@@ -70981,9 +71632,9 @@ function unnamed6fbae6$BarChart$Dart$populateChart$c2$27_27$Hoisted(dartc_scp$1,
       if (EQ$operator(this._startDragI$unnamed6fbae6$$getter_(), $Dart$Null)) {
         this._startDragI$unnamed6fbae6$$setter_(tmp$1 = i_) , tmp$1;
       }
-      this.articlesUi$getter().fromDate$setter(tmp$2 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.max$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$2;
-      this.articlesUi$getter().toDate$setter(tmp$3 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.min$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$3;
-      this.articlesUi$getter().fetchData$named(0, {$p_thenCall:this.articlesUi$getter().populateTable$getter(), count:1});
+      this.articlesUiView$getter().fromDate$setter(tmp$2 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.max$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$2;
+      this.articlesUiView$getter().toDate$setter(tmp$3 = dartc_scp$1.topicStats.days$getter().INDEX$operator(Math$Dart.min$member(this._startDragI$unnamed6fbae6$$getter_(), this._endDragI$unnamed6fbae6$$getter_())).date$getter()) , tmp$3;
+      this.articlesUiView$getter().fetchData$named(0, {$p_thenCall:this.articlesUiView$getter().populateTable$getter(), count:1});
       this.updateDateRange$member();
       this._startDragI$unnamed6fbae6$$setter_(tmp$5 = (this._endDragI$unnamed6fbae6$$setter_(tmp$4 = $Dart$Null) , tmp$4)) , tmp$5;
     }
@@ -71104,7 +71755,7 @@ unnamed6fbae6$BarChart$Dart.prototype.updateContextual$named = function($n, $o, 
 function unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted(day){
   if (NE$operator(day.td$getter(), $Dart$Null)) {
     day.td$getter().classes$getter().remove$named(1, $noargs, 'selected');
-    if (GTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUi$getter().fromDate$getter()).inDays$getter(), 0) && LTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUi$getter().toDate$getter()).inDays$getter(), 0)) {
+    if (GTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUiView$getter().fromDate$getter()).inDays$getter(), 0) && LTE$operator(day.date$getter().difference$named(1, $noargs, this.articlesUiView$getter().toDate$getter()).inDays$getter(), 0)) {
       day.td$getter().classes$getter().add$named(1, $noargs, 'selected');
     }
   }
@@ -71119,11 +71770,11 @@ function unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named$name
 }
 unnamed6fbae6$BarChart$Dart.prototype.updateDateRange$member = function(){
   var tmp$1, tmp$0;
-  this.articlesFromElement$getter().value$setter(tmp$0 = this.articlesUi$getter().fromDateShort$getter()) , tmp$0;
-  this.articlesToElement$getter().value$setter(tmp$1 = this.articlesUi$getter().toDateShort$getter()) , tmp$1;
+  this.articlesFromElement$getter().value$setter(tmp$0 = this.articlesUiView$getter().fromDateShort$getter()) , tmp$0;
+  this.articlesToElement$getter().value$setter(tmp$1 = this.articlesUiView$getter().toDateShort$getter()) , tmp$1;
   var topicStats = this.topicStatsCache$getter().INDEX$operator(this.currentId$getter());
   if (NE$operator(topicStats, $Dart$Null) && !topicStats.days$getter().isEmpty$named(0, $noargs)) {
-    print$getter()(1, $noargs, 'Updating date range: ' + $toString(this.articlesUi$getter().fromDate$getter()) + ' to ' + $toString(this.articlesUi$getter().toDate$getter()) + '');
+    print$getter()(1, $noargs, 'Updating date range: ' + $toString(this.articlesUiView$getter().fromDate$getter()) + ' to ' + $toString(this.articlesUiView$getter().toDate$getter()) + '');
     topicStats.days$getter().forEach$named(1, $noargs, $bind(unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named, unnamed6fbae6$BarChart$Dart$updateDateRange$c0$27_27$Hoisted$named$named_$lookupRTT, this));
   }
 }
@@ -71201,175 +71852,305 @@ unnamed6fbae6$BarChart$Dart.prototype.reset$getter = function(){
   return $bind(unnamed6fbae6$BarChart$Dart.prototype.reset$named, unnamed6fbae6$BarChart$Dart.prototype.reset$named_$lookupRTT, this);
 }
 ;
-function unnamed6fbae6$ArticlesUi$Dart(){
+function unnamed6fbae6$UiView$Dart(){
 }
-unnamed6fbae6$ArticlesUi$Dart.$lookupRTT = function(typeArgs, named){
-  return RTT.create($cls('unnamed6fbae6$ArticlesUi$Dart'), null, null, named);
-}
-;
-function unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor(){
-  this.populateTable$member(this.currentId$getter(), false);
-}
-function unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named($n, $o){
-  if ($o.count || $n != 0)
-    $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor.call(this);
-}
-function unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named$named_$lookupRTT(){
-  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
-}
-function unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor(event_0){
-  var tmp$1, tmp$0;
-  tmp$0 = this , (tmp$0.currentOffset$setter(tmp$1 = ADD$operator(tmp$0.currentOffset$getter(), unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter())) , tmp$1);
-  this.fetchData$named(1, {$p_thenCall:$bind(unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named, unnamed6fbae6$ArticlesUi$Dart$$c0$29_29$HoistedConstructor$named$named_$lookupRTT, this), $p_offset:this.currentOffset$getter(), count:2}, this.currentId$getter());
-}
-function unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor$named($n, $o, event_0){
-  if ($o.count || $n != 1)
-    $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor.call(this, event_0);
-}
-function unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor$named$named_$lookupRTT(){
-  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
-}
-unnamed6fbae6$ArticlesUi$Dart.$Constructor = function(){
-  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
-  this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
-  this.barChart$setter(tmp$1 = unnamed6fbae6$BarChart$Dart.BarChart$$Factory('table#articles-stats', this, '#articles-count', '#articles-count-wow', '#articles-sentiment', '#articles-sentiment-wow', '#articles-from', '#articles-to')) , tmp$1;
-  this._articlesDivElement$unnamed6fbae6$$setter_(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'div#articles-div')) , tmp$2;
-  this._loadMoreButton$unnamed6fbae6$$setter_(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'button#load-more-button')) , tmp$3;
-  this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$4 = 0) , tmp$4;
-  this._loadMoreButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor$named, unnamed6fbae6$ArticlesUi$Dart$$c1$29_29$HoistedConstructor$named$named_$lookupRTT, this));
+unnamed6fbae6$UiView$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$UiView$Dart'), null, null, named);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.$Initializer = function(){
+unnamed6fbae6$UiView$Dart.$addTo = function(target){
+  var rtt = unnamed6fbae6$UiView$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.ArticlesUi$$Factory = function(){
-  var tmp$0 = new unnamed6fbae6$ArticlesUi$Dart;
-  tmp$0.$typeInfo = unnamed6fbae6$ArticlesUi$Dart.$lookupRTT();
-  unnamed6fbae6$ArticlesUi$Dart.$Initializer.call(tmp$0);
-  unnamed6fbae6$ArticlesUi$Dart.$Constructor.call(tmp$0);
-  return tmp$0;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.barChart$getter = function(){
-  return this.barChart$field;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.barChart$setter = function(tmp$0){
-  this.barChart$field = tmp$0;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.outputTable$getter = function(){
+unnamed6fbae6$UiView$Dart.prototype.outputTable$getter = function(){
   return this.outputTable$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.outputTable$setter = function(tmp$0){
+unnamed6fbae6$UiView$Dart.prototype.outputTable$setter = function(tmp$0){
   this.outputTable$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype._articlesDivElement$unnamed6fbae6$$getter_ = function(){
-  return this._articlesDivElement$unnamed6fbae6$$field_;
+unnamed6fbae6$UiView$Dart.prototype.divElement$getter = function(){
+  return this.divElement$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype._articlesDivElement$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._articlesDivElement$unnamed6fbae6$$field_ = tmp$0;
+unnamed6fbae6$UiView$Dart.prototype.divElement$setter = function(tmp$0){
+  this.divElement$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype._loadMoreButton$unnamed6fbae6$$getter_ = function(){
-  return this._loadMoreButton$unnamed6fbae6$$field_;
+unnamed6fbae6$UiView$Dart.prototype.mainButton$getter = function(){
+  return this.mainButton$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype._loadMoreButton$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._loadMoreButton$unnamed6fbae6$$field_ = tmp$0;
+unnamed6fbae6$UiView$Dart.prototype.mainButton$setter = function(tmp$0){
+  this.mainButton$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.data$getter = function(){
-  return this.data$field;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.data$setter = function(tmp$0){
-  this.data$field = tmp$0;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.scuttlebuttUi$getter = function(){
+unnamed6fbae6$UiView$Dart.prototype.scuttlebuttUi$getter = function(){
   return this.scuttlebuttUi$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.scuttlebuttUi$setter = function(tmp$0){
+unnamed6fbae6$UiView$Dart.prototype.scuttlebuttUi$setter = function(tmp$0){
   this.scuttlebuttUi$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.currentId$getter = function(){
-  return this.currentId$field;
+unnamed6fbae6$UiView$Dart.prototype.baseUrl$getter = function(){
+  return this.baseUrl$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.currentId$setter = function(tmp$0){
-  this.currentId$field = tmp$0;
+unnamed6fbae6$UiView$Dart.prototype.baseUrl$setter = function(tmp$0){
+  this.baseUrl$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.currentOffset$getter = function(){
+unnamed6fbae6$UiView$Dart.prototype.currentOffset$getter = function(){
   return this.currentOffset$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.currentOffset$setter = function(tmp$0){
+unnamed6fbae6$UiView$Dart.prototype.currentOffset$setter = function(tmp$0){
   this.currentOffset$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.fromDate$getter = function(){
-  return this.fromDate$field;
+unnamed6fbae6$UiView$Dart.prototype.currentLimit$getter = function(){
+  return this.currentLimit$field;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.fromDate$setter = function(tmp$0){
-  this.fromDate$field = tmp$0;
+unnamed6fbae6$UiView$Dart.prototype.currentLimit$setter = function(tmp$0){
+  this.currentLimit$field = tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.toDate$getter = function(){
-  return this.toDate$field;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.toDate$setter = function(tmp$0){
-  this.toDate$field = tmp$0;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype._waitingToBeShown$unnamed6fbae6$$getter_ = function(){
-  return this._waitingToBeShown$unnamed6fbae6$$field_;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype._waitingToBeShown$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._waitingToBeShown$unnamed6fbae6$$field_ = tmp$0;
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter = function(){
+unnamed6fbae6$UiView$Dart.LOAD_LIMIT$getter = function(){
   return 20;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.fromDateIso$getter = function(){
+unnamed6fbae6$UiView$Dart.prototype.visibility$setter = function(value){
+  var tmp$1, tmp$0;
+  if (EQ$operator(value, true)) {
+    this.divElement$getter().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
+    this.mainButton$getter().classes$getter().add$named(1, $noargs, 'selected');
+  }
+   else {
+    this.divElement$getter().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
+    this.mainButton$getter().classes$getter().remove$named(1, $noargs, 'selected');
+  }
+}
+;
+function unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted(dartc_scp$3, key, value){
+  if (dartc_scp$3.first) {
+    dartc_scp$3.strBuf.add$named(1, $noargs, '?');
+    dartc_scp$3.first = false;
+  }
+   else {
+    dartc_scp$3.strBuf.add$named(1, $noargs, '&');
+  }
+  dartc_scp$3.strBuf.add$named(1, $noargs, key);
+  dartc_scp$3.strBuf.add$named(1, $noargs, '=');
+  dartc_scp$3.strBuf.add$named(1, $noargs, value.toString$named(0, $noargs));
+}
+function unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted$named($s0, $n, $o, key, value){
+  if ($o.count || $n != 2)
+    $nsme();
+  return unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted($s0, key, value);
+}
+function unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT(), RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted(dartc_scp$1, event_0){
+  if (NE$operator(dartc_scp$1.request.status$getter(), 200)) {
+    this.scuttlebuttUi$getter().statusMessage$named(1, $noargs, 'Server error!');
+    dartc_scp$1.completer.completeException$named(1, $noargs, ExceptionImplementation$Dart.ExceptionImplementation$$Factory('Server returned status code ' + $toString(dartc_scp$1.request.status$getter()) + ' (' + $toString(dartc_scp$1.request.statusText$getter()) + ')'));
+  }
+  dartc_scp$1.completer.complete$named(1, $noargs, dartc_scp$1.request.responseText$getter());
+}
+function unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted$named($s0, $n, $o, event_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted.call(this, $s0, event_0);
+}
+function unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$UiView$Dart.prototype.sendXhr$member = function(url, method, params, debugUrl){
+  var dartc_scp$3, dartc_scp$1;
+  dartc_scp$1 = {};
+  if (NE$operator(params, $Dart$Null) && GT$operator(params.length$getter(), 0)) {
+    if (EQ$operator(method, 'GET')) {
+      dartc_scp$3 = {};
+      dartc_scp$3.strBuf = StringBufferImpl$Dart.StringBufferImpl$$Factory('');
+      dartc_scp$3.strBuf.add$named(1, $noargs, url);
+      dartc_scp$3.first = true;
+      params.forEach$named(1, $noargs, $bind(unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted$named, unnamed6fbae6$UiView$Dart$sendXhr$c0$25_25$Hoisted$named$named_$lookupRTT, $Dart$Null, dartc_scp$3));
+      url = dartc_scp$3.strBuf.toString$named(0, $noargs);
+      dartc_scp$3 = $Dart$Null;
+    }
+  }
+  dartc_scp$1.completer = CompleterImpl$Dart.CompleterImpl$$Factory(CompleterImpl$Dart.$lookupRTT());
+  dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
+  if (unnamed6fbae6$DEBUG$getter()) {
+    dartc_scp$1.request.open$named(3, $noargs, 'GET', debugUrl, true);
+  }
+   else {
+    dartc_scp$1.request.open$named(3, $noargs, method, url, true);
+  }
+  dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted$named, unnamed6fbae6$UiView$Dart$sendXhr$c1$25_25$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
+  if (EQ$operator(method, 'GET')) {
+    dartc_scp$1.request.send$named(0, $noargs);
+  }
+   else {
+    dartc_scp$1.request.send$named(1, $noargs, jsonc5ef24$JSON$Dart.stringify$member(params));
+  }
+  return dartc_scp$1.completer.future$getter();
+  dartc_scp$1 = $Dart$Null;
+}
+;
+unnamed6fbae6$UiView$Dart.$Constructor = function(){
+}
+;
+unnamed6fbae6$UiView$Dart.$Initializer = function(){
+}
+;
+function unnamed6fbae6$ArticlesUiView$Dart(){
+}
+$inherits(unnamed6fbae6$ArticlesUiView$Dart, unnamed6fbae6$UiView$Dart);
+unnamed6fbae6$ArticlesUiView$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$ArticlesUiView$Dart'), unnamed6fbae6$ArticlesUiView$Dart.$RTTimplements, null, named);
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.$RTTimplements = function(rtt){
+  unnamed6fbae6$ArticlesUiView$Dart.$addTo(rtt);
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.$addTo = function(target){
+  var rtt = unnamed6fbae6$ArticlesUiView$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  unnamed6fbae6$UiView$Dart.$addTo(target);
+}
+;
+function unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor(){
+  this.outputTable$getter().reset$named(0, $noargs);
+  this.populateTable$member();
+}
+function unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor$named($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor.call(this);
+}
+function unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor(event_0){
+  var tmp$0;
+  this.currentOffset$setter(tmp$0 = ADD$operator(this.currentOffset$getter(), unnamed6fbae6$UiView$Dart.LOAD_LIMIT$getter())) , tmp$0;
+  this.fetchData$member($bind(unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor$named, unnamed6fbae6$ArticlesUiView$Dart$$c0$33_33$HoistedConstructor$named$named_$lookupRTT, this));
+}
+function unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor$named($n, $o, event_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor.call(this, event_0);
+}
+function unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$ArticlesUiView$Dart.$Constructor = function(){
+  unnamed6fbae6$UiView$Dart.$Constructor.call(this);
+  var tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  this.baseUrl$setter(tmp$0 = '/api/articles') , tmp$0;
+  this.data$setter(tmp$1 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$1;
+  this.barChart$setter(tmp$2 = unnamed6fbae6$BarChart$Dart.BarChart$$Factory('table#articles-stats', this, '#articles-count', '#articles-count-wow', '#articles-sentiment', '#articles-sentiment-wow', '#articles-from', '#articles-to')) , tmp$2;
+  this.divElement$setter(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'div#articles-div')) , tmp$3;
+  this.mainButton$setter(tmp$4 = htmld071c1$document$getter().query$named(1, $noargs, 'button#articles-button')) , tmp$4;
+  this.outputTable$setter(tmp$5 = unnamed6fbae6$Table$Dart.Table$$Factory('table#articles-table')) , tmp$5;
+  this._loadMoreButton$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, 'button#load-more-button')) , tmp$6;
+  this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$7 = 0) , tmp$7;
+  this.currentLimit$setter(tmp$8 = unnamed6fbae6$UiView$Dart.LOAD_LIMIT$getter()) , tmp$8;
+  this._loadMoreButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor$named, unnamed6fbae6$ArticlesUiView$Dart$$c1$33_33$HoistedConstructor$named$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.$Initializer = function(){
+  unnamed6fbae6$UiView$Dart.$Initializer.call(this);
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.ArticlesUiView$$Factory = function(){
+  var tmp$0 = new unnamed6fbae6$ArticlesUiView$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$ArticlesUiView$Dart.$lookupRTT();
+  unnamed6fbae6$ArticlesUiView$Dart.$Initializer.call(tmp$0);
+  unnamed6fbae6$ArticlesUiView$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.barChart$getter = function(){
+  return this.barChart$field;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.barChart$setter = function(tmp$0){
+  this.barChart$field = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype._loadMoreButton$unnamed6fbae6$$getter_ = function(){
+  return this._loadMoreButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype._loadMoreButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._loadMoreButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.data$getter = function(){
+  return this.data$field;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.data$setter = function(tmp$0){
+  this.data$field = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.currentId$getter = function(){
+  return this.currentId$field;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.currentId$setter = function(tmp$0){
+  this.currentId$field = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fromDate$getter = function(){
+  return this.fromDate$field;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fromDate$setter = function(tmp$0){
+  this.fromDate$field = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.toDate$getter = function(){
+  return this.toDate$field;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.toDate$setter = function(tmp$0){
+  this.toDate$field = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype._waitingToBeShown$unnamed6fbae6$$getter_ = function(){
+  return this._waitingToBeShown$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype._waitingToBeShown$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._waitingToBeShown$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fromDateIso$getter = function(){
   return '' + $toString(this.fromDate$getter().year$getter()) + '-' + $toString(LT$operator(this.fromDate$getter().month$getter(), 10)?'0':'') + '' + $toString(this.fromDate$getter().month$getter()) + '-' + $toString(LT$operator(this.fromDate$getter().day$getter(), 10)?'0':'') + '' + $toString(this.fromDate$getter().day$getter()) + 'T' + $toString(LT$operator(this.fromDate$getter().hours$getter(), 10)?'0':'') + '' + $toString(this.fromDate$getter().hours$getter()) + ':' + $toString(LT$operator(this.fromDate$getter().minutes$getter(), 10)?'0':'') + '' + $toString(this.fromDate$getter().minutes$getter()) + ':' + $toString(LT$operator(this.fromDate$getter().seconds$getter(), 10)?'0':'') + '' + $toString(this.fromDate$getter().seconds$getter()) + '';
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.toDateIso$getter = function(){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.toDateIso$getter = function(){
   return '' + $toString(this.toDate$getter().year$getter()) + '-' + $toString(LT$operator(this.toDate$getter().month$getter(), 10)?'0':'') + '' + $toString(this.toDate$getter().month$getter()) + '-' + $toString(LT$operator(this.toDate$getter().day$getter(), 10)?'0':'') + '' + $toString(this.toDate$getter().day$getter()) + 'T' + $toString(LT$operator(this.toDate$getter().hours$getter(), 10)?'0':'') + '' + $toString(this.toDate$getter().hours$getter()) + ':' + $toString(LT$operator(this.toDate$getter().minutes$getter(), 10)?'0':'') + '' + $toString(this.toDate$getter().minutes$getter()) + ':' + $toString(LT$operator(this.toDate$getter().seconds$getter(), 10)?'0':'') + '' + $toString(this.toDate$getter().seconds$getter()) + '';
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.fromDateShort$getter = function(){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fromDateShort$getter = function(){
   return this.fromDateIso$getter().substring$named(2, $noargs, 0, 10);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.toDateShort$getter = function(){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.toDateShort$getter = function(){
   return this.toDateIso$getter().substring$named(2, $noargs, 0, 10);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.getURL$member = function(id, limit, offset){
-  if (unnamed6fbae6$DEBUG$getter()) {
-    return '/api/get_articles_mock.json';
-  }
-   else {
-    return '/api/articles/' + $toString(id) + '?from=' + $toString(this.fromDateShort$getter()) + '&to=' + $toString(this.toDateShort$getter()) + '&offset=' + $toString(offset) + '&limit=' + $toString(limit) + '';
-  }
-}
-;
-unnamed6fbae6$ArticlesUi$Dart.prototype.show$member = function(id){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.show$member = function(id){
   var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   this.currentId$setter(tmp$0 = id) , tmp$0;
   this.currentOffset$setter(tmp$1 = 0) , tmp$1;
@@ -71377,138 +72158,104 @@ unnamed6fbae6$ArticlesUi$Dart.prototype.show$member = function(id){
   this.toDate$setter(tmp$3 = DateImplementation$Dart.DateImplementation$now$18$Factory()) , tmp$3;
   if (this.data$getter().containsKey$named(1, $noargs, id)) {
     this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$4 = this.data$getter().INDEX$operator(id).length$getter()) , tmp$4;
-    this.populateTable$member(id, true);
+    this.populateTable$member();
   }
    else {
-    this.fetchData$member(id, $bind(unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named_$lookupRTT, this), unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter(), 0);
+    this.fetchData$member($bind(unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named_$lookupRTT, this));
   }
   this.barChart$getter().show$named(1, $noargs, id);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.show$named = function($n, $o, id){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.show$named = function($n, $o, id){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart.prototype.show$member.call(this, id);
+  return unnamed6fbae6$ArticlesUiView$Dart.prototype.show$member.call(this, id);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$member = function(id_, resetTable){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.actOnData$member = function(responseText){
   var tmp$1, tmp$0;
-  var id = NE$operator(id_, $Dart$Null)?id_:this.currentId$getter();
-  if (resetTable) {
-    this.outputTable$getter().reset$named(0, $noargs);
+  if (EQ$operator(this.currentOffset$getter(), 0)) {
+    this.data$getter().ASSIGN_INDEX$operator(this.currentId$getter(), tmp$0 = ListFactory$Dart.List$$Factory(null, $Dart$Null)) , tmp$0;
   }
+  var responseJson = jsonc5ef24$JSON$Dart.parse$member(responseText);
+  this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$1 = responseJson.length$getter()) , tmp$1;
+  if (GT$operator(this._waitingToBeShown$unnamed6fbae6$$getter_(), 0)) {
+    this.data$getter().INDEX$operator(this.currentId$getter()).addAll$named(1, $noargs, responseJson);
+    print$getter()(1, $noargs, '' + $toString(responseJson.length$getter()) + ' new articles loaded.');
+  }
+}
+;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$member = function(){
+  var tmp$1, tmp$0;
+  var id = this.currentId$getter();
   if (GT$operator(this._waitingToBeShown$unnamed6fbae6$$getter_(), 0)) {
     this.outputTable$getter().addData$named(1, $noargs, this.data$getter().INDEX$operator(id).getRange$named(2, $noargs, SUB$operator(this.data$getter().INDEX$operator(id).length$getter(), this._waitingToBeShown$unnamed6fbae6$$getter_()), this._waitingToBeShown$unnamed6fbae6$$getter_()));
     this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$0 = 0) , tmp$0;
   }
    else {
-    if (resetTable) {
+    if (EQ$operator(this.currentOffset$getter(), 0)) {
       this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo(['No articles', '', '', ''], Array.$lookupRTT()));
     }
   }
   this.visibility$setter(tmp$1 = true) , tmp$1;
-  print$getter()(1, $noargs, 'Updating barChart');
   this.barChart$getter().updateDateRange$named(0, $noargs);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named = function($n, $o, id_, resetTable){
-  var seen = 0;
-  var def = 0;
-  switch ($n) {
-    case 0:
-      id_ = '$p_id_' in $o?(++seen , $o.$p_id_):(++def , $Dart$Null);
-    case 1:
-      resetTable = '$p_resetTable' in $o?(++seen , $o.$p_resetTable):(++def , true);
-  }
-  if (seen != $o.count || seen + def + $n != 2)
+unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named = function($n, $o){
+  if ($o.count || $n != 0)
     $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$member.call(this, id_, resetTable);
+  return unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$member.call(this);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named_$lookupRTT = function(){
-  return RTT.createFunction([int$Dart.$lookupRTT(null, 'id_'), bool$Dart.$lookupRTT(null, 'resetTable')], RTT.dynamicType.$lookupRTT());
+unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$getter = function(){
-  return $bind(unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUi$Dart.prototype.populateTable$named_$lookupRTT, this);
+unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$getter = function(){
+  return $bind(unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$ArticlesUiView$Dart.prototype.populateTable$named_$lookupRTT, this);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.visibility$setter = function(value){
-  var tmp$1, tmp$0;
-  if (EQ$operator(value, true)) {
-    this._articlesDivElement$unnamed6fbae6$$getter_().style$getter().display$setter(tmp$0 = 'block') , tmp$0;
-  }
-   else {
-    this._articlesDivElement$unnamed6fbae6$$getter_().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
-  }
-}
-;
-function unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
-  var tmp$1, tmp$0;
-  if (EQ$operator(dartc_scp$0.offset, 0)) {
-    this.data$getter().ASSIGN_INDEX$operator(dartc_scp$0.id, tmp$0 = ListFactory$Dart.List$$Factory(null, $Dart$Null)) , tmp$0;
-  }
-  var responseJson = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter());
-  this._waitingToBeShown$unnamed6fbae6$$setter_(tmp$1 = responseJson.length$getter()) , tmp$1;
-  if (GT$operator(this._waitingToBeShown$unnamed6fbae6$$getter_(), 0)) {
-    this.data$getter().INDEX$operator(dartc_scp$0.id).addAll$named(1, $noargs, responseJson);
-    print$getter()(1, $noargs, '' + $toString(responseJson.length$getter()) + ' new articles loaded.');
-  }
+function unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted(dartc_scp$0, responseText){
+  this.actOnData$member(responseText);
   if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
     dartc_scp$0.thenCall(0, $noargs);
   }
 }
-function unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named($s0, $s1, $n, $o, event_0){
+function unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted$named($s0, $n, $o, responseText){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted.call(this, $s0, $s1, event_0);
+  return unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted.call(this, $s0, responseText);
 }
-function unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+function unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-unnamed6fbae6$ArticlesUi$Dart.prototype.fetchData$member = function(id, thenCall, limit, offset){
-  var dartc_scp$0 = {id:id, thenCall:thenCall, offset:offset};
-  var dartc_scp$1;
-  dartc_scp$1 = {};
-  if (EQ$operator(dartc_scp$0.id, $Dart$Null)) {
-    dartc_scp$0.id = this.currentId$getter();
-  }
-  var url = this.getURL$member(dartc_scp$0.id, limit, dartc_scp$0.offset);
-  print$getter()(1, $noargs, "Sending async request to '" + $toString(url) + "'.");
-  dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
-  dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
-  dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named, unnamed6fbae6$ArticlesUi$Dart$fetchData$c0$29_29$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
-  dartc_scp$1.request.send$named(0, $noargs);
-  dartc_scp$1 = $Dart$Null;
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fetchData$member = function(thenCall){
+  var dartc_scp$0 = {thenCall:thenCall};
+  var tmp$0;
+  this.sendXhr$member('' + $toString(this.baseUrl$getter()) + '/' + $toString(this.currentId$getter()) + '', 'GET', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('from', this.fromDateShort$getter()) , tmp$0.ASSIGN_INDEX$operator('to', this.toDateShort$getter()) , tmp$0.ASSIGN_INDEX$operator('offset', this.currentOffset$getter()) , tmp$0.ASSIGN_INDEX$operator('limit', this.currentLimit$getter()) , tmp$0), '/api/get_articles_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted$named, unnamed6fbae6$ArticlesUiView$Dart$fetchData$c0$33_33$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.fetchData$named = function($n, $o, id, thenCall, limit, offset){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.fetchData$named = function($n, $o, thenCall){
   var seen = 0;
   var def = 0;
   switch ($n) {
     case 0:
-      id = '$p_id' in $o?(++seen , $o.$p_id):(++def , $Dart$Null);
-    case 1:
       thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
-    case 2:
-      limit = '$p_limit' in $o?(++seen , $o.$p_limit):(++def , unnamed6fbae6$ArticlesUi$Dart.ARTICLES_LIMIT$getter());
-    case 3:
-      offset = '$p_offset' in $o?(++seen , $o.$p_offset):(++def , 0);
   }
-  if (seen != $o.count || seen + def + $n != 4)
+  if (seen != $o.count || seen + def + $n != 1)
     $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart.prototype.fetchData$member.call(this, id, thenCall, limit, offset);
+  return unnamed6fbae6$ArticlesUiView$Dart.prototype.fetchData$member.call(this, thenCall);
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.refresh$member = function(){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.refresh$member = function(){
   var tmp$0;
   this.data$setter(tmp$0 = HashMapImplementation$Dart.HashMapImplementation$$Factory(HashMapImplementation$Dart.$lookupRTT())) , tmp$0;
 }
 ;
-unnamed6fbae6$ArticlesUi$Dart.prototype.refresh$named = function($n, $o){
+unnamed6fbae6$ArticlesUiView$Dart.prototype.refresh$named = function($n, $o){
   if ($o.count || $n != 0)
     $nsme();
-  return unnamed6fbae6$ArticlesUi$Dart.prototype.refresh$member.call(this);
+  return unnamed6fbae6$ArticlesUiView$Dart.prototype.refresh$member.call(this);
 }
 ;
 function unnamed6fbae6$Topic$Dart(){
@@ -71585,239 +72332,201 @@ unnamed6fbae6$Topic$Dart.prototype.weekOnWeekChange$setter = function(tmp$0){
   this.weekOnWeekChange$field = tmp$0;
 }
 ;
-function unnamed6fbae6$TopicsUi$Dart(){
+function unnamed6fbae6$TopicsUiView$Dart(){
 }
-unnamed6fbae6$TopicsUi$Dart.$lookupRTT = function(typeArgs, named){
-  return RTT.create($cls('unnamed6fbae6$TopicsUi$Dart'), null, null, named);
-}
-;
-unnamed6fbae6$TopicsUi$Dart.$Constructor = function(tableSelector){
-  var tmp$1, tmp$0;
-  if (NE$operator(tableSelector, $Dart$Null)) {
-    this.outputTable$setter(tmp$0 = unnamed6fbae6$Table$Dart.Table$$Factory(tableSelector)) , tmp$0;
-  }
-  this._addButton$unnamed6fbae6$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, '#add-topic-button')) , tmp$1;
-  this._addButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named, unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named_$lookupRTT, this));
+$inherits(unnamed6fbae6$TopicsUiView$Dart, unnamed6fbae6$UiView$Dart);
+unnamed6fbae6$TopicsUiView$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$TopicsUiView$Dart'), unnamed6fbae6$TopicsUiView$Dart.$RTTimplements, null, named);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.$Initializer = function(tableSelector){
+unnamed6fbae6$TopicsUiView$Dart.$RTTimplements = function(rtt){
+  unnamed6fbae6$TopicsUiView$Dart.$addTo(rtt);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory = function(tableSelector){
-  var tmp$0 = new unnamed6fbae6$TopicsUi$Dart;
-  tmp$0.$typeInfo = unnamed6fbae6$TopicsUi$Dart.$lookupRTT();
-  unnamed6fbae6$TopicsUi$Dart.$Initializer.call(tmp$0, tableSelector);
-  unnamed6fbae6$TopicsUi$Dart.$Constructor.call(tmp$0, tableSelector);
+unnamed6fbae6$TopicsUiView$Dart.$addTo = function(target){
+  var rtt = unnamed6fbae6$TopicsUiView$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  unnamed6fbae6$UiView$Dart.$addTo(target);
+}
+;
+unnamed6fbae6$TopicsUiView$Dart.$Constructor = function(){
+  unnamed6fbae6$UiView$Dart.$Constructor.call(this);
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  this.baseUrl$setter(tmp$0 = '/api/topics') , tmp$0;
+  this._createButton$unnamed6fbae6$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, '#add-topic-button')) , tmp$1;
+  this.divElement$setter(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'div#topics-div')) , tmp$2;
+  this.mainButton$setter(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'button#topics-button')) , tmp$3;
+  this.outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#topics-table')) , tmp$4;
+  this._createButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$named, unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$TopicsUiView$Dart.$Initializer = function(){
+  unnamed6fbae6$UiView$Dart.$Initializer.call(this);
+}
+;
+unnamed6fbae6$TopicsUiView$Dart.TopicsUiView$$Factory = function(){
+  var tmp$0 = new unnamed6fbae6$TopicsUiView$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$TopicsUiView$Dart.$lookupRTT();
+  unnamed6fbae6$TopicsUiView$Dart.$Initializer.call(tmp$0);
+  unnamed6fbae6$TopicsUiView$Dart.$Constructor.call(tmp$0);
   return tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.outputTable$getter = function(){
-  return this.outputTable$field;
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype.outputTable$setter = function(tmp$0){
-  this.outputTable$field = tmp$0;
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype.topics$getter = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.topics$getter = function(){
   return this.topics$field;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.topics$setter = function(tmp$0){
+unnamed6fbae6$TopicsUiView$Dart.prototype.topics$setter = function(tmp$0){
   this.topics$field = tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.scuttlebuttUi$getter = function(){
-  return this.scuttlebuttUi$field;
+unnamed6fbae6$TopicsUiView$Dart.prototype._createButton$unnamed6fbae6$$getter_ = function(){
+  return this._createButton$unnamed6fbae6$$field_;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.scuttlebuttUi$setter = function(tmp$0){
-  this.scuttlebuttUi$field = tmp$0;
+unnamed6fbae6$TopicsUiView$Dart.prototype._createButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createButton$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype._addButton$unnamed6fbae6$$getter_ = function(){
-  return this._addButton$unnamed6fbae6$$field_;
+unnamed6fbae6$TopicsUiView$Dart.prototype._createRow$unnamed6fbae6$$getter_ = function(){
+  return this._createRow$unnamed6fbae6$$field_;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype._addButton$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._addButton$unnamed6fbae6$$field_ = tmp$0;
+unnamed6fbae6$TopicsUiView$Dart.prototype._createRow$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createRow$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype._addRow$unnamed6fbae6$$getter_ = function(){
-  return this._addRow$unnamed6fbae6$$field_;
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype._addRow$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._addRow$unnamed6fbae6$$field_ = tmp$0;
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype._nameInput$unnamed6fbae6$$getter_ = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype._nameInput$unnamed6fbae6$$getter_ = function(){
   return this._nameInput$unnamed6fbae6$$field_;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = function(tmp$0){
+unnamed6fbae6$TopicsUiView$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = function(tmp$0){
   this._nameInput$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype._addStatus$unnamed6fbae6$$getter_ = function(){
-  return this._addStatus$unnamed6fbae6$$field_;
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype._addStatus$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._addStatus$unnamed6fbae6$$field_ = tmp$0;
-}
-;
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted(ev){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted(ev){
   if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
     this.postNew$member(ev);
   }
 }
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named($n, $o, ev){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted$named($n, $o, ev){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted.call(this, ev);
+  return unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted.call(this, ev);
 }
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted(ev){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted(ev){
   var tmp$0;
-  this._addRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
-  this._addRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
 }
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named($n, $o, ev){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named($n, $o, ev){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted.call(this, ev);
+  return unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted.call(this, ev);
 }
-function unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$member = function(e){
-  var tmp$5, tmp$6, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$member = function(e){
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (EQ$operator(this.outputTable$getter(), $Dart$Null)) {
     $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("Couldn't find outputTable."));
   }
-  if (EQ$operator(this._addRow$unnamed6fbae6$$getter_(), $Dart$Null)) {
-    this._addRow$unnamed6fbae6$$setter_(tmp$0 = this.outputTable$getter().tableElement$getter().insertRow$named(1, $noargs, 1)) , tmp$0;
-    var nameCell = this._addRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 0);
+  if (EQ$operator(this._createRow$unnamed6fbae6$$getter_(), $Dart$Null)) {
+    this._createRow$unnamed6fbae6$$setter_(tmp$0 = this.outputTable$getter().tableElement$getter().insertRow$named(1, $noargs, 1)) , tmp$0;
+    var nameCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 0);
     this._nameInput$unnamed6fbae6$$setter_(tmp$1 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$1;
     this._nameInput$unnamed6fbae6$$getter_().type$setter(tmp$2 = 'text') , tmp$2;
     nameCell.elements$getter().add$named(1, $noargs, this._nameInput$unnamed6fbae6$$getter_());
     this._nameInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
-    this._nameInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$showAddRow$c0$27_27$Hoisted$named$named_$lookupRTT, this));
-    var buttonCell = this._addRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 1);
+    this._nameInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c0$31_31$Hoisted$named$named_$lookupRTT, this));
+    var buttonCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 1);
     buttonCell.colSpan$setter(tmp$3 = 3) , tmp$3;
     var createButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
     createButton.text$setter(tmp$4 = 'Create') , tmp$4;
     buttonCell.elements$getter().add$named(1, $noargs, createButton);
-    createButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named, unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named_$lookupRTT, this));
+    createButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named, unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named_$lookupRTT, this));
     var discardButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
     discardButton.text$setter(tmp$5 = 'Discard') , tmp$5;
     buttonCell.elements$getter().add$named(1, $noargs, discardButton);
-    discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$showAddRow$c1$27_27$Hoisted$named$named_$lookupRTT, this));
-    this._addStatus$unnamed6fbae6$$setter_(tmp$6 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('span')) , tmp$6;
-    this._addStatus$unnamed6fbae6$$getter_().classes$getter().add$named(1, $noargs, 'info');
-    buttonCell.elements$getter().add$named(1, $noargs, this._addStatus$unnamed6fbae6$$getter_());
+    discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$showCreateRow$c1$31_31$Hoisted$named$named_$lookupRTT, this));
   }
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named = function($n, $o, e){
+unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$named = function($n, $o, e){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$member.call(this, e);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$member.call(this, e);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.showAddRow$named_$lookupRTT = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.showCreateRow$named_$lookupRTT = function(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 ;
-function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted(dartc_scp$1, event_0){
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted(responseText){
+  var tmp$1, tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+  this.topics$setter(tmp$1 = $Dart$Null) , tmp$1;
+  this.scuttlebuttUi$getter().parseUrl$named(0, $noargs);
+}
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named($n, $o, responseText){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted.call(this, responseText);
+}
+function unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$member = function(e){
   var tmp$0;
-  if (NE$operator(dartc_scp$1.request.status$getter(), 200)) {
-    htmld071c1$window$getter().console$getter().error$named(1, $noargs, 'Server returned status code ' + $toString(dartc_scp$1.request.status$getter()) + ' (' + $toString(dartc_scp$1.request.statusText$getter()) + '). Cannot add new record.');
-    if (NE$operator(this._addStatus$unnamed6fbae6$$getter_(), $Dart$Null)) {
-      this._addStatus$unnamed6fbae6$$getter_().text$setter(tmp$0 = 'SERVER ERROR (' + $toString(dartc_scp$1.request.status$getter()) + '): Could not add.') , tmp$0;
-      this._addStatus$unnamed6fbae6$$getter_().classes$getter().add$named(1, $noargs, 'yellow');
-    }
+  if (EQ$operator(this._nameInput$unnamed6fbae6$$getter_().value$getter(), '')) {
     return;
   }
-  if (unnamed6fbae6$DEBUG$getter()) {
-    htmld071c1$window$getter().console$getter().info$named(1, $noargs, dartc_scp$1.request);
-  }
-  this._addRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
-  this.refresh$member();
-}
-function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named($s0, $n, $o, event_0){
-  if ($o.count || $n != 1)
-    $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted.call(this, $s0, event_0);
-}
-function unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
-}
-unnamed6fbae6$TopicsUi$Dart.prototype.postNew$member = function(e){
-  var dartc_scp$1, tmp$0;
-  dartc_scp$1 = {};
   print$getter()(1, $noargs, 'Posting new record.');
-  var url = '/api/topics';
-  if (unnamed6fbae6$DEBUG$getter()) {
-    url = '/api/post_topics_mock.json';
-  }
-  dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
-  dartc_scp$1.request.open$named(3, $noargs, unnamed6fbae6$DEBUG$getter()?'GET':'POST', url, true);
-  dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$postNew$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$1));
-  var sendData = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', this._nameInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0);
-  dartc_scp$1.request.send$named(1, $noargs, jsonc5ef24$JSON$Dart.stringify$member(sendData));
-  dartc_scp$1 = $Dart$Null;
+  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', this._nameInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0), '/api/post_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$postNew$c0$31_31$Hoisted$named$named_$lookupRTT, this));
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named = function($n, $o, e){
+unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named = function($n, $o, e){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.postNew$member.call(this, e);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$member.call(this, e);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.postNew$named_$lookupRTT = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.postNew$named_$lookupRTT = function(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.getURL$member = function(){
-  if (unnamed6fbae6$DEBUG$getter()) {
-    return '/api/get_topics_mock.json';
-  }
-   else {
-    return '/api/topics';
-  }
-}
-;
-unnamed6fbae6$TopicsUi$Dart.prototype.show$member = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.show$member = function(){
   if (NE$operator(this.topics$getter(), $Dart$Null)) {
     this.populateTable$member();
   }
    else {
-    this.fetchData$member(this.populateTable$getter());
+    this.fetchData$member($bind(unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named, unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named_$lookupRTT, this));
   }
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.show$named = function($n, $o){
+unnamed6fbae6$TopicsUiView$Dart.prototype.show$named = function($n, $o){
   if ($o.count || $n != 0)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.show$member.call(this);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.show$member.call(this);
 }
 ;
-function unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted(dartc_scp$3, event_0){
+function unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted(dartc_scp$3, event_0){
   this.scuttlebuttUi$getter().listArticles$named(1, $noargs, dartc_scp$3.topic.id$getter());
 }
-function unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named($s0, $n, $o, event_0){
+function unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted$named($s0, $n, $o, event_0){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted.call(this, $s0, event_0);
+  return unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted.call(this, $s0, event_0);
 }
-function unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$member = function(){
   var dartc_scp$3, tmp$0;
   this.outputTable$getter().reset$named(0, $noargs);
   {
@@ -71826,6 +72535,7 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
       dartc_scp$3 = {};
       dartc_scp$3.topic = $0.next$named(0, $noargs);
       {
+        var topicNameHtml = '' + $toString(dartc_scp$3.topic.name$getter()) + " <a class='more-actions'>&hellip;<\/a>";
         var wowChangeHtml = $Dart$Null;
         if (NE$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), $Dart$Null)) {
           var changeStr = $Dart$Null;
@@ -71838,10 +72548,10 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
             changeStr = MUL$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), 100).abs$named(0, $noargs).round$named(0, $noargs).toString$named(0, $noargs);
             changeSign = GTE$operator(dartc_scp$3.topic.weekOnWeekChange$getter(), 0)?'+':'-';
           }
-          wowChangeHtml = '<span class="' + $toString(EQ$operator(changeSign, '+')?'green':'red') + '">\n                         ' + $toString(changeSign) + '' + $toString(changeStr) + '%<\/span>';
+          wowChangeHtml = '<span class="' + $toString(EQ$operator(changeSign, '+')?'green':'red') + '">' + $toString(changeSign) + '' + $toString(changeStr) + '%<\/span>';
         }
-        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([dartc_scp$3.topic.name$getter(), dartc_scp$3.topic.countPastTwentyFourHours$getter(), dartc_scp$3.topic.countPastSevenDays$getter(), wowChangeHtml], Array.$lookupRTT()));
-        tr.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$populateTable$c0$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$3));
+        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([topicNameHtml, dartc_scp$3.topic.countPastTwentyFourHours$getter(), dartc_scp$3.topic.countPastSevenDays$getter(), wowChangeHtml], Array.$lookupRTT()));
+        tr.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$populateTable$c0$31_31$Hoisted$named$named_$lookupRTT, this, dartc_scp$3));
       }
       dartc_scp$3 = $Dart$Null;
     }
@@ -71850,72 +72560,40 @@ unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member = function(){
   this.visibility$setter(tmp$0 = true) , tmp$0;
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$named = function($n, $o){
+unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named = function($n, $o){
   if ($o.count || $n != 0)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$member.call(this);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$member.call(this);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$named_$lookupRTT = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named_$lookupRTT = function(){
   return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$getter = function(){
-  return $bind(unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$named, unnamed6fbae6$TopicsUi$Dart.prototype.populateTable$named_$lookupRTT, this);
+unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$getter = function(){
+  return $bind(unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named, unnamed6fbae6$TopicsUiView$Dart.prototype.populateTable$named_$lookupRTT, this);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.visibility$setter = function(value){
-  var tmp$1, tmp$0;
-  if (EQ$operator(value, true)) {
-    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$0 = 'table') , tmp$0;
-  }
-   else {
-    this.outputTable$getter().tableElement$getter().style$getter().display$setter(tmp$1 = 'none') , tmp$1;
-  }
-}
-;
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted(record){
-  this.topics$getter().add$named(1, $noargs, unnamed6fbae6$Topic$Dart.Topic$$Factory(record));
-}
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named($n, $o, record){
-  if ($o.count || $n != 1)
-    $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted.call(this, record);
-}
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction([Map$Dart.$lookupRTT([String$Dart.$lookupRTT(), Object.$lookupRTT()])], RTT.dynamicType.$lookupRTT());
-}
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted(dartc_scp$0, dartc_scp$1, event_0){
-  var tmp$0;
-  var data = jsonc5ef24$JSON$Dart.parse$member(dartc_scp$1.request.responseText$getter());
-  this.topics$setter(tmp$0 = ListFactory$Dart.List$$Factory([unnamed6fbae6$Topic$Dart.$lookupRTT()], $Dart$Null)) , tmp$0;
-  data.forEach$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$fetchData$c0$27_27$Hoisted$named$named_$lookupRTT, this));
-  print$getter()(1, $noargs, 'Topics loaded successfully.');
+function unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted(dartc_scp$0, responseText){
+  this.actOnData$member(responseText);
   if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
     dartc_scp$0.thenCall(0, $noargs);
   }
 }
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted$named($s0, $s1, $n, $o, event_0){
+function unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted$named($s0, $n, $o, responseText){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted.call(this, $s0, $s1, event_0);
+  return unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted.call(this, $s0, responseText);
 }
-function unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted$named$named_$lookupRTT(){
-  return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+function unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-unnamed6fbae6$TopicsUi$Dart.prototype.fetchData$member = function(thenCall){
+unnamed6fbae6$TopicsUiView$Dart.prototype.fetchData$member = function(thenCall){
   var dartc_scp$0 = {thenCall:thenCall};
-  var dartc_scp$1;
-  dartc_scp$1 = {};
-  var url = this.getURL$member();
-  dartc_scp$1.request = htmlimpl0a8e4b$XMLHttpRequestWrappingImplementation$Dart.XMLHttpRequestWrappingImplementation$$Factory();
-  dartc_scp$1.request.open$named(3, $noargs, 'GET', url, true);
-  dartc_scp$1.request.on$getter().load$getter().add$named(1, $noargs, $bind(unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted$named, unnamed6fbae6$TopicsUi$Dart$fetchData$c1$27_27$Hoisted$named$named_$lookupRTT, this, dartc_scp$0, dartc_scp$1));
-  dartc_scp$1.request.send$named(0, $noargs);
-  dartc_scp$1 = $Dart$Null;
+  this.sendXhr$member(this.baseUrl$getter(), 'GET', $Dart$Null, '/api/get_topics_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted$named, unnamed6fbae6$TopicsUiView$Dart$fetchData$c0$31_31$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.fetchData$named = function($n, $o, thenCall){
+unnamed6fbae6$TopicsUiView$Dart.prototype.fetchData$named = function($n, $o, thenCall){
   var seen = 0;
   var def = 0;
   switch ($n) {
@@ -71924,20 +72602,36 @@ unnamed6fbae6$TopicsUi$Dart.prototype.fetchData$named = function($n, $o, thenCal
   }
   if (seen != $o.count || seen + def + $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.fetchData$member.call(this, thenCall);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.fetchData$member.call(this, thenCall);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.refresh$member = function(){
+unnamed6fbae6$TopicsUiView$Dart.prototype.actOnData$member = function(responseText){
+  var tmp$0;
+  var data = jsonc5ef24$JSON$Dart.parse$member(responseText);
+  this.topics$setter(tmp$0 = ListFactory$Dart.List$$Factory([unnamed6fbae6$Topic$Dart.$lookupRTT()], $Dart$Null)) , tmp$0;
+  {
+    var $0 = data.iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var record = $0.next$named(0, $noargs);
+      {
+        this.topics$getter().add$named(1, $noargs, unnamed6fbae6$Topic$Dart.Topic$$Factory(record));
+      }
+    }
+  }
+  print$getter()(1, $noargs, 'Topics loaded successfully.');
+}
+;
+unnamed6fbae6$TopicsUiView$Dart.prototype.refresh$member = function(){
   this.fetchData$member($Dart$Null);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.refresh$named = function($n, $o){
+unnamed6fbae6$TopicsUiView$Dart.prototype.refresh$named = function($n, $o){
   if ($o.count || $n != 0)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.refresh$member.call(this);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.refresh$member.call(this);
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.getName$member = function(id){
+unnamed6fbae6$TopicsUiView$Dart.prototype.getName$member = function(id){
   if (NE$operator(this.topics$getter(), $Dart$Null)) {
     {
       var $0 = this.topics$getter().iterator$named(0, $noargs);
@@ -71956,10 +72650,418 @@ unnamed6fbae6$TopicsUi$Dart.prototype.getName$member = function(id){
   }
 }
 ;
-unnamed6fbae6$TopicsUi$Dart.prototype.getName$named = function($n, $o, id){
+unnamed6fbae6$TopicsUiView$Dart.prototype.getName$named = function($n, $o, id){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$TopicsUi$Dart.prototype.getName$member.call(this, id);
+  return unnamed6fbae6$TopicsUiView$Dart.prototype.getName$member.call(this, id);
+}
+;
+function unnamed6fbae6$Source$Dart(){
+}
+unnamed6fbae6$Source$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$Source$Dart'), null, null, named);
+}
+;
+unnamed6fbae6$Source$Dart.$Constructor = function(jsonData){
+  var tmp$1, tmp$2, tmp$3, tmp$0;
+  if (!jsonData.containsKey$named(1, $noargs, 'id') || !jsonData.containsKey$named(1, $noargs, 'name') || !jsonData.containsKey$named(1, $noargs, 'url')) {
+    $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'."));
+  }
+  this.id$setter(tmp$0 = jsonData.INDEX$operator('id')) , tmp$0;
+  this.name$setter(tmp$1 = jsonData.INDEX$operator('name')) , tmp$1;
+  this.url$setter(tmp$2 = jsonData.INDEX$operator('url')) , tmp$2;
+  this.monthlyVisitors$setter(tmp$3 = jsonData.INDEX$operator('monthlyVisitors')) , tmp$3;
+}
+;
+unnamed6fbae6$Source$Dart.$Initializer = function(jsonData){
+}
+;
+unnamed6fbae6$Source$Dart.Source$$Factory = function(jsonData){
+  var tmp$0 = new unnamed6fbae6$Source$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$Source$Dart.$lookupRTT();
+  unnamed6fbae6$Source$Dart.$Initializer.call(tmp$0, jsonData);
+  unnamed6fbae6$Source$Dart.$Constructor.call(tmp$0, jsonData);
+  return tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.id$getter = function(){
+  return this.id$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.id$setter = function(tmp$0){
+  this.id$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.name$getter = function(){
+  return this.name$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.name$setter = function(tmp$0){
+  this.name$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.url$getter = function(){
+  return this.url$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.url$setter = function(tmp$0){
+  this.url$field = tmp$0;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.monthlyVisitors$getter = function(){
+  return this.monthlyVisitors$field;
+}
+;
+unnamed6fbae6$Source$Dart.prototype.monthlyVisitors$setter = function(tmp$0){
+  this.monthlyVisitors$field = tmp$0;
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart(){
+}
+$inherits(unnamed6fbae6$SourcesUiView$Dart, unnamed6fbae6$UiView$Dart);
+unnamed6fbae6$SourcesUiView$Dart.$lookupRTT = function(typeArgs, named){
+  return RTT.create($cls('unnamed6fbae6$SourcesUiView$Dart'), unnamed6fbae6$SourcesUiView$Dart.$RTTimplements, null, named);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$RTTimplements = function(rtt){
+  unnamed6fbae6$SourcesUiView$Dart.$addTo(rtt);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$addTo = function(target){
+  var rtt = unnamed6fbae6$SourcesUiView$Dart.$lookupRTT();
+  target.implementedTypes[rtt.classKey] = rtt;
+  unnamed6fbae6$UiView$Dart.$addTo(target);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$Constructor = function(){
+  unnamed6fbae6$UiView$Dart.$Constructor.call(this);
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  this.baseUrl$setter(tmp$0 = '/api/sources') , tmp$0;
+  this._createButton$unnamed6fbae6$$setter_(tmp$1 = htmld071c1$document$getter().query$named(1, $noargs, '#add-source-button')) , tmp$1;
+  this.divElement$setter(tmp$2 = htmld071c1$document$getter().query$named(1, $noargs, 'div#sources-div')) , tmp$2;
+  this.mainButton$setter(tmp$3 = htmld071c1$document$getter().query$named(1, $noargs, 'button#sources-button')) , tmp$3;
+  this.outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#sources-table')) , tmp$4;
+  this._createButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named, unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.$Initializer = function(){
+  unnamed6fbae6$UiView$Dart.$Initializer.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.SourcesUiView$$Factory = function(){
+  var tmp$0 = new unnamed6fbae6$SourcesUiView$Dart;
+  tmp$0.$typeInfo = unnamed6fbae6$SourcesUiView$Dart.$lookupRTT();
+  unnamed6fbae6$SourcesUiView$Dart.$Initializer.call(tmp$0);
+  unnamed6fbae6$SourcesUiView$Dart.$Constructor.call(tmp$0);
+  return tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.sources$getter = function(){
+  return this.sources$field;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.sources$setter = function(tmp$0){
+  this.sources$field = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createButton$unnamed6fbae6$$getter_ = function(){
+  return this._createButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createRow$unnamed6fbae6$$getter_ = function(){
+  return this._createRow$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._createRow$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._createRow$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._nameInput$unnamed6fbae6$$getter_ = function(){
+  return this._nameInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._nameInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._nameInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._urlInput$unnamed6fbae6$$getter_ = function(){
+  return this._urlInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._urlInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._urlInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._visitorsInput$unnamed6fbae6$$getter_ = function(){
+  return this._visitorsInput$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype._visitorsInput$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._visitorsInput$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this._urlInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this._visitorsInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted(ev){
+  if (EQ$operator(ev.dynamic$getter().charCode$getter(), 13)) {
+    this.postNew$member(ev);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted(ev){
+  var tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named($n, $o, ev){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted.call(this, ev);
+}
+function unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$member = function(e){
+  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  if (EQ$operator(this.outputTable$getter(), $Dart$Null)) {
+    $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory("Couldn't find outputTable."));
+  }
+  if (EQ$operator(this._createRow$unnamed6fbae6$$getter_(), $Dart$Null)) {
+    this._createRow$unnamed6fbae6$$setter_(tmp$0 = this.outputTable$getter().tableElement$getter().insertRow$named(1, $noargs, 1)) , tmp$0;
+    var nameCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 0);
+    this._nameInput$unnamed6fbae6$$setter_(tmp$1 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$1;
+    this._nameInput$unnamed6fbae6$$getter_().type$setter(tmp$2 = 'text') , tmp$2;
+    nameCell.elements$getter().add$named(1, $noargs, this._nameInput$unnamed6fbae6$$getter_());
+    this._nameInput$unnamed6fbae6$$getter_().focus$named(0, $noargs);
+    var urlCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 1);
+    this._urlInput$unnamed6fbae6$$setter_(tmp$3 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$3;
+    this._urlInput$unnamed6fbae6$$getter_().type$setter(tmp$4 = 'text') , tmp$4;
+    urlCell.elements$getter().add$named(1, $noargs, this._urlInput$unnamed6fbae6$$getter_());
+    var visitorsCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 2);
+    this._visitorsInput$unnamed6fbae6$$setter_(tmp$5 = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('input')) , tmp$5;
+    this._visitorsInput$unnamed6fbae6$$getter_().type$setter(tmp$6 = 'text') , tmp$6;
+    visitorsCell.elements$getter().add$named(1, $noargs, this._visitorsInput$unnamed6fbae6$$getter_());
+    this._nameInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c0$32_32$Hoisted$named$named_$lookupRTT, this));
+    this._urlInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+    this._visitorsInput$unnamed6fbae6$$getter_().on$getter().keyPress$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c2$32_32$Hoisted$named$named_$lookupRTT, this));
+    var buttonCell = this._createRow$unnamed6fbae6$$getter_().insertCell$named(1, $noargs, 3);
+    buttonCell.colSpan$setter(tmp$7 = 3) , tmp$7;
+    var createButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    createButton.text$setter(tmp$8 = 'Create') , tmp$8;
+    buttonCell.elements$getter().add$named(1, $noargs, createButton);
+    createButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named, unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named_$lookupRTT, this));
+    var discardButton = htmlimpl0a8e4b$ElementWrappingImplementation$Dart.ElementWrappingImplementation$tag$29$Factory('button');
+    discardButton.text$setter(tmp$9 = 'Discard') , tmp$9;
+    buttonCell.elements$getter().add$named(1, $noargs, discardButton);
+    discardButton.on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$showCreateRow$c3$32_32$Hoisted$named$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$member.call(this, e);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.showCreateRow$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted(responseText){
+  var tmp$1, tmp$0;
+  this._createRow$unnamed6fbae6$$getter_().remove$named(0, $noargs);
+  this._createRow$unnamed6fbae6$$setter_(tmp$0 = $Dart$Null) , tmp$0;
+  this.sources$setter(tmp$1 = $Dart$Null) , tmp$1;
+  this.scuttlebuttUi$getter().parseUrl$named(0, $noargs);
+}
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named($n, $o, responseText){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted.call(this, responseText);
+}
+function unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$member = function(e){
+  var tmp$0;
+  if (EQ$operator(this._nameInput$unnamed6fbae6$$getter_().value$getter(), '') || EQ$operator(this._urlInput$unnamed6fbae6$$getter_().value$getter(), '')) {
+    return;
+  }
+  print$getter()(1, $noargs, 'Posting new record.');
+  this.sendXhr$member(this.baseUrl$getter(), 'POST', (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('name', this._nameInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0.ASSIGN_INDEX$operator('url', this._urlInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0.ASSIGN_INDEX$operator('monthlyVisitors', this._visitorsInput$unnamed6fbae6$$getter_().value$getter()) , tmp$0), '/api/post_sources_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$postNew$c0$32_32$Hoisted$named$named_$lookupRTT, this));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named = function($n, $o, e){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$member.call(this, e);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.postNew$named_$lookupRTT = function(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.show$member = function(){
+  if (NE$operator(this.sources$getter(), $Dart$Null)) {
+    this.populateTable$member();
+  }
+   else {
+    this.fetchData$member($bind(unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT, this));
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.show$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.show$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$member = function(){
+  var tmp$0;
+  this.outputTable$getter().reset$named(0, $noargs);
+  {
+    var $0 = this.sources$getter().iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var source = $0.next$named(0, $noargs);
+      {
+        var sourceNameHtml = '' + $toString(source.name$getter()) + " <a class='more-actions'>&hellip;<\/a>";
+        var tr = this.outputTable$getter().addRow$named(1, $noargs, RTT.setTypeInfo([sourceNameHtml, unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member(source.url$getter()), unnamed6fbae6$ScuttlebuttUi$Dart.prettifyInt$member(source.monthlyVisitors$getter()), 'N/A'], Array.$lookupRTT()));
+      }
+    }
+  }
+  ;
+  this.visibility$setter(tmp$0 = true) , tmp$0;
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT = function(){
+  return RTT.createFunction(null, RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$getter = function(){
+  return $bind(unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named, unnamed6fbae6$SourcesUiView$Dart.prototype.populateTable$named_$lookupRTT, this);
+}
+;
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted(dartc_scp$0, responseText){
+  this.actOnData$member(responseText);
+  if (NE$operator(dartc_scp$0.thenCall, $Dart$Null)) {
+    dartc_scp$0.thenCall(0, $noargs);
+  }
+}
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named($s0, $n, $o, responseText){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted.call(this, $s0, responseText);
+}
+function unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$member = function(thenCall){
+  var dartc_scp$0 = {thenCall:thenCall};
+  this.sendXhr$member(this.baseUrl$getter(), 'GET', $Dart$Null, '/api/get_sources_mock.json').then$named(1, $noargs, $bind(unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named, unnamed6fbae6$SourcesUiView$Dart$fetchData$c0$32_32$Hoisted$named$named_$lookupRTT, this, dartc_scp$0));
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$named = function($n, $o, thenCall){
+  var seen = 0;
+  var def = 0;
+  switch ($n) {
+    case 0:
+      thenCall = '$p_thenCall' in $o?(++seen , $o.$p_thenCall):(++def , $Dart$Null);
+  }
+  if (seen != $o.count || seen + def + $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.fetchData$member.call(this, thenCall);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.actOnData$member = function(responseText){
+  var tmp$0;
+  var data = jsonc5ef24$JSON$Dart.parse$member(responseText);
+  this.sources$setter(tmp$0 = ListFactory$Dart.List$$Factory([unnamed6fbae6$Source$Dart.$lookupRTT()], $Dart$Null)) , tmp$0;
+  {
+    var $0 = data.iterator$named(0, $noargs);
+    while ($0.hasNext$named(0, $noargs)) {
+      var record = $0.next$named(0, $noargs);
+      {
+        this.sources$getter().add$named(1, $noargs, unnamed6fbae6$Source$Dart.Source$$Factory(record));
+      }
+    }
+  }
+  print$getter()(1, $noargs, 'Sources loaded successfully.');
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$member = function(){
+  this.fetchData$member($Dart$Null);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$named = function($n, $o){
+  if ($o.count || $n != 0)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.refresh$member.call(this);
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.getName$member = function(id){
+  if (NE$operator(this.sources$getter(), $Dart$Null)) {
+    {
+      var $0 = this.sources$getter().iterator$named(0, $noargs);
+      while ($0.hasNext$named(0, $noargs)) {
+        var source = $0.next$named(0, $noargs);
+        {
+          if (EQ$operator(source.id$getter(), id)) {
+            return source.name$getter();
+          }
+        }
+      }
+    }
+  }
+   else {
+    return $Dart$Null;
+  }
+}
+;
+unnamed6fbae6$SourcesUiView$Dart.prototype.getName$named = function($n, $o, id){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$SourcesUiView$Dart.prototype.getName$member.call(this, id);
 }
 ;
 function unnamed6fbae6$ScuttlebuttUi$Dart(){
@@ -71982,20 +73084,28 @@ unnamed6fbae6$ScuttlebuttUi$Dart.ScuttlebuttUi$$Factory = function(){
   return tmp$0;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype.articlesUi$getter = function(){
-  return this.articlesUi$field;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.articlesUiView$getter = function(){
+  return this.articlesUiView$field;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype.articlesUi$setter = function(tmp$0){
-  this.articlesUi$field = tmp$0;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.articlesUiView$setter = function(tmp$0){
+  this.articlesUiView$field = tmp$0;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype.topicsUi$getter = function(){
-  return this.topicsUi$field;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.topicsUiView$getter = function(){
+  return this.topicsUiView$field;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype.topicsUi$setter = function(tmp$0){
-  this.topicsUi$field = tmp$0;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.topicsUiView$setter = function(tmp$0){
+  this.topicsUiView$field = tmp$0;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.sourcesUiView$getter = function(){
+  return this.sourcesUiView$field;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.sourcesUiView$setter = function(tmp$0){
+  this.sourcesUiView$field = tmp$0;
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.currentPage$getter = function(){
@@ -72022,12 +73132,28 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype._subtitle$unnamed6fbae6$$setter_ = fu
   this._subtitle$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype._homeButton$unnamed6fbae6$$getter_ = function(){
-  return this._homeButton$unnamed6fbae6$$field_;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._topicsButton$unnamed6fbae6$$getter_ = function(){
+  return this._topicsButton$unnamed6fbae6$$field_;
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype._homeButton$unnamed6fbae6$$setter_ = function(tmp$0){
-  this._homeButton$unnamed6fbae6$$field_ = tmp$0;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._topicsButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._topicsButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._sourcesButton$unnamed6fbae6$$getter_ = function(){
+  return this._sourcesButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._sourcesButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._sourcesButton$unnamed6fbae6$$field_ = tmp$0;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._articlesButton$unnamed6fbae6$$getter_ = function(){
+  return this._articlesButton$unnamed6fbae6$$field_;
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype._articlesButton$unnamed6fbae6$$setter_ = function(tmp$0){
+  this._articlesButton$unnamed6fbae6$$field_ = tmp$0;
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype._refreshButton$unnamed6fbae6$$getter_ = function(){
@@ -72050,9 +73176,7 @@ function unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$look
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted(event_0){
-  this.articlesUi$getter().refresh$named(0, $noargs);
-  this.topicsUi$getter().refresh$named(0, $noargs);
-  this.parseUrl$member($Dart$Null);
+  this.listSources$member(true);
 }
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named($n, $o, event_0){
   if ($o.count || $n != 1)
@@ -72062,34 +73186,50 @@ function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named($n, $o, eve
 function unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted(e){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted(event_0){
+  this.articlesUiView$getter().refresh$named(0, $noargs);
+  this.topicsUiView$getter().refresh$named(0, $noargs);
+  this.parseUrl$member($Dart$Null);
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named($n, $o, event_0){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted.call(this, event_0);
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT(){
+  return RTT.createFunction([htmld071c1$Event$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted(e){
   print$getter()(1, $noargs, 'On pop state triggered.');
   this.parseUrl$named(0, $noargs);
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named($n, $o, e){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named($n, $o, e){
   if ($o.count || $n != 1)
     $nsme();
-  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted.call(this, e);
+  return unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted.call(this, e);
 }
-function unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT(){
+function unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named$named_$lookupRTT(){
   return RTT.createFunction([RTT.dynamicType.$lookupRTT()], RTT.dynamicType.$lookupRTT());
 }
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$member = function(){
-  var tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
-  this.articlesUi$setter(tmp$0 = unnamed6fbae6$ArticlesUi$Dart.ArticlesUi$$Factory()) , tmp$0;
-  this.topicsUi$setter(tmp$1 = unnamed6fbae6$TopicsUi$Dart.TopicsUi$$Factory('table#topics-table')) , tmp$1;
-  this.articlesUi$getter().scuttlebuttUi$setter(tmp$3 = (this.topicsUi$getter().scuttlebuttUi$setter(tmp$2 = this) , tmp$2)) , tmp$3;
-  this.articlesUi$getter().outputTable$setter(tmp$4 = unnamed6fbae6$Table$Dart.Table$$Factory('table#articles-table')) , tmp$4;
-  this._statusMessage$unnamed6fbae6$$setter_(tmp$5 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$5;
-  this._subtitle$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$6;
-  this._homeButton$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, '#home-button')) , tmp$7;
-  this._refreshButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$8;
+  var tmp$11, tmp$10, tmp$12, tmp$9, tmp$5, tmp$6, tmp$7, tmp$8, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  this.articlesUiView$setter(tmp$0 = unnamed6fbae6$ArticlesUiView$Dart.ArticlesUiView$$Factory()) , tmp$0;
+  this.topicsUiView$setter(tmp$1 = unnamed6fbae6$TopicsUiView$Dart.TopicsUiView$$Factory()) , tmp$1;
+  this.sourcesUiView$setter(tmp$2 = unnamed6fbae6$SourcesUiView$Dart.SourcesUiView$$Factory()) , tmp$2;
+  this.articlesUiView$getter().scuttlebuttUi$setter(tmp$5 = (this.topicsUiView$getter().scuttlebuttUi$setter(tmp$4 = (this.sourcesUiView$getter().scuttlebuttUi$setter(tmp$3 = this) , tmp$3)) , tmp$4)) , tmp$5;
+  this._statusMessage$unnamed6fbae6$$setter_(tmp$6 = htmld071c1$document$getter().query$named(1, $noargs, '#status')) , tmp$6;
+  this._subtitle$unnamed6fbae6$$setter_(tmp$7 = htmld071c1$document$getter().query$named(1, $noargs, 'h1 span#subtitle')) , tmp$7;
+  this._topicsButton$unnamed6fbae6$$setter_(tmp$8 = htmld071c1$document$getter().query$named(1, $noargs, '#topics-button')) , tmp$8;
+  this._sourcesButton$unnamed6fbae6$$setter_(tmp$9 = htmld071c1$document$getter().query$named(1, $noargs, '#sources-button')) , tmp$9;
+  this._articlesButton$unnamed6fbae6$$setter_(tmp$10 = htmld071c1$document$getter().query$named(1, $noargs, '#articles-button')) , tmp$10;
+  this._refreshButton$unnamed6fbae6$$setter_(tmp$11 = htmld071c1$document$getter().query$named(1, $noargs, '#refresh-button')) , tmp$11;
   this.statusMessage$member('Dart is now running.');
-  this._homeButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
-  this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+  this._topicsButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c0$32_32$Hoisted$named$named_$lookupRTT, this));
+  this._sourcesButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c1$32_32$Hoisted$named$named_$lookupRTT, this));
+  this._refreshButton$unnamed6fbae6$$getter_().on$getter().click$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
   var landingUrl = htmld071c1$window$getter().location$getter().href$getter();
-  unnamed6fbae6$DEBUG$setter(tmp$9 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, '.prh.corp.google.com:8000/')) , tmp$9;
-  htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c2$32_32$Hoisted$named$named_$lookupRTT, this));
+  unnamed6fbae6$DEBUG$setter(tmp$12 = landingUrl.contains$named(1, $noargs, '0.0.0.0') || landingUrl.contains$named(1, $noargs, '.prh.corp.google.com:8000/')) , tmp$12;
+  htmld071c1$window$getter().on$getter().popState$getter().add$named(1, $noargs, $bind(unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named, unnamed6fbae6$ScuttlebuttUi$Dart$run$c3$32_32$Hoisted$named$named_$lookupRTT, this));
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.run$named = function($n, $o){
@@ -72103,19 +73243,25 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$member = function(url){
     url = htmld071c1$window$getter().location$getter().href$getter();
   }
   if (url.contains$named(1, $noargs, '/api/topics')) {
-    this.listTopics$named(0, {$p_pushState:false, count:1});
+    this.listTopics$member(false);
     return;
   }
    else {
-    if (url.contains$named(1, $noargs, '/api/articles')) {
-      var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('articles/([0-9]+)', false, false));
-      var match = exp.firstMatch$named(1, $noargs, url);
-      var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
-      this.listArticles$named(1, {$p_pushState:false, count:1}, id);
+    if (url.contains$named(1, $noargs, '/api/sources')) {
+      this.listSources$member(false);
       return;
     }
      else {
-      this.listTopics$named(0, {$p_pushState:true, count:1});
+      if (url.contains$named(1, $noargs, '/api/articles')) {
+        var exp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('articles/([0-9]+)', false, false));
+        var match = exp.firstMatch$named(1, $noargs, url);
+        var id = Math$Dart.parseInt$member(match.group$named(1, $noargs, 1));
+        this.listArticles$member(id, false);
+        return;
+      }
+       else {
+        this.listTopics$member(true);
+      }
     }
   }
 }
@@ -72133,38 +73279,46 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.parseUrl$named = function($n, $o, url
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listTopics$member = function(pushState){
-  var tmp$1, tmp$2, tmp$0;
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (pushState) {
     var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/topics') , tmp$0);
-    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Home', '#/api/topics');
+    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Topics', '#/api/topics');
   }
-  this.articlesUi$getter().visibility$setter(tmp$1 = false) , tmp$1;
-  this.topicsUi$getter().show$named(0, $noargs);
-  this.currentPage$setter(tmp$2 = this.topicsUi$getter()) , tmp$2;
+  this.articlesUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
+  this.sourcesUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.topicsUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
+  this.topicsUiView$getter().show$named(0, $noargs);
+  this.currentPage$setter(tmp$4 = this.topicsUiView$getter()) , tmp$4;
+  this._articlesButton$unnamed6fbae6$$getter_().disabled$setter(tmp$5 = true) , tmp$5;
   this.setPageTitle$member($Dart$Null);
 }
 ;
-unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listTopics$named = function($n, $o, pushState){
-  var seen = 0;
-  var def = 0;
-  switch ($n) {
-    case 0:
-      pushState = '$p_pushState' in $o?(++seen , $o.$p_pushState):(++def , true);
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listSources$member = function(pushState){
+  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  if (pushState) {
+    var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/sources') , tmp$0);
+    htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Sources', '#/api/sources');
   }
-  if (seen != $o.count || seen + def + $n != 1)
-    $nsme();
-  return unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listTopics$member.call(this, pushState);
+  this.articlesUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
+  this.topicsUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.sourcesUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
+  this.sourcesUiView$getter().show$named(0, $noargs);
+  this.currentPage$setter(tmp$4 = this.sourcesUiView$getter()) , tmp$4;
+  this._articlesButton$unnamed6fbae6$$getter_().disabled$setter(tmp$5 = true) , tmp$5;
+  this.setPageTitle$member($Dart$Null);
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$member = function(id, pushState){
-  var tmp$1, tmp$2, tmp$0;
+  var tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (pushState) {
     var state = (tmp$0 = LinkedHashMapImplementation$Dart.LinkedHashMapImplementation$$Factory(LinkedHashMapImplementation$Dart.$lookupRTT()) , tmp$0.ASSIGN_INDEX$operator('url', '#/api/articles/' + $toString(id) + '') , tmp$0);
     htmld071c1$window$getter().history$getter().pushState$named(3, $noargs, jsonc5ef24$JSON$Dart.stringify$member(state), 'Articles', '#/api/articles/' + $toString(id) + '');
   }
-  this.topicsUi$getter().visibility$setter(tmp$1 = false) , tmp$1;
-  this.articlesUi$getter().show$named(1, $noargs, id);
-  this.currentPage$setter(tmp$2 = this.articlesUi$getter()) , tmp$2;
+  this.topicsUiView$getter().visibility$setter(tmp$1 = false) , tmp$1;
+  this.sourcesUiView$getter().visibility$setter(tmp$2 = false) , tmp$2;
+  this.articlesUiView$getter().visibility$setter(tmp$3 = true) , tmp$3;
+  this.articlesUiView$getter().show$named(1, $noargs, id);
+  this.currentPage$setter(tmp$4 = this.articlesUiView$getter()) , tmp$4;
   this.setPageTitle$member($Dart$Null);
 }
 ;
@@ -72181,29 +73335,35 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.listArticles$named = function($n, $o,
 }
 ;
 unnamed6fbae6$ScuttlebuttUi$Dart.prototype.setPageTitle$member = function(str){
-  var tmp$5, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
+  var tmp$5, tmp$6, tmp$7, tmp$1, tmp$2, tmp$3, tmp$4, tmp$0;
   if (NE$operator(str, $Dart$Null)) {
     htmld071c1$document$getter().title$setter(tmp$0 = '' + $toString(str) + ' :: Scuttlebutt') , tmp$0;
     this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$1 = str) , tmp$1;
   }
    else {
-    if (EQ$operator(this.currentPage$getter(), this.topicsUi$getter())) {
+    if (EQ$operator(this.currentPage$getter(), this.topicsUiView$getter())) {
       htmld071c1$document$getter().title$setter(tmp$2 = 'Scuttlebutt') , tmp$2;
-      this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$3 = 'Home') , tmp$3;
+      this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$3 = 'Topics') , tmp$3;
     }
      else {
-      if (EQ$operator(this.currentPage$getter(), this.articlesUi$getter())) {
-        var topicName = this.topicsUi$getter().getName$named(1, $noargs, this.articlesUi$getter().currentId$getter());
-        if (NE$operator(topicName, $Dart$Null)) {
-          htmld071c1$document$getter().title$setter(tmp$4 = '' + $toString(topicName) + ' :: Scuttlebutt') , tmp$4;
-          this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$5 = topicName) , tmp$5;
-        }
-         else {
-          this.topicsUi$getter().fetchData$named(0, {$p_thenCall:this.setPageTitle$getter(), count:1});
-        }
+      if (EQ$operator(this.currentPage$getter(), this.sourcesUiView$getter())) {
+        htmld071c1$document$getter().title$setter(tmp$4 = 'Sources :: Scuttlebutt') , tmp$4;
+        this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$5 = 'Sources') , tmp$5;
       }
        else {
-        $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory('Unknown type of page displayed.'));
+        if (EQ$operator(this.currentPage$getter(), this.articlesUiView$getter())) {
+          var topicName = this.topicsUiView$getter().getName$named(1, $noargs, this.articlesUiView$getter().currentId$getter());
+          if (NE$operator(topicName, $Dart$Null)) {
+            htmld071c1$document$getter().title$setter(tmp$6 = '' + $toString(topicName) + ' :: Scuttlebutt') , tmp$6;
+            this._subtitle$unnamed6fbae6$$getter_().innerHTML$setter(tmp$7 = topicName) , tmp$7;
+          }
+           else {
+            this.topicsUiView$getter().fetchData$named(0, {$p_thenCall:this.setPageTitle$getter(), count:1});
+          }
+        }
+         else {
+          $Dart$ThrowException(ExceptionImplementation$Dart.ExceptionImplementation$$Factory('Unknown type of page displayed.'));
+        }
       }
     }
   }
@@ -72234,6 +73394,20 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$member = function(messa
   this._statusMessage$unnamed6fbae6$$getter_().innerHTML$setter(tmp$0 = message) , tmp$0;
 }
 ;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$named = function($n, $o, message){
+  if ($o.count || $n != 1)
+    $nsme();
+  return unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$member.call(this, message);
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$named_$lookupRTT = function(){
+  return RTT.createFunction([String$Dart.$lookupRTT()], RTT.dynamicType.$lookupRTT());
+}
+;
+unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$getter = function(){
+  return $bind(unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$named, unnamed6fbae6$ScuttlebuttUi$Dart.prototype.statusMessage$named_$lookupRTT, this);
+}
+;
 unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member = function(rawUrl){
   var MAX_URI_LENGTH = 40;
   var urlValidity = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('^https?\\://([a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,4})(/\\S*)?$', false, false));
@@ -72243,7 +73417,7 @@ unnamed6fbae6$ScuttlebuttUi$Dart.prettifyUrl$member = function(rawUrl){
   }
    else {
     var domain = match.group$named(1, $noargs, 1);
-    var topTwoLevelDomainExp = $intern(JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,4}$', false, false));
+    var topTwoLevelDomainExp = JSSyntaxRegExp$Dart.JSSyntaxRegExp$$Factory('[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,4}$', false, false);
     var topTwoLevelDomain = topTwoLevelDomainExp.stringMatch$named(1, $noargs, domain);
     var uri = match.group$named(1, $noargs, 2);
     if (EQ$operator(uri, $Dart$Null)) {

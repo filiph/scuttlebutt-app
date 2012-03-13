@@ -141,7 +141,7 @@ class TopicStats {
  * BarChart.
  */
 class BarChart {
-  ArticlesUi articlesUi;
+  ArticlesUiView articlesUiView;
   TableElement tableElement;
   SpanElement _articlesCountElement;
   SpanElement _articlesCountWowElement;
@@ -164,7 +164,7 @@ class BarChart {
   BarChart(
       String domQuery,
       [
-      ArticlesUi articlesUi_=null,
+      ArticlesUiView articlesUiView_=null,
       String countEl="#articles-count",
       String countWowEl="#articles-count-wow",
       String sentimentEl="#articles-sentiment",
@@ -174,7 +174,7 @@ class BarChart {
       ]) {
     topicStatsCache = new Map<int,TopicStats>();
     this.tableElement = document.query(domQuery);
-    this.articlesUi = articlesUi_;
+    this.articlesUiView = articlesUiView_;
 
     _articlesCountElement = document.query(countEl);
     _articlesCountWowElement = document.query(countWowEl);
@@ -184,12 +184,12 @@ class BarChart {
     articlesToElement = document.query(toEl);
     
     articlesFromElement.on.blur.add((Event ev) {
-      articlesUi.fromDate = ScuttlebuttUi.dateFromString(articlesFromElement.value);
-      articlesUi.fetchData(thenCall:articlesUi.populateTable);
+      articlesUiView.fromDate = ScuttlebuttUi.dateFromString(articlesFromElement.value);
+      articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
     });
     articlesToElement.on.blur.add((Event ev) {
-      articlesUi.toDate = ScuttlebuttUi.dateFromString(articlesToElement.value);
-      articlesUi.fetchData(thenCall:articlesUi.populateTable);
+      articlesUiView.toDate = ScuttlebuttUi.dateFromString(articlesToElement.value);
+      articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
     });
   }
 
@@ -269,7 +269,7 @@ class BarChart {
             if (_startDragI != null) {
               int min = Math.min(_startDragI, i_);
               int max = Math.max(_startDragI, i_);
-              for (int j=0; j < topicStats.days.length; j++) {
+              for (int j=0; j < Math.min(topicStats.days.length, MAX_DAYS); j++) {
                 topicStats.days[j].td.classes.remove("selected");
                 if (j >= min && j <= max)
                   topicStats.days[j].td.classes.add("selected");
@@ -305,9 +305,9 @@ class BarChart {
             _endDragI = i_;
             if (_startDragI == null)
               _startDragI = i_;
-            articlesUi.fromDate = topicStats.days[Math.max(_startDragI, _endDragI)].date;
-            articlesUi.toDate = topicStats.days[Math.min(_startDragI, _endDragI)].date;
-            articlesUi.fetchData(thenCall:articlesUi.populateTable);
+            articlesUiView.fromDate = topicStats.days[Math.max(_startDragI, _endDragI)].date;
+            articlesUiView.toDate = topicStats.days[Math.min(_startDragI, _endDragI)].date;
+            articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
             updateDateRange();
             _startDragI = _endDragI = null;
           }
@@ -321,7 +321,7 @@ class BarChart {
 
     tableElement.on.mouseOut.add((MouseEvent e) {
         Element el = e.toElement;
-        // check if we're actually mousing out of the table (not just sub-element)
+        // check if we're actually mousing out of the table (not just a sub-element)
         if (!this.tableElement.contains(el)) {
           this.updateContextual();
           _startDragI = null;
@@ -342,18 +342,18 @@ class BarChart {
   }
 
   void updateDateRange() {
-    articlesFromElement.value = articlesUi.fromDateShort;
-    articlesToElement.value = articlesUi.toDateShort;
+    articlesFromElement.value = articlesUiView.fromDateShort;
+    articlesToElement.value = articlesUiView.toDateShort;
     
     // show bars as selected
     TopicStats topicStats = topicStatsCache[currentId];
     if (topicStats != null && !topicStats.days.isEmpty()) {
-      print("Updating date range: ${articlesUi.fromDate} to ${articlesUi.toDate}");
+      print("Updating date range: ${articlesUiView.fromDate} to ${articlesUiView.toDate}");
       topicStats.days.forEach((TopicStatsDay day) {
         if (day.td != null) {
           day.td.classes.remove("selected");
-          if (day.date.difference(articlesUi.fromDate).inDays >= 0
-              && day.date.difference(articlesUi.toDate).inDays <= 0)
+          if (day.date.difference(articlesUiView.fromDate).inDays >= 0
+              && day.date.difference(articlesUiView.toDate).inDays <= 0)
             day.td.classes.add("selected");
         }
       });
@@ -393,19 +393,91 @@ class BarChart {
   }
 }
 
+/**
+ * UiView is a base class for all of the "Tabs" in the UI.
+ */
+class UiView {
+  Table outputTable;
+  DivElement divElement;
+  ButtonElement mainButton;
+  ScuttlebuttUi scuttlebuttUi;
+  String baseUrl; // e.g. /api/articles
+  String currentUrl; // e.g. /api/articles/123?limit=200 ...
+  Function getUrl; // returns URL string for given parameters
+  
+  int currentOffset;
+  int currentLimit;
+  static final int LOAD_LIMIT = 20;  // articles per page/request
+  
+  void set visibility(bool value) {
+    if (value == true) {
+      divElement.style.display = "block";
+      mainButton.classes.add("selected");
+    } else {
+      divElement.style.display = "none";
+      mainButton.classes.remove("selected");
+    }
+  }
+  
+  bool get visibility() => (divElement.style.display == "block");
+  
+  /**
+    Sends asynchronously for data, 
+    returns Future with the responseText string as value.
+    */
+  Future<String> sendXhr(String url, String method, 
+        [Map params, String debugUrl]) {
+    if (params != null && params.length > 0) {
+      if (method == "GET") {
+        StringBuffer strBuf = new StringBuffer();
+        strBuf.add(url);
+        bool first = true;
+        params.forEach((String key, Dynamic value) {
+          if (first) {
+            strBuf.add("?");
+            first = false;
+          } else
+            strBuf.add("&");
+          strBuf.add(key);
+          strBuf.add("=");
+          strBuf.add(value.toString());
+        });
+        url = strBuf.toString();
+      }
+    }
+    
+    Completer completer = new Completer();
+    XMLHttpRequest request = new XMLHttpRequest();
+    if (DEBUG)
+      request.open("GET", debugUrl, true);
+    else
+      request.open(method, url, true);
+    
+    request.on.load.add((event) {
+        if (request.status != 200) {
+          scuttlebuttUi.statusMessage("Server error!");
+          completer.completeException(new Exception("Server returned status code ${request.status} (${request.statusText})"));
+        }
+        completer.complete(request.responseText);
+    });
+    
+    if (method == "GET")
+      request.send();
+    else
+      request.send(JSON.stringify(params));
+    
+    return completer.future;
+  }
+}
 
 /**
- * ArticlesUi.
+ * ArticlesUiView.
  */
-class ArticlesUi {
+class ArticlesUiView extends UiView {
   BarChart barChart;
-  Table outputTable;
-  DivElement _articlesDivElement;
   ButtonElement _loadMoreButton;
   Map<int,List> data;
-  ScuttlebuttUi scuttlebuttUi;
   int currentId;
-  int currentOffset;
 
   Date fromDate;
   Date toDate;
@@ -414,24 +486,25 @@ class ArticlesUi {
   // by populateTable
   int _waitingToBeShown;
 
-  static final int ARTICLES_LIMIT = 20;  // articles per page/request
-
-  ArticlesUi() {
+  ArticlesUiView() {
+    baseUrl = "/api/articles";
     data = new Map();
-    barChart = new BarChart("table#articles-stats", articlesUi_:this);
-    _articlesDivElement = document.query("div#articles-div");
+    barChart = new BarChart("table#articles-stats", articlesUiView_:this);
+    divElement = document.query("div#articles-div");
+    mainButton = document.query("button#articles-button");
+    outputTable = new Table("table#articles-table");
     _loadMoreButton = document.query("button#load-more-button");
     _waitingToBeShown = 0;
+    currentLimit = LOAD_LIMIT;
 
     _loadMoreButton.on.click.add((Event event) {
-        this.currentOffset += ARTICLES_LIMIT;
-        this.fetchData(
-          this.currentId,
+        currentOffset += LOAD_LIMIT;
+        fetchData(
           thenCall:() {
-          populateTable(this.currentId, resetTable:false);
-          },
-          offset:this.currentOffset);
-        });
+            outputTable.reset();
+            populateTable();
+          });
+    });
   }
 
   // TODO: iso has a tailing Z (as timezone)
@@ -441,92 +514,74 @@ class ArticlesUi {
   String get fromDateShort() => fromDateIso.substring(0, 10);
   String get toDateShort() => toDateIso.substring(0, 10);
 
-  String getURL(int id, [int limit=ARTICLES_LIMIT, int offset=0]) {
-    if (DEBUG) {
-      return "/api/get_articles_mock.json";
-    } else {
-      return "/api/articles/$id?from=$fromDateShort&to=$toDateShort&offset=$offset&limit=$limit";
-    }
-  }
-
   /**
     Shows articles for given [Topic] id. Run this the first time you want
     to show the articles.
    */
   void show(int id) {
     currentId = id;
-    this.currentOffset = 0;
+    currentOffset = 0;
 
-    //previously: new Date.fromEpoch(0, new TimeZone.utc());
-    this.fromDate = new Date.now().subtract(new Duration(days:7));
-    this.toDate = new Date.now();
+    fromDate = new Date.now().subtract(new Duration(days:7));
+    toDate = new Date.now();
 
     if (data.containsKey(id)) {
       _waitingToBeShown = data[id].length;
-      populateTable(id);
+      populateTable();
     } else {
-      fetchData(id:id, thenCall:populateTable);
+      fetchData(thenCall:populateTable);
     }
 
-    this.barChart.show(id);
+    barChart.show(id);
+  }
+  
+  void actOnData(String responseText) {
+    if (currentOffset == 0) 
+      data[currentId] = new List();
+    List responseJson = JSON.parse(responseText);
+    _waitingToBeShown = responseJson.length;
+
+    if (_waitingToBeShown > 0) {
+      data[currentId].addAll(responseJson);
+      print("${responseJson.length} new articles loaded.");
+    }
   }
 
   /**
    * Populates the article Table with data. If resetTable is false,
    * it will add to the current table.
    */
-  void populateTable([int id_, bool resetTable=true]) {
-    int id = (id_ != null) ? id_ : this.currentId;
-
-    if (resetTable) this.outputTable.reset();
+  void populateTable() {
+    int id = currentId;
 
     if (_waitingToBeShown > 0) {
-      this.outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
+      outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
       _waitingToBeShown = 0;
-    } else if (resetTable) {
+    } else if (currentOffset == 0) {
       outputTable.addRow(["No articles", "", "", ""]);
     }
-    this.visibility = true;
     
-    print("Updating barChart");
+    visibility = true;
     barChart.updateDateRange();
-  }
-
-  void set visibility(bool value) {
-    if (value == true) {
-      this._articlesDivElement.style.display = "block";
-    } else {
-      this._articlesDivElement.style.display = "none";
-    }
   }
 
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData([int id=null, Function thenCall=null, int limit=ARTICLES_LIMIT, int offset=0]) {
-    if (id == null) id = this.currentId;
-    String url = getURL(id, limit:limit, offset:offset);
-    print("Sending async request to '$url'.");
-    XMLHttpRequest request = new XMLHttpRequest();
-    request.open("GET", url, true);
-
-    request.on.load.add((event) {
-        // get rid of all data if starting from beginning
-        if (offset == 0) 
-          data[id] = new List();
-        List responseJson = JSON.parse(request.responseText);
-        _waitingToBeShown = responseJson.length;
-
-        if (_waitingToBeShown > 0) {
-          data[id].addAll(responseJson);
-          print("${responseJson.length} new articles loaded.");
-        }
-
-        if (thenCall != null) {
+  void fetchData([Function thenCall=null]) {
+    sendXhr(
+      "$baseUrl/$currentId", 
+      "GET", 
+      params:{
+        "from": fromDateShort, "to": toDateShort,
+        "offset": currentOffset, "limit": currentLimit
+      }, 
+      debugUrl:"/api/get_articles_mock.json"
+    ).then((String responseText) {
+        actOnData(responseText);
+        if (thenCall != null)
           thenCall();
-        }
-    });
-    request.send();
+      });
   }
 
   void refresh() {
@@ -560,34 +615,33 @@ class Topic {
 }
 
 /**
- * TopicsUi handles ajax calls and shows the data on the client.
+ * TopicsUiViewView handles ajax calls and shows the data on the client.
  */
-class TopicsUi {
-  Table outputTable;
+class TopicsUiView extends UiView {
   List<Topic> topics;
-  ScuttlebuttUi scuttlebuttUi;
   
-  ButtonElement _addButton;
-  TableRowElement _addRow;
+  ButtonElement _createButton;
+  TableRowElement _createRow;
   InputElement _nameInput;
-  SpanElement _addStatus;
 
-  TopicsUi([String tableSelector]) {
-    if (tableSelector != null)
-      outputTable = new Table(tableSelector);
-    _addButton = document.query("#add-topic-button");
+  TopicsUiView() {
+    baseUrl = "/api/topics";
+    _createButton = document.query("#add-topic-button");
+    divElement = document.query("div#topics-div");
+    mainButton = document.query("button#topics-button");
+    outputTable = new Table("table#topics-table");
     
-    _addButton.on.click.add(showAddRow);
+    _createButton.on.click.add(showCreateRow);
   }
   
-  void showAddRow(Event e) {
+  void showCreateRow(Event e) {
     if (outputTable == null)
       throw new Exception("Couldn't find outputTable.");
-    if (_addRow == null) {
+    if (_createRow == null) {
       // create the input row (top of table)
-      _addRow = outputTable.tableElement.insertRow(1);
+      _createRow = outputTable.tableElement.insertRow(1);
       // create input cell
-      TableCellElement nameCell = _addRow.insertCell(0);
+      TableCellElement nameCell = _createRow.insertCell(0);
       _nameInput = new Element.tag("input");
       _nameInput.type = "text";
       nameCell.elements.add(_nameInput);
@@ -597,7 +651,7 @@ class TopicsUi {
           postNew(ev);
       });
       // create & discard buttons
-      TableCellElement buttonCell = _addRow.insertCell(1);
+      TableCellElement buttonCell = _createRow.insertCell(1);
       buttonCell.colSpan = 3;
       ButtonElement createButton = new Element.tag("button");
       createButton.text = "Create";
@@ -607,61 +661,34 @@ class TopicsUi {
       discardButton.text = "Discard";
       buttonCell.elements.add(discardButton);
       discardButton.on.click.add((Event ev) {
-        _addRow.remove();
-        _addRow = null;
+        _createRow.remove();
+        _createRow = null;
       });
-      // create status text field
-      _addStatus = new Element.tag("span");
-      _addStatus.classes.add("info");
-      buttonCell.elements.add(_addStatus);
     }
   }
   
   void postNew(Event e) {
+    if (_nameInput.value == "")
+      return;
     print("Posting new record.");
-    String url = "/api/topics";
-    if (DEBUG)
-      url = "/api/post_topics_mock.json";
-    XMLHttpRequest request = new XMLHttpRequest();
-    request.open(DEBUG ? "GET" : "POST", url, true);
-
-    request.on.load.add((event) {
-        if (request.status != 200) {
-          window.console.error("Server returned status code ${request.status} (${request.statusText}). Cannot add new record.");
-          if (_addStatus != null) {
-            _addStatus.text = "SERVER ERROR (${request.status}): Could not add.";
-            _addStatus.classes.add("yellow");
-          }
-          return;
-        }
-        if (DEBUG) {
-          //Map<String,Dynamic> data = JSON.parse(request.responseText);
-          //window.console.info(data);
-          window.console.info(request);
-        }
-        _addRow.remove();
-        refresh();
-    });
     
-    Map<String,Dynamic> sendData = {
-        "name": _nameInput.value
-    };
-    request.send(JSON.stringify(sendData));
-  }
+    sendXhr(baseUrl, "POST", 
+      params:{ "name": _nameInput.value },
+      debugUrl:"/api/post_topics_mock.json"
+        ).then((String responseText) {
+          _createRow.remove();
+          _createRow = null;
+          topics = null;
+          scuttlebuttUi.parseUrl();
+        });
 
-  String getURL() {
-    if (DEBUG) {
-      return "/api/get_topics_mock.json";
-    } else {
-      return "/api/topics";
-    }
   }
 
   void show() {
     if (topics != null) {
       populateTable();
     } else {
-      fetchData(thenCall:this.populateTable);
+      fetchData(thenCall:populateTable);
     }
   }
 
@@ -669,8 +696,9 @@ class TopicsUi {
    * Populates the DOM with data.
    */
   void populateTable() {
-    this.outputTable.reset();
+    outputTable.reset();
     for (Topic topic in topics) {
+      String topicNameHtml = "${topic.name} <a class='more-actions'>&hellip;</a>";
       String wowChangeHtml;
       if (topic.weekOnWeekChange != null) {
         String changeStr;
@@ -682,51 +710,42 @@ class TopicsUi {
           changeStr = ((topic.weekOnWeekChange)*100.0).abs().round().toString();
           changeSign = (topic.weekOnWeekChange >= 0.0) ? "+" : "-";
         }
-        wowChangeHtml = "<span class=\"${(changeSign=='+'?'green':'red')}\">\
-                         $changeSign$changeStr%</span>"; 
+        wowChangeHtml = "<span class=\"${(changeSign=='+'?'green':'red')}\">$changeSign$changeStr%</span>"; 
       }
 
       // adds a row with 4 cells: name, count for past 24h, count for past 7d,
       // and week on week change
-      Element tr = this.outputTable.addRow(
-          [ topic.name, topic.countPastTwentyFourHours, 
+      Element tr = outputTable.addRow(
+          [ topicNameHtml, topic.countPastTwentyFourHours, 
           topic.countPastSevenDays, wowChangeHtml ]
           );
       tr.on.click.add((event) {
-          this.scuttlebuttUi.listArticles(topic.id);
+          scuttlebuttUi.listArticles(topic.id);
           });
     };
-    this.visibility = true;
-  }
-
-  void set visibility(bool value) {
-    if (value == true) {
-      this.outputTable.tableElement.style.display = "table";
-    } else {
-      this.outputTable.tableElement.style.display = "none";
-    }
+    visibility = true;
   }
 
   /**
    * Creates XMLHttpRequest
    */
   void fetchData([Function thenCall=null]) {
-    String url = getURL();
-    XMLHttpRequest request = new XMLHttpRequest();
-    request.open("GET", url, true);
-
-    request.on.load.add((event) {
-        List<Map<String,Object>> data = JSON.parse(request.responseText);
-        topics = new List<Topic>();
-        data.forEach((Map<String,Object> record) {
-          topics.add(new Topic(record));
-          });
-        print("Topics loaded successfully.");
-        if (thenCall != null) {
-        thenCall();
-        }
-        });
-    request.send();
+    sendXhr(baseUrl, "GET", 
+      debugUrl:"/api/get_topics_mock.json"
+    ).then((String responseText) {
+        actOnData(responseText);
+        if (thenCall != null)
+          thenCall();
+      });
+  }
+  
+  void actOnData(String responseText) {
+    List<Map<String,Object>> data = JSON.parse(responseText);
+    topics = new List<Topic>();
+    for (Map<String,Object> record in data) {
+      topics.add(new Topic(record));
+    }
+    print("Topics loaded successfully.");
   }
 
   void refresh() {
@@ -747,54 +766,248 @@ class TopicsUi {
 }
 
 /**
+ * Simple class for holding Sources data.
+ */
+class Source {
+  int id;
+  String name;
+  String url;
+  int monthlyVisitors;
+
+  Source(Map<String,Object> jsonData) {
+    if (!jsonData.containsKey("id") || !jsonData.containsKey("name")
+        || !jsonData.containsKey("url")) {
+      throw new Exception("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'.");
+    }
+    id = jsonData["id"];
+    name = jsonData["name"];
+    url = jsonData["url"];
+    monthlyVisitors = jsonData["monthlyVisitors"];
+  }
+}
+
+/**
+ * TopicsUiViewView handles ajax calls and shows the data on the client.
+ */
+class SourcesUiView extends UiView {
+  List<Source> sources;
+  
+  ButtonElement _createButton;
+  TableRowElement _createRow;
+  InputElement _nameInput;
+  InputElement _urlInput;
+  InputElement _visitorsInput;
+
+  SourcesUiView() {
+    baseUrl = "/api/sources";
+    _createButton = document.query("#add-source-button");
+    divElement = document.query("div#sources-div");
+    mainButton = document.query("button#sources-button");
+    outputTable = new Table("table#sources-table");
+    
+    _createButton.on.click.add(showCreateRow);
+  }
+  
+  void showCreateRow(Event e) {
+    if (outputTable == null)
+      throw new Exception("Couldn't find outputTable.");
+    if (_createRow == null) {
+      // create the input row (top of table)
+      _createRow = outputTable.tableElement.insertRow(1);
+      // create input cells
+      TableCellElement nameCell = _createRow.insertCell(0);
+      _nameInput = new Element.tag("input");
+      _nameInput.type = "text";
+      nameCell.elements.add(_nameInput);
+      _nameInput.focus();
+      TableCellElement urlCell = _createRow.insertCell(1);
+      _urlInput = new Element.tag("input");
+      _urlInput.type = "text";
+      urlCell.elements.add(_urlInput);
+      TableCellElement visitorsCell = _createRow.insertCell(2);
+      _visitorsInput = new Element.tag("input");
+      _visitorsInput.type = "text";
+      visitorsCell.elements.add(_visitorsInput);
+
+      // bind Enter 
+      _nameInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed - TODO: do we need "dynamic" ?
+          _urlInput.focus();
+      });
+      _urlInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed
+          _visitorsInput.focus();
+      });
+      _visitorsInput.on.keyPress.add((Event ev) {
+        if (ev.dynamic.charCode == 13) // Enter pressed
+          postNew(ev);
+      });
+      // create & discard buttons
+      TableCellElement buttonCell = _createRow.insertCell(3);
+      buttonCell.colSpan = 3;
+      ButtonElement createButton = new Element.tag("button");
+      createButton.text = "Create";
+      buttonCell.elements.add(createButton);
+      createButton.on.click.add(postNew);
+      ButtonElement discardButton = new Element.tag("button");
+      discardButton.text = "Discard";
+      buttonCell.elements.add(discardButton);
+      discardButton.on.click.add((Event ev) {
+        _createRow.remove();
+        _createRow = null;
+      });
+    }
+  }
+  
+  void postNew(Event e) {
+    if (_nameInput.value == "" || _urlInput.value == "")
+      return;
+    print("Posting new record.");
+    
+    sendXhr(baseUrl, "POST", 
+      params:{ 
+        "name": _nameInput.value,
+        "url": _urlInput.value,
+        "monthlyVisitors": _visitorsInput.value
+        },
+      debugUrl:"/api/post_sources_mock.json"
+        ).then((String responseText) {
+          _createRow.remove();
+          _createRow = null;
+          sources = null;
+          scuttlebuttUi.parseUrl();
+        });
+
+  }
+
+  void show() {
+    if (sources != null) {
+      populateTable();
+    } else {
+      fetchData(thenCall:populateTable);
+    }
+  }
+
+  /**
+   * Populates the DOM with data.
+   */
+  void populateTable() {
+    outputTable.reset();
+    for (Source source in sources) {
+      String sourceNameHtml = "${source.name} <a class='more-actions'>&hellip;</a>";
+
+      // adds a row with 4 cells: name, url, monthly visitors, num articles
+      Element tr = outputTable.addRow(
+          [ sourceNameHtml, ScuttlebuttUi.prettifyUrl(source.url), 
+          ScuttlebuttUi.prettifyInt(source.monthlyVisitors), "N/A" ]
+          );
+      
+      // TODO: what to do when user click's a source?
+      /*tr.on.click.add((event) {
+          scuttlebuttUi.listArticles(topic.id);
+          });*/
+    };
+    visibility = true;
+  }
+
+  /**
+   * Creates XMLHttpRequest
+   */
+  void fetchData([Function thenCall=null]) {
+    sendXhr(baseUrl, "GET", 
+      debugUrl:"/api/get_sources_mock.json"
+    ).then((String responseText) {
+        actOnData(responseText);
+        if (thenCall != null)
+          thenCall();
+      });
+  }
+  
+  void actOnData(String responseText) {
+    List<Map<String,Object>> data = JSON.parse(responseText);
+    sources = new List<Source>();
+    for (Map<String,Object> record in data) {
+      sources.add(new Source(record));
+    }
+    print("Sources loaded successfully.");
+  }
+
+  void refresh() {
+    fetchData();
+  }
+
+  String getName(int id) {
+    if (sources != null) {
+      for (Source source in sources) {
+        if (source.id == id) {
+          return source.name;
+        }
+      }
+    } else {
+      return null; 
+    }
+  }
+}
+
+
+/**
  * The main app UI class.
  */
 class ScuttlebuttUi {
-  ArticlesUi articlesUi;
-  TopicsUi topicsUi;
-  Object currentPage;
+  ArticlesUiView articlesUiView;
+  TopicsUiView topicsUiView;
+  SourcesUiView sourcesUiView;
+  UiView currentPage;
 
   Element _statusMessage;
   Element _subtitle;
-  ButtonElement _homeButton;
+  ButtonElement _topicsButton;
+  ButtonElement _sourcesButton;
+  ButtonElement _articlesButton;
   ButtonElement _refreshButton;
 
   ScuttlebuttUi() {
   }
 
   void run() {
-    // TODO(filiph): make a superclass to articlesUi and topicsUi
-    articlesUi = new ArticlesUi();
-    topicsUi = new TopicsUi(tableSelector:"table#topics-table");
-    articlesUi.scuttlebuttUi = topicsUi.scuttlebuttUi = this; // give context
-
-    articlesUi.outputTable = new Table("table#articles-table"); // TODO: same as topicsUI
+    articlesUiView = new ArticlesUiView();
+    topicsUiView = new TopicsUiView();
+    sourcesUiView = new SourcesUiView();
+    
+    // give context
+    articlesUiView.scuttlebuttUi = topicsUiView.scuttlebuttUi 
+      = sourcesUiView.scuttlebuttUi = this; 
 
     _statusMessage = document.query("#status");
     _subtitle = document.query("h1 span#subtitle");
-    _homeButton = document.query("#home-button");
+    _topicsButton = document.query("#topics-button");
+    _sourcesButton = document.query("#sources-button");
+    _articlesButton = document.query("#articles-button");
     _refreshButton = document.query("#refresh-button");
     statusMessage("Dart is now running.");
 
-    _homeButton.on.click.add((Event event) {
-        listTopics();
-        });
+    _topicsButton.on.click.add((Event event) {
+      listTopics();
+    });
+    
+    _sourcesButton.on.click.add((Event event) {
+      listSources();
+    });
 
     _refreshButton.on.click.add((Event event) {
-        articlesUi.refresh();
-        topicsUi.refresh();
-        parseUrl();
-        });
+      articlesUiView.refresh();
+      topicsUiView.refresh();
+      parseUrl();
+    });
     
     String landingUrl = window.location.href;
     DEBUG = landingUrl.contains("0.0.0.0") || landingUrl.contains(".prh.corp.google.com:8000/");   // if we're running on localhost, flip the DEBUG flag
 
     // history magic (getting Back button to work properly)
     window.on.popState.add((var e) {
-        print("On pop state triggered.");
-        //var stateStr = e.state;
-        this.parseUrl();
-        });
+      print("On pop state triggered.");
+      this.parseUrl();
+    });
   }
 
   /**
@@ -806,37 +1019,62 @@ class ScuttlebuttUi {
     }
 
     if (url.contains("/api/topics")) {
-      this.listTopics(pushState:false);
+      listTopics(pushState:false);
+      return;
+    } else if (url.contains("/api/sources")) {
+      listSources(pushState:false);
       return;
     } else if (url.contains("/api/articles")) {
       RegExp exp = const RegExp(@"articles/([0-9]+)");
       Match match = exp.firstMatch(url);
       int id = Math.parseInt(match.group(1));
-      this.listArticles(id, pushState:false);
+      listArticles(id, pushState:false);
       return;
     } else {
-      this.listTopics(pushState:true);
+      listTopics(pushState:true);
     }
   }
 
   /**
-    Lists all Topics in the _outputTable.
+    Lists all Topics.
    */
   void listTopics([bool pushState=true]) {
     if (pushState) {
       Map state = {"url" : "#/api/topics"};
-      window.history.pushState(JSON.stringify(state), "Home", "#/api/topics");
+      window.history.pushState(JSON.stringify(state), "Topics", "#/api/topics");
     }
 
-    articlesUi.visibility = false;
-    topicsUi.show();
-    currentPage = topicsUi;
+    articlesUiView.visibility = false;
+    sourcesUiView.visibility = false;
+    topicsUiView.visibility = true;
+    topicsUiView.show();
+    currentPage = topicsUiView;
 
+    _articlesButton.disabled = true;
     setPageTitle();
   }
 
   /**
-    Lists all articles for given Topic id in the _outputTable.
+    Lists all Sources. -- TODO: not DRY with Topics
+  */
+  void listSources([bool pushState=true]) {
+    if (pushState) {
+      Map state = {"url" : "#/api/sources"};
+      window.history.pushState(JSON.stringify(state), "Sources", "#/api/sources");
+    }
+  
+    articlesUiView.visibility = false;
+    topicsUiView.visibility = false;
+    sourcesUiView.visibility = true;
+    sourcesUiView.show();
+    currentPage = sourcesUiView;
+  
+    _articlesButton.disabled = true;
+    setPageTitle();
+  }
+  
+  /**
+    Lists all articles for given Topic id.
    */
   void listArticles(int id, [bool pushState=true]) {
     if (pushState) {
@@ -848,9 +1086,11 @@ class ScuttlebuttUi {
           );
     }
 
-    topicsUi.visibility = false;
-    articlesUi.show(id);
-    currentPage = articlesUi;
+    topicsUiView.visibility = false;
+    sourcesUiView.visibility = false;
+    articlesUiView.visibility = true;
+    articlesUiView.show(id);
+    currentPage = articlesUiView;
 
     setPageTitle();
   }
@@ -859,21 +1099,24 @@ class ScuttlebuttUi {
     if (str != null) {
       document.title = "$str :: Scuttlebutt";
       _subtitle.innerHTML = str;
-    } else if (currentPage == topicsUi) {
+    } else if (currentPage == topicsUiView) {
       document.title = "Scuttlebutt";
-      _subtitle.innerHTML = "Home";
-    } else if (currentPage == articlesUi) {
+      _subtitle.innerHTML = "Topics";
+    } else if (currentPage == sourcesUiView) {
+      document.title = "Sources :: Scuttlebutt";
+      _subtitle.innerHTML = "Sources";
+    } else if (currentPage == articlesUiView) {
       /*
          Set header (h1) to correspond the to currently viewed topic.
          If data is not available on client, this calls the Ajax function
          (fetchData) with a callback to this very function.
        */
-      String topicName = topicsUi.getName(articlesUi.currentId);
+      String topicName = topicsUiView.getName(articlesUiView.currentId);
       if (topicName != null) {
         document.title = "$topicName :: Scuttlebutt";
         _subtitle.innerHTML = topicName;
       } else {
-        topicsUi.fetchData(thenCall:this.setPageTitle);
+        topicsUiView.fetchData(thenCall:this.setPageTitle);
       }
     } else {
       throw new Exception("Unknown type of page displayed.");
@@ -902,7 +1145,7 @@ class ScuttlebuttUi {
       return "<span style='border-bottom: 1px dashed black; cursor:help' title='\"$rawUrl\"'>Invalid URL</span>";
     } else {
       String domain = match.group(1);
-      RegExp topTwoLevelDomainExp = const RegExp(@"[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4}$");
+      RegExp topTwoLevelDomainExp = new RegExp(@"[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4}$");
       String topTwoLevelDomain = topTwoLevelDomainExp.stringMatch(domain);
       String uri = match.group(2);
       if (uri == null) {
