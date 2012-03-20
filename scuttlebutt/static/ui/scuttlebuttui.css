@@ -336,7 +336,7 @@ div#loader {
 	width: 66px;
 	height: 66px;
 
-	position: absolute;
+	position: fixed;
 	top: 40%;
 	left: 50%;
 	margin-left: -33px;
