@@ -4650,7 +4650,7 @@ BarChart.prototype.populateChart = function(id_) {
   var id = (id_ != null) ? id_ : this.currentId;
   var topicStats = this.topicStatsCache.$index(id);
   this.reset();
-  if (topicStats.days.get$length() == (0)) return;
+  if (topicStats.days.get$length() == (0) || topicStats.maxCount == (0)) return;
   var tr = _ElementFactoryProvider.Element$tag$factory("tr");
   for (var i = this.MAX_DAYS - (1);
    $gte$(i, (0)); i = $sub$(i, (1))) {

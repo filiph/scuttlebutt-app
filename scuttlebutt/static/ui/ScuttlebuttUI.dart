@@ -225,7 +225,7 @@ class BarChart {
 
     reset();
     
-    if (topicStats.days.length == 0)
+    if (topicStats.days.length == 0 || topicStats.maxCount == 0)
       return;
 
     Element tr = new Element.tag('tr');
