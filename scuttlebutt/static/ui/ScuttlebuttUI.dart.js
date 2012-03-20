@@ -2180,6 +2180,9 @@ $dynamic("set$display").CSSStyleDeclaration = function(value) {
 $dynamic("set$height").CSSStyleDeclaration = function(value) {
   this.setProperty("height", value, "");
 }
+$dynamic("set$top").CSSStyleDeclaration = function(value) {
+  this.setProperty("top", value, "");
+}
 // ********** Code for _CSSStyleRuleImpl **************
 // ********** Code for _StyleSheetImpl **************
 // ********** Code for _CSSStyleSheetImpl **************
@@ -5355,6 +5358,7 @@ ScuttlebuttUi.prototype.setPageTitle = function(str) {
 }
 ScuttlebuttUi.prototype.showLoader = function(name) {
   this._currentlyLoading.add(name);
+  this._loaderDiv.get$style().set$top(("" + (get$$window().scrollY + (300)) + "px"));
   this._loaderDiv.get$style().set$display("block");
 }
 ScuttlebuttUi.prototype.hideLoader = function(name) {

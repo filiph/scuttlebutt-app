@@ -1158,6 +1158,7 @@ class ScuttlebuttUi {
     */
   void showLoader(String name) {
     _currentlyLoading.add(name);
+    _loaderDiv.style.top = "${window.scrollY + 300}px";
     _loaderDiv.style.display = "block";
   }
   
