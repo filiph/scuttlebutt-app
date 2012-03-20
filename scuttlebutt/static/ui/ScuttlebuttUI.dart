@@ -216,14 +216,17 @@ class BarChart {
   }
 
   /**
-   * Populates the article Table with data. If resetTable is false,
+   * Populates the article Table with data. If reset is false,
    * it will add to the current table.
    */
-  void populateChart([int id_, bool resetTable=true]) {
+  void populateChart([int id_]) {
     int id = (id_ != null) ? id_ : this.currentId;
     TopicStats topicStats = topicStatsCache[id];
 
-    if (resetTable) reset();
+    reset();
+    
+    if (topicStats.days.length == 0)
+      return;
 
     Element tr = new Element.tag('tr');
     for (var i = MAX_DAYS - 1; i >= 0; i--) {

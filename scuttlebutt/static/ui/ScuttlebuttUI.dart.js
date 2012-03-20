@@ -4635,21 +4635,22 @@ BarChart.prototype.show = function(id) {
   var $this = this; // closure support
   this.currentId = id;
   if (this.topicStatsCache.containsKey(id)) {
-    this.populateChart(id, true);
+    this.populateChart(id);
   }
   else {
     this.fetchData(id).then((function (done) {
-      return $this.populateChart(null, true);
+      return $this.populateChart();
     })
     );
     ;
   }
 }
-BarChart.prototype.populateChart = function(id_, resetTable) {
+BarChart.prototype.populateChart = function(id_) {
   var $this = this; // closure support
   var id = (id_ != null) ? id_ : this.currentId;
   var topicStats = this.topicStatsCache.$index(id);
-  if (resetTable) this.reset();
+  this.reset();
+  if (topicStats.days.get$length() == (0)) return;
   var tr = _ElementFactoryProvider.Element$tag$factory("tr");
   for (var i = this.MAX_DAYS - (1);
    $gte$(i, (0)); i = $sub$(i, (1))) {
@@ -4774,7 +4775,7 @@ BarChart.prototype.fetchData = function(id, url_) {
       get$$window().console.error(("TOFIX: Could not retrieve " + url + ". Maybe stats are not implemented yet?"));
       print$("Trying to load mock data.");
       $this.fetchData(id, "https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json").then((function (done) {
-        return $this.populateChart(null, true);
+        return $this.populateChart();
       })
       );
       ;
