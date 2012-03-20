@@ -309,7 +309,9 @@ table.output-table tr:last-child td {
 	border-bottom: none;
 }
 
-div#articles-div table.output-table td:first-child {
+div#articles-div table.output-table td:first-child,
+div#sources-div table.output-table td:first-child,
+div#topics-div table.output-table td:first-child {
 	font-size: 1.3em;
 	padding: 15px 10px;
 }
@@ -326,4 +328,28 @@ footer {
 	padding: 0 10px;
 	color: #999;
 }
+
+/* @group Loader */
+
+div#loader {
+	display: none;
+	width: 66px;
+	height: 66px;
+
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-left: -33px;
+}
+
+/* @end */
+
+/* @group Reset */
+
+div#topics-div, div#sources-div, div#articles-div {
+	display: none;
+}
+
+/* @end */
+
 

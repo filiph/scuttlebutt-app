@@ -369,6 +369,7 @@ class BarChart {
    */
   Future<bool> fetchData(int id, [String url_=null]) {
     Completer completer = new Completer();
+    articlesUiView.scuttlebuttUi.showLoader("barchart");
     
     String url = (url_ == null) ? getURL(id) : url_;
     XMLHttpRequest request = new XMLHttpRequest();
@@ -387,6 +388,7 @@ class BarChart {
           print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
 
           completer.complete(true);
+          articlesUiView.scuttlebuttUi.hideLoader("barchart");
         }
     });
     request.send();
@@ -577,6 +579,7 @@ class ArticlesUiView extends UiView {
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
+    scuttlebuttUi.showLoader("articles");
     sendXhr(
       "$baseUrl/$currentId", 
       "GET", 
@@ -588,6 +591,7 @@ class ArticlesUiView extends UiView {
     ).then((String responseText) {
         actOnData(responseText);
         completer.complete(true);
+        scuttlebuttUi.hideLoader("articles");
       });
     return completer.future;
   }
@@ -731,7 +735,9 @@ class TopicsUiView extends UiView {
           );
       tr.on.click.add((event) {
           scuttlebuttUi.listArticles(topic.id);
-          });
+          if (window.scrollY > 400)
+            window.scrollTo(0, 0);
+      });
     };
     visibility = true;
   }
@@ -741,11 +747,13 @@ class TopicsUiView extends UiView {
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
+    scuttlebuttUi.showLoader("topics");
     sendXhr(baseUrl, "GET", 
       debugUrl:"/api/get_topics_mock.json"
     ).then((String responseText) {
         actOnData(responseText);
         completer.complete(true);
+        scuttlebuttUi.hideLoader("topics");
       });
     return completer.future;
   }
@@ -928,11 +936,13 @@ class SourcesUiView extends UiView {
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
+    scuttlebuttUi.showLoader("sources");
     sendXhr(baseUrl, "GET", 
       debugUrl:"/api/get_sources_mock.json"
     ).then((String responseText) {
         actOnData(responseText);
         completer.complete(true);
+        scuttlebuttUi.hideLoader("sources");
       });
     return completer.future;
   }
@@ -979,11 +989,14 @@ class ScuttlebuttUi {
   ButtonElement _sourcesButton;
   ButtonElement _articlesButton;
   ButtonElement _refreshButton;
+  
+  DivElement _loaderDiv;
+  Set<String> _currentlyLoading;
 
   ScuttlebuttUi() {
   }
 
-  void run() {
+  void init() {
     articlesUiView = new ArticlesUiView();
     topicsUiView = new TopicsUiView();
     sourcesUiView = new SourcesUiView();
@@ -999,6 +1012,9 @@ class ScuttlebuttUi {
     _articlesButton = document.query("#articles-button");
     _refreshButton = document.query("#refresh-button");
     statusMessage("Dart is now running.");
+    
+    _loaderDiv = document.query("div#loader");
+    _currentlyLoading = new Set<String>();
 
     _topicsButton.on.click.add((Event event) {
       listTopics();
@@ -1137,7 +1153,21 @@ class ScuttlebuttUi {
     }
   }
 
-
+  /**
+    Loader methods.
+    */
+  void showLoader(String name) {
+    _currentlyLoading.add(name);
+    _loaderDiv.style.display = "block";
+  }
+  
+  void hideLoader(String name) {
+    _currentlyLoading.remove(name);
+    if (_currentlyLoading.isEmpty())
+      _loaderDiv.style.display = "none";
+  }
+  
+  
   /**
     Changes the contents of the _statusMessage <p> element.
    */
@@ -1222,5 +1252,5 @@ class ScuttlebuttUi {
 }
 
 void main() {
-  new ScuttlebuttUi().run();
+  new ScuttlebuttUi().init();
 }

@@ -4767,6 +4767,7 @@ BarChart.prototype.updateDateRange = function() {
 BarChart.prototype.fetchData = function(id, url_) {
   var $this = this; // closure support
   var completer = new CompleterImpl();
+  this.articlesUiView.scuttlebuttUi.showLoader("barchart");
   var url = (url_ == null) ? this.getURL(id) : url_;
   var request = _XMLHttpRequestFactoryProvider.XMLHttpRequest$factory();
   request.open("GET", url, true);
@@ -4784,6 +4785,7 @@ BarChart.prototype.fetchData = function(id, url_) {
       $this.topicStatsCache.$setindex(id, new TopicStats(json_JSON.parse(request.responseText)));
       print$(("" + $this.topicStatsCache.$index(id).get$days().get$length() + " new stats loaded for the bar chart."));
       completer.complete(true);
+      $this.articlesUiView.scuttlebuttUi.hideLoader("barchart");
     }
   })
   , false);
@@ -4922,9 +4924,11 @@ ArticlesUiView.prototype.populateTable = function(reset) {
 ArticlesUiView.prototype.fetchData = function() {
   var $this = this; // closure support
   var completer = new CompleterImpl();
+  this.scuttlebuttUi.showLoader("articles");
   this.sendXhr(("" + this.baseUrl + "/" + this.currentId), "GET", _map(["from", this.get$fromDateShort(), "to", this.get$toDateShort(), "offset", this.currentOffset, "limit", this.currentLimit]), "/api/get_articles_mock.json").then((function (responseText) {
     $this.actOnData(responseText);
     completer.complete(true);
+    $this.scuttlebuttUi.hideLoader("articles");
   })
   );
   return completer.get$future();
@@ -5040,6 +5044,7 @@ TopicsUiView.prototype.populateTable = function(reset) {
     var tr = this.outputTable.addRow([topicNameHtml, topic.countPastTwentyFourHours, topic.countPastSevenDays, wowChangeHtml]);
     tr.get$on().get$click().add$1((function (topic, event) {
       $this.scuttlebuttUi.listArticles(topic.id, true);
+      if (get$$window().scrollY > (400)) get$$window().scrollTo((0), (0));
     }).bind(null, topic)
     );
   }
@@ -5049,9 +5054,11 @@ TopicsUiView.prototype.populateTable = function(reset) {
 TopicsUiView.prototype.fetchData = function() {
   var $this = this; // closure support
   var completer = new CompleterImpl();
+  this.scuttlebuttUi.showLoader("topics");
   this.sendXhr(this.baseUrl, "GET", null, "/api/get_topics_mock.json").then((function (responseText) {
     $this.actOnData(responseText);
     completer.complete(true);
+    $this.scuttlebuttUi.hideLoader("topics");
   })
   );
   return completer.get$future();
@@ -5194,9 +5201,11 @@ SourcesUiView.prototype.populateTable = function(reset) {
 SourcesUiView.prototype.fetchData = function() {
   var $this = this; // closure support
   var completer = new CompleterImpl();
+  this.scuttlebuttUi.showLoader("sources");
   this.sendXhr(this.baseUrl, "GET", null, "/api/get_sources_mock.json").then((function (responseText) {
     $this.actOnData(responseText);
     completer.complete(true);
+    $this.scuttlebuttUi.hideLoader("sources");
   })
   );
   return completer.get$future();
@@ -5214,7 +5223,7 @@ SourcesUiView.prototype.actOnData = function(responseText) {
 function ScuttlebuttUi() {
 
 }
-ScuttlebuttUi.prototype.run = function() {
+ScuttlebuttUi.prototype.init = function() {
   var $this = this; // closure support
   var $0, $1;
   this.articlesUiView = new ArticlesUiView();
@@ -5228,6 +5237,8 @@ ScuttlebuttUi.prototype.run = function() {
   this._articlesButton = get$$document().query("#articles-button");
   this._refreshButton = get$$document().query("#refresh-button");
   this.statusMessage("Dart is now running.");
+  this._loaderDiv = get$$document().query("div#loader");
+  this._currentlyLoading = new HashSetImplementation_dart_core_String();
   this._topicsButton.get$on().get$click().add$1((function (event) {
     $this.listTopics(true);
   })
@@ -5342,6 +5353,14 @@ ScuttlebuttUi.prototype.setPageTitle = function(str) {
     $throw(new ExceptionImplementation("Unknown type of page displayed."));
   }
 }
+ScuttlebuttUi.prototype.showLoader = function(name) {
+  this._currentlyLoading.add(name);
+  this._loaderDiv.get$style().set$display("block");
+}
+ScuttlebuttUi.prototype.hideLoader = function(name) {
+  this._currentlyLoading.remove(name);
+  if (this._currentlyLoading.isEmpty()) this._loaderDiv.get$style().set$display("none");
+}
 ScuttlebuttUi.prototype.statusMessage = function(message) {
   this._statusMessage.set$innerHTML(message);
 }
@@ -5411,7 +5430,7 @@ ScuttlebuttUi.prettifyInt = function(i) {
 }
 // ********** Code for top level **************
 function main() {
-  new ScuttlebuttUi().run();
+  new ScuttlebuttUi().init();
 }
 // 258 dynamic types.
 // 307 types
