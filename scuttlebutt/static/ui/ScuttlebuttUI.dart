@@ -185,11 +185,11 @@ class BarChart {
     
     articlesFromElement.on.blur.add((Event ev) {
       articlesUiView.fromDate = ScuttlebuttUi.dateFromString(articlesFromElement.value);
-      articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
+      articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
     });
     articlesToElement.on.blur.add((Event ev) {
       articlesUiView.toDate = ScuttlebuttUi.dateFromString(articlesToElement.value);
-      articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
+      articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
     });
   }
 
@@ -210,7 +210,8 @@ class BarChart {
     if (topicStatsCache.containsKey(id)) {
       populateChart(id);
     } else {
-      fetchData(id, thenCall:populateChart);
+      fetchData(id)
+      .then((bool done) => populateChart());;
     }
   }
 
@@ -307,7 +308,7 @@ class BarChart {
               _startDragI = i_;
             articlesUiView.fromDate = topicStats.days[Math.max(_startDragI, _endDragI)].date;
             articlesUiView.toDate = topicStats.days[Math.min(_startDragI, _endDragI)].date;
-            articlesUiView.fetchData(thenCall:articlesUiView.populateTable);
+            articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
             updateDateRange();
             _startDragI = _endDragI = null;
           }
@@ -363,29 +364,30 @@ class BarChart {
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData(int id, [Function thenCall=null, String url_=null]) {
+  Future<bool> fetchData(int id, [String url_=null]) {
+    Completer completer = new Completer();
+    
     String url = (url_ == null) ? getURL(id) : url_;
     XMLHttpRequest request = new XMLHttpRequest();
     request.open("GET", url, true);
 
     request.on.load.add((event) {
         if (request.status == 404) {
-        window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
-        print("Trying to load mock data.");
-        fetchData(id, thenCall:this.populateChart, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json");
+          window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
+          print("Trying to load mock data.");
+          fetchData(id, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json")
+          .then((bool done) => populateChart());;
         } else {
-        //data[id] = JSON.parse(request.responseText);
-        topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
+          //data[id] = JSON.parse(request.responseText);
+          topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
 
-        print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
+          print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
 
-        if (thenCall != null) {
-        thenCall();
+          completer.complete(true);
         }
-        }
-
-        });
+    });
     request.send();
+    return completer.future;
   }
 
   void reset() {
@@ -499,11 +501,10 @@ class ArticlesUiView extends UiView {
 
     _loadMoreButton.on.click.add((Event event) {
         currentOffset += LOAD_LIMIT;
-        fetchData(
-          thenCall:() {
-            outputTable.reset();
-            populateTable();
-          });
+        fetchData()
+        .then((bool done) {
+          populateTable(reset:false);
+        });
     });
   }
 
@@ -529,7 +530,7 @@ class ArticlesUiView extends UiView {
       _waitingToBeShown = data[id].length;
       populateTable();
     } else {
-      fetchData(thenCall:populateTable);
+      fetchData().then((bool done) => populateTable());
     }
 
     barChart.show(id);
@@ -551,8 +552,11 @@ class ArticlesUiView extends UiView {
    * Populates the article Table with data. If resetTable is false,
    * it will add to the current table.
    */
-  void populateTable() {
+  void populateTable([bool reset=true]) {
     int id = currentId;
+    
+    if (reset)
+      outputTable.reset();
 
     if (_waitingToBeShown > 0) {
       outputTable.addData(data[id].getRange(data[id].length - _waitingToBeShown, _waitingToBeShown));
@@ -568,7 +572,8 @@ class ArticlesUiView extends UiView {
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData([Function thenCall=null]) {
+  Future<bool> fetchData() {
+    Completer completer = new Completer();
     sendXhr(
       "$baseUrl/$currentId", 
       "GET", 
@@ -579,9 +584,9 @@ class ArticlesUiView extends UiView {
       debugUrl:"/api/get_articles_mock.json"
     ).then((String responseText) {
         actOnData(responseText);
-        if (thenCall != null)
-          thenCall();
+        completer.complete(true);
       });
+    return completer.future;
   }
 
   void refresh() {
@@ -688,15 +693,17 @@ class TopicsUiView extends UiView {
     if (topics != null) {
       populateTable();
     } else {
-      fetchData(thenCall:populateTable);
+      fetchData().then((bool done) => populateTable());
     }
   }
 
   /**
    * Populates the DOM with data.
    */
-  void populateTable() {
-    outputTable.reset();
+  void populateTable([bool reset=true]) {
+    if (reset)
+      outputTable.reset();
+    
     for (Topic topic in topics) {
       String topicNameHtml = "${topic.name} <a class='more-actions'>&hellip;</a>";
       String wowChangeHtml;
@@ -729,14 +736,15 @@ class TopicsUiView extends UiView {
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData([Function thenCall=null]) {
+  Future<bool> fetchData() {
+    Completer completer = new Completer();
     sendXhr(baseUrl, "GET", 
       debugUrl:"/api/get_topics_mock.json"
     ).then((String responseText) {
         actOnData(responseText);
-        if (thenCall != null)
-          thenCall();
+        completer.complete(true);
       });
+    return completer.future;
   }
   
   void actOnData(String responseText) {
@@ -884,15 +892,17 @@ class SourcesUiView extends UiView {
     if (sources != null) {
       populateTable();
     } else {
-      fetchData(thenCall:populateTable);
+      fetchData().then((bool done) => populateTable());
     }
   }
 
   /**
    * Populates the DOM with data.
    */
-  void populateTable() {
-    outputTable.reset();
+  void populateTable([bool reset=true]) {
+    if (reset)
+      outputTable.reset();
+    
     for (Source source in sources) {
       String sourceNameHtml = "${source.name} <a class='more-actions'>&hellip;</a>";
 
@@ -913,14 +923,15 @@ class SourcesUiView extends UiView {
   /**
    * Creates XMLHttpRequest
    */
-  void fetchData([Function thenCall=null]) {
+  Future<bool> fetchData() {
+    Completer completer = new Completer();
     sendXhr(baseUrl, "GET", 
       debugUrl:"/api/get_sources_mock.json"
     ).then((String responseText) {
         actOnData(responseText);
-        if (thenCall != null)
-          thenCall();
+        completer.complete(true);
       });
+    return completer.future;
   }
   
   void actOnData(String responseText) {
@@ -1116,7 +1127,7 @@ class ScuttlebuttUi {
         document.title = "$topicName :: Scuttlebutt";
         _subtitle.innerHTML = topicName;
       } else {
-        topicsUiView.fetchData(thenCall:this.setPageTitle);
+        topicsUiView.fetchData().then((bool done) => setPageTitle());
       }
     } else {
       throw new Exception("Unknown type of page displayed.");
