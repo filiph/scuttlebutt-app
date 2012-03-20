@@ -5362,8 +5362,13 @@ ScuttlebuttUi.prototype.showLoader = function(name) {
   this._loaderDiv.get$style().set$display("block");
 }
 ScuttlebuttUi.prototype.hideLoader = function(name) {
-  this._currentlyLoading.remove(name);
-  if (this._currentlyLoading.isEmpty()) this._loaderDiv.get$style().set$display("none");
+  if (name == null) {
+    this._loaderDiv.get$style().set$display("none");
+  }
+  else {
+    this._currentlyLoading.remove(name);
+    if (this._currentlyLoading.isEmpty()) this._loaderDiv.get$style().set$display("none");
+  }
 }
 ScuttlebuttUi.prototype.statusMessage = function(message) {
   this._statusMessage.set$innerHTML(message);
@@ -5386,7 +5391,7 @@ ScuttlebuttUi.prettifyUrl = function(rawUrl) {
     else {
       var uriLength = uri.length;
       if (uriLength > MAX_URI_LENGTH) {
-        uri = $add$("/...", uri.substring(uriLength - (MAX_URI_LENGTH - (4)), uriLength));
+        uri = ("/..." + uri.substring(uriLength - (MAX_URI_LENGTH - (4)), uriLength));
       }
       return ("<a href='" + rawUrl + "'><strong>" + topTwoLevelDomain + "</strong><br/>" + uri + "</a>");
     }

@@ -6,13 +6,13 @@ final num VERY_LARGE_NUMBER = 1000000000;
 final String NOT_AVAILABLE_STRING = "N/A";
 
 /**
- * Table.
+ * [Table] adds some utility functions to the TableElement. 
  */
 class Table {
   TableElement tableElement;
 
   Table(String domQuery) {
-    this.tableElement = document.query(domQuery);
+    tableElement = document.query(domQuery);
   }
 
   /**
@@ -43,7 +43,7 @@ class Table {
     */
   void addData(List<Map<String,String>> data) {
     for (Map<String,String> record in data) {
-      this.addRow(
+      addRow(
           [
           record['title'],
           ScuttlebuttUi.prettifyUrl(record['url']),
@@ -57,7 +57,7 @@ class Table {
   }
 
   /**
-    Deletes all rows from the table element.
+    Deletes all rows from the table element. (Not the header, by default.)
    */
   void reset([bool resetAllNodes=false]) {
     if (resetAllNodes) {
@@ -72,7 +72,7 @@ class Table {
 }
 
 /**
- * An class representing one day's worth of statistics for
+ * A class representing one day's worth of statistics for
  * a given TopicStats.
  *
  * I.e.: day 2012-12-26 saw 5 articles about 'Android'...
@@ -98,7 +98,7 @@ class TopicStatsDay implements Comparable {
 }
 
 /**
- * An class representing data for a given topic. Includes all the days
+ * A class representing stats data for a given topic. Includes all the days
  * as TopicStatsDay objects.
  */ 
 class TopicStats {
@@ -138,7 +138,7 @@ class TopicStats {
 }
 
 /**
- * BarChart.
+ * [BarChart] represents the bar chart graph at the top of Articles list.
  */
 class BarChart {
   ArticlesUiView articlesUiView;
@@ -150,7 +150,7 @@ class BarChart {
   InputElement articlesFromElement;
   InputElement articlesToElement;
 
-  // A map topic_id -> stats. This allows for caching data that has 
+  // A map topic_id -> stats. This allows for caching data that have 
   // already been downloaded.
   Map<int,TopicStats> topicStatsCache;   
 
@@ -173,8 +173,8 @@ class BarChart {
       String toEl="#articles-to"
       ]) {
     topicStatsCache = new Map<int,TopicStats>();
-    this.tableElement = document.query(domQuery);
-    this.articlesUiView = articlesUiView_;
+    tableElement = document.query(domQuery);
+    articlesUiView = articlesUiView_;
 
     _articlesCountElement = document.query(countEl);
     _articlesCountWowElement = document.query(countWowEl);
@@ -216,11 +216,12 @@ class BarChart {
   }
 
   /**
-   * Populates the article Table with data. If reset is false,
-   * it will add to the current table.
+   * Populates the bar chart with data. Run after you [fetchData()] first.
+   * This method also makes sure the barchart is interactive and dragging
+   * over it works.
    */
   void populateChart([int id_]) {
-    int id = (id_ != null) ? id_ : this.currentId;
+    int id = (id_ != null) ? id_ : currentId;
     TopicStats topicStats = topicStatsCache[id];
 
     reset();
@@ -260,7 +261,7 @@ class BarChart {
           int i_ = Math.parseInt(el.dataAttributes["i"]);
           
           if (i_ > topicStats.days.length - 1) {
-            this.updateContextual(count:"no data");
+            updateContextual(count:"no data");
           } else {
             String countWow;
             
@@ -326,8 +327,8 @@ class BarChart {
     tableElement.on.mouseOut.add((MouseEvent e) {
         Element el = e.toElement;
         // check if we're actually mousing out of the table (not just a sub-element)
-        if (!this.tableElement.contains(el)) {
-          this.updateContextual();
+        if (!tableElement.contains(el)) {
+          updateContextual();
           _startDragI = null;
         }      
     });
@@ -335,16 +336,23 @@ class BarChart {
     updateDateRange();
   }
 
+  /**
+    * Updates the text on the left below the barchart with info about
+    * the currently mouse-over'd bar.
+    */ 
   void updateContextual([
       String count=NOT_AVAILABLE_STRING,
       String countWow=NOT_AVAILABLE_STRING,
       String sentiment=NOT_AVAILABLE_STRING,
       String sentimentWow=NOT_AVAILABLE_STRING
       ]) {   
-    this._articlesCountElement.innerHTML = count;
-    this._articlesCountWowElement.innerHTML = countWow;
+    _articlesCountElement.innerHTML = count;
+    _articlesCountWowElement.innerHTML = countWow;
   }
 
+  /**
+    * Update BarChart to show the currently selected date range.
+    */
   void updateDateRange() {
     articlesFromElement.value = articlesUiView.fromDateShort;
     articlesToElement.value = articlesUiView.toDateShort;
@@ -365,7 +373,7 @@ class BarChart {
   }
 
   /**
-   * Creates XMLHttpRequest
+   * Creates XMLHttpRequest, returns Future. TODO(filip): better exception handling
    */
   Future<bool> fetchData(int id, [String url_=null]) {
     Completer completer = new Completer();
@@ -478,7 +486,7 @@ class UiView {
 }
 
 /**
- * ArticlesUiView.
+ * ArticlesUiView is the Articles tab.
  */
 class ArticlesUiView extends UiView {
   BarChart barChart;
@@ -541,6 +549,9 @@ class ArticlesUiView extends UiView {
     barChart.show(id);
   }
   
+  /**
+    * Handle the ajax request's responseText, put it into the data variable.
+    */
   void actOnData(String responseText) {
     if (currentOffset == 0) 
       data[currentId] = new List();
@@ -554,8 +565,8 @@ class ArticlesUiView extends UiView {
   }
 
   /**
-   * Populates the article Table with data. If resetTable is false,
-   * it will add to the current table.
+   * Populates the article Table with data. If reset is false,
+   * it will add to the current table instead of replacing it.
    */
   void populateTable([bool reset=true]) {
     int id = currentId;
@@ -575,7 +586,7 @@ class ArticlesUiView extends UiView {
   }
 
   /**
-   * Creates XMLHttpRequest
+   * Creates XMLHttpRequest, returns Future.
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
@@ -596,6 +607,9 @@ class ArticlesUiView extends UiView {
     return completer.future;
   }
 
+  /**
+    * Gets rid of cached data.
+    */
   void refresh() {
     data = new Map();
   }
@@ -603,7 +617,7 @@ class ArticlesUiView extends UiView {
 
 
 /**
- * Simple class for holding Topics data.
+ * Simple class for holding Topics data: name, id, etc...
  */
 class Topic {
   int id;
@@ -627,7 +641,8 @@ class Topic {
 }
 
 /**
- * TopicsUiViewView handles ajax calls and shows the data on the client.
+ * TopicsUiViewView handles ajax calls and shows the data on the client 
+ * for the Topics tab.
  */
 class TopicsUiView extends UiView {
   List<Topic> topics;
@@ -646,6 +661,9 @@ class TopicsUiView extends UiView {
     _createButton.on.click.add(showCreateRow);
   }
   
+  /**
+    * Creates the row that allows user to add new Topics.
+    */ 
   void showCreateRow(Event e) {
     if (outputTable == null)
       throw new Exception("Couldn't find outputTable.");
@@ -679,6 +697,7 @@ class TopicsUiView extends UiView {
     }
   }
   
+  
   void postNew(Event e) {
     if (_nameInput.value == "")
       return;
@@ -693,7 +712,6 @@ class TopicsUiView extends UiView {
           topics = null;
           scuttlebuttUi.parseUrl();
         });
-
   }
 
   void show() {
@@ -785,7 +803,7 @@ class TopicsUiView extends UiView {
 }
 
 /**
- * Simple class for holding Sources data.
+ * Simple class for holding Sources data: name, id, url, ...
  */
 class Source {
   int id;
@@ -806,7 +824,8 @@ class Source {
 }
 
 /**
- * TopicsUiViewView handles ajax calls and shows the data on the client.
+ * SourcesUiView handles ajax calls and shows the data on the client
+ * for the Sources tab.
  */
 class SourcesUiView extends UiView {
   List<Source> sources;
@@ -827,6 +846,9 @@ class SourcesUiView extends UiView {
     _createButton.on.click.add(showCreateRow);
   }
   
+  /**
+    * Builds and shows the row used for posting new Sources to the backend.
+    */
   void showCreateRow(Event e) {
     if (outputTable == null)
       throw new Exception("Couldn't find outputTable.");
@@ -896,7 +918,6 @@ class SourcesUiView extends UiView {
           sources = null;
           scuttlebuttUi.parseUrl();
         });
-
   }
 
   void show() {
@@ -923,7 +944,7 @@ class SourcesUiView extends UiView {
           ScuttlebuttUi.prettifyInt(source.monthlyVisitors), "N/A" ]
           );
       
-      // TODO: what to do when user click's a source?
+      // TODO(filiph): TBD what to do when user click's a source?
       /*tr.on.click.add((event) {
           scuttlebuttUi.listArticles(topic.id);
           });*/
@@ -996,6 +1017,9 @@ class ScuttlebuttUi {
   ScuttlebuttUi() {
   }
 
+  /**
+    * Initializes pointers to DOM elements. Binds events to buttons and popState.
+    */
   void init() {
     articlesUiView = new ArticlesUiView();
     topicsUiView = new TopicsUiView();
@@ -1036,7 +1060,7 @@ class ScuttlebuttUi {
     // history magic (getting Back button to work properly)
     window.on.popState.add((var e) {
       print("On pop state triggered.");
-      this.parseUrl();
+      parseUrl();
     });
   }
 
@@ -1085,7 +1109,7 @@ class ScuttlebuttUi {
   }
 
   /**
-    Lists all Sources. -- TODO: not DRY with Topics
+    Lists all Sources. -- TODO(filiph): not DRY with Topics
   */
   void listSources([bool pushState=true]) {
     if (pushState) {
@@ -1125,6 +1149,9 @@ class ScuttlebuttUi {
     setPageTitle();
   }
 
+  /**
+    * Takes care of the "Scuttlebutt -> ____" headline. Fetches data if needed.
+    */
   void setPageTitle([String str]) {
     if (str != null) {
       document.title = "$str :: Scuttlebutt";
@@ -1154,23 +1181,33 @@ class ScuttlebuttUi {
   }
 
   /**
-    Loader methods.
+    Shows the loader. The [name] allows to bind the request to a particular
+    task. 
     */
-  void showLoader(String name) {
+  void showLoader([String name]) {
     _currentlyLoading.add(name);
-    _loaderDiv.style.top = "${window.scrollY + 300}px";
+    _loaderDiv.style.top = "${window.scrollY + 300}px"; // makes sure loader is in sight
     _loaderDiv.style.display = "block";
   }
   
-  void hideLoader(String name) {
-    _currentlyLoading.remove(name);
-    if (_currentlyLoading.isEmpty())
+  /**
+    When called without arguments, it hides the loader gif.
+    When called with a string, the method first ensures that no other
+    task is currently running. If not, it hides the loader.
+    */
+  void hideLoader([String name]) {
+    if (name == null) {
       _loaderDiv.style.display = "none";
+    } else {
+      _currentlyLoading.remove(name);
+      if (_currentlyLoading.isEmpty())
+        _loaderDiv.style.display = "none";
+    }
   }
   
   
   /**
-    Changes the contents of the _statusMessage <p> element.
+    Changes the contents of the _statusMessage <p> element. TODO(filiph): get rid of this or use it
    */
   void statusMessage(String message) {
     _statusMessage.innerHTML = message;
@@ -1198,7 +1235,7 @@ class ScuttlebuttUi {
       } else {
         int uriLength = uri.length;
         if (uriLength > MAX_URI_LENGTH) {
-          uri = "/..." + uri.substring(uriLength - (MAX_URI_LENGTH - 4), uriLength);
+          uri = "/...${uri.substring(uriLength - (MAX_URI_LENGTH - 4), uriLength)}";
         }
         return "<a href='$rawUrl'><strong>$topTwoLevelDomain</strong><br/>$uri</a>";
       }
@@ -1217,6 +1254,9 @@ class ScuttlebuttUi {
       return new Date.fromString(str);
   }
 
+  /**
+    Takes a date in "YYYY-MM-DD..." format and converts to nice HTML.
+    */
   static String prettifyDate(String rawDate) {
     final weekdayStrings = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     final monthStrings = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -1239,6 +1279,9 @@ class ScuttlebuttUi {
     return "$dateStr<br/>(<strong>$diffStr</strong>)";
   }
   
+  /**
+    Converts int to a human readable (HTMLfied) format.
+    */
   static String prettifyInt(int i) {
     if (i >= 1000000) {
       return "<strong>${(i/1000000).toStringAsFixed(1)}</strong> M";
@@ -1252,6 +1295,9 @@ class ScuttlebuttUi {
   }
 }
 
+/**
+  The main program entry.
+  */
 void main() {
   new ScuttlebuttUi().init();
 }
