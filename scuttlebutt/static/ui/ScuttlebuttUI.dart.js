@@ -4508,9 +4508,12 @@ function _jsKeys(obj) {
 }
 //  ********** Library ScuttlebuttUI **************
 // ********** Code for Table **************
-function Table(domQuery) {
+Table.fromDomQuery$ctor = function(domQuery) {
   this.tableElement = get$$document().query(domQuery);
+  if (this.tableElement == null) $throw(("Table element " + domQuery + " could not be found."));
 }
+Table.fromDomQuery$ctor.prototype = Table.prototype;
+function Table() {}
 Table.prototype.addRow = function(row) {
   var tr = _ElementFactoryProvider.Element$tag$factory("tr");
   row.forEach((function (column) {
@@ -4530,7 +4533,7 @@ Table.prototype.addRow = function(row) {
 Table.prototype.addData = function(data) {
   for (var $$i = data.iterator(); $$i.hasNext(); ) {
     var record = $$i.next();
-    this.addRow([record.$index("title"), ScuttlebuttUi.prettifyUrl(record.$index("url")), ScuttlebuttUi.prettifyDate(record.$index("updated")), record.containsKey("readership") ? ScuttlebuttUi.prettifyInt(Math.parseInt(record.$index("readership"))) : "N/A"]);
+    this.addRow([record.$index("title"), prettifyUrl(record.$index("url")), prettifyDate(record.$index("updated")), record.containsKey("readership") ? prettifyInt(Math.parseInt(record.$index("readership"))) : "N/A"]);
   }
 }
 Table.prototype.reset = function(resetAllNodes) {
@@ -4546,13 +4549,15 @@ Table.prototype.reset = function(resetAllNodes) {
   }
 }
 // ********** Code for TopicStatsDay **************
-function TopicStatsDay(jsonData) {
+TopicStatsDay.fromJson$ctor = function(jsonData) {
   if (!jsonData.containsKey("date") || !jsonData.containsKey("count")) {
-    $throw(new ExceptionImplementation("JSON data corrupt. Couldn't find keys."));
+    $throw("JSON data corrupt. Couldn't find keys.");
   }
   this.count = jsonData.$index("count");
-  this.date = ScuttlebuttUi.dateFromString(jsonData.$index("date"));
+  this.date = dateFromString(jsonData.$index("date"));
 }
+TopicStatsDay.fromJson$ctor.prototype = TopicStatsDay.prototype;
+function TopicStatsDay() {}
 TopicStatsDay.prototype.get$date = function() { return this.date; };
 TopicStatsDay.prototype.get$count = function() { return this.count; };
 TopicStatsDay.prototype.get$wowChange = function() { return this.wowChange; };
@@ -4562,12 +4567,12 @@ TopicStatsDay.prototype.compareTo = function(other) {
   return this.date.compareTo(other.date);
 }
 // ********** Code for TopicStats **************
-function TopicStats(jsonData) {
+TopicStats.fromJson$ctor = function(jsonData) {
   var $this = this; // closure support
   this.maxCount = (0);
   this.days = new Array();
   jsonData.forEach((function (jsonRecord) {
-    $this.days.add(new TopicStatsDay(jsonRecord));
+    $this.days.add(new TopicStatsDay.fromJson$ctor(jsonRecord));
   })
   );
   this.days.sort((function (a, b) {
@@ -4592,9 +4597,11 @@ function TopicStats(jsonData) {
   }
   this.avgCount = absCount / this.days.get$length();
 }
+TopicStats.fromJson$ctor.prototype = TopicStats.prototype;
+function TopicStats() {}
 TopicStats.prototype.get$days = function() { return this.days; };
 // ********** Code for BarChart **************
-function BarChart(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl) {
+BarChart.fromDomQuery$ctor = function(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, sentimentWowEl, fromEl, toEl) {
   var $this = this; // closure support
   this.MAX_DAYS = (90);
   this.topicStatsCache = new HashMapImplementation_int$TopicStats();
@@ -4607,22 +4614,24 @@ function BarChart(domQuery, articlesUiView_, countEl, countWowEl, sentimentEl, s
   this.articlesFromElement = get$$document().query(fromEl);
   this.articlesToElement = get$$document().query(toEl);
   this.articlesFromElement.get$on().get$blur().add((function (ev) {
-    $this.articlesUiView.fromDate = ScuttlebuttUi.dateFromString($this.articlesFromElement.value);
-    $this.articlesUiView.fetchData().then((function (done) {
+    $this.articlesUiView.fromDate = dateFromString($this.articlesFromElement.value);
+    $this.articlesUiView.fetchData().then((function (_) {
       return $this.articlesUiView.populateTable(true);
     })
     );
   })
   , false);
   this.articlesToElement.get$on().get$blur().add((function (ev) {
-    $this.articlesUiView.toDate = ScuttlebuttUi.dateFromString($this.articlesToElement.value);
-    $this.articlesUiView.fetchData().then((function (done) {
+    $this.articlesUiView.toDate = dateFromString($this.articlesToElement.value);
+    $this.articlesUiView.fetchData().then((function (_) {
       return $this.articlesUiView.populateTable(true);
     })
     );
   })
   , false);
 }
+BarChart.fromDomQuery$ctor.prototype = BarChart.prototype;
+function BarChart() {}
 BarChart.prototype.getURL = function(id) {
   if ($globals.DEBUG) {
     return "/api/get_topic_stats_new_mock.json";
@@ -4638,7 +4647,7 @@ BarChart.prototype.show = function(id) {
     this.populateChart(id);
   }
   else {
-    this.fetchData(id).then((function (done) {
+    this.fetchData(id).then((function (_) {
       return $this.populateChart();
     })
     );
@@ -4670,22 +4679,22 @@ BarChart.prototype.populateChart = function(id_) {
     div.get$style().set$height(("" + percentage + "%"));
     td.get$elements().add(div);
     tr.get$elements().add(td);
-    td.set$dataAttributes(_map(["i", i]));
+    td.set$dataAttributes(_map(["pos", i]));
     td.get$on().get$mouseOver().add((function (e) {
       var el = e.get$currentTarget();
-      if (el.get$dataAttributes().containsKey("i")) {
-        var i_ = Math.parseInt(el.get$dataAttributes().$index("i"));
-        if (i_ > topicStats.days.get$length() - (1)) {
+      if (el.get$dataAttributes().containsKey("pos")) {
+        var pos = Math.parseInt(el.get$dataAttributes().$index("pos"));
+        if (pos > topicStats.days.get$length() - (1)) {
           $this.updateContextual("no data", "N/A", "N/A", "N/A");
         }
         else {
           var countWow;
-          if (topicStats.days.$index(i_).get$wowChange() != null) {
-            if (topicStats.days.$index(i_).get$wowChange() > (1000000000)) countWow = "+&#8734;%";
-            else countWow = ("" + (topicStats.days.$index(i_).get$wowChange() >= (0.0) ? "+" : "-") + (topicStats.days.$index(i_).get$wowChange().abs() * (100)).toInt() + "%");
+          if (topicStats.days.$index(pos).get$wowChange() != null) {
+            if (topicStats.days.$index(pos).get$wowChange() > (1000000000)) countWow = "+&#8734;%";
+            else countWow = ("" + (topicStats.days.$index(pos).get$wowChange() >= (0.0) ? "+" : "-") + (topicStats.days.$index(pos).get$wowChange().abs() * (100)).toInt() + "%");
             if ($this._startDragI != null) {
-              var min = Math.min($this._startDragI, i_);
-              var max = Math.max($this._startDragI, i_);
+              var min = Math.min($this._startDragI, pos);
+              var max = Math.max($this._startDragI, pos);
               for (var j = (0);
                j < Math.min(topicStats.days.get$length(), $this.MAX_DAYS); j++) {
                 topicStats.days.$index(j).get$td().get$classes().remove("selected");
@@ -4693,17 +4702,17 @@ BarChart.prototype.populateChart = function(id_) {
               }
             }
           }
-          $this.updateContextual(topicStats.days.$index(i_).get$count().toString(), countWow, "N/A", "N/A");
+          $this.updateContextual(topicStats.days.$index(pos).get$count().toString(), countWow, "N/A", "N/A");
         }
       }
     })
     , false);
     td.get$on().get$mouseDown().add((function (e) {
       var el = e.get$currentTarget();
-      if (el.get$dataAttributes().containsKey("i")) {
-        var i_ = Math.parseInt(el.get$dataAttributes().$index("i"));
-        if (i_ < topicStats.days.get$length()) {
-          $this._startDragI = i_;
+      if (el.get$dataAttributes().containsKey("pos")) {
+        var pos = Math.parseInt(el.get$dataAttributes().$index("pos"));
+        if (pos < topicStats.days.get$length()) {
+          $this._startDragI = pos;
         }
       }
       e.stopPropagation();
@@ -4713,14 +4722,14 @@ BarChart.prototype.populateChart = function(id_) {
     td.get$on().get$mouseUp().add((function (e) {
       var $0;
       var el = e.get$currentTarget();
-      if (el.get$dataAttributes().containsKey("i")) {
-        var i_ = Math.parseInt(el.get$dataAttributes().$index("i"));
-        if (i_ < topicStats.days.get$length()) {
-          $this._endDragI = i_;
-          if ($this._startDragI == null) $this._startDragI = i_;
+      if (el.get$dataAttributes().containsKey("pos")) {
+        var pos = Math.parseInt(el.get$dataAttributes().$index("pos"));
+        if (pos < topicStats.days.get$length()) {
+          $this._endDragI = pos;
+          if ($this._startDragI == null) $this._startDragI = pos;
           $this.articlesUiView.fromDate = topicStats.days.$index(Math.max($this._startDragI, $this._endDragI)).get$date();
           $this.articlesUiView.toDate = topicStats.days.$index(Math.min($this._startDragI, $this._endDragI)).get$date();
-          $this.articlesUiView.fetchData().then((function (done) {
+          $this.articlesUiView.fetchData().then((function (_) {
             return $this.articlesUiView.populateTable(true);
           })
           );
@@ -4775,14 +4784,14 @@ BarChart.prototype.fetchData = function(id, url_) {
     if (request.status == (404)) {
       get$$window().console.error(("TOFIX: Could not retrieve " + url + ". Maybe stats are not implemented yet?"));
       print$("Trying to load mock data.");
-      $this.fetchData(id, "https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json").then((function (done) {
+      $this.fetchData(id, "https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json").then((function (_) {
         return $this.populateChart();
       })
       );
       ;
     }
     else {
-      $this.topicStatsCache.$setindex(id, new TopicStats(json_JSON.parse(request.responseText)));
+      $this.topicStatsCache.$setindex(id, new TopicStats.fromJson$ctor(json_JSON.parse(request.responseText)));
       print$(("" + $this.topicStatsCache.$index(id).get$days().get$length() + " new stats loaded for the bar chart."));
       completer.complete(true);
       $this.articlesUiView.scuttlebuttUi.hideLoader("barchart");
@@ -4821,7 +4830,9 @@ UiView.prototype.sendXhr = function(url, method, params, debugUrl) {
           strBuf.add("?");
           first = false;
         }
-        else strBuf.add("&");
+        else {
+          strBuf.add("&");
+        }
         strBuf.add(key);
         strBuf.add("=");
         strBuf.add(value.toString());
@@ -4853,16 +4864,16 @@ function ArticlesUiView() {
   UiView.call(this);
   this.baseUrl = "/api/articles";
   this.data = new HashMapImplementation();
-  this.barChart = new BarChart("table#articles-stats", this, "#articles-count", "#articles-count-wow", "#articles-sentiment", "#articles-sentiment-wow", "#articles-from", "#articles-to");
+  this.barChart = new BarChart.fromDomQuery$ctor("table#articles-stats", this, "#articles-count", "#articles-count-wow", "#articles-sentiment", "#articles-sentiment-wow", "#articles-from", "#articles-to");
   this.divElement = get$$document().query("div#articles-div");
   this.mainButton = get$$document().query("button#articles-button");
-  this.outputTable = new Table("table#articles-table");
+  this.outputTable = new Table.fromDomQuery$ctor("table#articles-table");
   this._loadMoreButton = get$$document().query("button#load-more-button");
   this._waitingToBeShown = (0);
   this.currentLimit = (20);
   this._loadMoreButton.get$on().get$click().add$1((function (event) {
     $this.currentOffset = $this.currentOffset + (20);
-    $this.fetchData().then((function (done) {
+    $this.fetchData().then((function (_) {
       $this.populateTable(false);
     })
     );
@@ -4892,7 +4903,7 @@ ArticlesUiView.prototype.show = function(id) {
     this.populateTable(true);
   }
   else {
-    this.fetchData().then((function (done) {
+    this.fetchData().then((function (_) {
       return $this.populateTable(true);
     })
     );
@@ -4900,7 +4911,7 @@ ArticlesUiView.prototype.show = function(id) {
   this.barChart.show(id);
 }
 ArticlesUiView.prototype.actOnData = function(responseText) {
-  if (this.currentOffset == (0)) this.data.$setindex(this.currentId, new Array());
+  if (this.currentOffset == (0)) this.data.$setindex(this.currentId, []);
   var responseJson = json_JSON.parse(responseText);
   this._waitingToBeShown = responseJson.get$length();
   if (this._waitingToBeShown > (0)) {
@@ -4937,9 +4948,9 @@ ArticlesUiView.prototype.refresh = function() {
   this.data = new HashMapImplementation();
 }
 // ********** Code for Topic **************
-function Topic(jsonData) {
+Topic.fromJson$ctor = function(jsonData) {
   if (!jsonData.containsKey("id") || !jsonData.containsKey("name")) {
-    $throw(new ExceptionImplementation("JSON data corrupt. Couldn't find 'id' or 'name'."));
+    $throw("JSON data corrupt. Couldn't find 'id' or 'name'.");
   }
   this.id = jsonData.$index("id");
   this.name = jsonData.$index("name");
@@ -4948,6 +4959,8 @@ function Topic(jsonData) {
   this.countPastSevenDays = jsonData.$index("countPastSevenDays");
   this.weekOnWeekChange = jsonData.$index("weekOnWeekChange");
 }
+Topic.fromJson$ctor.prototype = Topic.prototype;
+function Topic() {}
 Topic.prototype.get$name = function() { return this.name; };
 // ********** Code for TopicsUiView **************
 $inherits(TopicsUiView, UiView);
@@ -4957,12 +4970,12 @@ function TopicsUiView() {
   this._createButton = get$$document().query("#add-topic-button");
   this.divElement = get$$document().query("div#topics-div");
   this.mainButton = get$$document().query("button#topics-button");
-  this.outputTable = new Table("table#topics-table");
+  this.outputTable = new Table.fromDomQuery$ctor("table#topics-table");
   this._createButton.get$on().get$click().add$1(this.get$showCreateRow());
 }
 TopicsUiView.prototype.showCreateRow = function(e) {
   var $this = this; // closure support
-  if (this.outputTable == null) $throw(new ExceptionImplementation("Couldn't find outputTable."));
+  if (this.outputTable == null) $throw("Couldn't find outputTable.");
   if (this._createRow == null) {
     this._createRow = this.outputTable.tableElement.insertRow((1));
     var nameCell = this._createRow.insertCell((0));
@@ -5014,7 +5027,7 @@ TopicsUiView.prototype.show = function() {
     this.populateTable(true);
   }
   else {
-    this.fetchData().then((function (done) {
+    this.fetchData().then((function (_) {
       return $this.populateTable(true);
     })
     );
@@ -5068,7 +5081,7 @@ TopicsUiView.prototype.actOnData = function(responseText) {
   this.topics = new Array();
   for (var $$i = data.iterator(); $$i.hasNext(); ) {
     var record = $$i.next();
-    this.topics.add(new Topic(record));
+    this.topics.add(new Topic.fromJson$ctor(record));
   }
   print$("Topics loaded successfully.");
 }
@@ -5090,15 +5103,17 @@ TopicsUiView.prototype.getName = function(id) {
   }
 }
 // ********** Code for Source **************
-function Source(jsonData) {
+Source.fromJson$ctor = function(jsonData) {
   if (!jsonData.containsKey("id") || !jsonData.containsKey("name") || !jsonData.containsKey("url")) {
-    $throw(new ExceptionImplementation("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'."));
+    $throw("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'.");
   }
   this.id = jsonData.$index("id");
   this.name = jsonData.$index("name");
   this.url = jsonData.$index("url");
   this.monthlyVisitors = jsonData.$index("monthlyVisitors");
 }
+Source.fromJson$ctor.prototype = Source.prototype;
+function Source() {}
 Source.prototype.get$name = function() { return this.name; };
 // ********** Code for SourcesUiView **************
 $inherits(SourcesUiView, UiView);
@@ -5108,12 +5123,12 @@ function SourcesUiView() {
   this._createButton = get$$document().query("#add-source-button");
   this.divElement = get$$document().query("div#sources-div");
   this.mainButton = get$$document().query("button#sources-button");
-  this.outputTable = new Table("table#sources-table");
+  this.outputTable = new Table.fromDomQuery$ctor("table#sources-table");
   this._createButton.get$on().get$click().add$1(this.get$showCreateRow());
 }
 SourcesUiView.prototype.showCreateRow = function(e) {
   var $this = this; // closure support
-  if (this.outputTable == null) $throw(new ExceptionImplementation("Couldn't find outputTable."));
+  if (this.outputTable == null) $throw("Couldn't find outputTable.");
   if (this._createRow == null) {
     this._createRow = this.outputTable.tableElement.insertRow((1));
     var nameCell = this._createRow.insertCell((0));
@@ -5181,7 +5196,7 @@ SourcesUiView.prototype.show = function() {
     this.populateTable(true);
   }
   else {
-    this.fetchData().then((function (done) {
+    this.fetchData().then((function (_) {
       return $this.populateTable(true);
     })
     );
@@ -5193,7 +5208,7 @@ SourcesUiView.prototype.populateTable = function(reset) {
   for (var $$i = $$list.iterator(); $$i.hasNext(); ) {
     var source = $$i.next();
     var sourceNameHtml = ("" + source.name + " <a class='more-actions'>&hellip;</a>");
-    var tr = this.outputTable.addRow([sourceNameHtml, ScuttlebuttUi.prettifyUrl(source.url), ScuttlebuttUi.prettifyInt(source.monthlyVisitors), "N/A"]);
+    var tr = this.outputTable.addRow([sourceNameHtml, prettifyUrl(source.url), prettifyInt(source.monthlyVisitors), "N/A"]);
   }
   ;
   this.set$visibility(true);
@@ -5215,7 +5230,7 @@ SourcesUiView.prototype.actOnData = function(responseText) {
   this.sources = new Array();
   for (var $$i = data.iterator(); $$i.hasNext(); ) {
     var record = $$i.next();
-    this.sources.add(new Source(record));
+    this.sources.add(new Source.fromJson$ctor(record));
   }
   print$("Sources loaded successfully.");
 }
@@ -5343,14 +5358,14 @@ ScuttlebuttUi.prototype.setPageTitle = function(str) {
       this._subtitle.set$innerHTML(topicName);
     }
     else {
-      this.topicsUiView.fetchData().then((function (done) {
+      this.topicsUiView.fetchData().then((function (_) {
         return $this.setPageTitle();
       })
       );
     }
   }
   else {
-    $throw(new ExceptionImplementation("Unknown type of page displayed."));
+    $throw("Unknown type of page displayed.");
   }
 }
 ScuttlebuttUi.prototype.showLoader = function(name) {
@@ -5369,7 +5384,8 @@ ScuttlebuttUi.prototype.hideLoader = function(name) {
 ScuttlebuttUi.prototype.statusMessage = function(message) {
   this._statusMessage.set$innerHTML(message);
 }
-ScuttlebuttUi.prettifyUrl = function(rawUrl) {
+// ********** Code for top level **************
+function prettifyUrl(rawUrl) {
   var MAX_URI_LENGTH = (40);
   var urlValidity = const$0007;
   var match = urlValidity.firstMatch(rawUrl);
@@ -5393,15 +5409,15 @@ ScuttlebuttUi.prettifyUrl = function(rawUrl) {
     }
   }
 }
-ScuttlebuttUi.dateFromString = function(str) {
+function dateFromString(str) {
   if (str.length == (19)) return DateImplementation.DateImplementation$fromString$factory(("" + str + "Z"));
   else if (str.length == (10)) return DateImplementation.DateImplementation$fromString$factory(str);
   else return DateImplementation.DateImplementation$fromString$factory(str);
 }
-ScuttlebuttUi.prettifyDate = function(rawDate) {
+function prettifyDate(rawDate) {
   var weekdayStrings = const$0009;
   var monthStrings = const$0010;
-  var date = ScuttlebuttUi.dateFromString(rawDate);
+  var date = dateFromString(rawDate);
   var diff = (new DateImplementation.now$ctor()).difference(date);
   var dateStr = ("" + weekdayStrings.$index(date.get$weekday()) + ", " + monthStrings.$index(date.get$month() - (1)) + " " + date.get$day());
   var diffStr;
@@ -5422,7 +5438,7 @@ ScuttlebuttUi.prettifyDate = function(rawDate) {
   }
   return ("" + dateStr + "<br/>(<strong>" + diffStr + "</strong>)");
 }
-ScuttlebuttUi.prettifyInt = function(i) {
+function prettifyInt(i) {
   if (i >= (1000000)) {
     return ("<strong>" + (i / (1000000)).toStringAsFixed((1)) + "</strong> M");
   }
@@ -5433,7 +5449,6 @@ ScuttlebuttUi.prettifyInt = function(i) {
   i = i - ($mod$(i, (10)));
   return i.toString();
 }
-// ********** Code for top level **************
 function main() {
   new ScuttlebuttUi().init();
 }

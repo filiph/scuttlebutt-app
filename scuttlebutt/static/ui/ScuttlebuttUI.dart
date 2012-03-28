@@ -11,8 +11,10 @@ final String NOT_AVAILABLE_STRING = "N/A";
 class Table {
   TableElement tableElement;
 
-  Table(String domQuery) {
+  Table.fromDomQuery(String domQuery) {
     tableElement = document.query(domQuery);
+    if (tableElement == null)
+      throw "Table element $domQuery could not be found.";
   }
 
   /**
@@ -46,10 +48,10 @@ class Table {
       addRow(
           [
           record['title'],
-          ScuttlebuttUi.prettifyUrl(record['url']),
-          ScuttlebuttUi.prettifyDate(record['updated']),
+          prettifyUrl(record['url']),
+          prettifyDate(record['updated']),
           record.containsKey("readership") ? 
-              ScuttlebuttUi.prettifyInt(Math.parseInt(record["readership"])) 
+              prettifyInt(Math.parseInt(record["readership"])) 
               : "N/A"
           ]
           );
@@ -80,16 +82,16 @@ class Table {
 class TopicStatsDay implements Comparable {
   Date date;
   int count;
-  double wowChange;
+  num wowChange;
   TableCellElement td;
-  // double sentiment;  // not used, but I'm leaving this here for future gen
+  // num sentiment;  // not used, but I'm leaving this here for future gen
 
-  TopicStatsDay(Map<String,Object> jsonData) {
+  TopicStatsDay.fromJson(Map<String,Object> jsonData) {
     if (!jsonData.containsKey("date") || !jsonData.containsKey("count")) {
-      throw new Exception("JSON data corrupt. Couldn't find keys.");
+      throw "JSON data corrupt. Couldn't find keys.";
     }
     count = jsonData["count"];
-    date = ScuttlebuttUi.dateFromString(jsonData["date"]);
+    date = dateFromString(jsonData["date"]);
   }
 
   int compareTo(TopicStatsDay other) {
@@ -104,12 +106,12 @@ class TopicStatsDay implements Comparable {
 class TopicStats {
   List<TopicStatsDay> days;
   int maxCount = 0;
-  double avgCount;
+  num avgCount;
 
-  TopicStats(List<Map<String,Object>> jsonData) {
+  TopicStats.fromJson(List<Map<String,Object>> jsonData) {
     days = new List<TopicStatsDay>();
     jsonData.forEach((Map<String,Object> jsonRecord) {
-        days.add(new TopicStatsDay(jsonRecord));
+        days.add(new TopicStatsDay.fromJson(jsonRecord));
         });
     // sort days from most recent to oldest
     days.sort((TopicStatsDay a, TopicStatsDay b) => -a.compareTo(b));
@@ -161,7 +163,7 @@ class BarChart {
 
   final int MAX_DAYS = 90;  // 3 months
 
-  BarChart(
+  BarChart.fromDomQuery(
       String domQuery,
       [
       ArticlesUiView articlesUiView_=null,
@@ -184,12 +186,12 @@ class BarChart {
     articlesToElement = document.query(toEl);
     
     articlesFromElement.on.blur.add((Event ev) {
-      articlesUiView.fromDate = ScuttlebuttUi.dateFromString(articlesFromElement.value);
-      articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
+      articlesUiView.fromDate = dateFromString(articlesFromElement.value);
+      articlesUiView.fetchData().then((_) => articlesUiView.populateTable());
     });
     articlesToElement.on.blur.add((Event ev) {
-      articlesUiView.toDate = ScuttlebuttUi.dateFromString(articlesToElement.value);
-      articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
+      articlesUiView.toDate = dateFromString(articlesToElement.value);
+      articlesUiView.fetchData().then((_) => articlesUiView.populateTable());
     });
   }
 
@@ -211,7 +213,7 @@ class BarChart {
       populateChart(id);
     } else {
       fetchData(id)
-      .then((bool done) => populateChart());;
+      .then((_) => populateChart());;
     }
   }
 
@@ -253,27 +255,27 @@ class BarChart {
       td.elements.add(div);
       tr.elements.add(td);
 
-      td.dataAttributes = {"i": i};
+      td.dataAttributes = {"pos": i};
 
       td.on.mouseOver.add((MouseEvent e) {
         Element el = e.currentTarget;
-        if (el.dataAttributes.containsKey("i")) {
-          int i_ = Math.parseInt(el.dataAttributes["i"]);
+        if (el.dataAttributes.containsKey("pos")) {
+          int pos = Math.parseInt(el.dataAttributes["pos"]);
           
-          if (i_ > topicStats.days.length - 1) {
+          if (pos > topicStats.days.length - 1) {
             updateContextual(count:"no data");
           } else {
             String countWow;
             
-            if (topicStats.days[i_].wowChange != null) {
-            if (topicStats.days[i_].wowChange > VERY_LARGE_NUMBER)
+            if (topicStats.days[pos].wowChange != null) {
+            if (topicStats.days[pos].wowChange > VERY_LARGE_NUMBER)
               countWow = "+&#8734;%";
             else
-              countWow = "${topicStats.days[i_].wowChange >= 0.0 ? '+' : '-'}${(topicStats.days[i_].wowChange.abs() * 100).toInt()}%";
+              countWow = "${topicStats.days[pos].wowChange >= 0.0 ? '+' : '-'}${(topicStats.days[pos].wowChange.abs() * 100).toInt()}%";
               
             if (_startDragI != null) {
-              int min = Math.min(_startDragI, i_);
-              int max = Math.max(_startDragI, i_);
+              int min = Math.min(_startDragI, pos);
+              int max = Math.max(_startDragI, pos);
               for (int j=0; j < Math.min(topicStats.days.length, MAX_DAYS); j++) {
                 topicStats.days[j].td.classes.remove("selected");
                 if (j >= min && j <= max)
@@ -283,7 +285,7 @@ class BarChart {
           }
           
           updateContextual(
-            count:topicStats.days[i_].count.toString(),
+            count:topicStats.days[pos].count.toString(),
             countWow:countWow
             );
           }
@@ -292,10 +294,10 @@ class BarChart {
 
       td.on.mouseDown.add((MouseEvent e) {
         Element el = e.currentTarget;
-        if (el.dataAttributes.containsKey("i")) {
-          int i_ = Math.parseInt(el.dataAttributes["i"]);
-          if (i_ < topicStats.days.length) {
-            _startDragI = i_;
+        if (el.dataAttributes.containsKey("pos")) {
+          int pos = Math.parseInt(el.dataAttributes["pos"]);
+          if (pos < topicStats.days.length) {
+            _startDragI = pos;
           }
         }
         e.stopPropagation();
@@ -304,15 +306,15 @@ class BarChart {
       
       td.on.mouseUp.add((MouseEvent e) {
         Element el = e.currentTarget;
-        if (el.dataAttributes.containsKey("i")) {
-          int i_ = Math.parseInt(el.dataAttributes["i"]);
-          if (i_ < topicStats.days.length) {
-            _endDragI = i_;
+        if (el.dataAttributes.containsKey("pos")) {
+          int pos = Math.parseInt(el.dataAttributes["pos"]);
+          if (pos < topicStats.days.length) {
+            _endDragI = pos;
             if (_startDragI == null)
-              _startDragI = i_;
+              _startDragI = pos;
             articlesUiView.fromDate = topicStats.days[Math.max(_startDragI, _endDragI)].date;
             articlesUiView.toDate = topicStats.days[Math.min(_startDragI, _endDragI)].date;
-            articlesUiView.fetchData().then((bool done) => articlesUiView.populateTable());
+            articlesUiView.fetchData().then((_) => articlesUiView.populateTable());
             updateDateRange();
             _startDragI = _endDragI = null;
           }
@@ -373,7 +375,9 @@ class BarChart {
   }
 
   /**
-   * Creates XMLHttpRequest, returns Future. TODO(filip): better exception handling
+   * Creates XMLHttpRequest, sends it, receives, acts on it, returns Future when done. 
+   * TODO(filiph): better exception handling
+   * TODO(filiph): this is not DRY, candidate for refactoring
    */
   Future<bool> fetchData(int id, [String url_=null]) {
     Completer completer = new Completer();
@@ -388,10 +392,10 @@ class BarChart {
           window.console.error("TOFIX: Could not retrieve $url. Maybe stats are not implemented yet?");
           print("Trying to load mock data.");
           fetchData(id, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json")
-          .then((bool done) => populateChart());;
+          .then((_) => populateChart());;
         } else {
           //data[id] = JSON.parse(request.responseText);
-          topicStatsCache[id] = new TopicStats(JSON.parse(request.responseText));
+          topicStatsCache[id] = new TopicStats.fromJson(JSON.parse(request.responseText));
 
           print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
 
@@ -451,8 +455,9 @@ class UiView {
           if (first) {
             strBuf.add("?");
             first = false;
-          } else
+          } else {
             strBuf.add("&");
+          }
           strBuf.add(key);
           strBuf.add("=");
           strBuf.add(value.toString());
@@ -504,10 +509,10 @@ class ArticlesUiView extends UiView {
   ArticlesUiView() {
     baseUrl = "/api/articles";
     data = new Map();
-    barChart = new BarChart("table#articles-stats", articlesUiView_:this);
+    barChart = new BarChart.fromDomQuery("table#articles-stats", articlesUiView_:this);
     divElement = document.query("div#articles-div");
     mainButton = document.query("button#articles-button");
-    outputTable = new Table("table#articles-table");
+    outputTable = new Table.fromDomQuery("table#articles-table");
     _loadMoreButton = document.query("button#load-more-button");
     _waitingToBeShown = 0;
     currentLimit = LOAD_LIMIT;
@@ -515,7 +520,7 @@ class ArticlesUiView extends UiView {
     _loadMoreButton.on.click.add((Event event) {
         currentOffset += LOAD_LIMIT;
         fetchData()
-        .then((bool done) {
+        .then((_) {
           populateTable(reset:false);
         });
     });
@@ -543,7 +548,7 @@ class ArticlesUiView extends UiView {
       _waitingToBeShown = data[id].length;
       populateTable();
     } else {
-      fetchData().then((bool done) => populateTable());
+      fetchData().then((_) => populateTable());
     }
 
     barChart.show(id);
@@ -554,7 +559,7 @@ class ArticlesUiView extends UiView {
     */
   void actOnData(String responseText) {
     if (currentOffset == 0) 
-      data[currentId] = new List();
+      data[currentId] = [];
     List responseJson = JSON.parse(responseText);
     _waitingToBeShown = responseJson.length;
 
@@ -586,7 +591,8 @@ class ArticlesUiView extends UiView {
   }
 
   /**
-   * Creates XMLHttpRequest, returns Future.
+   * Sends XMLHttpRequest, shows loader, acts on data, hides loader, returns Future.
+   * TODO(filiph): candidate for refactoring, not DRY
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
@@ -625,11 +631,11 @@ class Topic {
   String searchTerm;
   int countPastTwentyFourHours;
   int countPastSevenDays;
-  double weekOnWeekChange;
+  num weekOnWeekChange;
 
-  Topic(Map<String,Object> jsonData) {
+  Topic.fromJson(Map<String,Object> jsonData) {
     if (!jsonData.containsKey("id") || !jsonData.containsKey("name")) {
-      throw new Exception("JSON data corrupt. Couldn't find 'id' or 'name'.");
+      throw "JSON data corrupt. Couldn't find 'id' or 'name'.";
     }
     id = jsonData["id"];
     name = jsonData["name"];
@@ -656,7 +662,7 @@ class TopicsUiView extends UiView {
     _createButton = document.query("#add-topic-button");
     divElement = document.query("div#topics-div");
     mainButton = document.query("button#topics-button");
-    outputTable = new Table("table#topics-table");
+    outputTable = new Table.fromDomQuery("table#topics-table");
     
     _createButton.on.click.add(showCreateRow);
   }
@@ -666,7 +672,7 @@ class TopicsUiView extends UiView {
     */ 
   void showCreateRow(Event e) {
     if (outputTable == null)
-      throw new Exception("Couldn't find outputTable.");
+      throw "Couldn't find outputTable.";
     if (_createRow == null) {
       // create the input row (top of table)
       _createRow = outputTable.tableElement.insertRow(1);
@@ -718,7 +724,7 @@ class TopicsUiView extends UiView {
     if (topics != null) {
       populateTable();
     } else {
-      fetchData().then((bool done) => populateTable());
+      fetchData().then((_) => populateTable());
     }
   }
 
@@ -761,7 +767,8 @@ class TopicsUiView extends UiView {
   }
 
   /**
-   * Creates XMLHttpRequest
+   * Sends XMLHttpRequest, shows loader, acts on data, hides loader, returns Future.
+   * TODO(filiph): candidate for refactoring, not DRY
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
@@ -780,7 +787,7 @@ class TopicsUiView extends UiView {
     List<Map<String,Object>> data = JSON.parse(responseText);
     topics = new List<Topic>();
     for (Map<String,Object> record in data) {
-      topics.add(new Topic(record));
+      topics.add(new Topic.fromJson(record));
     }
     print("Topics loaded successfully.");
   }
@@ -811,10 +818,10 @@ class Source {
   String url;
   int monthlyVisitors;
 
-  Source(Map<String,Object> jsonData) {
+  Source.fromJson(Map<String,Object> jsonData) {
     if (!jsonData.containsKey("id") || !jsonData.containsKey("name")
         || !jsonData.containsKey("url")) {
-      throw new Exception("JSON data corrupt. Couldn't find 'id' or 'name' or 'url'.");
+      throw "JSON data corrupt. Couldn't find 'id' or 'name' or 'url'.";
     }
     id = jsonData["id"];
     name = jsonData["name"];
@@ -841,7 +848,7 @@ class SourcesUiView extends UiView {
     _createButton = document.query("#add-source-button");
     divElement = document.query("div#sources-div");
     mainButton = document.query("button#sources-button");
-    outputTable = new Table("table#sources-table");
+    outputTable = new Table.fromDomQuery("table#sources-table");
     
     _createButton.on.click.add(showCreateRow);
   }
@@ -851,7 +858,7 @@ class SourcesUiView extends UiView {
     */
   void showCreateRow(Event e) {
     if (outputTable == null)
-      throw new Exception("Couldn't find outputTable.");
+      throw "Couldn't find outputTable.";
     if (_createRow == null) {
       // create the input row (top of table)
       _createRow = outputTable.tableElement.insertRow(1);
@@ -924,7 +931,7 @@ class SourcesUiView extends UiView {
     if (sources != null) {
       populateTable();
     } else {
-      fetchData().then((bool done) => populateTable());
+      fetchData().then((_) => populateTable());
     }
   }
 
@@ -940,8 +947,8 @@ class SourcesUiView extends UiView {
 
       // adds a row with 4 cells: name, url, monthly visitors, num articles
       Element tr = outputTable.addRow(
-          [ sourceNameHtml, ScuttlebuttUi.prettifyUrl(source.url), 
-          ScuttlebuttUi.prettifyInt(source.monthlyVisitors), "N/A" ]
+          [ sourceNameHtml, prettifyUrl(source.url), 
+          prettifyInt(source.monthlyVisitors), "N/A" ]
           );
       
       // TODO(filiph): TBD what to do when user click's a source?
@@ -953,7 +960,8 @@ class SourcesUiView extends UiView {
   }
 
   /**
-   * Creates XMLHttpRequest
+   * Sends XMLHttpRequest, shows loader, acts on data, hides loader, returns Future.
+   * TODO(filiph): candidate for refactoring, not DRY
    */
   Future<bool> fetchData() {
     Completer completer = new Completer();
@@ -972,7 +980,7 @@ class SourcesUiView extends UiView {
     List<Map<String,Object>> data = JSON.parse(responseText);
     sources = new List<Source>();
     for (Map<String,Object> record in data) {
-      sources.add(new Source(record));
+      sources.add(new Source.fromJson(record));
     }
     print("Sources loaded successfully.");
   }
@@ -1173,10 +1181,10 @@ class ScuttlebuttUi {
         document.title = "$topicName :: Scuttlebutt";
         _subtitle.innerHTML = topicName;
       } else {
-        topicsUiView.fetchData().then((bool done) => setPageTitle());
+        topicsUiView.fetchData().then((_) => setPageTitle());
       }
     } else {
-      throw new Exception("Unknown type of page displayed.");
+      throw "Unknown type of page displayed.";
     }
   }
 
@@ -1212,86 +1220,87 @@ class ScuttlebuttUi {
     _statusMessage.innerHTML = message;
   }
 
-  /**
-    Takes a URL and tries to prettify it in HTML (and link it). It returns
-    a message (in HTML) if URL is invalid.
-   */
-  static String prettifyUrl(String rawUrl) {
-    final int MAX_URI_LENGTH = 40;
+}
 
-    RegExp urlValidity = const RegExp(@"^https?\://([a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4})(/\S*)?$");
-    Match match = urlValidity.firstMatch(rawUrl);
+/**
+  Takes a URL and tries to prettify it in HTML (and link it). It returns
+  a message (in HTML) if URL is invalid.
+ */
+String prettifyUrl(String rawUrl) {
+  final int MAX_URI_LENGTH = 40;
 
-    if (match == null) {
-      return "<span style='border-bottom: 1px dashed black; cursor:help' title='\"$rawUrl\"'>Invalid URL</span>";
+  RegExp urlValidity = const RegExp(@"^https?\://([a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4})(/\S*)?$");
+  Match match = urlValidity.firstMatch(rawUrl);
+
+  if (match == null) {
+    return "<span style='border-bottom: 1px dashed black; cursor:help' title='\"$rawUrl\"'>Invalid URL</span>";
+  } else {
+    String domain = match.group(1);
+    RegExp topTwoLevelDomainExp = new RegExp(@"[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4}$");
+    String topTwoLevelDomain = topTwoLevelDomainExp.stringMatch(domain);
+    String uri = match.group(2);
+    if (uri == null) {
+      return "<a href='$rawUrl'><strong>$topTwoLevelDomain</strong></a>";
     } else {
-      String domain = match.group(1);
-      RegExp topTwoLevelDomainExp = new RegExp(@"[a-zA-Z0-9\-]+\.[a-zA-Z]{2,4}$");
-      String topTwoLevelDomain = topTwoLevelDomainExp.stringMatch(domain);
-      String uri = match.group(2);
-      if (uri == null) {
-        return "<a href='$rawUrl'><strong>$topTwoLevelDomain</strong></a>";
-      } else {
-        int uriLength = uri.length;
-        if (uriLength > MAX_URI_LENGTH) {
-          uri = "/...${uri.substring(uriLength - (MAX_URI_LENGTH - 4), uriLength)}";
-        }
-        return "<a href='$rawUrl'><strong>$topTwoLevelDomain</strong><br/>$uri</a>";
+      int uriLength = uri.length;
+      if (uriLength > MAX_URI_LENGTH) {
+        uri = "/...${uri.substring(uriLength - (MAX_URI_LENGTH - 4), uriLength)}";
       }
+      return "<a href='$rawUrl'><strong>$topTwoLevelDomain</strong><br/>$uri</a>";
     }
+  }
+}
+
+/**
+  Returns a date object given any number of (even invalid) date strings.
+  */
+Date dateFromString(String str) {
+  if (str.length == 19) // format "2011-12-26T00:00:00" - needs to add Z
+    return new Date.fromString("${str}Z");   // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.
+  else if (str.length == 10) // format "2012-02-10"
+    return new Date.fromString(str);
+  else
+    return new Date.fromString(str);
+}
+
+/**
+  Takes a date in "YYYY-MM-DD..." format and converts to nice HTML.
+  */
+String prettifyDate(String rawDate) {
+  final weekdayStrings = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  final monthStrings = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  Date date = dateFromString(rawDate);
+  Duration diff = (new Date.now()).difference(date);
+  String dateStr = "${weekdayStrings[date.weekday]}, ${monthStrings[date.month-1]} ${date.day}";
+  String diffStr;
+  if (diff.inDays > 30) {
+    diffStr = "long ago";
+  } else if (diff.inDays > 1) {
+    diffStr = "${diff.inDays} days ago";
+  } else if (diff.inHours > 1) {
+    diffStr = "${diff.inHours} hrs ago";
+  } else if (diff.inMinutes > 1) {
+    diffStr = "${diff.inMinutes} mins ago";
+  } else {
+    diffStr = "just now";
   }
 
-  /**
-    Returns a date object given any number of (even invalid) date strings.
-    */
-  static Date dateFromString(String str) {
-    if (str.length == 19) // format "2011-12-26T00:00:00" - needs to add Z
-      return new Date.fromString("${str}Z");   // TODO(filiph): this is a quick fix of JSON format returning ISO 8601 format without the Z. Safari complains.
-    else if (str.length == 10) // format "2012-02-10"
-      return new Date.fromString(str);
-    else
-      return new Date.fromString(str);
-  }
+  return "$dateStr<br/>(<strong>$diffStr</strong>)";
+}
 
-  /**
-    Takes a date in "YYYY-MM-DD..." format and converts to nice HTML.
-    */
-  static String prettifyDate(String rawDate) {
-    final weekdayStrings = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    final monthStrings = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    Date date = dateFromString(rawDate);
-    Duration diff = (new Date.now()).difference(date);
-    String dateStr = "${weekdayStrings[date.weekday]}, ${monthStrings[date.month-1]} ${date.day}";
-    String diffStr;
-    if (diff.inDays > 30) {
-      diffStr = "long ago";
-    } else if (diff.inDays > 1) {
-      diffStr = "${diff.inDays} days ago";
-    } else if (diff.inHours > 1) {
-      diffStr = "${diff.inHours} hrs ago";
-    } else if (diff.inMinutes > 1) {
-      diffStr = "${diff.inMinutes} mins ago";
-    } else {
-      diffStr = "just now";
-    }
-
-    return "$dateStr<br/>(<strong>$diffStr</strong>)";
+/**
+  Converts int to a human readable (HTMLfied) format.
+  */
+String prettifyInt(int i) {
+  if (i >= 1000000) {
+    return "<strong>${(i/1000000).toStringAsFixed(1)}</strong> M";
   }
-  
-  /**
-    Converts int to a human readable (HTMLfied) format.
-    */
-  static String prettifyInt(int i) {
-    if (i >= 1000000) {
-      return "<strong>${(i/1000000).toStringAsFixed(1)}</strong> M";
-    }
-    if (i >= 1000) {
-      double kilos = (i / 1000).round();
-      return "<strong>${kilos.toStringAsFixed(0)}</strong> K";
-    }
-    i = i - (i%10); // don't report 123, report 120 instead
-    return i.toString();
+  if (i >= 1000) {
+    num kilos = (i / 1000).round();
+    return "<strong>${kilos.toStringAsFixed(0)}</strong> K";
   }
+  i = i - (i%10); // don't report 123, report 120 instead
+  return i.toString();
 }
 
 /**
