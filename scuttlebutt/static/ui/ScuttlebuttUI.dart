@@ -1,12 +1,12 @@
 #import('dart:html');
 #import('dart:json');
 
-bool DEBUG = false; // will be flipped automatically on localhost
+bool DEBUG = false; // will be flipped automatically on testing machine's localhost
 final num VERY_LARGE_NUMBER = 1000000000;
 final String NOT_AVAILABLE_STRING = "N/A";
 
 /**
- * [Table] adds some utility functions to the TableElement. 
+ * [Table] adds some utility functions on top of the TableElement. 
  */
 class Table {
   TableElement tableElement;
@@ -30,12 +30,12 @@ class Table {
     row.forEach((column) {
         Element td = new Element.tag('td');
         if (column != null) {
-        td.innerHTML = column;
+          td.innerHTML = column;
         } else {
-        td.innerHTML = NOT_AVAILABLE_STRING;
+          td.innerHTML = NOT_AVAILABLE_STRING;
         }
         tr.elements.add(td);
-        });
+    });
     tableElement.elements.add(tr);
     return tr;
   }
@@ -161,7 +161,7 @@ class BarChart {
   int _startDragI;
   int _endDragI;
 
-  final int MAX_DAYS = 90;  // 3 months
+  final int MAX_DAYS = 90;  // ~3 months
 
   BarChart.fromDomQuery(
       String domQuery,
@@ -394,7 +394,6 @@ class BarChart {
           fetchData(id, url_:"https://scuttlebutt.googleplex.com/ui/api/get_topic_stats_new_mock.json")
           .then((_) => populateChart());;
         } else {
-          //data[id] = JSON.parse(request.responseText);
           topicStatsCache[id] = new TopicStats.fromJson(JSON.parse(request.responseText));
 
           print("${topicStatsCache[id].days.length} new stats loaded for the bar chart.");
@@ -526,7 +525,7 @@ class ArticlesUiView extends UiView {
     });
   }
 
-  // TODO: iso has a tailing Z (as timezone)
+  // TODO(filiph): iso has a tailing Z (as timezone) - apply on back end, then change here
   String get fromDateIso() => "${fromDate.year}-${fromDate.month < 10 ? '0' : ''}${fromDate.month}-${fromDate.day < 10 ? '0' : ''}${fromDate.day}T${fromDate.hours < 10 ? '0' : ''}${fromDate.hours}:${fromDate.minutes < 10 ? '0' : ''}${fromDate.minutes}:${fromDate.seconds < 10 ? '0' : ''}${fromDate.seconds}";
   String get toDateIso() => "${toDate.year}-${toDate.month < 10 ? '0' : ''}${toDate.month}-${toDate.day < 10 ? '0' : ''}${toDate.day}T${toDate.hours < 10 ? '0' : ''}${toDate.hours}:${toDate.minutes < 10 ? '0' : ''}${toDate.minutes}:${toDate.seconds < 10 ? '0' : ''}${toDate.seconds}";
 
@@ -712,12 +711,12 @@ class TopicsUiView extends UiView {
     sendXhr(baseUrl, "POST", 
       params:{ "name": _nameInput.value },
       debugUrl:"/api/post_topics_mock.json"
-        ).then((String responseText) {
-          _createRow.remove();
-          _createRow = null;
-          topics = null;
-          scuttlebuttUi.parseUrl();
-        });
+    ).then((String responseText) {
+      _createRow.remove();
+      _createRow = null;
+      topics = null;
+      scuttlebuttUi.parseUrl();
+    });
   }
 
   void show() {
@@ -969,10 +968,10 @@ class SourcesUiView extends UiView {
     sendXhr(baseUrl, "GET", 
       debugUrl:"/api/get_sources_mock.json"
     ).then((String responseText) {
-        actOnData(responseText);
-        completer.complete(true);
-        scuttlebuttUi.hideLoader("sources");
-      });
+      actOnData(responseText);
+      completer.complete(true);
+      scuttlebuttUi.hideLoader("sources");
+    });
     return completer.future;
   }
   
