@@ -39,8 +39,8 @@ class RssServiceTests(pymock.PyMockTestCase):
   def testDispatch(self):
     """Test that RssService dispatches tasks."""
     f1 = Feed()
-    f1.name = 'Reuters'
-    f1.url = 'http://reuters.com/rss.xml'
+    f1.name = 'Google'
+    f1.url = 'http://google.com/rss.xml'
     f1.put()
     f2 = Feed()
     f2.name = 'USA Today'
@@ -60,17 +60,17 @@ class RssServiceTests(pymock.PyMockTestCase):
   def testDownload(self):
     """Test a feed download."""
     f1 = Feed()
-    f1.name = 'Reuters'
+    f1.name = 'Google Developers Blog'
     f1.monthly_visitors = 35000000
-    f1.url = '../test_data/reuters_test_rss.xml'
+    f1.url = '../test_data/google_developer_blog_rss.xml'
     f1.put()
 
     t1 = Topic()
-    t1.name = 'christa Wolf'
+    t1.name = 'Cheryl Oakes'
     t1.put()
 
     t2 = Topic()
-    t2.name = 'Banana tycoon'
+    t2.name = 'campus London'
     t2.put()
 
     s = RssService()
@@ -78,40 +78,43 @@ class RssServiceTests(pymock.PyMockTestCase):
     articles = Article.all().order('-title').fetch(limit=1000)
     self.assertEqual(2, len(articles))
     # Examine first article.
-    self.assertEqual('German author Christa Wolf dies at 82', articles[0].title)
+    self.assertEqual(u'Let\u2019s fill London with startups...',
+                     articles[0].title)
     self.assertEqual(35000000, articles[0].potential_readers)
-    self.assertTrue(t1.key() in articles[0].topics)
-    self.assertFalse(t2.key() in articles[0].topics)
+    self.assertTrue(t2.key() in articles[0].topics)
+    self.assertFalse(t1.key() in articles[0].topics)
     self.assertTrue(f1.key() in articles[0].feeds)
-    self.assertEqual(datetime.datetime(2011,12,1,14,6,7), articles[0].updated)
-    self.assertEqual(('http://www.reuters.com/article/2011/12/01/'
-                      'us-germany-christawolf-idUSTRE7B00YS20111201?'
-                      'feedType=RSS&feedName=artsNews'), articles[0].url)
+    self.assertEqual(datetime.datetime(2012, 3, 29, 15, 54, 12),
+                     articles[0].updated)
+    self.assertEqual(('http://feedproxy.google.com/~r/blogspot/MKuf/~3/'
+                      'ESbFwlkhCNU/lets-fill-london-with-startups.html'),
+                      articles[0].url)
     # Examine second article.
-    self.assertEqual('Banana tycoon shakes up Russian ballet',
+    self.assertEqual(u'Learning independence with Google Search features',
                      articles[1].title)
     self.assertEqual(35000000, articles[1].potential_readers)
-    self.assertTrue(t2.key() in articles[1].topics)
-    self.assertFalse(t1.key() in articles[1].topics)
+    self.assertTrue(t1.key() in articles[1].topics)
+    self.assertFalse(t2.key() in articles[1].topics)
     self.assertTrue(f1.key() in articles[1].feeds)
-    self.assertEqual(datetime.datetime(2011,12,1,16,9,57), articles[1].updated)
-    self.assertEqual(('http://www.reuters.com/article/2011/12/01/'
-                      'us-russia-mikhailovsky-interview-idUSTRE7B01OX20111201?'
-                      'feedType=RSS&feedName=artsNews'), articles[1].url)
+    self.assertEqual(datetime.datetime(2012, 3, 29, 17, 0, 12),
+                     articles[1].updated)
+    self.assertEqual((u'http://feedproxy.google.com/~r/blogspot/MKuf/~3/'
+                      '3pEKqyQIPCI/learning-independence-with-google.html'),
+                      articles[1].url)
 
   def testDownloadTwice(self):
     """Test calling download twice does not create duplicate articles."""
     f1 = Feed()
-    f1.name = 'Reuters'
-    f1.url = '../test_data/reuters_test_rss.xml'
+    f1.name = 'Google Developer Blog'
+    f1.url = '../test_data/google_developer_blog_rss.xml'
     f1.put()
 
     t1 = Topic()
-    t1.name = 'christa Wolf'
+    t1.name = 'Cheryl Oakes'
     t1.put()
 
     t2 = Topic()
-    t2.name = 'Banana tycoon'
+    t2.name = 'campus London'
     t2.put()
 
     s = RssService()
@@ -130,7 +133,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t.put()
 
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
     a1.updated = JAN15_NOON
@@ -155,14 +158,14 @@ class RssServiceTests(pymock.PyMockTestCase):
     t.put()
 
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
     a1.updated = JAN15_NOON
     a1.topics.append(t.key())
     a1.put()
     a2 = Article()
-    a2.url = 'http://reuters.com/2'
+    a2.url = 'http://google.com/2'
     a2.title = 'News 2!'
     a2.summary = 'Something happened 2'
     a2.updated = JAN8_NOON
@@ -187,7 +190,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     t.put()
 
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
     a1.updated = JAN15_NOON
@@ -195,7 +198,7 @@ class RssServiceTests(pymock.PyMockTestCase):
     a1.put()
     for x in xrange(3):
       a2 = Article()
-      a2.url = 'http://reuters.com/%s' % x
+      a2.url = 'http://google.com/%s' % x
       a2.title = 'News!'
       a2.summary = 'Something happened'
       a2.updated = JAN8_NOON
@@ -324,11 +327,11 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     t.name = 'News'
     t.put()
     f = Feed()
-    f.name = 'Reuters'
-    f.url = 'http://reuters.com'
+    f.name = 'Google'
+    f.url = 'http://google.com'
     f.put()
     a1 = Article()
-    a1.url = 'http://reuters.com/5'
+    a1.url = 'http://google.com/5'
     a1.title = 'News!'
     a1.summary = 'Something happened'
     a1.updated = JAN15
@@ -338,7 +341,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.put()
     s = ScuttlebuttService()
     expected_list = [{
-        "url": "http://reuters.com/5",
+        "url": "http://google.com/5",
         "readership": 1200,
         "updated": "2012-01-15T00:00:00",
         "id": 3,
@@ -365,11 +368,11 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     t.name = 'News'
     t.put()
     f = Feed()
-    f.name = 'Reuters'
-    f.url = 'http://reuters.com'
+    f.name = 'Google'
+    f.url = 'http://google.com'
     f.put()
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
     a1.updated = JAN15_NOON
@@ -378,7 +381,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.feeds.append(f.key())
     a1.put()
     a2 = Article()
-    a2.url = 'http://reuters.com/2'
+    a2.url = 'http://google.com/2'
     a2.title = 'News 2!'
     a2.summary = 'Something happened 2'
     a2.updated = FEB1_NOON
@@ -391,7 +394,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     # Specify start and end dates, get one article.
     #################################################
     expected_list = [{
-        "url": "http://reuters.com/1",
+        "url": "http://google.com/1",
         "readership": 12000,
         "updated": "2012-01-15T12:00:00",
         "id": 3,
@@ -411,14 +414,14 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     # end date is inclusive. Expect both articles.
     #################################################
     expected_list = [{
-        "url": "http://reuters.com/2",
+        "url": "http://google.com/2",
         "readership": 45000,
         "updated": "2012-02-01T12:00:00",
         "id": 4,
         "title": "News 2!",
         "source_id": 2,
     },{
-        "url": "http://reuters.com/1",
+        "url": "http://google.com/1",
         "readership": 12000,
         "updated": "2012-01-15T12:00:00",
         "id": 3,
@@ -438,14 +441,14 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     # do when they want articles for all time.
     #################################################
     expected_list = [{
-        "url": "http://reuters.com/2",
+        "url": "http://google.com/2",
         "readership": 45000,
         "updated": "2012-02-01T12:00:00",
         "id": 4,
         "title": "News 2!",
         "source_id": 2,
     },{
-        "url": "http://reuters.com/1",
+        "url": "http://google.com/1",
         "readership": 12000,
         "updated": "2012-01-15T12:00:00",
         "id": 3,
@@ -470,11 +473,11 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     t.name = 'News'
     t.put()
     f = Feed()
-    f.name = 'Reuters'
-    f.url = 'http://reuters.com'
+    f.name = 'Google'
+    f.url = 'http://google.com'
     f.put()
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.summary = 'Something happened 1'
     a1.updated = JAN1
@@ -483,7 +486,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.feeds.append(f.key())
     a1.put()
     a2 = Article()
-    a2.url = 'http://reuters.com/2'
+    a2.url = 'http://google.com/2'
     a2.title = 'News 2!'
     a2.summary = 'Something happened 2'
     a2.potential_readers = 25000000
@@ -492,7 +495,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a2.feeds.append(f.key())
     a2.put()
     expected_list = [{
-        "url": "http://reuters.com/2",
+        "url": "http://google.com/2",
         "readership": 25000000,
         "updated": "2012-01-15T00:00:00",
         "id": 4,
@@ -520,11 +523,11 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     t.name = 'News'
     t.put()
     f = Feed()
-    f.name = 'Reuters'
-    f.url = 'http://reuters.com'
+    f.name = 'Google'
+    f.url = 'http://google.com'
     f.put()
     a1 = Article()
-    a1.url = 'http://reuters.com/1'
+    a1.url = 'http://google.com/1'
     a1.title = 'News 1!'
     a1.updated = JAN15_NOON
     a1.potential_readers = 1200
@@ -532,7 +535,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     a1.feeds.append(f.key())
     a1.put()
     a2 = Article()
-    a2.url = 'http://reuters.com/2'
+    a2.url = 'http://google.com/2'
     a2.title = 'News 2!'
     a2.updated = JAN16_NOON
     a2.potential_readers = 29000
@@ -542,14 +545,14 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     s = ScuttlebuttService()
     # Specify start and end dates, get both articles.
     expected_list = [{
-        'url': 'http://reuters.com/2',
+        'url': 'http://google.com/2',
         'readership': 29000,
         'updated': '2012-01-16T12:00:00',
         'id': 4,
         'title': 'News 2!',
         'source_id': 2,
     },{
-        'url': 'http://reuters.com/1',
+        'url': 'http://google.com/1',
         'readership': 1200,
         'updated': '2012-01-15T12:00:00',
         'id': 3,
@@ -566,7 +569,7 @@ class ScuttlebuttServiceTests(unittest.TestCase):
     self.assertEqual(expected_list, actual_list)
     # Expect 1 result because of offset.
     expected_list = [{
-        'url': 'http://reuters.com/1',
+        'url': 'http://google.com/1',
         'readership': 1200,
         'updated': '2012-01-15T12:00:00',
         'id': 3,

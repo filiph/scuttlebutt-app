@@ -23,6 +23,6 @@ handlers:
 
 - url: /.*
   script: redirect_handler.py
-  
+
 builtins:
 - appstats: on

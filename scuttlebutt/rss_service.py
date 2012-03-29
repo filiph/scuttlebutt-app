@@ -42,7 +42,6 @@ class RssService(object):
       feed_id: str The id for the feed to fetch.
     """
     feed = Feed.get_by_id(feed_id)
-    logging.info('Attempting to fetch: %s' % feed.url)
     feed_content = feedparser.parse(feed.url)
     found_articles = False
     for topic in Topic.all():
@@ -52,7 +51,7 @@ class RssService(object):
             self._Match(entry['summary'], topic.name)):
           # Create a new Article, or update existing one.
           a = None
-          articles = Article.all().filter('url = ', entry['id']).fetch(1)
+          articles = Article.all().filter('url = ', entry['link']).fetch(1)
           if articles:
             a = articles[0]
           else:
@@ -63,7 +62,7 @@ class RssService(object):
           if topic.key() not in a.topics:
             a.topics.append(topic.key())
           # Set other article properties, and save it.
-          a.url = entry['id']
+          a.url = entry['link']
           a.title = entry['title']
           a.summary = entry['summary']
           a.potential_readers = feed.monthly_visitors
