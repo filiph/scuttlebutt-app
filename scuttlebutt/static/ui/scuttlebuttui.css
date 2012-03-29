@@ -271,23 +271,28 @@ span.yellow {
   background:yellow;
 }
 
-div#topics-div table.output-table td a.more-actions {
+div#topics-div table.output-table td a.more-actions,
+div#sources-div table.output-table td a.more-actions {
 	color: white;
 }
 
-div#topics-div table.output-table tr:hover:not(:first-child) {
+div#topics-div table.output-table tr:hover:not(:first-child),
+div#sources-div table.output-table tr:hover:not(:first-child) {
 	background: #fefbab;
 }
 
-div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions {
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions,
+div#sources-div table.output-table tr:hover:not(:first-child) a.more-actions {
 	color: gray;
 }
 
-div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions:hover {
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions:hover,
+div#sources-div table.output-table tr:hover:not(:first-child) a.more-actions:hover {
 	color: blue;
 }
 
-div#topics-div table.output-table tr:hover:not(:first-child) td {
+div#topics-div table.output-table tr:hover:not(:first-child) td,
+div#sources-div table.output-table tr:hover:not(:first-child) td {
 	cursor: pointer;
 }
 
@@ -304,7 +309,9 @@ table.output-table tr:last-child td {
 	border-bottom: none;
 }
 
-div#articles-div table.output-table td:first-child {
+div#articles-div table.output-table td:first-child,
+div#sources-div table.output-table td:first-child,
+div#topics-div table.output-table td:first-child {
 	font-size: 1.3em;
 	padding: 15px 10px;
 }
@@ -321,4 +328,28 @@ footer {
 	padding: 0 10px;
 	color: #999;
 }
+
+/* @group Loader */
+
+div#loader {
+	display: none;
+	width: 66px;
+	height: 66px;
+
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	margin-left: -33px;
+}
+
+/* @end */
+
+/* @group Reset */
+
+div#topics-div, div#sources-div, div#articles-div {
+	display: none;
+}
+
+/* @end */
+
 
