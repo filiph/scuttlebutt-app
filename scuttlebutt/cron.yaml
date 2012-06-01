@@ -1,0 +1,8 @@
+cron:
+- description: Hourly feed fetch
+  url: /task/dispatch
+  schedule: every 1 hours
+
+- description: Hourly stats compute
+  url: /task/compute_stats
+  schedule: every 1 hours

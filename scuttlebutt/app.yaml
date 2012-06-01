@@ -1,0 +1,28 @@
+application: google.com:scuttlebutt
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /favicon\.ico
+  static_files: static/favicon.ico
+  upload: static/favicon\.ico
+
+- url: /task/.*
+  script: task_handler.py
+  login: admin
+
+- url: /report/.*
+  script: report_handler.py
+
+- url: /api/.*
+  script: report_handler.py
+
+- url: /ui
+  static_dir: static/ui
+
+- url: /.*
+  script: redirect_handler.py
+
+builtins:
+- appstats: on

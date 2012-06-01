@@ -1,0 +1,355 @@
+/* @override 
+	http://filiph.scuttlebutt.googleplex.com/ui/nonexistent.css
+	http://0.0.0.0:8000/scuttlebuttui.css
+	https://scuttlebutt.googleplex.com/ui/scuttlebuttui.css
+	http://dhcp-172-28-154-53.prh.corp.google.com:8000/scuttlebuttui.css
+*/
+
+body {
+	margin: 2em 4em;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.red {
+	color: darkred;
+}
+
+.green {
+	color: green;
+}
+
+/* @group H1 */
+
+h1 {
+	font-weight: normal;
+	color: #666;
+	height: 2em;
+	line-height: 2em;
+	margin: 0;
+	padding: 0 10px;
+}
+
+h1 span#subtitle {
+	font-weight: bolder;
+}
+
+/* @end */
+
+/*
+p#status {
+	margin-left: 45%;
+	height: 3em;
+	vertical-align: middle;
+	background-color: #fefbab !important;
+	border-radius: 10px;
+	box-shadow: 0 0 6px #999;
+	font-size: 80%; 
+	padding: 1em;
+}
+*/
+
+/* @group Controls */
+
+nav#controls {
+	margin: 0 0 1em 0;
+	/*border-bottom: 2px solid #999;*/
+	padding: 0 10px;
+	padding-bottom: 10px;
+}
+
+button {
+	/* source: http://css3button.net/14433 */
+	cursor: pointer;
+	color: #050505;
+	padding: 5px 20px;
+	height: 25px;
+	background: -moz-linear-gradient(
+		top,
+		#eeeeee 0%,
+		#bdbdbd);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#eeeeee),
+		to(#bdbdbd));
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #949494;
+	-moz-box-shadow:
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.2),
+		0px 1px 0px rgba(255,255,255,1);
+	text-transform: uppercase;
+}
+
+button.small {
+	text-shadow: none;
+	color: #555;
+}
+
+button[disabled], button[disabled]:hover {
+	background: -moz-linear-gradient(
+		top,
+		#eeeeee 0%,
+		#eeeeee);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#eeeeee),
+		to(#eeeeee));
+	color: lightgrey;
+	-moz-box-shadow:
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	cursor: default;
+}
+
+button:hover {
+	background: -moz-linear-gradient(
+		top,
+		#eeeeee 0%,
+		#bdbdbd);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#eeeeee),
+		to(#eeeeee));
+	-moz-box-shadow:
+		0px 0px 5px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 0px 5px rgba(000,000,000,0.5),
+		inset 0px 0px 5px rgba(255,255,255,1);
+}
+
+nav#controls button.selected {
+	font-weight: bold;
+	background: -moz-linear-gradient(
+		top,
+		#ffffff 0%,
+		#eeeeee);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#ffffff),
+		to(#eeeeee));
+}
+
+
+/* @end */
+
+/* @group BarChart */
+
+table#articles-stats {
+	width: 100%;
+	height: 110px;
+	padding: 0 10px;
+	margin-bottom: 20px;
+}
+
+table#articles-stats td {
+	vertical-align: bottom;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-top: 2px solid white;
+	border-bottom: 2px solid white;
+}
+
+table#articles-stats td.data-available { 
+	cursor: pointer;
+}
+
+table#articles-stats td.selected {
+  border-top: 2px solid lightBlue;
+  border-bottom: 2px solid lightBlue;
+  background-color: #eee;
+}
+
+table#articles-stats td div {
+	margin: 0 1px;
+}
+
+table#articles-stats td:hover {
+	border-bottom: 2px solid blue;
+}
+
+table#articles-stats td div.blue-bar {
+	background-color: blue;
+}
+
+table#articles-stats td div.gray-bar {
+	background-color: lightgrey;
+}
+
+/* @end */
+
+/* @group Contextual */
+
+table#articles-contextual {
+	width: 100%;
+	padding: 0 10px;
+	margin-bottom: 20px;
+	color: #999;
+}
+
+table#articles-contextual span {
+	color: black;
+}
+
+table#articles-contextual td:last-child {
+	text-align: right;
+}
+
+/* @end */
+
+
+/* @group Output Table */
+
+/* @group Header */
+
+table.output-table {
+	margin: 0;
+	width: 100%;
+}
+
+table.output-table th {
+	text-align: left;
+	vertical-align: bottom;
+	color: #999;
+	border-bottom: 2px solid #ccc;
+	padding: 5px 10px;
+	font-size: 1.2em;
+}
+
+table.output-table th small {
+	font-size: 0.7em;
+}
+
+table.output-table th span.arrow {
+  font-size: 0.7em;
+}
+
+table.output-table th:not(:first-child) {
+	width: 15%;
+}
+
+/* @end */
+
+/* @group Input */
+
+table.output-table input {
+	background: #fefbab;
+	border-width: 1px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+}
+
+table.output-table button {
+  margin: 5px 5px;
+  height: 15px;
+  padding: 1px 6px;
+  font-size: 0.5em;
+}
+
+table.output-table span.info {
+  font-size: 0.8em;
+  padding: 2px 7px;
+  margin-left: 10px;
+}
+
+/* @end */
+
+span.yellow {
+  background:yellow;
+}
+
+div#topics-div table.output-table td a.more-actions,
+div#sources-div table.output-table td a.more-actions {
+	color: white;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child),
+div#sources-div table.output-table tr:hover:not(:first-child) {
+	background: #fefbab;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions,
+div#sources-div table.output-table tr:hover:not(:first-child) a.more-actions {
+	color: gray;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) a.more-actions:hover,
+div#sources-div table.output-table tr:hover:not(:first-child) a.more-actions:hover {
+	color: blue;
+}
+
+div#topics-div table.output-table tr:hover:not(:first-child) td,
+div#sources-div table.output-table tr:hover:not(:first-child) td {
+	cursor: pointer;
+}
+
+table.output-table tr td {
+	padding: 5px 10px;
+	border-bottom: 1px dotted #ccc;
+}
+
+table.output-table td:first-child {
+	font-weight: bold;
+}
+
+table.output-table tr:last-child td {
+	border-bottom: none;
+}
+
+div#articles-div table.output-table td:first-child,
+div#sources-div table.output-table td:first-child,
+div#topics-div table.output-table td:first-child {
+	font-size: 1.3em;
+	padding: 15px 10px;
+}
+
+div#articles-div p#articles-load-more {
+	padding: 0 10px;
+}
+
+/* @end */
+
+footer {
+	font-weight: normal;
+	margin-top: 5em;
+	padding: 0 10px;
+	color: #999;
+}
+
+/* @group Loader */
+
+div#loader {
+	display: none;
+	width: 66px;
+	height: 66px;
+
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	margin-left: -33px;
+}
+
+/* @end */
+
+/* @group Reset */
+
+div#topics-div, div#sources-div, div#articles-div {
+	display: none;
+}
+
+/* @end */
+
+

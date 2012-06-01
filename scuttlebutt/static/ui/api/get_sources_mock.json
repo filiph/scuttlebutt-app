@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Google Developer Blog",
+    "id": 4001,
+    "url": "http://www.google.com/rss",
+    "monthlyVisitors": 100000
+  },
+  {
+    "name": "Google Blog",
+    "id": 4002,
+    "url": "http://www.google.com/new/feed",
+    "monthlyVisitors": 1200000
+  }
+]

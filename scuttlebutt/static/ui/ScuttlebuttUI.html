@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scuttlebutt</title>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='scuttlebuttui.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+  	<div id="loader">
+  		<img src="img/ajax-loader.gif" alt="Loading...">
+  	</div>
+    <div id="wrapper">
+      <header>
+      <p id="status" style="display:none">Dart is not running yet.</p>
+      <h1>Scuttlebutt &rarr; <span id="subtitle">Topics</span></h1>
+      <nav id="controls">
+      <button type="button" id="topics-button" class="selected">Topics</button>
+      <button type="button" id="sources-button">Sources</button>
+      <button type="button" id="articles-button" disabled="disabled">Articles</button>
+      |
+      <button type="button" id="refresh-button" title="Clears local cache to see if there are any new data since you opened this page." alt="Refresh" class="small">Refresh</button>
+      <!--
+      <button type="button" id="donothing-button">Do Nothing</button>
+      <button type="button" id="feedback-button">Send Feedback</button>
+      -->
+      </nav>
+      </header>
+
+      <div id="topics-div">
+        <table class="output-table" id="topics-table" cellpadding="0" cellspacing="0" border="0">
+          <tr class="header">
+            <th>Topic <button type="button" id="add-topic-button">+</button></th>
+            <th><small>Last</small> <br>24h</th>
+            <th><small>Last</small> <br>7d</th>
+            <th><small>Week on Week</small> <br>Trend</th>
+          </tr>
+          <!--<tr class="initial-loading"><td>Loading...</td></tr>-->
+        </table>
+      </div>
+      
+      <div id="sources-div">
+        <table class="output-table" id="sources-table" cellpadding="0" cellspacing="0" border="0">
+          <tr class="header">
+            <th>Source <button type="button" id="add-source-button">+</button></th>
+            <th>URL</th>
+            <th>Monthly visitors</th>
+            <th>Articles</th>
+          </tr>
+          <!--<tr class="initial-loading"><td>Loading...</td></tr>-->
+        </table>
+      </div>
+      
+      <div id="articles-div">
+        <table id="articles-stats" cellpadding="0" cellspacing="0" border="0"></table>
+        <table id="articles-contextual" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td>Articles: <span id="articles-count">n/a</span> (<span id="articles-count-wow">n/a</span>)</td>
+            <td>From: <input id="articles-from" type="date" /></td>
+          </tr>
+          <tr>
+            <td><!--Sentiment: <span id="articles-sentiment">n/a</span> (<span id="articles-sentiment-wow">n/a</span>)--></td>
+            <td>To: <input id="articles-to" type="date" /></td>
+          </tr>
+        </table>
+        <table class="output-table" id="articles-table" cellpadding="0" cellspacing="0" border="0">
+          <tr class="header">
+            <th>Article</th>
+            <th class="url">Source</th>
+            <th>Published</th>
+            <th>Readership <span class="arrow">&#x25BC;</span></th>
+          </tr>
+          <!--<tr><td>Loading...</td><td></td><td></td><td></td></tr>-->
+        </table>
+        <p id="articles-load-more"><button type="button" id="load-more-button">Load more articles</button></p>
+      </div>
+      <footer>
+      <p><small>Scuttlebutt. This is a footer that we put here just for the hell of it.</small></p>
+      </footer>
+    </div>
+    <script type="text/javascript" src="ScuttlebuttUI.dart.js"></script>
+  </body>
+</html>
